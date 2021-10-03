@@ -1,0 +1,41 @@
+﻿  slr.cpp
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(83): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(117): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(123): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(165): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(274): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(362): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(430): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(432): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(553): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(600): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(662): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(707): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(724): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(847): warning C4018: “<=”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(881): warning C4018: “>”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(892): warning C4018: “>”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(906): warning C4018: “>”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(930): warning C4018: “<=”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(951): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(996): warning C4018: “<=”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1032): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1170): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1295): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1325): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1372): warning C4018: “<”: 有符号/无符号不匹配
+  Item.cpp
+  Lex_Word.cpp
+  Node.cpp
+  Rule.cpp
+  Array.cpp
+  CompileInfo.cpp
+  Env.cpp
+  SmbolInfo.cpp
+  Tag.cpp
+  Token.cpp
+  Type.cpp
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\symbols\type.cpp(5): warning C4309: “参数”: 截断常量值
+  正在生成代码...
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(243): warning C4715: “Slr::slr”: 不是所有的控件路径都返回值
+  TonyCompiler2.vcxproj -> C:\Users\Administrator\Desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\TonyCompiler2\Debug\TonyCompiler2.exe

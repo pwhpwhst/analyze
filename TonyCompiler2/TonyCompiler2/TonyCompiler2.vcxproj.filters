@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\SLR">
+      <UniqueIdentifier>{5fb6a514-5483-4a21-998f-ecbab2089887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\SLR">
+      <UniqueIdentifier>{411685a5-5161-417b-9f00-6fd0739b851e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\symbols">
+      <UniqueIdentifier>{53aa016e-48bd-474a-9542-90a1df64872c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\symbols">
+      <UniqueIdentifier>{28ac295c-78f9-41d7-bf1b-2f1a3a481dd3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\SLR\Item.cpp">
+      <Filter>源文件\SLR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SLR\Lex_Word.cpp">
+      <Filter>源文件\SLR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SLR\Node.cpp">
+      <Filter>源文件\SLR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SLR\Rule.cpp">
+      <Filter>源文件\SLR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\Array.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\CompileInfo.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\Env.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\SmbolInfo.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\Tag.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\Token.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\symbols\Type.cpp">
+      <Filter>源文件\symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lex.yy.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\pwh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\slr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\SLR\Item.h">
+      <Filter>头文件\SLR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SLR\lex.yy.h">
+      <Filter>头文件\SLR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SLR\Lex_Word.h">
+      <Filter>头文件\SLR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SLR\Node.h">
+      <Filter>头文件\SLR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SLR\Rule.h">
+      <Filter>头文件\SLR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\Array.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\CompileInfo.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\Env.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\SmbolInfo.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\Tag.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\Token.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\symbols\Type.h">
+      <Filter>头文件\symbols</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\slr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\SLR\wordParser.l">
+      <Filter>源文件\SLR</Filter>
+    </None>
+  </ItemGroup>
+</Project>
