@@ -2,7 +2,7 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-//#define __PRINT_GRAPH
+#define __PRINT_GRAPH
 #define __PRINT_LEX_WORD_LIST
 #define __PRINT_NODE_TREE
 
