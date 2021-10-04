@@ -1,0 +1,162 @@
+
+
+
+D:
+cd D:\DaiMaWuQiKu\阿里云
+git status -s
+
+git add 阿里云/新建文本文档.txt
+git commit -m 版本提交
+git push
+git config --global credential.helper store
+git pull
+
+==========================================
+
+ git rm -r --cached .
+ git add .
+ git commit -m 'update .gitignore'
+
+
+===========================================
+
+
+打印语法树:
+condition
+|
+---------------------------------------------------
+|                          |               |      |
+type-specifier-seq         declarator      '='    assignment-expression
+|                          |                      |
+-                          -                      -
+|                          |                      |
+type-specifier             'identifier'           'number'
+|
+-
+|
+'simple-type-specifier'
+
+
+carry out Condition_0_SDT_genertor
+carry out Declarator_0_SDT_genertor
+carry out Condition_0_SDT_genertor
+carry out Type_specifier_seq_0_SDT_genertor
+carry out Type_specifier_0_SDT_genertor
+carry out Type_specifier_seq_0_SDT_genertor
+carry out Condition_0_SDT_genertor
+
+
+=====================================
+中文乱码的解决方法
+https://www.cnblogs.com/didiaodidiao/p/9189463.html
+
+
+VS2017中使用flex+bison
+https://blog.csdn.net/laomai/article/details/88817187
+
+
+D:
+cd D:\Users\Administrator\Desktop\project2018.3_2018.9\2018.3~2018.9\编译原理实验\微型编译器
+
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c pwh.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c slr.cpp
+
+
+flex.exe  SLR\wordParser.l
+gcc -c lex.yy.c
+
+
+
+g++ -std=c++11  -c SDT_generator_generator.cpp
+g++ -std=c++11 -o SDT_generator_generator SDT_generator_generator.o
+SDT_generator_generator.exe
+g++ -std=c++11   -c SDT\SDT_generator.cpp
+
+
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\Array.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\Env.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\SmbolInfo.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\CompileInfo.cpp
+
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\Tag.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\Token.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c symbols\Type.cpp
+
+
+
+
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c SLR\Item.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c SLR\Lex_Word.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c SLR\Node.cpp
+g++ -std=c++11  -g -finput-charset=UTF-8 -fexec-charset=GBK  -c SLR\Rule.cpp
+
+
+
+
+g++  -g -finput-charset=UTF-8 -fexec-charset=GBK  -o pwh pwh.o slr.o lex.yy.o SDT_generator.o Array.o Env.o CompileInfo.o SmbolInfo.o Tag.o Token.o Type.o Item.o Lex_Word.o Node.o Rule.o
+
+
+pwh.exe
+======================================
+
+
+==========================================================
+
+SLR 的弱点
+https://blog.csdn.net/weixin_45106809/article/details/94384365
+
+
+============================================================
+
+2021/06/16
+目前的进度：
+E:\Users\Administrator\Desktop\project2018.3_2018.9\2018.3~2018.9\编译原理实验\微型编译器\pwh的试验\ruleForLexical.txt
+
+填充C++的文法，分析能否生成正确的语法树
+
+
+E:\Users\Administrator\Desktop\project2018.3_2018.9\2018.3~2018.9\编译原理实验\微型编译器\pwh的试验\rule.txt
+
+生成正确的语法树的基础上，实现语法翻译制导
+
+
+
+=============================================================
+VS上的编译：
+
+flex.exe  SLR\wordParser.l
+
+词法分析器的编译
+C:
+cd C:\Users\Administrator\Desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye
+
+flex.exe  SLR\wordParser.l
+
+
+
+
+=============================================================
+
+parse_all_symbol
+
+calculate_f_first
+
+calculate_f_follow
+
+get_items_list_and_convert_map	__PRINT_GRAPH
+
+calculate_forecast_list	__PRINT_FORECAST
+
+
+
+
+get_items_list_and_convert_map	（重点）
+	↓
+P_Item_Cmp
+	↓
+//构造item0
+	↓
+//构造状态转移图
+
+
+calculate_first_set

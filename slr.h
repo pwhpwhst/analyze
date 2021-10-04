@@ -67,5 +67,9 @@ public: virtual ~Slr();
 
 private: void log(const string& s);
 
+private: void calculate_first_set(const vector<string> &strArr, set<string> &result_set, unordered_map<string, set<string>> &f_first);
+
+private: bool is_P_Item_equal(const P_Item & c1, const P_Item & c2);
+
 };
 

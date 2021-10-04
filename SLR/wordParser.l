@@ -16,39 +16,22 @@ void write_word(struct C_Lex_Word *p_lex_word,char *yytext,char *symbol_name){
 
 %}
 
-id [0-9]+
+
 
 
 %%
 
 
-
-
-{id} {
-write_word(p_lex_word,yytext,"'id'");
+"c" {
+  write_word(p_lex_word,yytext,"'c'");
   p_lex_word++;
 }
 
-"+" {
-  write_word(p_lex_word,yytext,"'+'");
+"d" {
+  write_word(p_lex_word,yytext,"'d'");
   p_lex_word++;
 }
 
-"*" {
-  write_word(p_lex_word,yytext,"'*'");
-  p_lex_word++;
-}
-
-
-"(" {
-  write_word(p_lex_word,yytext,"'('");
-  p_lex_word++;
-}
-
-")" {
-  write_word(p_lex_word,yytext,"')'");
-  p_lex_word++;
-}
 
 "\n" {
   write_word(p_lex_word,yytext,"'\n'");

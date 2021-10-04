@@ -282,12 +282,11 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 7
-#define YY_END_OF_BUFFER 8
-static yyconst short int yy_accept[13] =
+#define YY_NUM_RULES 4
+#define YY_END_OF_BUFFER 5
+static yyconst short int yy_accept[9] =
     {   0,
-        0,    0,    8,    7,    6,    4,    5,    3,    2,    1,
-        1,    0
+        0,    0,    5,    4,    3,    1,    2,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -295,13 +294,13 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    3,
-        4,    5,    6,    1,    1,    1,    1,    7,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    3,    4,
 
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -322,33 +321,29 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[8] =
+static yyconst int yy_meta[5] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1
+        1,    1,    1,    1
     } ;
 
-static yyconst short int yy_base[13] =
+static yyconst short int yy_base[9] =
     {   0,
-        0,    0,   10,   11,   11,   11,   11,   11,   11,    2,
-        1,   11
+        0,    0,    5,    6,    6,    6,    6,    6
     } ;
 
-static yyconst short int yy_def[13] =
+static yyconst short int yy_def[9] =
     {   0,
-       12,    1,   12,   12,   12,   12,   12,   12,   12,   12,
-       12,    0
+        8,    1,    8,    8,    8,    8,    8,    0
     } ;
 
-static yyconst short int yy_nxt[19] =
+static yyconst short int yy_nxt[11] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,   11,   12,
-        3,   12,   12,   12,   12,   12,   12,   12
+        4,    5,    6,    7,    8,    3,    8,    8,    8,    8
     } ;
 
-static yyconst short int yy_chk[19] =
+static yyconst short int yy_chk[11] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,   11,   10,    3,
-       12,   12,   12,   12,   12,   12,   12,   12
+        1,    1,    1,    1,    3,    8,    8,    8,    8,    8
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -380,7 +375,7 @@ void write_word(struct C_Lex_Word *p_lex_word,char *yytext,char *symbol_name){
   strcpy(p_lex_word->type, symbol_name);
 }
 
-#line 384 "lex.yy.c"
+#line 379 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -535,9 +530,7 @@ YY_DECL
 
 
 
-
-
-#line 541 "lex.yy.c"
+#line 534 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -588,13 +581,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 13 )
+				if ( yy_current_state >= 9 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 11 );
+		while ( yy_base[yy_current_state] != 6 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -622,58 +615,34 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 27 "SLR\\wordParser.l"
+#line 25 "SLR\\wordParser.l"
 {
-write_word(p_lex_word,yytext,"'id'");
+  write_word(p_lex_word,yytext,"'c'");
   p_lex_word++;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 32 "SLR\\wordParser.l"
+#line 30 "SLR\\wordParser.l"
 {
-  write_word(p_lex_word,yytext,"'+'");
+  write_word(p_lex_word,yytext,"'d'");
   p_lex_word++;
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "SLR\\wordParser.l"
-{
-  write_word(p_lex_word,yytext,"'*'");
-  p_lex_word++;
-}
-	YY_BREAK
-case 4:
-YY_RULE_SETUP
-#line 43 "SLR\\wordParser.l"
-{
-  write_word(p_lex_word,yytext,"'('");
-  p_lex_word++;
-}
-	YY_BREAK
-case 5:
-YY_RULE_SETUP
-#line 48 "SLR\\wordParser.l"
-{
-  write_word(p_lex_word,yytext,"')'");
-  p_lex_word++;
-}
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 53 "SLR\\wordParser.l"
+#line 36 "SLR\\wordParser.l"
 {
   write_word(p_lex_word,yytext,"'\n'");
   p_lex_word++;
 }
 	YY_BREAK
-case 7:
+case 4:
 YY_RULE_SETUP
-#line 58 "SLR\\wordParser.l"
+#line 41 "SLR\\wordParser.l"
 ECHO;
 	YY_BREAK
-#line 677 "lex.yy.c"
+#line 646 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -965,7 +934,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 13 )
+			if ( yy_current_state >= 9 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1000,11 +969,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 13 )
+		if ( yy_current_state >= 9 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 12);
+	yy_is_jam = (yy_current_state == 8);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -1559,7 +1528,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 58 "SLR\\wordParser.l"
+#line 41 "SLR\\wordParser.l"
 
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){
