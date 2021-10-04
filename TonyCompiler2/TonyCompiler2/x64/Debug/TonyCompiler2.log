@@ -1,13 +1,13 @@
 ﻿  slr.cpp
 c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(474): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(641): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1109): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1102): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
           with
           [
               _Ty=int
           ]
-c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1110): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1313): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1330): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1103): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1306): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(1323): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 c:\users\administrator\desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\slr.cpp(243): warning C4715: “Slr::slr”: 不是所有的控件路径都返回值
   TonyCompiler2.vcxproj -> C:\Users\Administrator\Desktop\代码武器库-总\万花筒写轮眼\kaleidoscope-writing-wheel-eye\TonyCompiler2\x64\Debug\TonyCompiler2.exe

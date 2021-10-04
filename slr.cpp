@@ -842,17 +842,10 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			if (c1->status < c2->status) {
 				return true;
 			}
-			else if (c2->status < c1->status) {
+			else {
 				return false;
 			}
-			else {
-				if (c1->end_for_symbol < c2->end_for_symbol) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
+
 		}
 
 	}
@@ -1141,7 +1134,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		}
 	}
 
-/*
+
 	if (_items_set.size() > 0) {
 		cout << "存在自由rule:" << endl;
 		int i1 = 0;
@@ -1157,7 +1150,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		}
 		throw;
 	}
-*/
+
 
 #ifdef __PRINT_GRAPH
 	printGraph(items_list, convert_map);
