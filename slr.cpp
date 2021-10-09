@@ -11,7 +11,7 @@
 #include "slr.h"
 #include"symbols\PrimarySymbolConverter.h"
 using namespace std;
-using namespace boost;
+using namespace boost; 
 
 
 
