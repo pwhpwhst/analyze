@@ -1291,7 +1291,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 	Node* resultTree = nullptr;
 	bool finished_flag = false;
 	auto p_input = input.begin();
-#ifdef __PRINT_FORECAST
+#ifdef __PRINT_PARSE_PROCESS
 	cout << "打印过程" << endl;
 #endif
 	while (!finished_flag) {
@@ -1307,7 +1307,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 		}
 		string action = forecast_list[top_item->item_status][input_type];
 		
-		#ifdef __PRINT_FORECAST
+		#ifdef __PRINT_PARSE_PROCESS
 		string top_symbol = "";
 		if (top_item->node!=nullptr) {
 			top_symbol = top_item->node->symbol;

@@ -13,5 +13,11 @@ Modifier : 'volatile'
 ClassOrInterfaceDeclaration : ClassDeclaration
 ClassDeclaration : NormalClassDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
 ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 Identifier : 'IDENTIFIER'
+TypeParameters : 'LEFT_ANGLE_BRACKET' TypeParameterList 'RIGHT_ANGLE_BRACKET'
+TypeParameterList : TypeParameter _TypeParameterList
+_TypeParameterList : 'COMMA' TypeParameter _TypeParameterList
+_TypeParameterList : 0
+TypeParameter : 'TypeParameter'

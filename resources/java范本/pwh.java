@@ -1,3 +1,3 @@
-public class Pwh{
+public class Pwh<String,String>{
 
 }
