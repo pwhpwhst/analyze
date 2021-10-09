@@ -2,11 +2,14 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-#define __PRINT_GRAPH
-#define __PRINT_LEX_WORD_LIST
+//#define __PRINT_GRAPH
+//#define __PRINT_LEX_WORD_LIST
 #define __PRINT_NODE_TREE
+//#define __PRINT_PARSE_PROCESS
+
 
 #include "slr.h"
+#include"symbols\PrimarySymbolConverter.h"
 using namespace std;
 using namespace boost;
 
@@ -197,9 +200,17 @@ int Slr::slr(string rule_file, string compile_file, Env& env, CompileInfo &compi
 
 	//生成输入
 	log("生成输入");
+	PrimarySymbolConverter primarySymbolConverter;
+	vector<P_Lex_Word>  _total_lex_word_list;
+	_total_lex_word_list.clear();
+	word_parser(compile_file, _total_lex_word_list, env);
+
 	vector<P_Lex_Word>  total_lex_word_list;
-	total_lex_word_list.clear();
-	word_parser(compile_file, total_lex_word_list, env);
+
+	for (P_Lex_Word &e : _total_lex_word_list) {
+		total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+		primarySymbolConverter.convert(*e, *total_lex_word_list.back());
+	}
 
 #ifdef __PRINT_LEX_WORD_LIST
 	for (const auto &e : total_lex_word_list) {
@@ -208,7 +219,9 @@ int Slr::slr(string rule_file, string compile_file, Env& env, CompileInfo &compi
 		cout << endl;
 	}
 #endif
-
+	//人手添加总结符号
+	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	total_lex_word_list.back()->type = "'\n'";
 
 	//符号表
 	log("符号表");
@@ -785,14 +798,15 @@ void Slr::parse_all_symbol(set<string> &terminator, set<string> &non_terminator,
 }
 
 
-void Slr::calculate_first_set(const vector<string> &strArr, set<string> &result_set,  unordered_map<string, set<string>> &f_first) {
+void Slr::calculate_first_set(const vector<string> &strArr, set<string> &result_set, unordered_map<string, set<string>> &f_first) {
 	result_set.clear();
 	bool has_zero = true;
-	for (const string &e:strArr) {
+	for (const string &e : strArr) {
 		if (startsWith(e, "'")) {
 			result_set.insert(e);
 			break;
-		}else {
+		}
+		else {
 			result_set.insert(f_first[e].begin(), f_first[e].end());
 		}
 		if (f_first[e].count("0") == 0) {
@@ -804,7 +818,7 @@ void Slr::calculate_first_set(const vector<string> &strArr, set<string> &result_
 	if (!has_zero) {
 		result_set.erase("0");
 	}
-	
+
 }
 
 bool Slr::is_P_Item_equal(const P_Item &c1, const P_Item &c2) {
@@ -813,7 +827,8 @@ bool Slr::is_P_Item_equal(const P_Item &c1, const P_Item &c2) {
 	}
 	else if (c2->rule < c1->rule) {
 		return false;
-	}else if(c1->status != c2->status){
+	}
+	else if (c1->status != c2->status) {
 		return false;
 	}
 	else {
@@ -842,10 +857,38 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			if (c1->status < c2->status) {
 				return true;
 			}
-			else {
+			else if (c2->status < c1->status) {
 				return false;
 			}
+			else {
+				if (c1->end_for_symbol < c2->end_for_symbol) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
 
+	}
+	};
+
+	class P_Item_Cmp2
+	{
+	public: bool operator ()(const P_Item &c1, const P_Item &c2) const {
+		if (c1->rule < c2->rule) {
+			return true;
+		}
+		else if (c2->rule < c1->rule) {
+			return false;
+		}
+		else {
+			if (c1->status < c2->status) {
+				return true;
+			}
+			else if (c2->status < c1->status) {
+				return false;
+			}
 		}
 
 	}
@@ -894,7 +937,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 					rule_name_set.insert(e->symbols[0]);
 					rule_name_deq.push_front(e->symbols[0]);
 
-					if (from_map.count(e->symbols[0])==0) {
+					if (from_map.count(e->symbols[0]) == 0) {
 						set<P_Item> from_set;
 						from_map[e->symbols[0]] = from_set;
 					}
@@ -906,46 +949,46 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		rule_name_deq.pop_back();
 	}
 
-	
+
 	for (auto e : ruleList) {
 		if (rule_name_set.count(e->rule_name) > 0) {
 
-				for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
-					P_Item _p_item(new Item(e, i1));
-					if (from_map[e->rule_name].size() > 0) {
-						for (auto &e2 : from_map[e->rule_name]) {
-							for (auto &e3 : items_list[0]) {
-								if (is_P_Item_equal(e2, e3)) {
-									first_input.clear();
-									for (int i2 = e3->status + 1; i2 < e3->rule->symbols.size(); i2++) {
-										first_input.push_back(e3->rule->symbols[i2]);
-									}
-									calculate_first_set(first_input, _first_set, f_first);
-									_p_item->end_for_symbol.insert(_first_set.begin(), _first_set.end());
-									if (_first_set.size()==0||_first_set.count("0") != 0) {
-										_p_item->end_for_symbol.erase("0");
-										_p_item->end_for_symbol.insert(e3->end_for_symbol.begin(), e3->end_for_symbol.end());
-									}
-
+			for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
+				P_Item _p_item(new Item(e, i1));
+				if (from_map[e->rule_name].size() > 0) {
+					for (auto &e2 : from_map[e->rule_name]) {
+						for (auto &e3 : items_list[0]) {
+							if (is_P_Item_equal(e2, e3)) {
+								first_input.clear();
+								for (int i2 = e3->status + 1; i2 < e3->rule->symbols.size(); i2++) {
+									first_input.push_back(e3->rule->symbols[i2]);
 								}
+								calculate_first_set(first_input, _first_set, f_first);
+								_p_item->end_for_symbol.insert(_first_set.begin(), _first_set.end());
+								if (_first_set.size() == 0 || _first_set.count("0") != 0) {
+									_p_item->end_for_symbol.erase("0");
+									_p_item->end_for_symbol.insert(e3->end_for_symbol.begin(), e3->end_for_symbol.end());
+								}
+
 							}
 						}
 					}
+				}
 
-					if (_items_set.count(_p_item) == 0) {
-						items_list[0].push_back(_p_item);
-						_items_set.insert(_p_item);
-						_visited_items_set.insert(_p_item);
+				if (_items_set.count(_p_item) == 0) {
+					items_list[0].push_back(_p_item);
+					_items_set.insert(_p_item);
+					_visited_items_set.insert(_p_item);
+				}
+				if (i1 != e->symbols.size()) {
+					if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
+						f_first[e->symbols[i1]].count("0") > 0) {
 					}
-					if (i1 != e->symbols.size()) {
-						if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
-							f_first[e->symbols[i1]].count("0") > 0) {
-						}
-						else {
-							break;
-						}
+					else {
+						break;
 					}
 				}
+			}
 
 
 		}
@@ -973,16 +1016,16 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			}
 		}
 		move_symbol_set.erase("0");
+		from_map.clear();
 
 		for (string symble : move_symbol_set) {
 			vector<P_Item> _items;
 			_items_set.clear();
 			bool is_final_item = false;
 			for (P_Item e : items_list[status_number]) {
-				from_map.clear();
 				if (e->rule->symbols.size() > e->status) {
 					if (e->rule->symbols[e->status] == symble) {
-						P_Item _p_item(new Item(e->rule, e->status + 1,e->end_for_symbol));
+						P_Item _p_item(new Item(e->rule, e->status + 1, e->end_for_symbol));
 						if (_p_item->rule->rule_name == start_symbol && _p_item->status == 1) {
 							is_final_item = true;
 						}
@@ -1039,43 +1082,43 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			for (auto e : ruleList) {
 				if (rule_name_set.count(e->rule_name) > 0) {
 
-						for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
-							P_Item _p_item(new Item(e, i1));
+					for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
+						P_Item _p_item(new Item(e, i1));
 
-							if (from_map[e->rule_name].size() > 0) {
-								for (auto &e2 : from_map[e->rule_name]) {
-									for (auto &e3 : _items) {
-										if (is_P_Item_equal(e2, e3)) {
-											first_input.clear();
-											for (int i2 = e3->status + 1; i2 < e3->rule->symbols.size(); i2++) {
-												first_input.push_back(e3->rule->symbols[i2]);
-											}
-											calculate_first_set(first_input, _first_set, f_first);
-											_p_item->end_for_symbol.insert(_first_set.begin(), _first_set.end());
-											if (_first_set.size() == 0 || _first_set.count("0") != 0) {
-												_p_item->end_for_symbol.erase("0");
-												_p_item->end_for_symbol.insert(e3->end_for_symbol.begin(), e3->end_for_symbol.end());
-											}
-
+						if (from_map[e->rule_name].size() > 0) {
+							for (auto &e2 : from_map[e->rule_name]) {
+								for (auto &e3 : _items) {
+									if (is_P_Item_equal(e2, e3)) {
+										first_input.clear();
+										for (int i2 = e3->status + 1; i2 < e3->rule->symbols.size(); i2++) {
+											first_input.push_back(e3->rule->symbols[i2]);
 										}
+										calculate_first_set(first_input, _first_set, f_first);
+										_p_item->end_for_symbol.insert(_first_set.begin(), _first_set.end());
+										if (_first_set.size() == 0 || _first_set.count("0") != 0) {
+											_p_item->end_for_symbol.erase("0");
+											_p_item->end_for_symbol.insert(e3->end_for_symbol.begin(), e3->end_for_symbol.end());
+										}
+
 									}
 								}
 							}
+						}
 
-							if (_items_set.count(_p_item) == 0) {
-								_items.push_back(_p_item);
-								_items_set.insert(_p_item);
-								_visited_items_set.insert(_p_item);
+						if (_items_set.count(_p_item) == 0) {
+							_items.push_back(_p_item);
+							_items_set.insert(_p_item);
+							_visited_items_set.insert(_p_item);
+						}
+						if (i1 != e->symbols.size()) {
+							if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
+								f_first[e->symbols[i1]].count("0") > 0) {
 							}
-							if (i1 != e->symbols.size()) {
-								if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
-									f_first[e->symbols[i1]].count("0") > 0) {
-								}
-								else {
-									break;
-								}
+							else {
+								break;
 							}
 						}
+					}
 				}
 			}
 
@@ -1134,23 +1177,23 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		}
 	}
 
-
-	if (_items_set.size() > 0) {
-		cout << "存在自由rule:" << endl;
-		int i1 = 0;
-		for (const auto &e : _items_set) {
-			cout << i1 << ":" << endl;
-			cout << e->rule->rule_name;
-			cout << " :";
-			for (auto e2 : e->rule->symbols) {
-				cout << " " << e2;
+	/*
+		if (_items_set.size() > 0) {
+			cout << "存在自由rule:" << endl;
+			int i1 = 0;
+			for (const auto &e : _items_set) {
+				cout << i1 << ":" << endl;
+				cout << e->rule->rule_name;
+				cout << " :";
+				for (auto e2 : e->rule->symbols) {
+					cout << " " << e2;
+				}
+				cout << " " << e->status << endl;
+				i1++;
 			}
-			cout << " " << e->status << endl;
-			i1++;
+			throw;
 		}
-		throw;
-	}
-
+	*/
 
 #ifdef __PRINT_GRAPH
 	printGraph(items_list, convert_map);
@@ -1173,9 +1216,9 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 			}
 
 			for (const auto &e2 : items_list[i1]) {
-				
 
-				if (e2->end_for_symbol.count(e1)&&e2->status == e2->rule->symbols.size() && f_follow[e2->rule->rule_name].count(e1) > 0) {
+
+				if (e2->end_for_symbol.count(e1) && e2->status == e2->rule->symbols.size() && f_follow[e2->rule->rule_name].count(e1) > 0) {
 					if (r == "") {
 						r = "r" + to_string(rule_map[e2->rule]);
 					}
@@ -1248,6 +1291,9 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 	Node* resultTree = nullptr;
 	bool finished_flag = false;
 	auto p_input = input.begin();
+#ifdef __PRINT_FORECAST
+	cout << "打印过程" << endl;
+#endif
 	while (!finished_flag) {
 
 		P_ItemNode top_item = item_node_stack1.back();
@@ -1260,6 +1306,14 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 			input_type = "'$'";
 		}
 		string action = forecast_list[top_item->item_status][input_type];
+		
+		#ifdef __PRINT_FORECAST
+		string top_symbol = "";
+		if (top_item->node!=nullptr) {
+			top_symbol = top_item->node->symbol;
+		}
+				cout << top_symbol <<","<< action << endl;
+		#endif
 		if (action == "acc") {
 			resultTree = top_item->node;
 			finished_flag = true;

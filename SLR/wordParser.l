@@ -17,24 +17,58 @@ void write_word(struct C_Lex_Word *p_lex_word,char *yytext,char *symbol_name){
 %}
 
 
-
-
+IDENTIFIER [_0-9a-zA-Z]+
+StringLiteral \"(\\.|[^\\"])*\"
 %%
 
 
-"c" {
-  write_word(p_lex_word,yytext,"'c'");
+{IDENTIFIER} {
+  write_word(p_lex_word,yytext,"'IDENTIFIER'");
   p_lex_word++;
 }
 
-"d" {
-  write_word(p_lex_word,yytext,"'d'");
+"{" {
+  write_word(p_lex_word,yytext,"'LEFT_BRACE'");
   p_lex_word++;
 }
 
+"}" {
+  write_word(p_lex_word,yytext,"'RIGHT_BRACE'");
+  p_lex_word++;
+}
 
-"\n" {
-  write_word(p_lex_word,yytext,"'\n'");
+"[" {
+  write_word(p_lex_word,yytext,"'['");
+  p_lex_word++;
+}
+
+"]" {
+  write_word(p_lex_word,yytext,"']'");
+  p_lex_word++;
+}
+
+"(" {
+  write_word(p_lex_word,yytext,"'('");
+  p_lex_word++;
+}
+
+")" {
+  write_word(p_lex_word,yytext,"')'");
+  p_lex_word++;
+}
+
+";" {
+  write_word(p_lex_word,yytext,"';'");
+  p_lex_word++;
+}
+
+{StringLiteral} {
+  write_word(p_lex_word,yytext,"'StringLiteral'");
+  p_lex_word++;
+}
+
+"\." {
+  write_word(p_lex_word,yytext,"'.'");
   p_lex_word++;
 }
 

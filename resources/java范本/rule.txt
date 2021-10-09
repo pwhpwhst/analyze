@@ -1,0 +1,17 @@
+ele_begin : ClassOrInterfaceDeclaration
+ClassOrInterfaceDeclaration : Modifier ClassDeclaration
+Modifier : 'public'
+Modifier : 'protected'
+Modifier : 'private'
+Modifier : 'static'
+Modifier : 'abstract'
+Modifier : 'final'
+Modifier : 'native'
+Modifier : 'synchronized'
+Modifier : 'transient'
+Modifier : 'volatile'
+ClassOrInterfaceDeclaration : ClassDeclaration
+ClassDeclaration : NormalClassDeclaration
+NormalClassDeclaration : 'class' Identifier ClassBody
+ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+Identifier : 'IDENTIFIER'

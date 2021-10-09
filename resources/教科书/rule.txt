@@ -1,4 +1,0 @@
-ele_begin : S
-S : C C
-C : 'c' C
-C : 'd'
