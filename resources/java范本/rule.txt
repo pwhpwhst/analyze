@@ -16,8 +16,10 @@ NormalClassDeclaration : 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
 ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 Identifier : 'IDENTIFIER'
-TypeParameters : 'LEFT_ANGLE_BRACKET' TypeParameterList 'RIGHT_ANGLE_BRACKET'
-TypeParameterList : TypeParameter _TypeParameterList
-_TypeParameterList : 'COMMA' TypeParameter _TypeParameterList
-_TypeParameterList : 0
-TypeParameter : 'TypeParameter'
+TypeParameters : 'LEFT_ANGLE_BRACKET' Ig_TypeParameterList 'RIGHT_ANGLE_BRACKET'
+Ig_TypeParameterList : Ig_TypeParameter _Ig_TypeParameterList  
+_Ig_TypeParameterList : Ig_TypeParameter _Ig_TypeParameterList
+_Ig_TypeParameterList : 0
+Ig_TypeParameter : Identifier
+Ig_TypeParameter : 'QUESTION'
+Ig_TypeParameter : 'COMMA'

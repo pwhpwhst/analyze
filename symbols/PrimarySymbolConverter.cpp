@@ -48,9 +48,9 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 		else if (oriLexWord.content == "class") {
 			newLexWord.type = "'class'";
 		}
-		else if (oriLexWord.content == "String") {
-			newLexWord.type = "'TypeParameter'";
-		}
+//		else if (oriLexWord.content == "String") {
+//			newLexWord.type = "'TypeParameter'";
+//		}
 		else {
 			newLexWord.type = oriLexWord.type;
 		}
