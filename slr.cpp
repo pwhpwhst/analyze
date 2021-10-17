@@ -648,18 +648,55 @@ void Slr::printStack(Node* &node_tree) {
 	}
 }
 
+bool Slr::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node,int level) {
+	for (int i1 = 1; i1 <= level;i1++) {
+		int i2 = i1;
+
+		string s = "";
+		Node *present_node = node;
+		while (i2>0) {
+			if (s=="") {
+				s = present_node->symbol;
+			}else {
+				s = (present_node->symbol) + "." + s;
+			}
+			
+			if (present_node->parent!=nullptr) {
+				present_node = present_node->parent;
+				i2--;
+			}else {
+				return false;
+			}
+		}
+
+		if (ignore_symbol_set.count(s) > 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
 //Ig_TypeParameterList
 void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 
 	cout << "打印语法树:" << endl;
 
+	vector <string> string_list;
 	set<string> ignore_symbol_set;
+	int ignore_symbol_level = 1;
 	ifstream input_file;
 	input_file.open(ignore_file_path.data());	//rule_file string
 	string line;
 	while (getline(input_file, line))
 	{
 		ignore_symbol_set.insert(line);
+		string_list.clear();
+
+		vector <string> behaves;
+		split(string_list, line, is_any_of("."));
+		if (string_list.size()> ignore_symbol_level) {
+			ignore_symbol_level = string_list.size();
+		}
 	}
 	input_file.close();
 
@@ -683,7 +720,8 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 		}
 		else {
 			node_set.insert(present_node);
-			if (ignore_symbol_set.count(present_node->symbol)==0) {
+			
+			if (!shouldBeIgnore(ignore_symbol_set, present_node, ignore_symbol_level)) {
 				os.str("");
 				os << present_node;
 				string present_str = os.str();
@@ -740,7 +778,7 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 	plan_map[os.str()]["pos_y"] = 0;
 	while (item_node_stack2.size() > 0) {
 		Node *present_node = item_node_stack2.back();
-		if (ignore_symbol_set.count(present_node->symbol)==0) {
+		if (!shouldBeIgnore(ignore_symbol_set, present_node, ignore_symbol_level)) {
 			os.str("");
 			os << present_node;
 			string present_str = os.str();
