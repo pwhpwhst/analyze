@@ -14,6 +14,12 @@ ClassOrInterfaceDeclaration : ClassDeclaration
 ClassDeclaration : NormalClassDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' Type ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'extends' Type ClassBody
+NormalClassDeclaration : 'class' Identifier 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' Type 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'extends' Type 'implements' TypeList ClassBody
 ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 Identifier : 'IDENTIFIER'
 -- 类的模板参数 尖括号部分 begin
@@ -24,3 +30,23 @@ _Ig_TypeParameterList : 0
 TypeParameter : Identifier
 TypeParameter : Identifier TypeParameters
 -- 类的模板参数 尖括号部分 end
+-- 类的 extends 部分 begin
+Type : BasicTypeArr
+Type : ReferenceTypeArr
+BasicTypeArr : BasicType _BasicTypeList 
+BasicType : 'byte'
+BasicType : 'short'
+BasicType : 'char'
+BasicType : 'int'
+BasicType : 'long'
+BasicType : 'float'
+BasicType : 'double'
+BasicType : 'boolean'
+_BasicTypeList : 'LEFT_BRACKET' 'RIGHT_BRACKET' _BasicTypeList
+_BasicTypeList : 0
+ReferenceTypeArr : ReferenceType _BasicTypeList
+ReferenceType : Identifier 
+TypeList : ReferenceType _ReferenceTypeList
+_ReferenceTypeList : 'COMMA' ReferenceType _ReferenceTypeList
+_ReferenceTypeList : 0
+-- 类的 extends 部分 end

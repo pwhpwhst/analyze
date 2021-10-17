@@ -688,7 +688,7 @@ case 8:
 YY_RULE_SETUP
 #line 60 "SLR\\wordParser.l"
 {
-  write_word(p_lex_word,yytext,"'['");
+  write_word(p_lex_word,yytext,"'LEFT_BRACKET'");
   p_lex_word++;
 }
 	YY_BREAK
@@ -696,7 +696,7 @@ case 9:
 YY_RULE_SETUP
 #line 65 "SLR\\wordParser.l"
 {
-  write_word(p_lex_word,yytext,"']'");
+  write_word(p_lex_word,yytext,"'RIGHT_BRACKET'");
   p_lex_word++;
 }
 	YY_BREAK

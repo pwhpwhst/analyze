@@ -58,12 +58,12 @@ StringLiteral \"(\\.|[^\\"])*\"
 }
 
 "[" {
-  write_word(p_lex_word,yytext,"'['");
+  write_word(p_lex_word,yytext,"'LEFT_BRACKET'");
   p_lex_word++;
 }
 
 "]" {
-  write_word(p_lex_word,yytext,"']'");
+  write_word(p_lex_word,yytext,"'RIGHT_BRACKET'");
   p_lex_word++;
 }
 

@@ -48,9 +48,36 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 		else if (oriLexWord.content == "class") {
 			newLexWord.type = "'class'";
 		}
-//		else if (oriLexWord.content == "String") {
-//			newLexWord.type = "'TypeParameter'";
-//		}
+		else if (oriLexWord.content == "extends") {
+			newLexWord.type = "'extends'";
+		}
+		else if (oriLexWord.content == "implements") {
+			newLexWord.type = "'implements'";
+		}
+		else if (oriLexWord.content == "byte") {
+			newLexWord.type = "'byte'";
+		}
+		else if (oriLexWord.content == "short") {
+			newLexWord.type = "'short'";
+		}
+		else if (oriLexWord.content == "char") {
+			newLexWord.type = "'char'";
+		}
+		else if (oriLexWord.content == "int") {
+			newLexWord.type = "'int'";
+		}
+		else if (oriLexWord.content == "long") {
+			newLexWord.type = "'long'";
+		}
+		else if (oriLexWord.content == "float") {
+			newLexWord.type = "'float'";
+		}
+		else if (oriLexWord.content == "double") {
+			newLexWord.type = "'double'";
+		}
+		else if (oriLexWord.content == "boolean") {
+			newLexWord.type = "'boolean'";
+		}
 		else {
 			newLexWord.type = oriLexWord.type;
 		}
