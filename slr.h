@@ -40,7 +40,7 @@ private: void calculate_forecast_list(vector<unordered_map<string,string>> &fore
 
 private: void printStack(Node* &node_tree);
 
-private: void printStackTree(Node* &node_tree);
+private: void printStackTree(Node* &node_tree,string ignore_file_path);
 
 private: void printGraph(vector<vector<P_Item>> items_list,
 unordered_map<int,unordered_map<string,int>> convert_map);
@@ -53,7 +53,7 @@ private: bool detect_ambigulous( vector<unordered_map<string,string>> &forecast_
 
 private: void gen_middle_code(Env &env,Node* &node_tree,CompileInfo &compileInfo);
 
-public: int slr(string rule_file,string compile_file,Env &env,CompileInfo &compileInfo);
+public: int slr(string rule_file,string compile_file,string ignore_file_path,Env &env,CompileInfo &compileInfo);
 
 private: int startsWith(string s, string sub);
 

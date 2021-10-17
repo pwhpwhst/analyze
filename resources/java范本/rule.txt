@@ -10,6 +10,7 @@ Modifier : 'native'
 Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'volatile'
+-- 类的模板参数 尖括号部分 begin
 ClassOrInterfaceDeclaration : ClassDeclaration
 ClassDeclaration : NormalClassDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
@@ -17,9 +18,9 @@ NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
 ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 Identifier : 'IDENTIFIER'
 TypeParameters : 'LEFT_ANGLE_BRACKET' Ig_TypeParameterList 'RIGHT_ANGLE_BRACKET'
-Ig_TypeParameterList : Ig_TypeParameter _Ig_TypeParameterList  
-_Ig_TypeParameterList : Ig_TypeParameter _Ig_TypeParameterList
+Ig_TypeParameterList : TypeParameter _Ig_TypeParameterList  
+_Ig_TypeParameterList : 'COMMA' TypeParameter _Ig_TypeParameterList
 _Ig_TypeParameterList : 0
-Ig_TypeParameter : Identifier
-Ig_TypeParameter : 'QUESTION'
-Ig_TypeParameter : 'COMMA'
+TypeParameter : Identifier
+TypeParameter : Identifier TypeParameters
+-- 类的模板参数 尖括号部分 end

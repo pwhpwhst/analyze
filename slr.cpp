@@ -35,7 +35,7 @@ void Slr::log(const string& s) {
 
 
 
-int Slr::slr(string rule_file, string compile_file, Env& env, CompileInfo &compileInfo) {
+int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env& env, CompileInfo &compileInfo) {
 
 	//初始化
 	string start_symbol = "ele_begin";
@@ -239,7 +239,7 @@ int Slr::slr(string rule_file, string compile_file, Env& env, CompileInfo &compi
 
 			if (node_tree != nullptr) {
 				//			printStack(node_tree);
-				printStackTree(node_tree);
+				printStackTree(node_tree,ignore_file_path);
 			}
 #endif
 
@@ -648,9 +648,22 @@ void Slr::printStack(Node* &node_tree) {
 	}
 }
 
+//Ig_TypeParameterList
+void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 
-void Slr::printStackTree(Node* &node_tree) {
 	cout << "打印语法树:" << endl;
+
+	set<string> ignore_symbol_set;
+	ifstream input_file;
+	input_file.open(ignore_file_path.data());	//rule_file string
+	string line;
+	while (getline(input_file, line))
+	{
+		ignore_symbol_set.insert(line);
+	}
+	input_file.close();
+
+
 	deque<Node*> item_node_stack2;
 	item_node_stack2.push_back(node_tree);
 	set<Node*> node_set;
@@ -670,45 +683,56 @@ void Slr::printStackTree(Node* &node_tree) {
 		}
 		else {
 			node_set.insert(present_node);
-			os.str("");
-			os << present_node;
-			string present_str = os.str();
-			plan_map[present_str] = unordered_map<string, int>();
+			if (ignore_symbol_set.count(present_node->symbol)==0) {
+				os.str("");
+				os << present_node;
+				string present_str = os.str();
+				plan_map[present_str] = unordered_map<string, int>();
 
-			int size1 = present_node->symbol.size() + padding_left;
-			int size2 = 0;
-			if (present_node->child_node_list.size() > 0) {
-				for (const auto &e : present_node->child_node_list) {
-					os.str("");
-					os << e;
-					size2 += plan_map[os.str()]["size_row"];
+				int size1 = present_node->symbol.size() + padding_left;
+				int size2 = 0;
+				if (present_node->child_node_list.size() > 0) {
+					for (const auto &e : present_node->child_node_list) {
+						os.str("");
+						os << e;
+						size2 += plan_map[os.str()]["size_row"];
+					}
+				}
+				plan_map[present_str]["size_row"] = size1 > size2 ? size1 : size2;
+				plan2_map[present_str] = present_node;
+				item_node_stack2.pop_back();
+
+				size1 = 1;
+				size2 = 0;
+				if (present_node->child_node_list.size() > 0) {
+					for (const auto &e : present_node->child_node_list) {
+						os.str("");
+						os << e;
+						size2 = plan_map[os.str()]["size_col"] > size2 ? plan_map[os.str()]["size_col"] : size2;
+					}
+					size2 += branch_length;
+				}
+				plan_map[present_str]["size_col"] = size2 > size1 ? size2 : size1;
+
+				if (present_node->parent != nullptr) {
+					if ((present_node->offset + 1) < present_node->parent->child_node_list.size()) {
+						item_node_stack2.push_back(present_node->parent->child_node_list[present_node->offset + 1]);
+					}
+				}
+			}else {
+				item_node_stack2.pop_back();
+				if (present_node->parent != nullptr) {
+					if ((present_node->offset + 1) < present_node->parent->child_node_list.size()) {
+						item_node_stack2.push_back(present_node->parent->child_node_list[present_node->offset + 1]);
+					}
 				}
 			}
-			plan_map[present_str]["size_row"] = size1 > size2 ? size1 : size2;
-			plan2_map[present_str] = present_node;
-			item_node_stack2.pop_back();
 
-			size1 = 1;
-			size2 = 0;
-			if (present_node->child_node_list.size() > 0) {
-				for (const auto &e : present_node->child_node_list) {
-					os.str("");
-					os << e;
-					size2 = plan_map[os.str()]["size_col"] > size2 ? plan_map[os.str()]["size_col"] : size2;
-				}
-				size2 += branch_length;
-			}
-			plan_map[present_str]["size_col"] = size2 > size1 ? size2 : size1;
-
-			if (present_node->parent != nullptr) {
-				if ((present_node->offset + 1) < present_node->parent->child_node_list.size()) {
-					item_node_stack2.push_back(present_node->parent->child_node_list[present_node->offset + 1]);
-				}
-			}
 
 		}
 	}
 
+	
 	item_node_stack2.push_front(node_tree);
 	os.str("");
 	os << node_tree;
@@ -716,22 +740,27 @@ void Slr::printStackTree(Node* &node_tree) {
 	plan_map[os.str()]["pos_y"] = 0;
 	while (item_node_stack2.size() > 0) {
 		Node *present_node = item_node_stack2.back();
-		os.str("");
-		os << present_node;
-		string present_str = os.str();
-		if (present_node->child_node_list.size() > 0) {
-			int brother_x_offset = 0;
-			for (const auto &e : present_node->child_node_list) {
-				os.str("");
-				os << e;
-				plan_map[os.str()]["pos_x"] = plan_map[present_str]["pos_x"] + brother_x_offset;
-				brother_x_offset += plan_map[os.str()]["size_row"];
-				plan_map[os.str()]["pos_y"] = plan_map[present_str]["pos_y"] + branch_length;
-				item_node_stack2.push_front(e);
-			}
+		if (ignore_symbol_set.count(present_node->symbol)==0) {
+			os.str("");
+			os << present_node;
+			string present_str = os.str();
+			if (present_node->child_node_list.size() > 0) {
+				int brother_x_offset = 0;
+				for (const auto &e : present_node->child_node_list) {
+					os.str("");
+					os << e;
+					plan_map[os.str()]["pos_x"] = plan_map[present_str]["pos_x"] + brother_x_offset;
+					brother_x_offset += plan_map[os.str()]["size_row"];
+					plan_map[os.str()]["pos_y"] = plan_map[present_str]["pos_y"] + branch_length;
+					item_node_stack2.push_front(e);
+				}
 
+			}
+			item_node_stack2.pop_back();
+		}else {
+			item_node_stack2.pop_back();
 		}
-		item_node_stack2.pop_back();
+		
 	}
 
 
@@ -746,30 +775,34 @@ void Slr::printStackTree(Node* &node_tree) {
 	}
 
 	for (auto &e : plan_map) {
-		for (int i1 = 0; i1 < plan2_map[e.first]->symbol.size(); i1++) {
-			output[e.second["pos_y"]][e.second["pos_x"] + i1] = plan2_map[e.first]->symbol[i1];
-		}
 
-		if (plan2_map[e.first]->child_node_list.size() > 0) {
-			output[e.second["pos_y"] + 1][e.second["pos_x"]] = '|';
+		if (plan2_map.find(e.first) != plan2_map.end()) {
 
-			os.str("");
-			os << plan2_map[e.first]->child_node_list[0];
-			int beg_pos = plan_map[os.str()]["pos_x"];
-			os.str("");
-			os << plan2_map[e.first]->child_node_list.back();
-			int end_pos = plan_map[os.str()]["pos_x"];
-			for (int i1 = beg_pos; i1 <= end_pos; i1++) {
-				output[e.second["pos_y"] + 2][i1] = '-';
+			for (int i1 = 0; i1 < plan2_map[e.first]->symbol.size(); i1++) {
+				output[e.second["pos_y"]][e.second["pos_x"] + i1] = plan2_map[e.first]->symbol[i1];
 			}
 
-			for (int i1 = 0; i1 < plan2_map[e.first]->child_node_list.size(); i1++) {
+			if (plan2_map[e.first]->child_node_list.size() > 0) {
+				output[e.second["pos_y"] + 1][e.second["pos_x"]] = '|';
+
 				os.str("");
-				os << plan2_map[e.first]->child_node_list[i1];
-				output[e.second["pos_y"] + 3][plan_map[os.str()]["pos_x"]] = '|';
+				os << plan2_map[e.first]->child_node_list[0];
+				int beg_pos = plan_map[os.str()]["pos_x"];
+				os.str("");
+				os << plan2_map[e.first]->child_node_list.back();
+				int end_pos = plan_map[os.str()]["pos_x"];
+
+				for (int i1 = beg_pos; i1 <= end_pos; i1++) {
+					output[e.second["pos_y"] + 2][i1] = '-';
+				}
+
+				for (int i1 = 0; i1 < plan2_map[e.first]->child_node_list.size(); i1++) {
+					os.str("");
+					os << plan2_map[e.first]->child_node_list[i1];
+					output[e.second["pos_y"] + 3][plan_map[os.str()]["pos_x"]] = '|';
+				}
+
 			}
-
-
 		}
 
 	}
@@ -958,17 +991,28 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		string rule_name = rule_name_deq.back();
 		for (auto e : ruleList) {
 			if (e->rule_name == rule_name) {
-				if (non_terminator.count(e->symbols[0]) > 0 && rule_name_set.count(e->symbols[0]) == 0) {
-					rule_name_set.insert(e->symbols[0]);
-					rule_name_deq.push_front(e->symbols[0]);
+				if (non_terminator.count(e->symbols[0]) > 0) {
 
-					if (from_map.count(e->symbols[0]) == 0) {
-						set<P_Item> from_set;
-						from_map[e->symbols[0]] = from_set;
+					string rule_first_name = e->symbols[0];
+					if (rule_name_set.count(rule_first_name) == 0) {
+						if (from_map.count(rule_first_name) == 0) {
+							set<P_Item> from_set;
+							from_map[rule_first_name] = from_set;
+						}
+
+						for (auto e2 : ruleList) {
+							if (e2->rule_name == rule_name && e2->symbols[0] == rule_first_name) {
+								from_map[rule_first_name].insert(P_Item(new Item(e2, 0)));
+							}
+						}
+						rule_name_set.insert(rule_first_name);
+						rule_name_deq.push_front(rule_first_name);
 					}
-					from_map[e->symbols[0]].insert(P_Item(new Item(e, 0)));
 
 				}
+
+
+
 			}
 		}
 		rule_name_deq.pop_back();
@@ -1020,7 +1064,6 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 					for (auto &e2 : from_map[e4->rule->rule_name]) {
 						
 						for (auto &e3 : items_list[0]) {
-
 
 							if (is_P_Item_equal(e2, e3)) {
 								first_input.clear();
@@ -1144,15 +1187,24 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 					string rule_name = rule_name_deq.back();
 					for (auto e : ruleList) {
 						if (e->rule_name == rule_name) {
-							if (non_terminator.count(e->symbols[0]) > 0 && rule_name_set.count(e->symbols[0]) == 0) {
-								rule_name_set.insert(e->symbols[0]);
-								rule_name_deq.push_front(e->symbols[0]);
+							if (non_terminator.count(e->symbols[0]) > 0) {
 
-								if (from_map.count(e->symbols[0]) == 0) {
-									set<P_Item> from_set;
-									from_map[e->symbols[0]] = from_set;
+								string rule_first_name = e->symbols[0];
+								if (rule_name_set.count(rule_first_name) == 0) {
+									if (from_map.count(rule_first_name) == 0) {
+										set<P_Item> from_set;
+										from_map[rule_first_name] = from_set;
+									}
+
+									for (auto e2 : ruleList) {
+										if (e2->rule_name == rule_name && e2->symbols[0] == rule_first_name) {
+											from_map[rule_first_name].insert(P_Item(new Item(e2, 0)));
+										}
+									}
+									rule_name_set.insert(rule_first_name);
+									rule_name_deq.push_front(rule_first_name);
 								}
-								from_map[e->symbols[0]].insert(P_Item(new Item(e, 0)));
+
 							}
 						}
 					}
