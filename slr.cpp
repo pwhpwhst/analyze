@@ -665,7 +665,7 @@ bool Slr::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node,int le
 				present_node = present_node->parent;
 				i2--;
 			}else {
-				return false;
+				break;
 			}
 		}
 
@@ -715,13 +715,17 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 	while (item_node_stack2.size() > 0) {
 		Node *present_node = item_node_stack2.back();
 
-		if (present_node->child_node_list.size() > 0 && node_set.count(present_node->child_node_list[0]) == 0) {
+		bool ignore_flag=shouldBeIgnore(ignore_symbol_set, present_node, ignore_symbol_level);
+
+
+
+		if (!ignore_flag && present_node->child_node_list.size() > 0 && node_set.count(present_node->child_node_list[0]) == 0) {
 			item_node_stack2.push_back(present_node->child_node_list[0]);
 		}
 		else {
 			node_set.insert(present_node);
 			
-			if (!shouldBeIgnore(ignore_symbol_set, present_node, ignore_symbol_level)) {
+			if (!ignore_flag) {
 				os.str("");
 				os << present_node;
 				string present_str = os.str();
@@ -757,7 +761,9 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 						item_node_stack2.push_back(present_node->parent->child_node_list[present_node->offset + 1]);
 					}
 				}
-			}else {
+				
+			}
+			else {
 				item_node_stack2.pop_back();
 				if (present_node->parent != nullptr) {
 					if ((present_node->offset + 1) < present_node->parent->child_node_list.size()) {
@@ -801,7 +807,6 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 		
 	}
 
-
 	vector<vector<char>> output;
 	os.str("");
 	os << node_tree;
@@ -844,7 +849,6 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 		}
 
 	}
-
 
 
 	for (const auto &e : output) {

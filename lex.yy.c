@@ -720,7 +720,7 @@ case 12:
 YY_RULE_SETUP
 #line 80 "SLR\\wordParser.l"
 {
-  write_word(p_lex_word,yytext,"';'");
+  write_word(p_lex_word,yytext,"'semicolon'");
   p_lex_word++;
 }
 	YY_BREAK

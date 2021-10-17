@@ -1,4 +1,8 @@
-ele_begin : ClassOrInterfaceDeclaration
+ele_begin : CompilationUnit
+CompilationUnit : TypeDeclaration
+CompilationUnit : 0
+TypeDeclaration : ClassOrInterfaceDeclaration
+TypeDeclaration : 'semicolon'
 ClassOrInterfaceDeclaration : Modifier ClassDeclaration
 Modifier : 'public'
 Modifier : 'protected'
@@ -30,7 +34,7 @@ _Ig_TypeParameterList : 0
 TypeParameter : Identifier
 TypeParameter : Identifier TypeParameters
 -- 类的模板参数 尖括号部分 end
--- 类的 extends 部分 begin
+-- 类的 extends 和 implments 部分 begin
 Type : BasicTypeArr
 Type : ReferenceTypeArr
 BasicTypeArr : BasicType _BasicTypeList 
@@ -49,4 +53,4 @@ ReferenceType : Identifier
 TypeList : ReferenceType _ReferenceTypeList
 _ReferenceTypeList : 'COMMA' ReferenceType _ReferenceTypeList
 _ReferenceTypeList : 0
--- 类的 extends 部分 end
+-- 类的 extends 和 implments  部分 end

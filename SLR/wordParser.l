@@ -78,7 +78,7 @@ StringLiteral \"(\\.|[^\\"])*\"
 }
 
 ";" {
-  write_word(p_lex_word,yytext,"';'");
+  write_word(p_lex_word,yytext,"'semicolon'");
   p_lex_word++;
 }
 
