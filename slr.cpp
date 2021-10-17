@@ -1456,11 +1456,11 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 			if (s == "") {
 				s = r;
 			}
-			else if (r != "") {
-				s += "," + r;
-			}
+//			else if (r != "") {
+//				s += "," + r;
+//			}
 			if (s != "") {
-				if (s == "s-1,r0") {
+				if (s == "s-1"&&r=="r0") {
 					s = "acc";
 				}
 				_map[e1] = s;

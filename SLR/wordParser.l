@@ -88,7 +88,12 @@ StringLiteral \"(\\.|[^\\"])*\"
 }
 
 "\." {
-  write_word(p_lex_word,yytext,"'.'");
+  write_word(p_lex_word,yytext,"'SPOT'");
+  p_lex_word++;
+}
+
+"*" {
+  write_word(p_lex_word,yytext,"'STAR'");
   p_lex_word++;
 }
 
