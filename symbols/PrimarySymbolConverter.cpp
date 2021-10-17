@@ -15,7 +15,10 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 	newLexWord.content = oriLexWord.content;
 
 	if (oriLexWord.type == "'IDENTIFIER'") {
-		if (oriLexWord.content == "public") {
+		if (oriLexWord.content == "import") {
+			newLexWord.type = "'import'";
+		}
+		else if (oriLexWord.content == "public") {
 			newLexWord.type = "'public'";
 		}
 		else if (oriLexWord.content == "protected") {

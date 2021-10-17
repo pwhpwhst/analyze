@@ -3,3 +3,4 @@ NormalClassDeclaration.Type
 NormalClassDeclaration.TypeList
 NormalClassDeclaration.'extends'
 NormalClassDeclaration.'implements'
+TypeDeclaration

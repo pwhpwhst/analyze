@@ -712,6 +712,7 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 	const int branch_length = 4;
 
 	//先用深度优先遍历计算要打印的块的长和高
+
 	while (item_node_stack2.size() > 0) {
 		Node *present_node = item_node_stack2.back();
 
@@ -828,24 +829,52 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 			if (plan2_map[e.first]->child_node_list.size() > 0) {
 				output[e.second["pos_y"] + 1][e.second["pos_x"]] = '|';
 
-				os.str("");
-				os << plan2_map[e.first]->child_node_list[0];
-				int beg_pos = plan_map[os.str()]["pos_x"];
-				os.str("");
-				os << plan2_map[e.first]->child_node_list.back();
-				int end_pos = plan_map[os.str()]["pos_x"];
+				int beg_pos = e.second["pos_x"];
+				if (plan2_map[e.first]->child_node_list.size() > 0) {
+					os.str("");
+					for (int i1 = 0; i1 < plan2_map[e.first]->child_node_list.size(); i1++) {
+						if (!shouldBeIgnore(ignore_symbol_set, plan2_map[e.first]->child_node_list[i1], ignore_symbol_level)) {
+							os << plan2_map[e.first]->child_node_list[i1];
+							break;
+						}
+						if (os.str() != "") {
+							beg_pos = plan_map[os.str()]["pos_x"];
+						}
+					}
+				}
+
+				int end_pos = beg_pos;
+
+				if (plan2_map[e.first]->child_node_list.size()>0) {
+					os.str("");
+					for (int i1 = plan2_map[e.first]->child_node_list.size() - 1; i1 >= 0; i1--) {
+						if (!shouldBeIgnore(ignore_symbol_set, plan2_map[e.first]->child_node_list[i1], ignore_symbol_level)) {
+							os << plan2_map[e.first]->child_node_list[i1];
+							break;
+						}
+					}
+					if (os.str()!="") {
+						end_pos = plan_map[os.str()]["pos_x"];
+					}
+				}
+
 
 				for (int i1 = beg_pos; i1 <= end_pos; i1++) {
 					output[e.second["pos_y"] + 2][i1] = '-';
 				}
 
 				for (int i1 = 0; i1 < plan2_map[e.first]->child_node_list.size(); i1++) {
-					os.str("");
-					os << plan2_map[e.first]->child_node_list[i1];
-					output[e.second["pos_y"] + 3][plan_map[os.str()]["pos_x"]] = '|';
+					
+					if (!shouldBeIgnore(ignore_symbol_set, plan2_map[e.first]->child_node_list[i1], ignore_symbol_level)) {
+						os.str("");
+						os << plan2_map[e.first]->child_node_list[i1];
+						output[e.second["pos_y"] + 3][plan_map[os.str()]["pos_x"]] = '|';
+					}
+
 				}
 
 			}
+
 		}
 
 	}
