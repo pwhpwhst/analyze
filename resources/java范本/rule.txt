@@ -90,3 +90,8 @@ VariableDeclarator : Identifier _BasicTypeList
 -- 类方法变量声明 实现 begin
 MethodDeclaratorRest : FormalParameters 'semicolon'
 FormalParameters : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+FormalParameters : 'LEFT_PARENTHESES' FormalParameterDecls 'RIGHT_PARENTHESES'
+FormalParameterDecls : Type FormalParameterDeclsRest
+FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
+FormalParameterDeclsRest : VariableDeclaratorId
+VariableDeclaratorId : Identifier _BasicTypeList
