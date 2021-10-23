@@ -20,6 +20,19 @@ PrimarySymbolConverter::~PrimarySymbolConverter() {
 
 void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord) {
 	newLexWord.content = oriLexWord.content;
+
+	//位置统计 begin
+	if (oriLexWord.type == "'NEXT_LINE'") {
+		lineNum++;
+		colNum = 0;
+	}
+	else {
+		colNum++;
+	}
+	newLexWord.lineNum = lineNum;
+	newLexWord.colNum = colNum;
+	//位置统计 end
+
 	//注释过滤 begin
 	if (is_comment1) {
 		if (oriLexWord.type != "'NEXT_LINE'") {

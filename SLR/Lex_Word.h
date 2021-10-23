@@ -7,6 +7,8 @@ using namespace std;
 class Lex_Word{
 public:	string type;
 public:	string content;
+public: int lineNum = 1;
+public: int colNum = 0;
 
 //默认构造器
 public: Lex_Word();
