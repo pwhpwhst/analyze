@@ -21,6 +21,70 @@ PrimarySymbolConverter::~PrimarySymbolConverter() {
 void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord) {
 	newLexWord.content = oriLexWord.content;
 
+	if (is_comment1) {
+		if (oriLexWord.type != "'NEXT_LINE'") {
+			newLexWord.type = "0";
+			return;
+		}
+		else {
+			newLexWord.type = "0";
+			is_comment1 = false;
+			return;
+		}
+	}
+	else {
+		if (oriLexWord.type == "'COMMENT1'") {
+			newLexWord.type = "0";
+			is_comment1 = true;
+			return;
+		}
+	}
+
+	if (is_comment2) {
+		if (oriLexWord.type != "'END_COMMENT'") {
+			newLexWord.type = "0";
+			return;
+		}
+		else {
+			newLexWord.type = "0";
+			is_comment2 = false;
+			return;
+		}
+	}
+	else {
+		if (oriLexWord.type == "'COMMENT2'") {
+			newLexWord.type = "0";
+			is_comment2 = true;
+			return;
+		}
+	}
+
+	if (is_comment3) {
+		if (oriLexWord.type != "'END_COMMENT'") {
+			newLexWord.type = "0";
+			return;
+		}
+		else {
+			newLexWord.type = "0";
+			is_comment3 = false;
+			return;
+		}
+	}
+	else {
+		if (oriLexWord.type == "'COMMENT3'") {
+			newLexWord.type = "0";
+			is_comment3 = true;
+			return;
+		}
+	}
+
+
+	if (oriLexWord.type == "'NEXT_LINE'") {
+		newLexWord.type = "0";
+		return;
+	}
+
+
 	if (oriLexWord.type == "'IDENTIFIER'") {
 		if (oriLexWord.content == "package") {
 			newLexWord.type = "'package'";

@@ -73,6 +73,5 @@ for (P_Lex_Word &e : primary_total_lex_word_list) {
 
 int main(){
 testForSynax();
-//test1();
 //testForLexer();
 }

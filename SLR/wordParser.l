@@ -27,6 +27,38 @@ StringLiteral \"(\\.|[^\\"])*\"
   p_lex_word++;
 }
 
+
+"//" {
+  write_word(p_lex_word,yytext,"'COMMENT1'");
+  p_lex_word++;
+}
+
+"/" {
+  write_word(p_lex_word,yytext,"'SLASH'");
+  p_lex_word++;
+}
+
+"/**" {
+  write_word(p_lex_word,yytext,"'COMMENT2'");
+  p_lex_word++;
+}
+
+"/*" {
+  write_word(p_lex_word,yytext,"'COMMENT3'");
+  p_lex_word++;
+}
+
+"*/" {
+  write_word(p_lex_word,yytext,"'END_COMMENT'");
+  p_lex_word++;
+}
+
+
+"\n" {
+  write_word(p_lex_word,yytext,"'NEXT_LINE'");
+  p_lex_word++;
+}
+
 "{" {
   write_word(p_lex_word,yytext,"'LEFT_BRACE'");
   p_lex_word++;
@@ -74,12 +106,12 @@ StringLiteral \"(\\.|[^\\"])*\"
 }
 
 "(" {
-  write_word(p_lex_word,yytext,"'('");
+  write_word(p_lex_word,yytext,"'LEFT_PARENTHESES'");
   p_lex_word++;
 }
 
 ")" {
-  write_word(p_lex_word,yytext,"')'");
+  write_word(p_lex_word,yytext,"'RIGHT_PARENTHESES'");
   p_lex_word++;
 }
 

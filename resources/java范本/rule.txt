@@ -78,11 +78,15 @@ ClassBodyDeclaration : MemberDecl
 ClassBodyDeclaration : Modifier MemberDecl
 MemberDecl : MethodOrFieldDecl
 -- ClassBodyDeclarationList 实现 end
--- 类成员变量 实现 begin
+-- 类成员变量声明 实现 begin
 MethodOrFieldDecl : Type Identifier MethodOrFieldRest
 MethodOrFieldRest : FieldDeclaratorsRest 'semicolon'
+MethodOrFieldRest : MethodDeclaratorRest
 FieldDeclaratorsRest : _BasicTypeList VariableDeclaratorList
 VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
 VariableDeclaratorList : 0
 VariableDeclarator : Identifier _BasicTypeList
--- 类成员变量 实现 end
+-- 类成员变量声明 实现 end
+-- 类方法变量声明 实现 begin
+MethodDeclaratorRest : FormalParameters 'semicolon'
+FormalParameters : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'

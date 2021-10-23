@@ -208,8 +208,12 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 	vector<P_Lex_Word>  total_lex_word_list;
 
 	for (P_Lex_Word &e : _total_lex_word_list) {
-		total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-		primarySymbolConverter.convert(*e, *total_lex_word_list.back());
+		auto p = P_Lex_Word(new Lex_Word());
+		primarySymbolConverter.convert(*e, *p);
+		if (p->type != "0") {
+			total_lex_word_list.push_back(p);
+		}
+		
 	}
 
 #ifdef __PRINT_LEX_WORD_LIST
@@ -221,7 +225,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 #endif
 	//人手添加总结符号
 	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-	total_lex_word_list.back()->type = "'\n'";
+	total_lex_word_list.back()->type = "'end'";
 
 	//符号表
 	log("符号表");
@@ -231,7 +235,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 	for (const auto &e : total_lex_word_list) {
 		lex_word_list.push_back(e);
-		if (e->type == "'\n'") {
+		if (e->type == "'end'") {
 			//构造语法树
 			lex_word_list.pop_back();
 
