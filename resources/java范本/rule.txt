@@ -40,15 +40,15 @@ NormalClassDeclaration : 'class' Identifier 'implements' TypeList ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters 'implements' TypeList ClassBody
 NormalClassDeclaration : 'class' Identifier 'extends' Type 'implements' TypeList ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters 'extends' Type 'implements' TypeList ClassBody
-ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 Identifier : 'IDENTIFIER'
 -- 类的模板参数 尖括号部分 begin
 TypeParameters : 'LEFT_ANGLE_BRACKET' Ig_TypeParameterList 'RIGHT_ANGLE_BRACKET'
-Ig_TypeParameterList : TypeParameter _Ig_TypeParameterList  
+Ig_TypeParameterList : TypeParameter _Ig_TypeParameterList
 _Ig_TypeParameterList : 'COMMA' TypeParameter _Ig_TypeParameterList
 _Ig_TypeParameterList : 0
-TypeParameter : Identifier
 TypeParameter : Identifier TypeParameters
+TypeParameter : Identifier
 -- 类的模板参数 尖括号部分 end
 -- 类的 extends 和 implments 部分 begin
 Type : BasicTypeArr
@@ -70,3 +70,19 @@ TypeList : ReferenceType _ReferenceTypeList
 _ReferenceTypeList : 'COMMA' ReferenceType _ReferenceTypeList
 _ReferenceTypeList : 0
 -- 类的 extends 和 implments  部分 end
+-- ClassBodyDeclarationList 实现 begin
+ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
+ClassBodyDeclarationList : 0
+ClassBodyDeclaration : 'semicolon'
+ClassBodyDeclaration : MemberDecl
+ClassBodyDeclaration : Modifier MemberDecl
+MemberDecl : MethodOrFieldDecl
+-- ClassBodyDeclarationList 实现 end
+-- 类成员变量 实现 begin
+MethodOrFieldDecl : Type Identifier MethodOrFieldRest
+MethodOrFieldRest : FieldDeclaratorsRest 'semicolon'
+FieldDeclaratorsRest : _BasicTypeList VariableDeclaratorList
+VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
+VariableDeclaratorList : 0
+VariableDeclarator : Identifier _BasicTypeList
+-- 类成员变量 实现 end

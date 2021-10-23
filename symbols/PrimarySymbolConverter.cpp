@@ -4,6 +4,13 @@
 
 PrimarySymbolConverter::PrimarySymbolConverter() {
 
+	/*
+	env["pwhPackage"] = unordered_map<string, string>();
+	env["pwhPackage"]["type"]=
+	env["pwhImport"] = unordered_map<string, string>();
+	env["pwhImplement1"] = unordered_map<string, string>();
+	env["pwhImplement2"] = unordered_map<string, string>();
+	*/
 }
 
 PrimarySymbolConverter::~PrimarySymbolConverter() {

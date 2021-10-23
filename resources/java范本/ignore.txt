@@ -3,4 +3,7 @@ NormalClassDeclaration.Type
 NormalClassDeclaration.TypeList
 NormalClassDeclaration.'extends'
 NormalClassDeclaration.'implements'
-TypeDeclaration
+CompilationUnit.QualifiedIdentifier
+CompilationUnit.'package'
+CompilationUnit.'semicolon'
+CompilationUnit.ImportDeclaration

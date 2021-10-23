@@ -234,7 +234,8 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 		if (e->type == "'\n'") {
 			//构造语法树
 			lex_word_list.pop_back();
-			Node *node_tree = syntax_analyze(ruleList, zero_terminator, forecast_list, convert_map, lex_word_list);
+
+			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, forecast_list, convert_map, lex_word_list);
 #ifdef __PRINT_NODE_TREE
 
 			if (node_tree != nullptr) {
@@ -689,6 +690,10 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 	string line;
 	while (getline(input_file, line))
 	{
+		if (startsWith(line, "-")==1) {
+			continue;
+		}
+		
 		ignore_symbol_set.insert(line);
 		string_list.clear();
 
@@ -715,7 +720,6 @@ void Slr::printStackTree(Node* &node_tree,string ignore_file_path) {
 
 	while (item_node_stack2.size() > 0) {
 		Node *present_node = item_node_stack2.back();
-
 		bool ignore_flag=shouldBeIgnore(ignore_symbol_set, present_node, ignore_symbol_level);
 
 
@@ -1472,7 +1476,8 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 			for (const auto &e2 : items_list[i1]) {
 
 
-				if (e2->end_for_symbol.count(e1)>0 && e2->status == e2->rule->symbols.size() && f_follow[e2->rule->rule_name].count(e1) > 0) {
+				if (e2->end_for_symbol.count(e1)>0 && e2->status == e2->rule->symbols.size() 
+					&& f_follow[e2->rule->rule_name].count(e1) > 0) {
 					if (r == "") {
 						r = "r" + to_string(rule_map[e2->rule]);
 					}
@@ -1531,9 +1536,8 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 #endif
 }
 
-Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_terminator, vector<unordered_map<string, string>> &forecast_list,
+Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string, string>> &forecast_list,
 	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &input) {
-
 	struct ItemNode {
 		Node *node;
 		int item_status;
@@ -1567,10 +1571,13 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 		
 		#ifdef __PRINT_PARSE_PROCESS
 		string top_symbol = "";
+		int top_status = 0;
 		if (top_item->node!=nullptr) {
 			top_symbol = top_item->node->symbol;
+			top_status = top_item->item_status;
 		}
-				cout << top_symbol <<","<< action << endl;
+		cout << top_status<<","<<top_symbol <<","<< action << endl;
+
 		#endif
 		if (action == "acc") {
 			resultTree = top_item->node;
@@ -1593,63 +1600,60 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> zero_termi
 			parent_node->symbol = best_rule->rule_name;
 			parent_node->offset = 0;
 			parent_node->parent = nullptr;
-
-			int zero_count = 0;
-			for (const auto &e : best_rule->symbols) {
-				if (e == "0") {
-					zero_count++;
+			
+			unordered_map<int, int> map;
+			int i2 = item_node_stack1.size() - 1;
+			if (best_rule->symbols.size()>0) {
+				for (int i1 = (best_rule->symbols.size() - 1); i1 >= 0;i1--) {
+					if (best_rule->symbols[i1] == "0") {
+						continue;
+					}else if (best_rule->symbols[i1] == item_node_stack1[i2]->node->symbol) {
+						map[i1] = i2;
+						i2--;
+					}else {
+						continue;
+					}
 				}
+				i2++;
 			}
 
 			Node *pre_child_node = nullptr;
-			if (best_rule->symbols[0] == "0") {
-				pre_child_node = new Node();
-				pre_child_node->symbol = "0";
-				pre_child_node->content = "";
-				pre_child_node->offset = 0;
-			}
-			else {
-				pre_child_node = item_node_stack1[item_node_stack1.size() - best_rule->symbols.size() + zero_count]->node;
-			}
-			pre_child_node->parent = parent_node;
-			parent_node->child_node_list.push_back(pre_child_node);
-
-			if (best_rule->symbols.size() > 1) {
-				for (int i1 = 1, i2 = item_node_stack1.size() - best_rule->symbols.size() + zero_count + 1; i1 < best_rule->symbols.size(); i1++) {
-					Node *present_child_node = nullptr;
-					if (best_rule->symbols[i1] == "0") {
-						present_child_node = new Node();
-						present_child_node->symbol = "0";
-						present_child_node->content = "";
-					}
-					else {
-						present_child_node = item_node_stack1[i2]->node;
-						i2++;
-					}
-					present_child_node->parent = parent_node;
-					present_child_node->offset = i1;
-					parent_node->child_node_list.push_back(present_child_node);
+			for (int i1 = 0; i1 < best_rule->symbols.size(); i1++) {
+				if (map.count(i1)==0) {
+					pre_child_node = new Node();
+					pre_child_node->symbol = best_rule->symbols[i1];
+					pre_child_node->content = "";
+				}else {
+					pre_child_node = item_node_stack1[map[i1]]->node;
 				}
+				pre_child_node->offset = i1;
+				pre_child_node->parent = parent_node;
+				parent_node->child_node_list.push_back(pre_child_node);
 			}
-
-			for (int i1 = best_rule->symbols.size() - 1; i1 >= 0; i1--) {
-				if (best_rule->symbols[i1] == "0" || zero_terminator.count(best_rule->symbols[i1]) > 0) {
-
-				}
-				else {
-					item_node_stack1.pop_back();
-				}
+			
+			int present_stack_size = item_node_stack1.size();
+			for (; i2 < present_stack_size;i2++) {
+				item_node_stack1.pop_back();
 			}
 
 			top_item = item_node_stack1.back();
 			item_node_stack1.push_back(P_ItemNode(new ItemNode()));
 			item_node_stack1.back()->node = parent_node;
 			item_node_stack1.back()->item_status = convert_map[top_item->item_status][parent_node->symbol];
+
 		}
 		else {
 			cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
 			break;
 		}
+#ifdef __PRINT_PARSE_PROCESS
+		for (auto &e : item_node_stack1) {
+			if (e->node != nullptr) {
+				cout << e->node->symbol << ",";
+			}
+		}
+		cout << endl;
+#endif
 
 	}
 	return resultTree;

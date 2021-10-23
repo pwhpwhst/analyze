@@ -52,6 +52,12 @@ StringLiteral \"(\\.|[^\\"])*\"
   p_lex_word++;
 }
 
+"=" {
+  write_word(p_lex_word,yytext,"'EQUAL'");
+  p_lex_word++;
+}
+
+
 "?" {
   write_word(p_lex_word,yytext,"'QUESTION'");
   p_lex_word++;

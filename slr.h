@@ -45,7 +45,10 @@ private: void printStackTree(Node* &node_tree,string ignore_file_path);
 private: void printGraph(vector<vector<P_Item>> items_list,
 unordered_map<int,unordered_map<string,int>> convert_map);
 
-private: Node* syntax_analyze(const vector<P_Rule> &ruleList,set<string> zero_terminator, vector<unordered_map<string,string>> &forecast_list,
+		 
+		 
+
+private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string,string>> &forecast_list,
 	unordered_map<int,unordered_map<string,int>> &convert_map,vector<P_Lex_Word> &input);
 
 private: bool detect_ambigulous( vector<unordered_map<string,string>> &forecast_list,
