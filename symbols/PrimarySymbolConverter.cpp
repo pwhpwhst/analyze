@@ -20,7 +20,7 @@ PrimarySymbolConverter::~PrimarySymbolConverter() {
 
 void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord) {
 	newLexWord.content = oriLexWord.content;
-
+	//×¢ÊÍ¹ýÂË begin
 	if (is_comment1) {
 		if (oriLexWord.type != "'NEXT_LINE'") {
 			newLexWord.type = "0";
@@ -77,6 +77,7 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 			return;
 		}
 	}
+	//×¢ÊÍ¹ýÂË end
 
 
 	if (oriLexWord.type == "'NEXT_LINE'") {
