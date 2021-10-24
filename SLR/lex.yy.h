@@ -7,5 +7,5 @@ struct C_Lex_Word{
 
 extern void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end);
 
-
+extern void c_free();
 #endif

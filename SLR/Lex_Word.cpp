@@ -52,6 +52,7 @@ void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list,Env& env){
 	}
 	free(beg);
 	free(end);
+	c_free();
 }
 
 
