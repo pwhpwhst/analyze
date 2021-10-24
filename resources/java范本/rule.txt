@@ -1,13 +1,11 @@
 ele_begin : CompilationUnit
 -- 类的上侧部分 begin
-CompilationUnit : 0
-CompilationUnit : ImportDeclaration
-CompilationUnit : TypeDeclaration
-CompilationUnit : ImportDeclaration TypeDeclaration
-CompilationUnit : 'package' QualifiedIdentifier 'semicolon'
-CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclaration
-CompilationUnit : 'package' QualifiedIdentifier 'semicolon' TypeDeclaration
-CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclaration TypeDeclaration
+CompilationUnit : ImportDeclarationList
+CompilationUnit : ImportDeclarationList TypeDeclaration
+CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList
+CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList TypeDeclaration
+ImportDeclarationList : ImportDeclaration ImportDeclarationList
+ImportDeclarationList : 0
 ImportDeclaration : 'import' IdentifierList 'semicolon'
 ImportDeclaration : 'import' 'static' IdentifierList 'semicolon'
 ImportDeclaration : 'import' IdentifierList 'SPOT' 'STAR' 'semicolon'
@@ -19,7 +17,9 @@ _IdentifierList : Identifier
 -- 类的上侧部分 end
 TypeDeclaration : ClassOrInterfaceDeclaration
 TypeDeclaration : 'semicolon'
-ClassOrInterfaceDeclaration : Modifier ClassDeclaration
+ClassOrInterfaceDeclaration : ModifierList ClassDeclaration
+ModifierList : Modifier ModifierList
+ModifierList : 0
 Modifier : 'public'
 Modifier : 'protected'
 Modifier : 'private'
@@ -30,7 +30,6 @@ Modifier : 'native'
 Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'volatile'
-ClassOrInterfaceDeclaration : ClassDeclaration
 ClassDeclaration : NormalClassDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
@@ -82,7 +81,8 @@ MemberDecl : MethodOrFieldDecl
 MethodOrFieldDecl : Type Identifier MethodOrFieldRest
 MethodOrFieldRest : FieldDeclaratorsRest 'semicolon'
 MethodOrFieldRest : MethodDeclaratorRest
-FieldDeclaratorsRest : _BasicTypeList VariableDeclaratorList
+FieldDeclaratorsRest : VariableDeclaratorRest VariableDeclaratorList
+VariableDeclaratorRest : _BasicTypeList
 VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
 VariableDeclaratorList : 0
 VariableDeclarator : Identifier _BasicTypeList
@@ -95,3 +95,4 @@ FormalParameterDecls : Type FormalParameterDeclsRest
 FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
 FormalParameterDeclsRest : VariableDeclaratorId
 VariableDeclaratorId : Identifier _BasicTypeList
+-- 类方法变量声明 实现 end

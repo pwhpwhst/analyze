@@ -418,14 +418,13 @@ void write_word(char *yytext,char *symbol_name){
 
   p_lex_word->content = (char *)malloc(sizeof(char)*(strlen(yytext)+1));
   strcpy(p_lex_word->content, yytext);
-  printf("AA:%s\n",yytext);
   p_lex_word->type = (char *)malloc(sizeof(char)*(strlen(symbol_name)+1));
   strcpy(p_lex_word->type, symbol_name);
   rest_size--;
   p_lex_word++;
 }
 
-#line 429 "lex.yy.c"
+#line 428 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -576,11 +575,11 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 47 "SLR\\wordParser.l"
+#line 46 "SLR\\wordParser.l"
 
 
 
-#line 584 "lex.yy.c"
+#line 583 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -665,199 +664,199 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 50 "SLR\\wordParser.l"
+#line 49 "SLR\\wordParser.l"
 {
   write_word(yytext,"'IDENTIFIER'");
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 55 "SLR\\wordParser.l"
+#line 54 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COMMENT1'");
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 59 "SLR\\wordParser.l"
+#line 58 "SLR\\wordParser.l"
 {
   write_word(yytext,"'PLUS'");
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 63 "SLR\\wordParser.l"
+#line 62 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SUBTRACT'");
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 67 "SLR\\wordParser.l"
+#line 66 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COLON'");
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 71 "SLR\\wordParser.l"
+#line 70 "SLR\\wordParser.l"
 {
   write_word(yytext,"'AT'");
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 75 "SLR\\wordParser.l"
+#line 74 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SURPRISE'");
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 79 "SLR\\wordParser.l"
+#line 78 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SLASH'");
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 83 "SLR\\wordParser.l"
+#line 82 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COMMENT2'");
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 87 "SLR\\wordParser.l"
+#line 86 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COMMENT3'");
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 91 "SLR\\wordParser.l"
+#line 90 "SLR\\wordParser.l"
 {
   write_word(yytext,"'END_COMMENT'");
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 96 "SLR\\wordParser.l"
+#line 95 "SLR\\wordParser.l"
 {
   write_word(yytext,"'NEXT_LINE'");
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 100 "SLR\\wordParser.l"
+#line 99 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_BRACE'");
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 104 "SLR\\wordParser.l"
+#line 103 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_BRACE'");
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 108 "SLR\\wordParser.l"
+#line 107 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_ANGLE_BRACKET'");
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 112 "SLR\\wordParser.l"
+#line 111 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 116 "SLR\\wordParser.l"
+#line 115 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COMMA'");
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 120 "SLR\\wordParser.l"
+#line 119 "SLR\\wordParser.l"
 {
   write_word(yytext,"'EQUAL'");
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 125 "SLR\\wordParser.l"
+#line 124 "SLR\\wordParser.l"
 {
   write_word(yytext,"'QUESTION'");
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 129 "SLR\\wordParser.l"
+#line 128 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_BRACKET'");
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 133 "SLR\\wordParser.l"
+#line 132 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_BRACKET'");
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 137 "SLR\\wordParser.l"
+#line 136 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_PARENTHESES'");
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 141 "SLR\\wordParser.l"
+#line 140 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_PARENTHESES'");
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 145 "SLR\\wordParser.l"
+#line 144 "SLR\\wordParser.l"
 {
   write_word(yytext,"'semicolon'");
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 149 "SLR\\wordParser.l"
+#line 148 "SLR\\wordParser.l"
 {
   write_word(yytext,"'StringLiteral'");
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 153 "SLR\\wordParser.l"
+#line 152 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SPOT'");
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 157 "SLR\\wordParser.l"
+#line 156 "SLR\\wordParser.l"
 {
   write_word(yytext,"'STAR'");
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 161 "SLR\\wordParser.l"
+#line 160 "SLR\\wordParser.l"
 ECHO;
 	YY_BREAK
-#line 861 "lex.yy.c"
+#line 860 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1743,37 +1742,11 @@ int main()
 	return 0;
 	}
 #endif
-#line 161 "SLR\\wordParser.l"
+#line 160 "SLR\\wordParser.l"
 
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){
 
-/*
-	if(lex_word==NULL){
-		lex_word=(struct C_Lex_Word *)malloc(sizeof(struct C_Lex_Word)*buffer_size);
-		int i1=0;
-		for(i1=0;i1<buffer_size;i1++){
-			lex_word[i1].type=NULL;
-			lex_word[i1].content=NULL;
-		}
-		p_lex_word=lex_word;
-	}
-
-   int i1=0;
-   for(i1=0;i1<buffer_size;i1++){
-	if(lex_word[i1].type!=NULL){
-	   free(lex_word[i1].type);
-	   lex_word[i1].type=NULL;
-	}
-
-        if(lex_word[i1].content!=NULL){
-	   free(lex_word[i1].content);
-	   lex_word[i1].content=NULL;
-	}
-   }
-   buffer_size=500;
-   p_lex_word=lex_word;
-*/
    fopen_s(&yyin, file_path, "r");
    yylex();
    fclose(yyin);

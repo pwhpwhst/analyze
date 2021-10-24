@@ -6,7 +6,7 @@
 //#define __PRINT_LEX_WORD_LIST
 #define __PRINT_NODE_TREE
 //#define __PRINT_PARSE_PROCESS
-
+#define __ALLOW_AMBIGULOUS
 
 #include "slr.h"
 #include"symbols\PrimarySymbolConverter.h"
@@ -113,7 +113,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 	vector<vector<P_Item>> items_list;
 	log("构建 LR（0）算法的状态机");
 	unordered_map<int, unordered_map<string, int>> convert_map;
-	get_items_list_and_convert_map(items_list, convert_map, non_terminator, f_first, ruleList, start_symbol);
+	get_items_list_and_convert_map(items_list, convert_map, non_terminator, zero_terminator, f_first, ruleList, start_symbol);
 
 	unordered_map<string, set<int>> r_rule_item_map;
 	ostringstream os;
@@ -140,7 +140,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 	log("构建预测表");
 	vector< unordered_map< string, string>> forecast_list;
-	calculate_forecast_list(forecast_list, items_list, terminator, rule_map, convert_map, f_follow);
+	calculate_forecast_list(forecast_list, items_list, terminator, ruleList, rule_map, convert_map, f_follow);
 
 	//解决移入-规约冲突
 	log("解决移入-规约冲突");
@@ -216,13 +216,13 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 		
 	}
 
-#ifdef __PRINT_LEX_WORD_LIST
-	for (const auto &e : total_lex_word_list) {
-		cout << "type=" << e->type << endl;
-		cout << "content=" << e->content << endl;
-		cout << endl;
-	}
-#endif
+	#ifdef __PRINT_LEX_WORD_LIST
+		for (const auto &e : total_lex_word_list) {
+			cout << "type=" << e->type << endl;
+			cout << "content=" << e->content << endl;
+			cout << endl;
+		}
+	#endif
 	//人手添加总结符号
 	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
 	total_lex_word_list.back()->type = "'end'";
@@ -240,20 +240,17 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 			lex_word_list.pop_back();
 
 			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, forecast_list, convert_map, lex_word_list);
-#ifdef __PRINT_NODE_TREE
-
-			if (node_tree != nullptr) {
-				//			printStack(node_tree);
-				printStackTree(node_tree,ignore_file_path);
-			}
-#endif
+			#ifdef __PRINT_NODE_TREE
+				if (node_tree != nullptr) {
+					//			printStack(node_tree);
+					printStackTree(node_tree,ignore_file_path);
+				}
+			#endif
 
 
 			//			if (node_tree != nullptr) {
 			//				gen_middle_code(env, node_tree, compileInfo);
 			//			}
-
-
 
 			lex_word_list.clear();
 		}
@@ -372,67 +369,7 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 }
 
 
-bool Slr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
-	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list) {
-	bool flag = false;
-	set<int> item_set;
-	set<int> rule_set;
-	for (int i1 = 0; i1 < forecast_list.size(); i1++) {
-		const auto e1 = forecast_list[i1];
-		for (const auto &e2 : e1) {
-			if (e2.first == "0") {
-				continue;
-			}
-			if (e2.second.find(",") != string::npos) {
 
-				flag = true;
-				cout << "存在二义性:" << i1 << "," << e2.first << ":" << e2.second << endl;
-				item_set.insert(i1);
-				vector <string> string_list;
-				split(string_list, e2.second, is_any_of(","));
-				for (const auto &e : string_list) {
-					if (e[0] == 's') {
-						item_set.insert(atoi(e.substr(1).c_str()));
-					}
-					else {
-						rule_set.insert(atoi(e.substr(1).c_str()));
-					}
-				}
-
-			}
-		}
-	}
-
-	if (flag) {
-		cout << "打印转移状态图的点" << endl;
-		for (const int &i1 : item_set) {
-			cout << i1 << ":" << endl;
-			for (auto e : items_list[i1]) {
-				cout << e->rule->rule_name;
-				cout << " :";
-				for (auto e2 : e->rule->symbols) {
-					cout << " " << e2;
-				}
-				cout << " " << e->status << endl;
-			}
-		}
-
-		cout << "打印文法:" << endl;
-		for (const int &i1 : rule_set) {
-			auto &rule = ruleList[i1];
-			cout << i1 << ":" << endl;
-			cout << rule->rule_name;
-			cout << " :";
-			for (auto e2 : rule->symbols) {
-				cout << " " << e2;
-			}
-			cout << endl;
-		}
-
-	}
-
-	return flag;
-}
 
 void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first,
 	const vector<P_Rule> &ruleList, const set<string> &non_terminator, const set<string> &terminator, string start_symbol) {
@@ -918,6 +855,84 @@ void Slr::parse_all_symbol(set<string> &terminator, set<string> &non_terminator,
 	terminator.insert("'$'");
 
 
+	vector<string> stack;
+	set<string> in_stack;
+	unordered_map<string, bool> zero_map;
+	for (const string &e: non_terminator) {
+
+		if (zero_map.count(e)==0) {
+
+			stack.push_back(e);
+			in_stack.insert(e);
+
+			while (stack.size()>0) {
+
+				string e1=stack.back();
+
+				set<string> unsolve_set;
+
+				for (auto &rule : ruleList) {
+
+					if (rule->rule_name == e1) {
+						bool is_zero = true;
+						string unsolve_symbol = "";
+
+
+						for (auto &e2 : rule->symbols) {
+							if (e2 == "0") {
+
+							}
+							else if (terminator.count(e2) > 0) {
+								is_zero = false;
+								break;
+							}
+							else if (non_terminator.count(e2) > 0) {
+								if (zero_map.count(e2) > 0) {
+									if (!zero_map[e2]) {
+										is_zero = false;
+										break;
+									}
+								}
+								else { 
+									unsolve_symbol = e2;
+									break;
+								}
+							}
+						}
+						
+						if (unsolve_symbol != ""&&in_stack.count(unsolve_symbol)==0) {
+							unsolve_set.insert(unsolve_symbol);
+						}else if(is_zero){
+							zero_map[e1] = true;
+							break;
+						}
+
+					}
+				}
+
+				if (unsolve_set.size()>0) {
+					for (const auto &e2 : unsolve_set) {
+						stack.push_back(e2);
+						in_stack.insert(e2);
+					}
+				}
+				else {
+					if (zero_map.count(e1) == 0) {
+						zero_map[e1] = false;
+					}
+					stack.pop_back();
+					in_stack.erase(e1);
+				}
+			}
+		}
+	}
+
+	for (auto &e: zero_map) {
+		if (e.second) {
+			zero_terminator.insert(e.first);
+		}
+	}
+
 #ifdef __PRINT_SYMBOL
 	cout << "终端符号：" << endl;
 	for (const auto &e : terminator) {
@@ -978,7 +993,7 @@ items_list 项集
 
 */
 void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, unordered_map<int, unordered_map<string, int>> &convert_map,
-	const set<string> &non_terminator, unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const string start_symbol) {
+	const set<string> &non_terminator, const set<string> &zero_terminator,unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const string start_symbol) {
 
 	class P_Item_Cmp
 	{
@@ -1110,8 +1125,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 					_visited_items_set.insert(_p_item);
 				}
 				if (i1 != e->symbols.size()) {
-					if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
-						f_first[e->symbols[i1]].count("0") > 0) {
+					if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 && zero_terminator.count(e->symbols[i1])>0) {
 					}
 					else {
 						break;
@@ -1302,8 +1316,8 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 								_visited_items_set.insert(_p_item);
 							}
 							if (i1 != e->symbols.size()) {
-								if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 &&
-									f_first[e->symbols[i1]].count("0") > 0) {
+								if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 
+									&& zero_terminator.count(e->symbols[i1]) > 0) {
 								}
 								else {
 									break;
@@ -1464,12 +1478,76 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 }
 
 
+bool Slr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
+	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list) {
+	bool flag = false;
+	set<int> item_set;
+	set<int> rule_set;
+	for (int i1 = 0; i1 < forecast_list.size(); i1++) {
+		const auto e1 = forecast_list[i1];
+		for (auto &e2 : e1) {
+			if (e2.first == "0") {
+				continue;
+			}
+			if (e2.second.find(",") != string::npos) {
+
+				flag = true;
+				cout << "存在二义性:" << i1 << "," << e2.first << ":" << e2.second << endl;
+				item_set.insert(i1);
+				vector <string> string_list;
+				split(string_list, e2.second, is_any_of(","));
+				for (const auto &e : string_list) {
+					if (e[0] == 's') {
+						item_set.insert(atoi(e.substr(1).c_str()));
+					}
+					else {
+						rule_set.insert(atoi(e.substr(1).c_str()));
+					}
+				}
+
+			}
+		}
+	}
+
+	if (flag) {
+		cout << "打印转移状态图的点" << endl;
+		for (const int &i1 : item_set) {
+			cout << i1 << ":" << endl;
+			for (auto e : items_list[i1]) {
+				cout << e->rule->rule_name;
+				cout << " :";
+				for (auto e2 : e->rule->symbols) {
+					cout << " " << e2;
+				}
+				cout << " " << e->status << endl;
+			}
+		}
+
+		cout << "打印文法:" << endl;
+		for (const int &i1 : rule_set) {
+			auto &rule = ruleList[i1];
+			cout << i1 << ":" << endl;
+			cout << rule->rule_name;
+			cout << " :";
+			for (auto e2 : rule->symbols) {
+				cout << " " << e2;
+			}
+			cout << endl;
+		}
+
+	}
+
+	return flag;
+}
+
+
 
 void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecast_list,
-	const vector<vector<P_Item>> &items_list, const set<string> &terminator, unordered_map<P_Rule, int> &rule_map,
+	const vector<vector<P_Item>> &items_list, const set<string> &terminator, vector<P_Rule> &ruleList,unordered_map<P_Rule, int> &rule_map,
 	unordered_map<int, unordered_map<string, int>> &convert_map, unordered_map<string, set<string>> &f_follow) {
 	for (int i1 = 0; i1 < items_list.size(); i1++) {
 		unordered_map<string, string> _map;
+		vector <string> string_list;
 		for (auto &e1 : terminator) {
 			string s = "";
 			string r = "";
@@ -1482,14 +1560,38 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 
 				if (e2->end_for_symbol.count(e1)>0 && e2->status == e2->rule->symbols.size() 
 					&& f_follow[e2->rule->rule_name].count(e1) > 0) {
+					
+					#ifdef __ALLOW_AMBIGULOUS
 					if (r == "") {
 						r = "r" + to_string(rule_map[e2->rule]);
 					}
-					else {
-						r += ",r" + to_string(rule_map[e2->rule]);
+					#else
+						if (r == "") {
+							r = "r" + to_string(rule_map[e2->rule]);
+						}
+						else {
+							r += ",r" + to_string(rule_map[e2->rule]);
+						}
+					#endif
+				}
+			}
+
+			/*
+			if (r.find(",") != string::npos) {
+				string_list.clear();
+				split(string_list, r, is_any_of(","));
+				r = "";
+				for (auto &e2:string_list) {
+					if (!(ruleList[atoi(e2.substr(1).c_str())]->symbols.size() == 1 && ruleList[atoi(e2.substr(1).c_str())]->symbols[0] == "0")) {
+						if (r == "") {
+							r = e2;
+						}else {
+							r += "," + e2;
+						}
 					}
 				}
 			}
+			*/
 
 			if (s == "") {
 				s = r;
@@ -1508,14 +1610,41 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 		string r = "";
 		for (const auto &e2 : items_list[i1]) {
 			if ((e2->end_for_symbol.count("0")>0|| e2->end_for_symbol.count("'$'") > 0) && e2->status == e2->rule->symbols.size()) {
+				#ifdef __ALLOW_AMBIGULOUS
+
 				if (r == "") {
 					r = "r" + to_string(rule_map[e2->rule]);
 				}
-				else {
-					r += ",r" + to_string(rule_map[e2->rule]);
+
+				#else
+								if (r == "") {
+									r = "r" + to_string(rule_map[e2->rule]);
+								}
+								else {
+									r += ",r" + to_string(rule_map[e2->rule]);
+								}
+				#endif
+			}
+		}
+
+		/*
+		if (r.find(",") != string::npos) {
+			string_list.clear();
+			split(string_list, r, is_any_of(","));
+			r = "";
+			for (auto &e2 : string_list) {
+				if (!(ruleList[atoi(e2.substr(1).c_str())]->symbols.size() == 1 && ruleList[atoi(e2.substr(1).c_str())]->symbols[0] == "0")) {
+					if (r == "") {
+						r = e2;
+					}
+					else {
+						r += "," + e2;
+					}
 				}
 			}
 		}
+		*/
+
 		if (r != "") {
 			if (r=="r0") {
 				r = "acc";
@@ -1640,10 +1769,19 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 				item_node_stack1.pop_back();
 			}
 
-			top_item = item_node_stack1.back();
-			item_node_stack1.push_back(P_ItemNode(new ItemNode()));
-			item_node_stack1.back()->node = parent_node;
-			item_node_stack1.back()->item_status = convert_map[top_item->item_status][parent_node->symbol];
+
+			if (item_node_stack1.size()>0) {
+				top_item = item_node_stack1.back();
+				item_node_stack1.push_back(P_ItemNode(new ItemNode()));
+				item_node_stack1.back()->node = parent_node;
+				item_node_stack1.back()->item_status = convert_map[top_item->item_status][parent_node->symbol];
+			}
+			else {
+				item_node_stack1.push_back(P_ItemNode(new ItemNode()));
+				item_node_stack1.back()->node = parent_node;
+				item_node_stack1.back()->item_status = convert_map[0][parent_node->symbol];
+			}
+
 
 		}
 		else {

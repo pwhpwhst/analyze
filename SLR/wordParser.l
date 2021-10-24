@@ -161,32 +161,6 @@ StringLiteral \"(\\.|[^\\"])*\"
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){
 
-/*
-	if(lex_word==NULL){
-		lex_word=(struct C_Lex_Word *)malloc(sizeof(struct C_Lex_Word)*buffer_size);
-		int i1=0;
-		for(i1=0;i1<buffer_size;i1++){
-			lex_word[i1].type=NULL;
-			lex_word[i1].content=NULL;
-		}
-		p_lex_word=lex_word;
-	}
-
-   int i1=0;
-   for(i1=0;i1<buffer_size;i1++){
-	if(lex_word[i1].type!=NULL){
-	   free(lex_word[i1].type);
-	   lex_word[i1].type=NULL;
-	}
-
-        if(lex_word[i1].content!=NULL){
-	   free(lex_word[i1].content);
-	   lex_word[i1].content=NULL;
-	}
-   }
-   buffer_size=500;
-   p_lex_word=lex_word;
-*/
    fopen_s(&yyin, file_path, "r");
    yylex();
    fclose(yyin);

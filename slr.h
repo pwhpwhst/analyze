@@ -27,7 +27,7 @@ class Slr{
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
 
 private: void get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,unordered_map<int,unordered_map<string,int>> &convert_map,
-	const set<string> &non_terminator,unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const string start_symbol);
+	const set<string> &non_terminator, const set<string> &zero_terminator,unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const string start_symbol);
 
 private: void calculate_f_first(unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const set<string> &terminator,const set<string> &non_terminator);
 
@@ -35,7 +35,7 @@ private: void calculate_f_follow(unordered_map<string,set<string>> &f_follow, un
 	const vector<P_Rule> &ruleList,const set<string> &non_terminator,const set<string> &terminator,string start_symbol);
 
 private: void calculate_forecast_list(vector<unordered_map<string,string>> &forecast_list,
-	const vector<vector<P_Item>> &items_list,const set<string> &terminator, unordered_map<P_Rule,int> &rule_map,
+	const vector<vector<P_Item>> &items_list,const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule,int> &rule_map,
 	 unordered_map<int,unordered_map<string,int>> &convert_map, unordered_map<string,set<string>> &f_follow);
 
 private: void printStack(Node* &node_tree);
