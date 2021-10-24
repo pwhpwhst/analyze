@@ -83,9 +83,11 @@ MethodOrFieldRest : FieldDeclaratorsRest 'semicolon'
 MethodOrFieldRest : MethodDeclaratorRest
 FieldDeclaratorsRest : VariableDeclaratorRest VariableDeclaratorList
 VariableDeclaratorRest : _BasicTypeList
+VariableDeclaratorRest : _BasicTypeList 'EQUAL' VariableInitializer
 VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
 VariableDeclaratorList : 0
 VariableDeclarator : Identifier _BasicTypeList
+VariableInitializer : Expression
 -- 类成员变量声明 实现 end
 -- 类方法变量声明 实现 begin
 MethodDeclaratorRest : FormalParameters 'semicolon'
@@ -96,3 +98,11 @@ FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
 FormalParameterDeclsRest : VariableDeclaratorId
 VariableDeclaratorId : Identifier _BasicTypeList
 -- 类方法变量声明 实现 end
+-- 表达式实现 begin
+Expression : Expression1
+Expression1 : Expression2
+Expression2 : Expression3
+Expression3 : Primary
+Primary : Literal
+Literal : 'null'
+-- 表达式实现 end
