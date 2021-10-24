@@ -31,7 +31,7 @@ private: void get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 
 private: void calculate_f_first(unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const set<string> &terminator,const set<string> &non_terminator);
 
-private: void calculate_f_follow(unordered_map<string,set<string>> &f_follow, unordered_map<string,set<string>> &f_first,
+private: void calculate_f_follow(unordered_map<string,set<string>> &f_follow, unordered_map<string,set<string>> &f_first,set<string> &zero_terminator,
 	const vector<P_Rule> &ruleList,const set<string> &non_terminator,const set<string> &terminator,string start_symbol);
 
 private: void calculate_forecast_list(vector<unordered_map<string,string>> &forecast_list,

@@ -169,6 +169,9 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 		else if (oriLexWord.content == "boolean") {
 			newLexWord.type = "'boolean'";
 		}
+		else if (oriLexWord.content == "null") {
+			newLexWord.type = "'null'";
+		}
 		else {
 			newLexWord.type = oriLexWord.type;
 		}

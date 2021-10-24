@@ -5,7 +5,7 @@
 //#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
 #define __PRINT_NODE_TREE
-//#define __PRINT_PARSE_PROCESS
+#define __PRINT_PARSE_PROCESS
 #define __ALLOW_AMBIGULOUS
 
 #include "slr.h"
@@ -105,7 +105,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 	//计算follow函数
 	log("计算follow函数");
 	unordered_map<string, set<string>> f_follow;
-	calculate_f_follow(f_follow, f_first, ruleList, non_terminator, terminator, start_symbol);
+	calculate_f_follow(f_follow, f_first, zero_terminator, ruleList, non_terminator, terminator, start_symbol);
 
 
 
@@ -273,6 +273,7 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 			in_stack_rules.insert(e);
 			while (rule_stack.size() > 0) {
 				P_Rule rule = rule_stack.back();
+				/*
 				if (terminator.count(rule->symbols[0]) > 0) {
 					rule->first.push_back(rule->symbols[0]);
 					has_calculate_first_set.insert(rule);
@@ -280,6 +281,7 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 					in_stack_rules.erase(rule);
 					continue;
 				}
+				*/
 				bool has_calculate = true;
 				P_Rule un_calculate_rule = nullptr;
 				symbol_temp_set.clear();
@@ -288,28 +290,36 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 
 				for (int i1 = 0; i1 < rule->symbols.size(); i1++) {
 
-					for (auto &e2 : ruleList) {
-						if (in_stack_rules.count(e2) == 0 && e2->rule_name == rule->symbols[i1]) {
-							if (has_calculate_first_set.count(e2) == 0) {
-								has_calculate = false;
-								un_calculate_rule = e2;
-								break;
-							}
-							else {
-								for (const auto &e3 : e2->first) {
-									symbol_temp_set.insert(e3);
+					if (terminator.count(rule->symbols[i1]) > 0) {
+						symbol_temp_set.insert(rule->symbols[i1]);
+					}
+					else {
+						for (auto &e2 : ruleList) {
+							if (in_stack_rules.count(e2) == 0 && e2->rule_name == rule->symbols[i1]) {
+								if (has_calculate_first_set.count(e2) == 0) {
+									has_calculate = false;
+									un_calculate_rule = e2;
+									break;
+								}
+								else {
+									for (const auto &e3 : e2->first) {
+										symbol_temp_set.insert(e3);
+									}
 								}
 							}
 						}
 					}
+					
+
+
 
 					if (!has_calculate) {
 						break;
 					}
 
-					if (symbol_temp_set.count("'0'") > 0) {
+					if (symbol_temp_set.count("0") > 0) {
 						if (i1 != (rule->symbols.size() - 1)) {
-							symbol_temp_set.erase("'0'");
+							symbol_temp_set.erase("0");
 						}
 					}
 					else {
@@ -329,8 +339,14 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 				}
 				else {
 					if (in_stack_rules.count(un_calculate_rule) == 0) {
-						rule_stack.push_back(un_calculate_rule);
-						in_stack_rules.insert(un_calculate_rule);
+
+						for (auto &e2 : ruleList) {
+							if (e2->rule_name == un_calculate_rule->rule_name) {
+								rule_stack.push_back(e2);
+								in_stack_rules.insert(e2);
+							}
+						}
+
 					}
 				}
 
@@ -371,7 +387,7 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 
 
 
-void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first,
+void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first, set<string> &zero_terminator,
 	const vector<P_Rule> &ruleList, const set<string> &non_terminator, const set<string> &terminator, string start_symbol) {
 
 	for (const auto &e : non_terminator) {
@@ -391,10 +407,14 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 							if (e2 != "0") {
 								f_follow[e->symbols[i1]].insert(e2);
 							}
-							else {
-								is_contained_zero_symbol = true;
-							}
+//							else {
+//								is_contained_zero_symbol = true;
+//							}
 						}
+						if (zero_terminator.count(e->symbols[i2]) > 0) {
+							is_contained_zero_symbol = true;
+						}
+
 						if (!is_contained_zero_symbol) {
 							break;
 						}
@@ -421,6 +441,8 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 			rule_stack.push_back(e);
 			in_stack_rules.insert(e);
 
+
+
 			while (rule_stack.size() > 0) {
 				P_Rule rule = rule_stack.back();
 
@@ -432,7 +454,7 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 								f_follow[rule->symbols[i1]].insert(e3);
 							}
 						}
-						if (rule->symbols[i1] == "0" || non_terminator.count(rule->symbols[i1]) > 0 && f_first[rule->symbols[i1]].count("0") > 0) {
+						if (rule->symbols[i1] == "0" || non_terminator.count(rule->symbols[i1]) > 0 && zero_terminator.count(rule->symbols[i1]) > 0) {
 						}
 						else {
 							break;
