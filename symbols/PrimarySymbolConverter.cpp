@@ -100,7 +100,10 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 
 
 	if (oriLexWord.type == "'IDENTIFIER'") {
-		if (oriLexWord.content == "package") {
+
+		if (oriLexWord.content == "this") {
+			newLexWord.type = "'this'";
+		}else if (oriLexWord.content == "package") {
 			newLexWord.type = "'package'";
 		}
 		else if (oriLexWord.content == "import") {

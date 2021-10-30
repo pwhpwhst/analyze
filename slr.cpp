@@ -47,26 +47,7 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 	input_file.open(rule_file.data());
 	string rule_str;
 	ostringstream sb;
-	/*
-	while(getline(input_file,rule_str))
-	{
-		if(rule_str[0]=='='){
-			break;
-		}
-		rule_str= trim_right_copy(rule_str);
-		rule_str= trim_left_copy(rule_str);
-		if(startsWith(rule_str,"//")==1||startsWith(rule_str,"/*")==1){
-			continue;
-		}
 
-		sb<<rule_str;
-		if(rule_str[rule_str.length()-1]!=';'){
-			cout<<sb.str()<<endl;
-			ruleList.push_back(P_Rule(new Rule(sb.str())));
-			sb.str("");
-		}
-	}
-	*/
 	vector<string> orders;
 	unordered_map<string, string> temp_forecast_map;
 	paresOrders(rule_file, orders, temp_forecast_map);
