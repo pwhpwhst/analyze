@@ -282,14 +282,14 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 28
-#define YY_END_OF_BUFFER 29
-static yyconst short int yy_accept[37] =
+#define YY_NUM_RULES 29
+#define YY_END_OF_BUFFER 30
+static yyconst short int yy_accept[38] =
     {   0,
-        0,    0,   29,   28,   12,    7,   28,   22,   23,   27,
-        3,   17,    4,   26,    8,    1,    5,   24,   15,   18,
-       16,   19,    6,   20,   21,   13,   14,    0,   25,    0,
-       11,   10,    2,    1,    9,    0
+        0,    0,   30,   29,   12,    7,   29,   23,   24,   28,
+        3,   17,    4,   27,    8,    1,    5,   25,   15,   18,
+       16,   20,    6,   21,   22,   13,   14,   19,    0,   26,
+        0,   11,   10,    2,    1,    9,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -331,44 +331,44 @@ static yyconst int yy_meta[26] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst short int yy_base[38] =
+static yyconst short int yy_base[39] =
     {   0,
-        0,    0,   36,   47,   47,   47,   22,   47,   47,   23,
+        0,    0,   37,   47,   47,   19,   22,   47,   47,   23,
        47,   47,   47,   47,   20,   21,   47,   47,   47,   47,
-       47,   47,   47,   47,   47,   47,   47,   24,   47,   31,
-       47,   24,   47,   17,   47,   47,   28
+       47,   47,   47,   47,   47,   47,   47,   47,   24,   47,
+       31,   47,   24,   47,   17,   47,   47,   28
     } ;
 
-static yyconst short int yy_def[38] =
+static yyconst short int yy_def[39] =
     {   0,
-       36,    1,   36,   36,   36,   36,   37,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   37,   36,   37,
-       36,   36,   36,   36,   36,    0,   36
+       37,    1,   37,   37,   37,   37,   38,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   38,   37,
+       38,   37,   37,   37,   37,   37,    0,   37
     } ;
 
 static yyconst short int yy_nxt[73] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
        14,   15,   16,   17,   18,   19,   20,   21,   22,   23,
-       24,    4,   25,   26,   27,   29,   32,   29,   28,   34,
-       35,   33,   36,   34,   31,   36,   36,   36,   36,   36,
-       36,   36,   36,   30,   36,   30,    3,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   36,   36,   36,
-       36,   36
+       24,    4,   25,   26,   27,   30,   33,   30,   29,   35,
+       36,   34,   37,   35,   32,   28,   37,   37,   37,   37,
+       37,   37,   37,   31,   37,   31,    3,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   37,   37,
+       37,   37
     } ;
 
 static yyconst short int yy_chk[73] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    7,   15,   28,   37,   34,
-       32,   15,   30,   16,   10,    3,    0,    0,    0,    0,
-        0,    0,    0,    7,    0,   28,   36,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   36,   36,   36,
-       36,   36,   36,   36,   36,   36,   36,   36,   36,   36,
-       36,   36
+        1,    1,    1,    1,    1,    7,   15,   29,   38,   35,
+       33,   15,   31,   16,   10,    6,    3,    0,    0,    0,
+        0,    0,    0,    7,    0,   29,   37,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   37,   37,
+       37,   37,   37,   37,   37,   37,   37,   37,   37,   37,
+       37,   37
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -630,7 +630,7 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 37 )
+				if ( yy_current_state >= 38 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -790,73 +790,80 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 124 "SLR\\wordParser.l"
+#line 123 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'QUESTION'");
+  write_word(yytext,"'NOT_EQUAL'");
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 128 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'LEFT_BRACKET'");
+  write_word(yytext,"'QUESTION'");
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 132 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'RIGHT_BRACKET'");
+  write_word(yytext,"'LEFT_BRACKET'");
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 136 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'LEFT_PARENTHESES'");
+  write_word(yytext,"'RIGHT_BRACKET'");
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 140 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'RIGHT_PARENTHESES'");
+  write_word(yytext,"'LEFT_PARENTHESES'");
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 144 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'semicolon'");
+  write_word(yytext,"'RIGHT_PARENTHESES'");
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 148 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'StringLiteral'");
+  write_word(yytext,"'semicolon'");
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 152 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'SPOT'");
+  write_word(yytext,"'StringLiteral'");
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 156 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'STAR'");
+  write_word(yytext,"'SPOT'");
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 160 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'STAR'");
+}
+	YY_BREAK
+case 29:
+YY_RULE_SETUP
+#line 164 "SLR\\wordParser.l"
 ECHO;
 	YY_BREAK
-#line 860 "lex.yy.c"
+#line 867 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1148,7 +1155,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 37 )
+			if ( yy_current_state >= 38 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1183,11 +1190,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 37 )
+		if ( yy_current_state >= 38 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 36);
+	yy_is_jam = (yy_current_state == 37);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -1742,7 +1749,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 160 "SLR\\wordParser.l"
+#line 164 "SLR\\wordParser.l"
 
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){

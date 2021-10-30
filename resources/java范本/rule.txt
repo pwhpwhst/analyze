@@ -92,6 +92,10 @@ VariableInitializer : Expression
 -- 类方法变量声明 实现 begin
 MethodDeclaratorRest : FormalParameters 'semicolon'
 MethodDeclaratorRest : FormalParameters Block
+MethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList 'semicolon'
+MethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList Block
+QualifiedIdentifierList : QualifiedIdentifier 'COMMA' QualifiedIdentifierList
+QualifiedIdentifierList : QualifiedIdentifier
 FormalParameters : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
 FormalParameters : 'LEFT_PARENTHESES' FormalParameterDecls 'RIGHT_PARENTHESES'
 FormalParameterDecls : Type FormalParameterDeclsRest
@@ -107,6 +111,13 @@ NonBrace : 'semicolon'
 NonBrace : 'EQUAL'
 NonBrace : 'SPOT'
 NonBrace : 'this'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_PARENTHESES'
+NonBrace : 'null'
+NonBrace : 'StringLiteral'
+NonBrace : 'COMMA'
+NonBrace : 'NOT_EQUAL'
+NonBrace : 'PLUS'
 -- 类方法变量声明 实现 end
 -- 表达式实现 begin
 Expression : Expression1

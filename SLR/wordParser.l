@@ -120,6 +120,10 @@ StringLiteral \"(\\.|[^\\"])*\"
   write_word(yytext,"'EQUAL'");
 }
 
+"!=" {
+  write_word(yytext,"'NOT_EQUAL'");
+}
+
 
 "?" {
   write_word(yytext,"'QUESTION'");
