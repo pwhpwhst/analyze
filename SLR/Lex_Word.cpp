@@ -30,7 +30,7 @@ Lex_Word::~Lex_Word(){
 
 // word_parser(compile_file,total_lex_word_list);
 
-void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list,Env& env){
+void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list){
    struct C_Lex_Word **beg=(struct C_Lex_Word **)malloc(sizeof(struct C_Lex_Word *));
    struct C_Lex_Word **end=(struct C_Lex_Word **)malloc(sizeof(struct C_Lex_Word *));
    char *c_path = const_cast<char *>(path.c_str()) ;
@@ -41,12 +41,7 @@ void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list,Env& env){
 		lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
 		lex_word_list.back()->type=p->type;
 		lex_word_list.back()->content=p->content;
-		if(lex_word_list.back()->type=="'identifier'"){
-            SmbolInfo& info=env.get(p->content);
-            if(info.tag==Tag::ID){
-               lex_word_list.back()->type= info.identifier_name;
-            }
-		}
+
 
 		p++;
 	}

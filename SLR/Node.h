@@ -10,6 +10,8 @@ public: Node *parent;
 public: vector<Node*> child_node_list;
 
 public: string get_rule_str();
+
+public: virtual ~Node();
 };
 
 

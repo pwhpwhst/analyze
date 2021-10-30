@@ -4,7 +4,7 @@
 //#define __PRINT_FORECAST
 //#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
-#define __PRINT_NODE_TREE
+
 #define __PRINT_PARSE_PROCESS
 #define __ALLOW_AMBIGULOUS
 
@@ -34,15 +34,18 @@ void Slr::log(const string& s) {
 }
 
 
-
-int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env& env, CompileInfo &compileInfo) {
+int Slr::init(string rule_file) {
+	ruleList.clear();
+	terminator.clear();
+	non_terminator.clear();
+	forecast_list.clear();
+	convert_map.clear();
 
 	//初始化
 	string start_symbol = "ele_begin";
 
 	//
 	log("生成ruleListing");
-	vector<P_Rule> ruleList;
 	ifstream input_file;
 	input_file.open(rule_file.data());
 	string rule_str;
@@ -59,10 +62,6 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 	vector <string> string_list;
 
-
-
-
-
 	unordered_map<P_Rule, int> rule_map;
 	for (int i1 = 0; i1 < ruleList.size(); i1++) {
 		rule_map[ruleList[i1]] = i1;
@@ -71,8 +70,6 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 	//划出所有的终结符号和非终结符号
 	log("划出所有的终结符号和非终结符号");
-	set<string> terminator;
-	set<string> non_terminator;
 	set<string> zero_terminator;
 	parse_all_symbol(terminator, non_terminator, zero_terminator, ruleList);
 
@@ -93,7 +90,6 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 	//构建 LR（0）算法的状态机
 	vector<vector<P_Item>> items_list;
 	log("构建 LR（0）算法的状态机");
-	unordered_map<int, unordered_map<string, int>> convert_map;
 	get_items_list_and_convert_map(items_list, convert_map, non_terminator, zero_terminator, f_first, ruleList, start_symbol);
 
 	unordered_map<string, set<int>> r_rule_item_map;
@@ -120,7 +116,6 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 
 	log("构建预测表");
-	vector< unordered_map< string, string>> forecast_list;
 	calculate_forecast_list(forecast_list, items_list, terminator, ruleList, rule_map, convert_map, f_follow);
 
 	//解决移入-规约冲突
@@ -168,25 +163,24 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 
 	}
 
-
 	if (detect_ambigulous(forecast_list, ruleList, items_list)) {
 		return -1;
 	}
+	return 0;
+}
 
-
+void Slr::init_total_lex_word_list(string compile_file) {
+	total_lex_word_list.clear();
 
 	//定义上下文
 	log("定义上下文");
-	int context_id = 0;
 
 	//生成输入
 	log("生成输入");
 	PrimarySymbolConverter primarySymbolConverter;
 	vector<P_Lex_Word>  _total_lex_word_list;
 	_total_lex_word_list.clear();
-	word_parser(compile_file, _total_lex_word_list, env);
-
-	vector<P_Lex_Word>  total_lex_word_list;
+	word_parser(compile_file, _total_lex_word_list);
 
 	for (P_Lex_Word &e : _total_lex_word_list) {
 		auto p = P_Lex_Word(new Lex_Word());
@@ -194,24 +188,23 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 		if (p->type != "0") {
 			total_lex_word_list.push_back(p);
 		}
-		
+
 	}
 
-	#ifdef __PRINT_LEX_WORD_LIST
-		for (const auto &e : total_lex_word_list) {
-			cout << "type=" << e->type << endl;
-			cout << "content=" << e->content << endl;
-			cout << endl;
-		}
-	#endif
+#ifdef __PRINT_LEX_WORD_LIST
+	for (const auto &e : total_lex_word_list) {
+		cout << "type=" << e->type << endl;
+		cout << "content=" << e->content << endl;
+		cout << endl;
+	}
+#endif
 	//人手添加总结符号
 	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
 	total_lex_word_list.back()->type = "'end'";
+}
 
-	//符号表
-	log("符号表");
-	int context_offset = 0;
-	//unordered_map<string,P_Symbol> symbol_context;
+Node* Slr::slr(string ignore_file_path, Env& env, CompileInfo &compileInfo) {
+
 	vector<P_Lex_Word>  lex_word_list;
 
 	for (const auto &e : total_lex_word_list) {
@@ -221,21 +214,15 @@ int Slr::slr(string rule_file, string compile_file,string ignore_file_path, Env&
 			lex_word_list.pop_back();
 
 			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, forecast_list, convert_map, lex_word_list);
-			#ifdef __PRINT_NODE_TREE
-				if (node_tree != nullptr) {
-					//			printStack(node_tree);
-					printStackTree(node_tree,ignore_file_path);
-				}
-			#endif
-
-
 			//			if (node_tree != nullptr) {
 			//				gen_middle_code(env, node_tree, compileInfo);
 			//			}
 
 			lex_word_list.clear();
+			return node_tree;
 		}
 	}
+	return nullptr;
 }
 
 
@@ -528,8 +515,8 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 }
 
 
-void Slr::printGraph(vector<vector<P_Item>> items_list,
-	unordered_map<int, unordered_map<string, int>> convert_map) {
+void Slr::printGraph(vector<vector<P_Item>> &items_list,
+	unordered_map<int, unordered_map<string, int>> &convert_map) {
 	cout << "打印转移状态图的点" << endl;
 
 	for (int i1 = 0; i1 < items_list.size(); i1++) {

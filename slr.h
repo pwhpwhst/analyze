@@ -23,6 +23,13 @@
 
 class Slr{
 
+private:vector<P_Rule> ruleList;
+private:set<string> terminator;
+private:set<string> non_terminator;
+private:vector< unordered_map< string, string>> forecast_list;
+private:unordered_map<int, unordered_map<string, int>> convert_map;
+private:vector<P_Lex_Word>  total_lex_word_list;
+
 
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
 
@@ -40,10 +47,10 @@ private: void calculate_forecast_list(vector<unordered_map<string,string>> &fore
 
 private: void printStack(Node* &node_tree);
 
-private: void printStackTree(Node* &node_tree,string ignore_file_path);
+public: void printStackTree(Node* &node_tree,string ignore_file_path);
 
-private: void printGraph(vector<vector<P_Item>> items_list,
-unordered_map<int,unordered_map<string,int>> convert_map);
+private: void printGraph(vector<vector<P_Item>> &items_list,
+unordered_map<int,unordered_map<string,int>> &convert_map);
 
 		 
 		 
@@ -56,7 +63,11 @@ private: bool detect_ambigulous( vector<unordered_map<string,string>> &forecast_
 
 private: void gen_middle_code(Env &env,Node* &node_tree,CompileInfo &compileInfo);
 
-public: int slr(string rule_file,string compile_file,string ignore_file_path,Env &env,CompileInfo &compileInfo);
+public: Node* slr(string ignore_file_path,Env &env,CompileInfo &compileInfo);
+
+public: int init(string rule_file);
+
+public: void init_total_lex_word_list(string compile_file);
 
 private: int startsWith(string s, string sub);
 

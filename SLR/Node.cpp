@@ -11,6 +11,17 @@ string Node::get_rule_str(){
 	}
 	return os.str();
 }
+
+
+Node::~Node() {
+	for (auto &e:child_node_list) {
+		delete e;
+	}
+}
+
+
+
+
 /**
 void releaseNode(Node *node){
 	if(node->parent!=nullptr){
