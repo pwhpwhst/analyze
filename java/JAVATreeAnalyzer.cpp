@@ -87,8 +87,17 @@ void JAVATreeAnalyzer::parse_MethodOrFieldRest(MethodOrFieldEntity &entity, Node
 				parse_FormalParameterDecls(entity, e);
 			}
 		}
+
+		for (auto &e : node->child_node_list[0]->child_node_list) {
+			if (e->symbol == "Block") {
+				parse_Block(entity, e);
+			}
+		}
 	}
 }
+
+
+
 
 
 void JAVATreeAnalyzer::parse_FormalParameterDecls(MethodOrFieldEntity &entity, Node *node) {
@@ -119,5 +128,18 @@ void JAVATreeAnalyzer::parse_FormalParameterDecls(MethodOrFieldEntity &entity, N
 		}
 	}
 	entity.parameters = sb.str();
+}
+
+
+void JAVATreeAnalyzer::parse_Block(MethodOrFieldEntity &entity, Node *node) {
+	for (auto &e: node->child_node_list ) {
+		if (e->symbol=="'LEFT_BRACE'") {
+			entity.beg_index = e->index;
+		}
+		else if (e->symbol == "'RIGHT_BRACE'") {
+			entity.end_index = e->index;
+		}
+	}
+
 }
 

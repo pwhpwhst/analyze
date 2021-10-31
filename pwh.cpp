@@ -54,7 +54,7 @@ javaTreeAnalyzer.parse(node_tree, result_vector);
 
 cout << endl;
 for (auto &e : result_vector) {
-	cout << e->parameters << endl;
+	cout << e->beg_index<<","<<e->end_index << endl;
 }
 
 

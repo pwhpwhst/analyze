@@ -9,6 +9,7 @@ public:	string type;
 public:	string content;
 public: int lineNum = 1;
 public: int colNum = 0;
+public: long index = -1;
 
 //默认构造器
 public: Lex_Word();

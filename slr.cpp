@@ -191,6 +191,16 @@ void Slr::init_total_lex_word_list(string compile_file) {
 
 	}
 
+	/*
+		cout << endl;
+		for (const auto &e : total_lex_word_list) {
+			if (e->index>= 465 && e->index <= 603) {
+				cout << e->content<<" ";
+			}
+		}
+		cout << endl;
+	*/
+
 #ifdef __PRINT_LEX_WORD_LIST
 	for (const auto &e : total_lex_word_list) {
 		cout << "type=" << e->type << endl;
@@ -1711,6 +1721,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 			Node *node = new Node();
 			node->symbol = (*p_input)->type;
 			node->content = (*p_input)->content;
+			node->index = (*p_input)->index;
 			node->parent = nullptr;
 			node->offset = 0;
 			item_node_stack1.back()->node = node;
@@ -1746,6 +1757,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 					pre_child_node = new Node();
 					pre_child_node->symbol = best_rule->symbols[i1];
 					pre_child_node->content = "";
+					pre_child_node->index = -1;
 				}else {
 					pre_child_node = item_node_stack1[map[i1]]->node;
 				}

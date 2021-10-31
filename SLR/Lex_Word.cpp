@@ -41,7 +41,7 @@ void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list){
 		lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
 		lex_word_list.back()->type=p->type;
 		lex_word_list.back()->content=p->content;
-
+		lex_word_list.back()->index = lex_word_list.size() - 1;
 
 		p++;
 	}

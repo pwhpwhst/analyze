@@ -31,6 +31,7 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 	}
 	newLexWord.lineNum = lineNum;
 	newLexWord.colNum = colNum;
+	newLexWord.index = oriLexWord.index;
 	//位置统计 end
 
 	//注释过滤 begin

@@ -20,6 +20,8 @@ private:void parse_Type(MethodOrFieldEntity &entity, Node *node);
 private:void parse_MethodOrFieldRest(MethodOrFieldEntity &entity, Node *node);
 
 private:void parse_FormalParameterDecls(MethodOrFieldEntity &entity, Node *node);
+
+private:void parse_Block(MethodOrFieldEntity &entity, Node *node);
 };
 
 
