@@ -1,4 +1,4 @@
-﻿#define __PRINT_NODE_TREE
+﻿//#define __PRINT_NODE_TREE
 #include"symbols\Env.h"
 #include"symbols\CompileInfo.h"
 #include"slr.h"
@@ -6,7 +6,7 @@
 #include"symbols\Tag.h"
 #include"SLR\Lex_Word.h"
 #include"symbols\PrimarySymbolConverter.h"
-
+#include"java/JAVATreeAnalyzer.h"
 #include <vector>
 
 
@@ -17,8 +17,8 @@ int testForSynax(){
 //string compile_file="E:\\Users\\Administrator\\Desktop\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\pwh的试验\\testForLexical.txt";
 
 string rule_file="C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\rule.txt";
-string compile_file= "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh.java";
-//string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
+//string compile_file= "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh.java";
+string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
 string ignore_file_path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ignore.txt";
 
 //string rule_file="F:\\codeWeaponStore\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\rule.txt";
@@ -47,10 +47,22 @@ if (node_tree != nullptr) {
 }
 #endif
 
+JAVATreeAnalyzer javaTreeAnalyzer;
+vector<P_MethodOrFieldEntity> result_vector;
+
+javaTreeAnalyzer.parse(node_tree, result_vector);
+
+cout << endl;
+for (auto &e : result_vector) {
+	cout << e->parameters << endl;
+}
+
+
 delete node_tree;
 
 cout<<"检测完成！"<<endl;
 
+return 0;
 }
 
 
