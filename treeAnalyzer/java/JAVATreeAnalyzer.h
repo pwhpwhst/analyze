@@ -1,17 +1,18 @@
 #pragma once
 #include<vector>
-#include "../Entity/MethodOrFieldEntity.h"
-#include "../SLR/Node.h"
+#include "../../Entity/MethodOrFieldEntity.h"
+#include "../../SLR/Node.h"
+#include "../TreeAnalyzer.h"
 using namespace std;
 
 
 
-class JAVATreeAnalyzer {
+class JAVATreeAnalyzer :virtual public TreeAnalyzer {
 
 public: JAVATreeAnalyzer();
 public: virtual ~JAVATreeAnalyzer();
 
-public: void parse(Node *treeNode,vector<P_MethodOrFieldEntity> &result_vector);
+public: void parse(Node *treeNode, vector<P_MethodOrFieldEntity> &result_vector);
 
 private:void parse_MethodOrFieldDecl(MethodOrFieldEntity &entity, Node *node);
 

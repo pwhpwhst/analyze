@@ -17,6 +17,7 @@
 #include"SLR\Lex_Word.h"
 #include"symbols\Env.h"
 #include"symbols\CompileInfo.h"
+#include"symbols\PrimarySymbolConverter.h"
 //#include"SDT\SDT_generator.h"
 
 
@@ -67,7 +68,7 @@ public: Node* slr(string ignore_file_path,Env &env,CompileInfo &compileInfo);
 
 public: int init(string rule_file);
 
-public: void init_total_lex_word_list(string compile_file);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter);
 
 private: int startsWith(string s, string sub);
 

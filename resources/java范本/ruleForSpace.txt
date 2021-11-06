@@ -1,0 +1,130 @@
+ele_begin : CompilationUnit
+-- 类的上侧部分 begin
+CompilationUnit : ImportDeclarationList
+CompilationUnit : ImportDeclarationList TypeDeclaration
+CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList
+CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList TypeDeclaration
+ImportDeclarationList : ImportDeclaration ImportDeclarationList
+ImportDeclarationList : 0
+ImportDeclaration : 'import' IdentifierList 'semicolon'
+ImportDeclaration : 'import' 'static' IdentifierList 'semicolon'
+ImportDeclaration : 'import' IdentifierList 'SPOT' 'STAR' 'semicolon'
+ImportDeclaration : 'import' 'static' IdentifierList 'SPOT' 'STAR' 'semicolon'
+QualifiedIdentifier : IdentifierList
+IdentifierList : _IdentifierList
+_IdentifierList : Identifier 'SPOT' _IdentifierList
+_IdentifierList : Identifier
+-- 类的上侧部分 end
+TypeDeclaration : ClassOrInterfaceDeclaration
+TypeDeclaration : 'semicolon'
+ClassOrInterfaceDeclaration : ModifierList ClassDeclaration
+ModifierList : Modifier ModifierList
+ModifierList : 0
+Modifier : 'public'
+Modifier : 'protected'
+Modifier : 'private'
+Modifier : 'static'
+Modifier : 'abstract'
+Modifier : 'final'
+Modifier : 'native'
+Modifier : 'synchronized'
+Modifier : 'transient'
+Modifier : 'volatile'
+ClassDeclaration : NormalClassDeclaration
+NormalClassDeclaration : 'class' Identifier ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' Type ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'extends' Type ClassBody
+NormalClassDeclaration : 'class' Identifier 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' Type 'implements' TypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeParameters 'extends' Type 'implements' TypeList ClassBody
+ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
+Identifier : 'IDENTIFIER'
+-- 类的模板参数 尖括号部分 begin
+TypeParameters : 'LEFT_ANGLE_BRACKET' Ig_TypeParameterList 'RIGHT_ANGLE_BRACKET'
+Ig_TypeParameterList : TypeParameter _Ig_TypeParameterList
+_Ig_TypeParameterList : 'COMMA' TypeParameter _Ig_TypeParameterList
+_Ig_TypeParameterList : 0
+TypeParameter : Identifier TypeParameters
+TypeParameter : Identifier
+-- 类的模板参数 尖括号部分 end
+-- 类的 extends 和 implments 部分 begin
+Type : BasicTypeArr
+Type : ReferenceTypeArr
+BasicTypeArr : BasicType _BasicTypeList 
+BasicType : 'byte'
+BasicType : 'short'
+BasicType : 'char'
+BasicType : 'int'
+BasicType : 'long'
+BasicType : 'float'
+BasicType : 'double'
+BasicType : 'boolean'
+_BasicTypeList : 'LEFT_BRACKET' 'RIGHT_BRACKET' _BasicTypeList
+_BasicTypeList : 0
+ReferenceTypeArr : ReferenceType _BasicTypeList
+ReferenceType : Identifier 
+TypeList : ReferenceType _ReferenceTypeList
+_ReferenceTypeList : 'COMMA' ReferenceType _ReferenceTypeList
+_ReferenceTypeList : 0
+-- 类的 extends 和 implments  部分 end
+-- ClassBodyDeclarationList 实现 begin
+ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
+ClassBodyDeclarationList : 0
+ClassBodyDeclaration : 'semicolon'
+ClassBodyDeclaration : ClassOrInterfaceDeclaration
+ClassBodyDeclaration : MemberDecl
+ClassBodyDeclaration : Modifier MemberDecl
+MemberDecl : MethodOrFieldDecl
+-- ClassBodyDeclarationList 实现 end
+-- 类成员变量声明 实现 begin
+MethodOrFieldDecl : Type Identifier MethodOrFieldRest
+MethodOrFieldRest : FieldDeclaratorsRest 'semicolon'
+MethodOrFieldRest : MethodDeclaratorRest
+FieldDeclaratorsRest : VariableDeclaratorRest VariableDeclaratorList
+VariableDeclaratorRest : _BasicTypeList
+VariableDeclaratorRest : _BasicTypeList 'EQUAL' VariableInitializer
+VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
+VariableDeclaratorList : 0
+VariableDeclarator : Identifier _BasicTypeList
+VariableInitializer : Expression
+-- 类成员变量声明 实现 end
+-- 类方法变量声明 实现 begin
+MethodDeclaratorRest : FormalParameters 'semicolon'
+MethodDeclaratorRest : FormalParameters Block
+MethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList 'semicolon'
+MethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList Block
+QualifiedIdentifierList : QualifiedIdentifier 'COMMA' QualifiedIdentifierList
+QualifiedIdentifierList : QualifiedIdentifier
+FormalParameters : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+FormalParameters : 'LEFT_PARENTHESES' FormalParameterDecls 'RIGHT_PARENTHESES'
+FormalParameterDecls : Type FormalParameterDeclsRest
+FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
+FormalParameterDeclsRest : VariableDeclaratorId
+VariableDeclaratorId : Identifier _BasicTypeList
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
+BlockStatements : 0
+NonBrace : Identifier
+NonBrace : 'semicolon'
+NonBrace : 'EQUAL'
+NonBrace : 'SPOT'
+NonBrace : 'this'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_PARENTHESES'
+NonBrace : 'null'
+NonBrace : 'StringLiteral'
+NonBrace : 'COMMA'
+NonBrace : 'NOT_EQUAL'
+NonBrace : 'PLUS'
+-- 类方法变量声明 实现 end
+-- 表达式实现 begin
+Expression : Expression1
+Expression1 : Expression2
+Expression2 : Expression3
+Expression3 : Primary
+Primary : Literal
+Literal : 'null'
+-- 表达式实现 end

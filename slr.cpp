@@ -2,7 +2,7 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-//#define __PRINT_GRAPH
+#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
 
 //#define __PRINT_PARSE_PROCESS
@@ -169,7 +169,7 @@ int Slr::init(string rule_file) {
 	return 0;
 }
 
-void Slr::init_total_lex_word_list(string compile_file) {
+void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter) {
 	total_lex_word_list.clear();
 
 	//定义上下文
@@ -177,7 +177,7 @@ void Slr::init_total_lex_word_list(string compile_file) {
 
 	//生成输入
 	log("生成输入");
-	PrimarySymbolConverter primarySymbolConverter;
+
 	vector<P_Lex_Word>  _total_lex_word_list;
 	_total_lex_word_list.clear();
 	word_parser(compile_file, _total_lex_word_list);
@@ -1052,9 +1052,12 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 	deque<string> rule_name_deq;
 	set<string> rule_name_set;
 	unordered_map<string, set<P_Item>> from_map;
+
+	//_items_set _visited_items_set 用于验证是否存在二义性
 	set<P_Item, P_Item_Cmp> _items_set;
 	set<P_Item, P_Item_Cmp> _visited_items_set;
 
+	//first_input _first_set has_calculated_end_for_symbol_set 用于计算 end_for_symbol_set
 	vector<string> first_input;
 	set<string> _first_set;
 	set<P_Item> has_calculated_end_for_symbol_set;
@@ -1076,66 +1079,77 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 
 		}
 	}
-
+//	rule_name_set rule_name_deq 用于计算下层次
 	for (auto e : rule_name_set) {
 		rule_name_deq.push_front(e);
 	}
 
-	while (rule_name_deq.size() > 0) {
-		string rule_name = rule_name_deq.back();
-		for (auto e : ruleList) {
-			if (e->rule_name == rule_name) {
-				if (non_terminator.count(e->symbols[0]) > 0) {
+	while (true) {
+		while (rule_name_deq.size() > 0) {
+			string rule_name = rule_name_deq.back();
+			for (auto &e : ruleList) {
+				if (e->rule_name == rule_name) {
+					if (non_terminator.count(e->symbols[0]) > 0) {
 
-					string rule_first_name = e->symbols[0];
-					if (rule_name_set.count(rule_first_name) == 0) {
-						if (from_map.count(rule_first_name) == 0) {
-							set<P_Item> from_set;
-							from_map[rule_first_name] = from_set;
-						}
+						string rule_first_name = e->symbols[0];
 
 						for (auto e2 : ruleList) {
 							if (e2->rule_name == rule_name && e2->symbols[0] == rule_first_name) {
 								from_map[rule_first_name].insert(P_Item(new Item(e2, 0)));
 							}
 						}
-						rule_name_set.insert(rule_first_name);
-						rule_name_deq.push_front(rule_first_name);
+						if (rule_name_set.count(rule_first_name) == 0) {
+							rule_name_set.insert(rule_first_name);
+							rule_name_deq.push_front(rule_first_name);
+						}
+
 					}
 
 				}
+			}
+			rule_name_deq.pop_back();
+		}
 
+		bool another_loop = false;
+		for (auto &e : ruleList) {
+			if (rule_name_set.count(e->rule_name) > 0) {
 
+				for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
+					P_Item _p_item(new Item(e, i1));
 
+					if (_items_set.count(_p_item) == 0) {
+						items_list[0].push_back(_p_item);
+						_items_set.insert(_p_item);
+						_visited_items_set.insert(_p_item);
+					}
+					if (i1 != e->symbols.size()) {
+						if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 && zero_terminator.count(e->symbols[i1]) > 0) {
+							if ((i1+1)< e->symbols.size()&& non_terminator.count(e->symbols[i1+1]) > 0) {
+								from_map[e->symbols[i1 + 1]].insert(P_Item(new Item(e, i1 + 1)));
+								if (rule_name_set.count(e->symbols[i1 + 1]) == 0) {
+									another_loop = true;
+									rule_name_set.insert(e->symbols[i1 + 1]);
+									rule_name_deq.push_front(e->symbols[i1 + 1]);
+								}
+							}
+						}
+						else {
+							break;
+						}
+					}
+				}
 			}
 		}
-		rule_name_deq.pop_back();
+
+		if (!another_loop) {
+			break;
+		}
 	}
 
 
-	for (auto e : ruleList) {
-		if (rule_name_set.count(e->rule_name) > 0) {
-
-			for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
-				P_Item _p_item(new Item(e, i1));
-
-				if (_items_set.count(_p_item) == 0) {
-					items_list[0].push_back(_p_item);
-					_items_set.insert(_p_item);
-					_visited_items_set.insert(_p_item);
-				}
-				if (i1 != e->symbols.size()) {
-					if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 && zero_terminator.count(e->symbols[i1])>0) {
-					}
-					else {
-						break;
-					}
-				}
 
 
-			}
-		}
-	}
+
 
 
 //计算 end_for_symbol
@@ -1259,10 +1273,6 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 					if (e->rule->symbols.size() > e->status) {
 						rule_name_set.insert(e->rule->symbols[e->status]);
 
-						if (from_map.count(e->rule->symbols[e->status]) == 0) {
-							set<P_Item> from_set;
-							from_map[e->rule->symbols[e->status]] = from_set;
-						}
 						from_map[e->rule->symbols[e->status]].insert(e);
 
 					}
@@ -1275,58 +1285,71 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 
 
 
+				while (true) {
 
-				while (rule_name_deq.size() > 0) {
-					string rule_name = rule_name_deq.back();
-					for (auto e : ruleList) {
-						if (e->rule_name == rule_name) {
-							if (non_terminator.count(e->symbols[0]) > 0) {
+					while (rule_name_deq.size() > 0) {
+						string rule_name = rule_name_deq.back();
+						for (auto e : ruleList) {
+							if (e->rule_name == rule_name) {
+								if (non_terminator.count(e->symbols[0]) > 0) {
 
-								string rule_first_name = e->symbols[0];
-								if (rule_name_set.count(rule_first_name) == 0) {
-									if (from_map.count(rule_first_name) == 0) {
-										set<P_Item> from_set;
-										from_map[rule_first_name] = from_set;
-									}
+									string rule_first_name = e->symbols[0];
 
 									for (auto e2 : ruleList) {
 										if (e2->rule_name == rule_name && e2->symbols[0] == rule_first_name) {
 											from_map[rule_first_name].insert(P_Item(new Item(e2, 0)));
 										}
 									}
-									rule_name_set.insert(rule_first_name);
-									rule_name_deq.push_front(rule_first_name);
-								}
+									if (rule_name_set.count(rule_first_name) == 0) {
+										rule_name_set.insert(rule_first_name);
+										rule_name_deq.push_front(rule_first_name);
+									}
 
-							}
-						}
-					}
-					rule_name_deq.pop_back();
-				}
 
-				for (auto e : ruleList) {
-					if (rule_name_set.count(e->rule_name) > 0) {
 
-						for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
-							P_Item _p_item(new Item(e, i1));
-
-							if (_items_set.count(_p_item) == 0) {
-								_items.push_back(_p_item);
-								_items_set.insert(_p_item);
-								_visited_items_set.insert(_p_item);
-							}
-							if (i1 != e->symbols.size()) {
-								if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 
-									&& zero_terminator.count(e->symbols[i1]) > 0) {
-								}
-								else {
-									break;
 								}
 							}
 						}
+						rule_name_deq.pop_back();
+					}
+
+					bool another_loop = false;
+
+					for (auto &e : ruleList) {
+						if (rule_name_set.count(e->rule_name) > 0) {
+
+							for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
+								P_Item _p_item(new Item(e, i1));
+
+								if (_items_set.count(_p_item) == 0) {
+									_items.push_back(_p_item);
+									_items_set.insert(_p_item);
+									_visited_items_set.insert(_p_item);
+								}
+								if (i1 != e->symbols.size()) {
+									if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0
+										&& zero_terminator.count(e->symbols[i1]) > 0) {
+											if ((i1 + 1) < e->symbols.size() && non_terminator.count(e->symbols[i1 + 1]) > 0) {
+												from_map[e->symbols[i1 + 1]].insert(P_Item(new Item(e, i1 + 1)));
+												if(rule_name_set.count(e->symbols[i1 + 1]) == 0){
+													another_loop = true;
+													rule_name_set.insert(e->symbols[i1 + 1]);
+													rule_name_deq.push_front(e->symbols[i1 + 1]);
+												}
+											}
+									}
+									else {
+										break;
+									}
+								}
+							}
+						}
+					}
+
+					if (!another_loop) {
+						break;
 					}
 				}
-
 
 				//计算 end_for_symbol
 
@@ -1369,7 +1392,6 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 													is_calculat_success = false;
 												}
 
-
 											}
 											else {
 												result_set.insert(_first_set.begin(), _first_set.end());
@@ -1398,7 +1420,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 				}
 
 
-
+				//判断是否本次item是否已经存在
 				bool isExist = false;
 				int items_list_index = -1;
 				for (int i1 = 0; i1 < items_list.size(); i1++) {
@@ -1441,6 +1463,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		status_que.pop_back();
 	}
 
+	/*
 	_items_set.clear();
 	P_Item p_search_item(new Item());
 	for (const auto &e : ruleList) {
@@ -1453,7 +1476,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 		}
 	}
 
-	/*
+	
 		if (_items_set.size() > 0) {
 			cout << "存在自由rule:" << endl;
 			int i1 = 0;
