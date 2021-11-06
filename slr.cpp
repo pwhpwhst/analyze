@@ -2,11 +2,11 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-#define __PRINT_GRAPH
+//#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
 
 //#define __PRINT_PARSE_PROCESS
-#define __ALLOW_AMBIGULOUS
+//#define __ALLOW_AMBIGULOUS
 
 #include "slr.h"
 #include"symbols\PrimarySymbolConverter.h"
