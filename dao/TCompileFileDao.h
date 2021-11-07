@@ -9,6 +9,7 @@ using namespace std;
 class TCompileFileDao :virtual public BaseDao {
 
 public: TCompileFileDao();
+
 public: virtual ~TCompileFileDao();
 
 private: static shared_ptr<TCompileFileDao> instance;
