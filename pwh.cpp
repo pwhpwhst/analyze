@@ -1,4 +1,9 @@
 ﻿//#define __PRINT_NODE_TREE
+
+
+
+
+
 #include"symbols\Env.h"
 #include"symbols\CompileInfo.h"
 #include"slr.h"
@@ -9,6 +14,10 @@
 #include"treeAnalyzer\java\JAVATreeAnalyzer.h"
 #include"treeAnalyzer\java\JAVASpaceTreeAnalyzer.h"
 #include <vector>
+#include "Config.h"
+#include "dao/BaseDao.h"
+#include "dao/TCompileFileDao.h"
+
 
 
 
@@ -152,7 +161,17 @@ for (P_Lex_Word &e : primary_total_lex_word_list) {
 
 
 int main(){
+
 	//testForSynax();
 	//testForLexer();
-	testForSpace();
+	//testForSpace();
+
+	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
+
+	unordered_map<string, string> transfer_map;
+	vector<unordered_map<string, string>> result_list;
+
+
+	tCompileFileDao->queryList(transfer_map,result_list);
+	cout << "dsad" << endl;
 }

@@ -6,7 +6,7 @@
 //#define __PRINT_LEX_WORD_LIST
 
 //#define __PRINT_PARSE_PROCESS
-//#define __ALLOW_AMBIGULOUS
+#define __ALLOW_AMBIGULOUS
 
 #include "slr.h"
 #include"symbols\PrimarySymbolConverter.h"
