@@ -6,18 +6,29 @@
 
     struct C_Lex_Word *lex_word=NULL;
     struct C_Lex_Word *p_lex_word=NULL;
-	int buffer_size=0;
-	int rest_size=0;
+    int buffer_size=0;
+    int rest_size=0;
 
 void write_word(char *yytext,char *symbol_name){
 
+	int incremential = 32000;
+
 	if(rest_size==0){
-		struct C_Lex_Word * new_lex_word=(struct C_Lex_Word *)malloc(sizeof(struct C_Lex_Word)*(buffer_size+500));
+		struct C_Lex_Word * new_lex_word=(struct C_Lex_Word *)malloc(sizeof(struct C_Lex_Word)*(buffer_size+ incremential+1));
 		int i1=0;
-		for(i1=0;i1<(buffer_size+500);i1++){
+		for(i1=0;i1<(buffer_size+ incremential);i1++){
 			if(i1<buffer_size){
+				/*
 				new_lex_word[i1].type=lex_word[i1].type;
 				new_lex_word[i1].content=lex_word[i1].content;
+				*/
+				new_lex_word[i1].type = (char *)malloc(sizeof(char)*(strlen(lex_word[i1].type) + 1));
+				strcpy(new_lex_word[i1].type, lex_word[i1].type);
+				new_lex_word[i1].content = (char *)malloc(sizeof(char)*(strlen(lex_word[i1].content) + 1));
+				strcpy(new_lex_word[i1].content, lex_word[i1].content);
+				free(lex_word[i1].type);
+				free(lex_word[i1].content);
+				
 			}else{
 				new_lex_word[i1].type=NULL;
 				new_lex_word[i1].content=NULL;			
@@ -25,8 +36,8 @@ void write_word(char *yytext,char *symbol_name){
 		}
 		free(lex_word);
 		lex_word=new_lex_word;
-		p_lex_word=lex_word+buffer_size;
-		buffer_size+=500;
+		p_lex_word=new_lex_word+buffer_size;
+		buffer_size+= incremential;
 		rest_size=buffer_size;
 	}
 
@@ -38,12 +49,22 @@ void write_word(char *yytext,char *symbol_name){
   p_lex_word++;
 }
 
+
 %}
 
 
 IDENTIFIER [_0-9a-zA-Z]+
-StringLiteral \"(\\.|[^\\"])*\"
+StringLiteral \"((\\['"?\\abfnrtv])|[^\\\"])*\"
+CharacterLiteral \'((\\['"?\\abfnrtv])|[^\\\'])\'
+
+U       [\x80-\xbf]
+U2      [\xc2-\xdf]
+U3      [\xe0-\xef]
+U4      [\xf0-\xf4]
+NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U} 
 %%
+
+
 
 
 {IDENTIFIER} {
@@ -95,6 +116,7 @@ StringLiteral \"(\\.|[^\\"])*\"
 "\n" {
   write_word(yytext,"'NEXT_LINE'");
 }
+
 
 "{" {
   write_word(yytext,"'LEFT_BRACE'");
@@ -153,12 +175,78 @@ StringLiteral \"(\\.|[^\\"])*\"
   write_word(yytext,"'StringLiteral'");
 }
 
+{CharacterLiteral} {
+  write_word(yytext,"'CharacterLiteral'");
+}
+
+{NO_ENGLISH_CH} {
+  write_word(yytext,"'NO_ENGLISH_CH'");
+}
+
+"`" {
+  write_word(yytext,"'EXE_QUOTES'");
+}
+
+"~" {
+  write_word(yytext,"'TILDE'");
+}
+
+"^" {
+  write_word(yytext,"'CARET'");
+}
+
 "\." {
   write_word(yytext,"'SPOT'");
 }
 
 "*" {
   write_word(yytext,"'STAR'");
+}
+
+"&&" {
+  write_word(yytext,"'AND'");
+}
+
+"||" {
+  write_word(yytext,"'OR'");
+}
+
+"|" {
+  write_word(yytext,"'BIT_OR'");
+}
+
+"&" {
+  write_word(yytext,"'BIT_AND'");
+}
+
+"#" {
+  write_word(yytext,"'POUND'");
+}
+
+"'" {
+  write_word(yytext,"'SINGLE_QUOTES'");
+}
+
+"$" {
+  write_word(yytext,"'DOLLAR'");
+}
+
+"%" {
+  write_word(yytext,"'PRECENTAGE'");
+}
+
+"\\" {
+  write_word(yytext,"'BACK_SLASH'");
+}
+
+"\"" {
+  write_word(yytext,"'DOUBLE_QUOTES'");
+}
+
+([ ])+ {}
+
+"\t" {
+
 }
 
 %%
@@ -180,13 +268,15 @@ void c_free(){
 	   lex_word[i1].type=NULL;
 	}
 
-       if(lex_word[i1].content!=NULL){
+    if(lex_word[i1].content!=NULL){
 	   free(lex_word[i1].content);
 	   lex_word[i1].content=NULL;
 	}
    }
-   free(lex_word);
+
+    free(lex_word);
     lex_word=NULL;
+
     p_lex_word=NULL;
 	buffer_size=0;
 	rest_size=0;

@@ -18,7 +18,7 @@ public: void insertList( vector<unordered_map<string, string>> &list);
 
 public: static shared_ptr<TCompileFileDao> getInstance();
 
-public: void queryList(const unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list);
+public: void queryList( unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list);
 };
 
 typedef std::shared_ptr<TCompileFileDao> P_TCompileFileDao;

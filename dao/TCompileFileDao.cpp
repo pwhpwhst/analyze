@@ -49,7 +49,7 @@ void TCompileFileDao::insertList( vector<unordered_map<string,string>> &list) {
 }
 
 
-void TCompileFileDao::queryList(const unordered_map<string,string> &transfer_map,vector<unordered_map<string,string>> &result_list) {
+void TCompileFileDao::queryList( unordered_map<string,string> &transfer_map,vector<unordered_map<string,string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -57,8 +57,8 @@ void TCompileFileDao::queryList(const unordered_map<string,string> &transfer_map
 	mysql_init(&conn);
 
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
-		ostringstream sql_os;
 
+		ostringstream sql_os;
 		string col[] = { "id","path","file_name","status" };
 
 		unordered_map<string, int> col_map;
@@ -68,7 +68,13 @@ void TCompileFileDao::queryList(const unordered_map<string,string> &transfer_map
 
 		sql_os << "select  id,path,file_name,status from t_compile_file ";
 		sql_os << "where 1=1 ";
-
+		if (transfer_map.find("start_id") != transfer_map.end()) {
+			sql_os << "and id>=" << transfer_map["start_id"]<<" ";
+		}
+		if (transfer_map.find("end_id") != transfer_map.end()) {
+			sql_os << "and id<" << transfer_map["end_id"] << " ";
+		}
+		
 
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);

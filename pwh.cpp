@@ -50,7 +50,7 @@ if (-1 == slr.init(rule_file)) {
 	return -1;
 }
 slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
-Node*  node_tree =slr.slr(ignore_file_path, env, compileInfo);
+Node*  node_tree =slr.slr( env, compileInfo);
 
 
 #ifdef __PRINT_NODE_TREE
@@ -82,17 +82,10 @@ return 0;
 int testForSpace() {
 
 
+
 	string rule_file = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForSpace.txt";
-	string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
-	string ignore_file_path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ignore.txt";
 
-	//string rule_file="F:\\codeWeaponStore\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\rule.txt";
-	//string compile_file="F:\\codeWeaponStore\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\test.txt";
 	Env env;
-	//
-
-
-
 	cout << "尝试将java转成符号表！" << endl;
 	Slr slr;
 	CompileInfo compileInfo;
@@ -101,16 +94,19 @@ int testForSpace() {
 	if (-1 == slr.init(rule_file)) {
 		return -1;
 	}
+
+	string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
 	slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
-	Node*  node_tree = slr.slr(ignore_file_path, env, compileInfo);
+	Node*  node_tree = slr.slr(env, compileInfo);
 
 
-#ifdef __PRINT_NODE_TREE
-	if (node_tree != nullptr) {
-		//printStack(node_tree);
-		slr.printStackTree(node_tree, ignore_file_path);
-	}
-#endif
+	string ignore_file_path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ignore.txt";
+	#ifdef __PRINT_NODE_TREE
+		if (node_tree != nullptr) {
+			//printStack(node_tree);
+			slr.printStackTree(node_tree, ignore_file_path);
+		}
+	#endif
 
 
 	JAVASpaceTreeAnalyzer javaSpaceTreeAnalyzer;
@@ -221,17 +217,19 @@ void listFiles(const string dir, vector<string>& files)
 bool endsWith(string s, string sub) {
 	return s.rfind(sub) == (s.length() - sub.length());
 }
-int main(){
+
+void getFileList(string base_path) {
+	//获取文件列表 begin
 	vector<string> files;
-	string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java";
-	//getFiles(path, files);
-	listFiles(path.data(), files);
+	//	string base_path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java";
+		//getFiles(path, files);
+	listFiles(base_path.data(), files);
 
 	vector <string> behaves;
 	ostringstream os;
 	vector <unordered_map<string, string>> file_list;
-	
-	for (auto &e: files) {
+
+	for (auto &e : files) {
 		behaves.clear();
 		boost::split(behaves, e, boost::is_any_of("\\"));
 		if (endsWith(behaves.back(), ".java")) {
@@ -253,6 +251,85 @@ int main(){
 
 	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 	tCompileFileDao->insertList(file_list);
+	//获取文件列表 end
+}
+
+
+
+
+int main(){
+
+	
+	//getFileList("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java");
+
+	string rule_file = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForSpace.txt";
+
+	Env env;
+	cout << "分析器初始化！" << endl;
+	Slr slr;
+	CompileInfo compileInfo;
+	
+
+	if (-1 == slr.init(rule_file)) {
+		return -1;
+	}
+	/*
+	PrimarySymbolConverter primarySymbolConverter;
+	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\ArrayELResolver.java", primarySymbolConverter);
+	cout << "abcd" << endl;
+	*/
+	
+
+	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
+	unordered_map<string, string> transfer_map;
+	//transfer_map["start_id"] = "505555";
+	//transfer_map["start_id"] = "507455";
+	//transfer_map["end_id"] = "507455";
+
+	vector<unordered_map<string, string>> result_list;
+
+
+tCompileFileDao->queryList(transfer_map, result_list);
+  for (auto &e:result_list) {
+	  string compile_file =e["path"]+"\\"+ e["file_name"];
+//		string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
+		PrimarySymbolConverter primarySymbolConverter;
+		slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
+		Node*  node_tree = slr.slr(env, compileInfo);
+		if (node_tree==nullptr) {
+//			cout << e["file_name"] << ":" << "分析失败" << endl;
+		}
+		else {
+//			cout << e["file_name"] << ":" << "分析成功" << endl;
+			delete node_tree;
+		}
+	}
+
+  cout << "分析完成" << endl;
+	/*
+	unordered_map<string, string> transfer_map;
+	vector<unordered_map<string, string>> result_list;
+	PrimarySymbolConverter primarySymbolConverter;
+	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\ArrayELResolver.java", primarySymbolConverter);
+	cout << "abcd" << endl;
+	*/
+
+  /*
+	Node*  node_tree = slr.slr(env, compileInfo);
+  if (node_tree == nullptr) {
+	  cout << "ArrayELResolver.java" << ":" << "分析失败" << endl;
+  }
+  else {
+	  cout << "ArrayELResolver.java" << ":" << "分析成功" << endl;
+	  delete node_tree;
+  }
+  */
+
+	//result_list.back()["id"] = mysql_row[col_map["id"]];
+	//result_list.back()["path"] = mysql_row[col_map["path"]];
+	//result_list.back()["file_name"] = mysql_row[col_map["file_name"]];
+	//result_list.back()["status"] = mysql_row[col_map["status"]];
+
 
 
 	//testForSynax();
@@ -273,3 +350,5 @@ int main(){
 	// C:\Users\Administrator\Desktop\javaSpecification\tomcat-main\tomcat-main\java
 
 }
+
+

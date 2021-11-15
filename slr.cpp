@@ -6,6 +6,8 @@
 //#define __PRINT_LEX_WORD_LIST
 
 //#define __PRINT_PARSE_PROCESS
+
+//#define __PRINT_NOT_SILENT
 #define __ALLOW_AMBIGULOUS
 
 #include "slr.h"
@@ -213,7 +215,7 @@ void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 	total_lex_word_list.back()->type = "'end'";
 }
 
-Node* Slr::slr(string ignore_file_path, Env& env, CompileInfo &compileInfo) {
+Node* Slr::slr( Env& env, CompileInfo &compileInfo) {
 
 	vector<P_Lex_Word>  lex_word_list;
 
@@ -1758,13 +1760,14 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 			parent_node->offset = 0;
 			parent_node->parent = nullptr;
 			
+
 			unordered_map<int, int> map;
 			int i2 = item_node_stack1.size() - 1;
 			if (best_rule->symbols.size()>0) {
 				for (int i1 = (best_rule->symbols.size() - 1); i1 >= 0;i1--) {
 					if (best_rule->symbols[i1] == "0") {
 						continue;
-					}else if (best_rule->symbols[i1] == item_node_stack1[i2]->node->symbol) {
+					}else if (item_node_stack1[i2]->node!=nullptr&&best_rule->symbols[i1] == item_node_stack1[i2]->node->symbol) {
 						map[i1] = i2;
 						i2--;
 					}else {
@@ -1773,6 +1776,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 				}
 				i2++;
 			}
+			
 
 			Node *pre_child_node = nullptr;
 			for (int i1 = 0; i1 < best_rule->symbols.size(); i1++) {
@@ -1789,11 +1793,12 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 				parent_node->child_node_list.push_back(pre_child_node);
 			}
 			
+			
 			int present_stack_size = item_node_stack1.size();
 			for (; i2 < present_stack_size;i2++) {
 				item_node_stack1.pop_back();
 			}
-
+			
 
 			if (item_node_stack1.size()>0) {
 				top_item = item_node_stack1.back();
@@ -1807,14 +1812,16 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 				item_node_stack1.back()->item_status = convert_map[0][parent_node->symbol];
 			}
 
-
 		}
 		else {
-			cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
-			if (p_input != input.end()) {
-				cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
-			}
-			
+
+			#ifdef __PRINT_NOT_SILENT
+						cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
+						if (p_input != input.end()) {
+							cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
+						}
+			#endif
+
 			break;
 		}
 #ifdef __PRINT_PARSE_PROCESS
