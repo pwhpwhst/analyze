@@ -273,18 +273,37 @@ int main(){
 	if (-1 == slr.init(rule_file)) {
 		return -1;
 	}
+
+	//单体分析 - 词法分析
 	/*
 	PrimarySymbolConverter primarySymbolConverter;
 	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\ArrayELResolver.java", primarySymbolConverter);
 	cout << "abcd" << endl;
 	*/
-	
 
+	//单体分析 - 文法分析
+		
+	PrimarySymbolConverter primarySymbolConverter;
+	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\annotation\\Generated.java", primarySymbolConverter);
+	Node*  node_tree = slr.slr(env, compileInfo);
+	if (node_tree == nullptr) {
+		cout << "Generated.java" << ":" << "分析失败" << endl;
+	}
+	else {
+		cout << "Generated.java" << ":" << "分析成功" << endl;
+		delete node_tree;
+	}
+	cout << "abcd" << endl;
+		
+
+
+
+//批量分析
+/*
 	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 	unordered_map<string, string> transfer_map;
-	//transfer_map["start_id"] = "505555";
-	//transfer_map["start_id"] = "507455";
-	//transfer_map["end_id"] = "507455";
+	transfer_map["start_id"] = "505455";
+	transfer_map["end_id"] = "505555";
 
 	vector<unordered_map<string, string>> result_list;
 
@@ -297,38 +316,22 @@ tCompileFileDao->queryList(transfer_map, result_list);
 		slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
 		Node*  node_tree = slr.slr(env, compileInfo);
 		if (node_tree==nullptr) {
-//			cout << e["file_name"] << ":" << "分析失败" << endl;
+			cout << e["file_name"] << ":" << "分析失败" << endl;
 		}
 		else {
-//			cout << e["file_name"] << ":" << "分析成功" << endl;
+			cout << e["file_name"] << ":" << "分析成功" << endl;
 			delete node_tree;
 		}
 	}
 
   cout << "分析完成" << endl;
-	/*
-	unordered_map<string, string> transfer_map;
-	vector<unordered_map<string, string>> result_list;
-	PrimarySymbolConverter primarySymbolConverter;
-	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\ArrayELResolver.java", primarySymbolConverter);
-	cout << "abcd" << endl;
-	*/
+*/
 
-  /*
-	Node*  node_tree = slr.slr(env, compileInfo);
-  if (node_tree == nullptr) {
-	  cout << "ArrayELResolver.java" << ":" << "分析失败" << endl;
-  }
-  else {
-	  cout << "ArrayELResolver.java" << ":" << "分析成功" << endl;
-	  delete node_tree;
-  }
-  */
 
-	//result_list.back()["id"] = mysql_row[col_map["id"]];
-	//result_list.back()["path"] = mysql_row[col_map["path"]];
-	//result_list.back()["file_name"] = mysql_row[col_map["file_name"]];
-	//result_list.back()["status"] = mysql_row[col_map["status"]];
+
+
+
+
 
 
 
@@ -336,18 +339,8 @@ tCompileFileDao->queryList(transfer_map, result_list);
 	//testForLexer();
 	//testForSpace();
 
-	/*
-	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
-
-	unordered_map<string, string> transfer_map;
-	vector<unordered_map<string, string>> result_list;
 
 
-	tCompileFileDao->queryList(transfer_map,result_list);
-	cout << "dsad" << endl;
-	*/
-
-	// C:\Users\Administrator\Desktop\javaSpecification\tomcat-main\tomcat-main\java
 
 }
 

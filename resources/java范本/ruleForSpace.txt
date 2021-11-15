@@ -6,12 +6,11 @@ CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationLis
 CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList TypeDeclaration
 ImportDeclarationList : ImportDeclaration ImportDeclarationList
 ImportDeclarationList : 0
-ImportDeclaration : 'import' IdentifierList 'semicolon'
-ImportDeclaration : 'import' 'static' IdentifierList 'semicolon'
-ImportDeclaration : 'import' IdentifierList 'SPOT' 'STAR' 'semicolon'
-ImportDeclaration : 'import' 'static' IdentifierList 'SPOT' 'STAR' 'semicolon'
-QualifiedIdentifier : IdentifierList
-IdentifierList : _IdentifierList
+ImportDeclaration : 'import' _IdentifierList 'semicolon'
+ImportDeclaration : 'import' 'static' _IdentifierList 'semicolon'
+ImportDeclaration : 'import' _IdentifierList 'SPOT' 'STAR' 'semicolon'
+ImportDeclaration : 'import' 'static' _IdentifierList 'SPOT' 'STAR' 'semicolon'
+QualifiedIdentifier : _IdentifierList
 _IdentifierList : Identifier 'SPOT' _IdentifierList
 _IdentifierList : Identifier
 -- 类的上侧部分 end
@@ -20,6 +19,7 @@ TypeDeclaration : 'semicolon'
 ClassOrInterfaceDeclaration : ModifierList ClassDeclaration
 ModifierList : Modifier ModifierList
 ModifierList : 0
+Modifier : Annotation
 Modifier : 'public'
 Modifier : 'protected'
 Modifier : 'private'
@@ -126,5 +126,26 @@ Expression1 : Expression2
 Expression2 : Expression3
 Expression3 : Primary
 Primary : Literal
+Primary : _IdentifierList
 Literal : 'null'
 -- 表达式实现 end
+-- 注解实现 begin
+Annotations : Annotation Annotations
+Annotations : 0
+Annotation : 'AT' QualifiedIdentifier
+Annotation : 'AT' QualifiedIdentifier 'LEFT_PARENTHESES' AnnotationElement 'RIGHT_PARENTHESES'
+AnnotationElement : ElementValuePairs
+AnnotationElement : ElementValue
+ElementValuePairs : ElementValuePair 'COMMA' ElementValuePairs
+ElementValuePairs : ElementValuePair
+ElementValuePair : Identifier 'EQUAL' ElementValue
+ElementValue : Annotation
+ElementValue : Expression1
+ElementValue : ElementValueArrayInitializer
+ElementValueArrayInitializer : 'LEFT_BRACE' 'RIGHT_BRACE'
+ElementValueArrayInitializer : 'LEFT_BRACE' ElementValues 'RIGHT_BRACE'
+ElementValueArrayInitializer : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+ElementValueArrayInitializer : 'LEFT_BRACE' ElementValues 'COMMA' 'RIGHT_BRACE'
+ElementValues : ElementValue 'COMMA' ElementValues
+ElementValues : ElementValue
+-- 注解实现 end
