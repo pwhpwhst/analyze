@@ -4,9 +4,7 @@
 //#define __PRINT_FORECAST
 //#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
-
 //#define __PRINT_PARSE_PROCESS
-
 //#define __PRINT_NOT_SILENT
 #define __ALLOW_AMBIGULOUS
 
@@ -32,7 +30,7 @@ int Slr::endsWith(string s, string sub) {
 }
 
 void Slr::log(const string& s) {
-	//	  cout<<s<<endl;
+//		  cout<<s<<endl;
 }
 
 
@@ -91,8 +89,10 @@ int Slr::init(string rule_file) {
 
 	//构建 LR（0）算法的状态机
 	vector<vector<P_Item>> items_list;
-	log("构建 LR（0）算法的状态机");
+	log("构建 LR（0）算法的状态机 begin");
 	get_items_list_and_convert_map(items_list, convert_map, non_terminator, zero_terminator, f_first, ruleList, start_symbol);
+	log("构建 LR（0）算法的状态机 end");
+
 
 	unordered_map<string, set<int>> r_rule_item_map;
 	ostringstream os;
@@ -376,139 +376,159 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 
 	f_follow[start_symbol].insert("'$'");
 
-
-	for (const auto &e : ruleList) {
-		for (int i1 = 0; i1 < e->symbols.size(); i1++) {
-			if (non_terminator.count(e->symbols[i1]) > 0 && i1 != e->symbols.size() - 1) {
-				for (int i2 = i1 + 1; i2 < e->symbols.size(); i2++) {
-					if (non_terminator.count(e->symbols[i2]) > 0) {
-						bool is_contained_zero_symbol = false;
-						for (const auto &e2 : f_first[e->symbols[i2]]) {
-							if (e2 != "0") {
-								f_follow[e->symbols[i1]].insert(e2);
-							}
-//							else {
-//								is_contained_zero_symbol = true;
-//							}
-						}
-						if (zero_terminator.count(e->symbols[i2]) > 0) {
-							is_contained_zero_symbol = true;
-						}
-
-						if (!is_contained_zero_symbol) {
-							break;
-						}
-					}
-					else {
-						if (e->symbols[i2] != "0") {
-							f_follow[e->symbols[i1]].insert(e->symbols[i2]);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-
 	set<string> has_calculate_follow_set;
-	vector<P_Rule> rule_stack;
-	set<P_Rule> in_stack_rules;
-	set<string> symbol_temp_set;
+	has_calculate_follow_set.insert(start_symbol);
+
+	vector<string> symbol_stack;
+
+	unordered_map<string, set<string>> brother_map;
 
 
-	for (const auto &e : ruleList) {
-		if (has_calculate_follow_set.count(e->symbols.back()) == 0) {
-			rule_stack.push_back(e);
-			in_stack_rules.insert(e);
+	for (auto &k: non_terminator) {
+		
+		if (has_calculate_follow_set.count(k) == 0) {
+			symbol_stack.push_back(k);
+			
+			while (symbol_stack.size()>0) {
+				string e= symbol_stack.back();
+				bool is_insert_other = false;
+				for (int i3 = 0; i3 < ruleList.size();i3++) {
+					
+						auto e2 = ruleList[i3];
+						bool is_done = false;
+						bool is_match = false;
+						for (int i1 = 0; i1 < e2->symbols.size(); i1++) {
+
+							if (e2->symbols[i1] == e) {
+								is_match = true;
+								if (i1 != (e2->symbols.size() - 1)) {
+									bool is_contained_zero_symbol = false;
+									for (int i2 = i1 + 1; i2 < e2->symbols.size(); i2++) {
+
+										if (terminator.count(e2->symbols[i2]) > 0) {
+											if (e2->symbols[i2] != "0") {
+												f_follow[e2->symbols[i1]].insert(e2->symbols[i2]);
+											}
+											else {
+												is_contained_zero_symbol = true;
+											}
+										}
+										else {
+											for (const auto &e3 : f_first[e2->symbols[i2]]) {
+												if (e3 != "0") {
+													f_follow[e2->symbols[i1]].insert(e3);
+												}
+												else {
+													is_contained_zero_symbol = true;
+												}
+
+											}
+										}
 
 
+										if (!is_contained_zero_symbol) {
+											is_done = true;
+											break;
+										}
+										else {
+											if (i2 != (e2->symbols.size() - 1)) {
+												is_contained_zero_symbol = false;
+											}
+										}
 
-			while (rule_stack.size() > 0) {
-				P_Rule rule = rule_stack.back();
+									}
 
-				if (has_calculate_follow_set.count(rule->rule_name) > 0) {
+									if (is_contained_zero_symbol) {
+										if (has_calculate_follow_set.count(e2->rule_name) > 0) {
+											for (auto &e3 : f_follow[e2->rule_name]) {
+												f_follow[e2->symbols[i1]].insert(e3);
+											}
+											is_done = true;
+										}
+										else {
+											/*
+											if (find(symbol_stack.begin(), symbol_stack.end(), e2->rule_name) != symbol_stack.end()) {
+												brother_map[e2->symbols[i1]].insert(e2->rule_name);
+												brother_map[e2->rule_name].insert(e2->symbols[i1]);
+												is_done = true;
+											}
+											*/
 
-					for (int i1 = rule->symbols.size() - 1; i1 >= 0; i1--) {
-						if (non_terminator.count(rule->symbols[i1]) > 0) {
-							for (const auto &e3 : f_follow[rule->rule_name]) {
-								f_follow[rule->symbols[i1]].insert(e3);
+											auto p = find(symbol_stack.begin(), symbol_stack.end(), e2->rule_name);
+											while (p != symbol_stack.end()) {
+												brother_map[e2->symbols[i1]].insert(*p);
+												brother_map[*p].insert(e2->symbols[i1]);
+												++p;
+												is_done = true;
+											}
+											
+											
+										}
+									}
+
+								}
+								else {
+									if (has_calculate_follow_set.count(e2->rule_name) > 0) {
+										for (auto &e3 : f_follow[e2->rule_name]) {
+											f_follow[e2->symbols[i1]].insert(e3);
+										}
+										is_done = true;
+									}
+									else {
+										/*
+										if (find(symbol_stack.begin(), symbol_stack.end(), e2->rule_name) != symbol_stack.end()) {
+											brother_map[e2->symbols[i1]].insert(e2->rule_name);
+											brother_map[e2->rule_name].insert(e2->symbols[i1]);
+											is_done = true;
+										}
+										*/
+
+										auto p = find(symbol_stack.begin(), symbol_stack.end(), e2->rule_name);
+										while (p != symbol_stack.end()) {
+											brother_map[e2->symbols[i1]].insert(*p);
+											brother_map[*p].insert(e2->symbols[i1]);
+											++p;
+											is_done = true;
+										}
+									}
+								}
 							}
 						}
-						if (rule->symbols[i1] == "0" || non_terminator.count(rule->symbols[i1]) > 0 && zero_terminator.count(rule->symbols[i1]) > 0) {
+
+
+						if (!is_match) {
+							is_done = true;
 						}
-						else {
+						if (!is_done) {
+							symbol_stack.push_back(e2->rule_name);
+							is_insert_other = true;
 							break;
 						}
-
+						
 					}
 
+				
+				
+				if (!is_insert_other) {
+					has_calculate_follow_set.insert(e);
+					for (auto &e1 : brother_map[e]) {
+						for (auto &e2 : f_follow[e1]) {
+							f_follow[e].insert(e2);
+						}
+					}
 
-					rule_stack.pop_back();
-					in_stack_rules.erase(rule);
+					for (auto &e1 : brother_map[e]) {
+						f_follow[e1] = f_follow[e];
+					}
+					symbol_stack.pop_back();
 				}
-				else {
-
-					bool has_calculate = true;
-					P_Rule un_calculate_rule = nullptr;
-					symbol_temp_set.clear();
-					vector<string> first_input;
-					set<string> _first_set;
-
-					for (const auto &e2 : ruleList) {
-
-	//					
-						bool flag = false;
-						if (in_stack_rules.count(e2) == 0) {
-							auto it=find(e2->symbols.begin(), e2->symbols.end(), rule->rule_name);
-							if (it!= e2->symbols.end()) {
-								first_input.clear();
-								first_input.insert(first_input.begin(),it+1, e2->symbols.end());
-								calculate_first_set(first_input, _first_set, f_first);
-
-								if (_first_set.size() == 0 || _first_set.count("0") != 0) {
-									flag = true;
-								}
-							}
-						}
-						if (flag) {
-							if (has_calculate_follow_set.count(e2->rule_name) == 0) {
-								has_calculate = false;
-								un_calculate_rule = e2;
-								break;
-							}
-							else {
-								for (const auto &e3 : f_follow[e2->rule_name]) {
-									symbol_temp_set.insert(e3);
-								}
-							}
-						}
-
-					}
 
 
-
-					if (has_calculate) {
-						for (const auto &e3 : symbol_temp_set) {
-							f_follow[rule->rule_name].insert(e3);
-						}
-						has_calculate_follow_set.insert(rule->rule_name);
-					}
-					else {
-						if (in_stack_rules.count(un_calculate_rule) == 0) {
-							rule_stack.push_back(un_calculate_rule);
-							in_stack_rules.insert(un_calculate_rule);
-						}
-					}
-
-
-
-
-				}
 			}
-
+		
 		}
-
 	}
+
 
 
 
@@ -1036,12 +1056,15 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			return false;
 		}
 		else {
+			/*
 			if (c1->status < c2->status) {
 				return true;
 			}
 			else if (c2->status < c1->status) {
 				return false;
 			}
+			*/
+			return c1->status < c2->status;
 		}
 
 	}
@@ -1117,13 +1140,15 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 			if (rule_name_set.count(e->rule_name) > 0) {
 
 				for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
+					
 					P_Item _p_item(new Item(e, i1));
-
 					if (_items_set.count(_p_item) == 0) {
+						
 						items_list[0].push_back(_p_item);
 						_items_set.insert(_p_item);
 						_visited_items_set.insert(_p_item);
 					}
+
 					if (i1 != e->symbols.size()) {
 						if (e->symbols[i1] == "0" || non_terminator.count(e->symbols[i1]) > 0 && zero_terminator.count(e->symbols[i1]) > 0) {
 							if ((i1+1)< e->symbols.size()&& non_terminator.count(e->symbols[i1+1]) > 0) {
@@ -1262,8 +1287,12 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 								is_final_item = true;
 							}
 							_items.push_back(_p_item);
-							_items_set.insert(_p_item);
-							_visited_items_set.insert(_p_item);
+							
+							if (_items_set.count(_p_item) == 0) {
+								_items_set.insert(_p_item);
+								_visited_items_set.insert(_p_item);
+							}
+
 						}
 					}
 				}
@@ -1428,7 +1457,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 				for (int i1 = 0; i1 < items_list.size(); i1++) {
 					if (items_list[i1].size() == _items.size()) {
 						bool flag = true;
-						for (auto e : items_list[i1]) {
+						for (auto &e : items_list[i1]) {
 							if (_items_set.count(e) == 0) {
 								flag = false;
 								break;
@@ -1453,7 +1482,18 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 						convert_map[items_list_index]["'$'"] = -1;
 					}
 				}
-
+				/*
+				else {
+					P_Item_Cmp2 cmp2;
+					for (auto &e:items_list[items_list_index]) {
+						for (auto &e2 : _items_set) {
+							if (cmp2.operator()(e,e2)) {
+								e->end_for_symbol.insert(e2->end_for_symbol.begin(), e2->end_for_symbol.end());
+							}
+						}
+					}
+				}
+				*/
 				convert_map[status_number][symble] = items_list_index;
 				rule_name_deq.clear();
 				rule_name_set.clear();
@@ -1467,7 +1507,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list, uno
 
 	/*
 	_items_set.clear();
-	P_Item p_search_item(new Item());
+	P_Item p_search_item(new Item());111111111111111111111111111111111111111111111111111111111
 	for (const auto &e : ruleList) {
 		p_search_item->rule = e;
 		for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
@@ -1581,7 +1621,6 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 			}
 
 			for (const auto &e2 : items_list[i1]) {
-
 
 				if (e2->end_for_symbol.count(e1)>0 && e2->status == e2->rule->symbols.size() 
 					&& f_follow[e2->rule->rule_name].count(e1) > 0) {

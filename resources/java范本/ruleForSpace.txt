@@ -12,11 +12,14 @@ ImportDeclaration : 'import' _IdentifierList 'SPOT' 'STAR' 'semicolon'
 ImportDeclaration : 'import' 'static' _IdentifierList 'SPOT' 'STAR' 'semicolon'
 QualifiedIdentifier : _IdentifierList
 _IdentifierList : Identifier 'SPOT' _IdentifierList
+_IdentifierList : 'class' 'SPOT' _IdentifierList
 _IdentifierList : Identifier
+_IdentifierList : 'class'
 -- 类的上侧部分 end
 TypeDeclaration : ClassOrInterfaceDeclaration
 TypeDeclaration : 'semicolon'
 ClassOrInterfaceDeclaration : ModifierList ClassDeclaration
+ClassOrInterfaceDeclaration : ModifierList InterfaceDeclaration
 ModifierList : Modifier ModifierList
 ModifierList : 0
 Modifier : Annotation
@@ -31,6 +34,7 @@ Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'volatile'
 ClassDeclaration : NormalClassDeclaration
+ClassDeclaration : EnumDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier TypeParameters ClassBody
 NormalClassDeclaration : 'class' Identifier 'extends' Type ClassBody
@@ -50,9 +54,8 @@ TypeParameter : Identifier TypeParameters
 TypeParameter : Identifier
 -- 类的模板参数 尖括号部分 end
 -- 类的 extends 和 implments 部分 begin
-Type : BasicTypeArr
-Type : ReferenceTypeArr
-BasicTypeArr : BasicType _BasicTypeList 
+Type : BasicType _BasicTypeList
+Type : ReferenceType _BasicTypeList
 BasicType : 'byte'
 BasicType : 'short'
 BasicType : 'char'
@@ -63,20 +66,38 @@ BasicType : 'double'
 BasicType : 'boolean'
 _BasicTypeList : 'LEFT_BRACKET' 'RIGHT_BRACKET' _BasicTypeList
 _BasicTypeList : 0
-ReferenceTypeArr : ReferenceType _BasicTypeList
-ReferenceType : Identifier 
-TypeList : ReferenceType _ReferenceTypeList
-_ReferenceTypeList : 'COMMA' ReferenceType _ReferenceTypeList
-_ReferenceTypeList : 0
+ReferenceType : _ReferenceType 'SPOT' ReferenceType
+ReferenceType : _ReferenceType
+_ReferenceType : Identifier
+_ReferenceType : 'void'
+_ReferenceType : Identifier TypeArguments
+_ReferenceType : 'void' TypeArguments
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentList : TypeArgument 'COMMA' TypeArgumentList
+TypeArgumentList : TypeArgument
+TypeArgument : ReferenceType
+TypeArgument : 'QUESTION'
+TypeArgument : 'QUESTION' 'extends' ReferenceType
+TypeArgument : 'QUESTION' 'super' ReferenceType
+TypeList : ReferenceType 'COMMA' TypeList
+TypeList : ReferenceType
 -- 类的 extends 和 implments  部分 end
 -- ClassBodyDeclarationList 实现 begin
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
 ClassBodyDeclaration : 'semicolon'
-ClassBodyDeclaration : ClassOrInterfaceDeclaration
-ClassBodyDeclaration : MemberDecl
-ClassBodyDeclaration : Modifier MemberDecl
+ClassBodyDeclaration : ModifierList MemberDecl
+ClassBodyDeclaration : 'static' Block
+ClassBodyDeclaration : Block
 MemberDecl : MethodOrFieldDecl
+MemberDecl : ClassDeclaration
+MemberDecl : InterfaceDeclaration
+MemberDecl : GenericMethodOrConstructorDecl
+MemberDecl : Identifier ConstructorDeclaratorRest
+GenericMethodOrConstructorDecl : TypeParameters GenericMethodOrConstructorRest
+GenericMethodOrConstructorRest : Type Identifier MethodDeclaratorRest
+GenericMethodOrConstructorRest : void Identifier MethodDeclaratorRest
+GenericMethodOrConstructorRest : Identifier ConstructorDeclaratorRest
 -- ClassBodyDeclarationList 实现 end
 -- 类成员变量声明 实现 begin
 MethodOrFieldDecl : Type Identifier MethodOrFieldRest
@@ -108,26 +129,84 @@ BlockStatements : Block BlockStatements
 BlockStatements : NonBrace BlockStatements
 BlockStatements : 0
 NonBrace : Identifier
+NonBrace : 'AT'
+NonBrace : 'OR'
+NonBrace : 'AND'
+NonBrace : 'BIT_OR'
+NonBrace : 'CARET'
+NonBrace : 'BIT_AND'
+NonBrace : 'DB_EQUAL'
+NonBrace : 'NOT_EQUAL'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'LT_EQUAL'
+NonBrace : 'GT_EQUAL'
+NonBrace : 'PLUS'
+NonBrace : 'SUBTRACT'
+NonBrace : 'STAR'
+NonBrace : 'SLASH'
+NonBrace : 'PRECENTAGE'
+NonBrace : 'TILDE'
+NonBrace : 'SURPRISE'
 NonBrace : 'semicolon'
 NonBrace : 'EQUAL'
 NonBrace : 'SPOT'
 NonBrace : 'this'
+NonBrace : 'super'
 NonBrace : 'LEFT_PARENTHESES'
 NonBrace : 'RIGHT_PARENTHESES'
 NonBrace : 'null'
 NonBrace : 'StringLiteral'
+NonBrace : 'IntegerLiteral'
+NonBrace : 'CharacterLiteral'
 NonBrace : 'COMMA'
-NonBrace : 'NOT_EQUAL'
-NonBrace : 'PLUS'
+NonBrace : 'class'
+NonBrace : 'QUESTION'
+NonBrace : 'COLON'
+NonBrace : 'LAMBDA_TO'
+NonBrace : 'new'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'synchronized'
+NonBrace : 'default'
+NonBrace : 'final'
+NonBrace : BasicType
 -- 类方法变量声明 实现 end
 -- 表达式实现 begin
 Expression : Expression1
+Expression : Expression1 AssignmentOperator Expression1
 Expression1 : Expression2
-Expression2 : Expression3
+Expression2 : Expression3 Expression2Rest
+Expression2Rest : InfixOp Expression3
+Expression2Rest : 0
+InfixOp : 'NOT_EQUAL'
 Expression3 : Primary
 Primary : Literal
+Primary : ParExpression
 Primary : _IdentifierList
+Primary : _IdentifierList IdentifierSuffix
+Primary : 'new' Creator
+Literal : 'StringLiteral'
+Literal : 'IntegerLiteral'
 Literal : 'null'
+Creator : CreatedName ClassCreatorRest
+Creator : CreatedName ArrayCreatorRest
+ArrayCreatorRest : 'LEFT_BRACKET' Expression 'RIGHT_BRACKET'
+CreatedName : Identifier _CreatedName
+CreatedName : Identifier TypeArgumentsOrDiamond _CreatedName
+_CreatedName : 'SPOT' Identifier TypeArgumentsOrDiamond _CreatedName
+_CreatedName : 'SPOT' Identifier _CreatedName
+_CreatedName : 0
+ClassCreatorRest : Arguments
+ClassCreatorRest : Arguments ClassBody
+Arguments : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+Arguments : 'LEFT_PARENTHESES' Expression ExpressionList 'RIGHT_PARENTHESES'
+ExpressionList : 'COMMA' Expression
+ExpressionList : 0
+TypeArgumentsOrDiamond : 'LEFT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
+IdentifierSuffix : Arguments
+ParExpression : 'LEFT_PARENTHESES' Expression 'RIGHT_PARENTHESES'
+AssignmentOperator : 'EQUAL'
 -- 表达式实现 end
 -- 注解实现 begin
 Annotations : Annotation Annotations
@@ -149,3 +228,50 @@ ElementValueArrayInitializer : 'LEFT_BRACE' ElementValues 'COMMA' 'RIGHT_BRACE'
 ElementValues : ElementValue 'COMMA' ElementValues
 ElementValues : ElementValue
 -- 注解实现 end
+-- @interface 实现 begin
+InterfaceDeclaration : NormalInterfaceDeclaration
+InterfaceDeclaration : AnnotationTypeDeclaration
+AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier AnnotationTypeBody
+AnnotationTypeBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+AnnotationTypeBody : 'LEFT_BRACE' AnnotationTypeElementDeclarations 'RIGHT_BRACE'
+AnnotationTypeElementDeclarations : AnnotationTypeElementDeclaration AnnotationTypeElementDeclarations
+AnnotationTypeElementDeclarations : AnnotationTypeElementDeclaration
+AnnotationTypeElementDeclaration : ModifierList AnnotationTypeElementRest
+AnnotationTypeElementRest : Type Identifier AnnotationMethodOrConstantRest 'semicolon'
+AnnotationTypeElementRest : EnumDeclaration
+AnnotationMethodOrConstantRest : AnnotationMethodRest
+AnnotationMethodRest : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+AnnotationMethodRest : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' 'default' ElementValue
+-- @interface 实现 end
+-- interface 实现 begin
+NormalInterfaceDeclaration : 'interface' Identifier InterfaceBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeParameters InterfaceBody
+NormalInterfaceDeclaration : 'interface' Identifier 'extends' TypeList InterfaceBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeParameters 'extends' TypeList InterfaceBody
+InterfaceBody: 'LEFT_BRACE' InterfaceBodyDeclarationList 'RIGHT_BRACE'
+InterfaceBodyDeclarationList : InterfaceBodyDeclaration InterfaceBodyDeclarationList
+InterfaceBodyDeclarationList : 0
+InterfaceBodyDeclaration : 'semicolon'
+InterfaceBodyDeclaration : ModifierList InterfaceMemberDecl
+InterfaceMemberDecl : ClassDeclaration
+InterfaceMemberDecl : InterfaceDeclaration
+InterfaceMemberDecl : 'void' Identifier VoidInterfaceMethodDeclaratorRest
+InterfaceMemberDecl : InterfaceMethodOrFieldDecl
+InterfaceMethodOrFieldDecl : Type Identifier InterfaceMethodOrFieldRest
+InterfaceMethodOrFieldRest : InterfaceMethodDeclaratorRest
+InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'semicolon'
+InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'throws' QualifiedIdentifierList 'semicolon'
+VoidInterfaceMethodDeclaratorRest : FormalParameters 'semicolon'
+VoidInterfaceMethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList 'semicolon'
+-- interface 实现 end
+-- enum 实现 begin
+EnumDeclaration : 'enum' Identifier EnumBody
+EnumBody : 'LEFT_BRACE' EnumConstants 'RIGHT_BRACE'
+EnumConstants : EnumConstant 'COMMA' EnumConstants
+EnumConstants : EnumConstant
+EnumConstant : Identifier
+-- enum 实现 end
+-- 类构造器 实现 begin
+ConstructorDeclaratorRest : FormalParameters Block
+ConstructorDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList Block
+-- 类构造器 实现 end

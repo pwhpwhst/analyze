@@ -4,8 +4,8 @@
 
 PrimarySymbolConverter::PrimarySymbolConverter() {
 
-	string key_word_array[] = { "throws","this","package","import","public","protected","private","static","abstract","final","native","synchronized","transient","volatile",
-		"class","extends","implements","byte","short","char","int","long","float","double","boolean","null" };
+	string key_word_array[] = { "default","interface","throws","this","package","import","public","protected","private","static","abstract","final","native","synchronized","transient","volatile",
+		"void","class","extends","super","implements","byte","short","char","int","long","float","double","boolean","null","enum","new" };
 	for (auto &e : key_word_array) {
 		key_word_set.insert(e);
 	}

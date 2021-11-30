@@ -55,6 +55,7 @@ void write_word(char *yytext,char *symbol_name){
 
 IDENTIFIER [_0-9a-zA-Z]+
 StringLiteral \"((\\['"?\\abfnrtv])|[^\\\"])*\"
+IntegerLiteral [-+]?[0-9]+[lL]?
 CharacterLiteral \'((\\['"?\\abfnrtv])|[^\\\'])\'
 
 U       [\x80-\xbf]
@@ -62,6 +63,8 @@ U2      [\xc2-\xdf]
 U3      [\xe0-\xef]
 U4      [\xf0-\xf4]
 NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U} 
+SPACE ([ ])
+AT_INTERFACE @{SPACE}*interface
 %%
 
 
@@ -72,9 +75,56 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
 }
 
 
-"//" {
-  write_word(yytext,"'COMMENT1'");
+
+
+
+
+"||" {
+  write_word(yytext,"'OR'");
 }
+
+"&&" {
+  write_word(yytext,"'AND'");
+}
+
+"|" {
+  write_word(yytext,"'BIT_OR'");
+}
+
+"^" {
+  write_word(yytext,"'CARET'");
+}
+
+"&" {
+  write_word(yytext,"'BIT_AND'");
+}
+
+"==" {
+  write_word(yytext,"'DB_EQUAL'");
+}
+
+"!=" {
+  write_word(yytext,"'NOT_EQUAL'");
+}
+
+"<" {
+  write_word(yytext,"'LEFT_ANGLE_BRACKET'");
+}
+
+">" {
+  write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
+}
+
+"<=" {
+  write_word(yytext,"'LT_EQUAL'");
+}
+
+">=" {
+  write_word(yytext,"'GT_EQUAL'");
+}
+
+
+
 
 "+" {
   write_word(yytext,"'PLUS'");
@@ -83,6 +133,26 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
 "-" {
   write_word(yytext,"'SUBTRACT'");
 }
+
+"*" {
+  write_word(yytext,"'STAR'");
+}
+
+"/" {
+  write_word(yytext,"'SLASH'");
+}
+
+"%" {
+  write_word(yytext,"'PRECENTAGE'");
+}
+
+
+
+"//" {
+  write_word(yytext,"'COMMENT1'");
+}
+
+
 
 ":" {
   write_word(yytext,"'COLON'");
@@ -96,9 +166,7 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'SURPRISE'");
 }
 
-"/" {
-  write_word(yytext,"'SLASH'");
-}
+
 
 "/**" {
   write_word(yytext,"'COMMENT2'");
@@ -126,13 +194,7 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'RIGHT_BRACE'");
 }
 
-"<" {
-  write_word(yytext,"'LEFT_ANGLE_BRACKET'");
-}
 
-">" {
-  write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
-}
 
 "," {
   write_word(yytext,"'COMMA'");
@@ -142,8 +204,13 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'EQUAL'");
 }
 
-"!=" {
-  write_word(yytext,"'NOT_EQUAL'");
+
+
+
+
+
+"->" {
+  write_word(yytext,"'LAMBDA_TO'");
 }
 
 
@@ -175,6 +242,10 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'StringLiteral'");
 }
 
+{IntegerLiteral} {
+  write_word(yytext,"'IntegerLiteral'");
+}
+
 {CharacterLiteral} {
   write_word(yytext,"'CharacterLiteral'");
 }
@@ -182,6 +253,11 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
 {NO_ENGLISH_CH} {
   write_word(yytext,"'NO_ENGLISH_CH'");
 }
+
+{AT_INTERFACE} {
+  write_word(yytext,"'AT_INTERFACE'");
+}
+
 
 "`" {
   write_word(yytext,"'EXE_QUOTES'");
@@ -191,33 +267,17 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'TILDE'");
 }
 
-"^" {
-  write_word(yytext,"'CARET'");
-}
+
 
 "\." {
   write_word(yytext,"'SPOT'");
 }
 
-"*" {
-  write_word(yytext,"'STAR'");
-}
 
-"&&" {
-  write_word(yytext,"'AND'");
-}
 
-"||" {
-  write_word(yytext,"'OR'");
-}
 
-"|" {
-  write_word(yytext,"'BIT_OR'");
-}
 
-"&" {
-  write_word(yytext,"'BIT_AND'");
-}
+
 
 "#" {
   write_word(yytext,"'POUND'");
@@ -231,9 +291,7 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'DOLLAR'");
 }
 
-"%" {
-  write_word(yytext,"'PRECENTAGE'");
-}
+
 
 "\\" {
   write_word(yytext,"'BACK_SLASH'");
@@ -243,7 +301,10 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
   write_word(yytext,"'DOUBLE_QUOTES'");
 }
 
-([ ])+ {}
+
+
+
+{SPACE} {}
 
 "\t" {
 

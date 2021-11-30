@@ -282,24 +282,25 @@ int main(){
 	*/
 
 	//单体分析 - 文法分析
-		
+
+/*
 	PrimarySymbolConverter primarySymbolConverter;
-	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\annotation\\Generated.java", primarySymbolConverter);
+	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\LambdaExpression.java", primarySymbolConverter);
 	Node*  node_tree = slr.slr(env, compileInfo);
 	if (node_tree == nullptr) {
-		cout << "Generated.java" << ":" << "分析失败" << endl;
+		cout << "LambdaExpression.java" << ":" << "分析失败" << endl;
 	}
 	else {
-		cout << "Generated.java" << ":" << "分析成功" << endl;
+		cout << "LambdaExpression.java" << ":" << "分析成功" << endl;
 		delete node_tree;
 	}
 	cout << "abcd" << endl;
-		
+*/
 
 
 
-//批量分析
-/*
+//批量分析 - 文法分析
+
 	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 	unordered_map<string, string> transfer_map;
 	transfer_map["start_id"] = "505455";
@@ -325,8 +326,8 @@ tCompileFileDao->queryList(transfer_map, result_list);
 	}
 
   cout << "分析完成" << endl;
-*/
 
+  
 
 
 

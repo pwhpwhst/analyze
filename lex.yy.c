@@ -282,17 +282,18 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 46
-#define YY_END_OF_BUFFER 47
-static yyconst short int yy_accept[63] =
+#define YY_NUM_RULES 52
+#define YY_END_OF_BUFFER 53
+static yyconst short int yy_accept[81] =
     {   0,
-        0,    0,   47,   46,   45,   12,   44,    7,   43,   38,
-       40,   41,   37,   39,   23,   24,   33,    3,   17,    4,
-       32,    8,    1,    5,   25,   15,   18,   16,   20,    6,
-       21,   42,   22,   31,   29,   13,   36,   14,   30,   46,
-       46,   46,   44,   19,    0,   26,    0,   34,    0,    0,
-       11,   10,    2,    1,   35,   28,    0,    0,   27,    9,
-        0,    0
+        0,    0,   53,   52,   51,   25,   50,   21,   49,   45,
+       47,   17,    6,   46,   34,   35,   15,   13,   28,   14,
+       44,   16,    1,   19,   36,    9,   29,   10,   31,   20,
+        1,   32,   48,   33,    5,   42,   26,    4,   27,   43,
+       52,   52,   52,    8,    0,   37,    0,    3,    0,    0,
+       24,   38,   30,   23,   18,    1,    1,    1,   11,    7,
+       12,    0,    0,    2,   40,    0,    0,   39,   38,   22,
+        0,    0,    0,    0,    0,    0,    0,    0,   41,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -303,95 +304,108 @@ static yyconst int yy_ec[256] =
         1,    4,    5,    6,    7,    8,    9,   10,   11,   12,
        13,   14,   15,   16,   17,   18,   19,   20,   20,   20,
        20,   20,   20,   20,   20,   20,   20,   21,   22,   23,
-       24,   25,   26,   27,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       20,   20,   20,   20,   20,   20,   20,   20,   20,   20,
-       28,   29,   30,   31,   20,   32,   33,   33,   20,   20,
+       24,   25,   26,   27,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   29,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       30,   31,   32,   33,   28,   34,   35,   36,   37,   28,
 
-       20,   33,   20,   20,   20,   20,   20,   20,   20,   33,
-       20,   20,   20,   33,   20,   33,   20,   33,   20,   20,
-       20,   20,   34,   35,   36,   37,    1,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       38,    1,    1,   39,   39,   39,   39,   39,   39,   39,
+       38,   39,   28,   28,   40,   28,   28,   29,   28,   41,
+       28,   28,   28,   42,   28,   43,   28,   36,   28,   28,
+       28,   28,   44,   45,   46,   47,    1,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,   48,   48,   48,   48,   48,   48,   48,   48,   48,
+       48,    1,    1,   49,   49,   49,   49,   49,   49,   49,
 
-       39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   40,   40,   40,   40,   40,   40,   40,
-       40,   40,   40,   40,   40,   40,   40,   40,   40,   41,
-       41,   41,   41,   41,    1,    1,    1,    1,    1,    1,
+       49,   49,   49,   49,   49,   49,   49,   49,   49,   49,
+       49,   49,   49,   49,   49,   49,   49,   49,   49,   49,
+       49,   49,   49,   50,   50,   50,   50,   50,   50,   50,
+       50,   50,   50,   50,   50,   50,   50,   50,   50,   51,
+       51,   51,   51,   51,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[42] =
+static yyconst int yy_meta[52] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        2,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    2,    1,    1,    1,    1,
+        3,    1,    1,    1,    1,    1,    1,    1,    1,    4,
+        1,    1,    1,    1,    1,    2,    1,    4,    4,    1,
+        2,    1,    1,    1,    5,    5,    4,    4,    5,    4,
+        5,    5,    5,    1,    1,    1,    1,    1,    1,    1,
         1
     } ;
 
-static yyconst short int yy_base[65] =
+static yyconst short int yy_base[86] =
     {   0,
-        0,    0,   80,   81,   81,   81,   75,   54,   36,   81,
-       81,   81,   67,   43,   81,   81,   52,   81,   81,   81,
-       81,   29,   24,   81,   81,   81,   81,   81,   81,   81,
-       81,   81,   81,   81,   81,   81,   29,   81,   81,   25,
-       23,   22,   55,   81,   39,   81,   40,   81,   47,   41,
-       81,   42,   81,   29,   81,   81,   17,   16,   81,   81,
-       15,   81,   74,   49
+        0,    0,   94,  119,  119,  119,  119,   69,   46,  119,
+      119,  119,   81,   59,  119,  119,   70,   68,  119,   33,
+      119,   40,   35,  119,  119,   63,   62,   61,  119,   52,
+        0,  119,  119,  119,  119,  119,  119,   39,  119,  119,
+       35,   33,   32,  119,   51,  119,    0,  119,   68,    0,
+      119,   40,  119,   64,  119,   41,    0,    0,  119,  119,
+      119,   58,   35,  119,  119,   27,   26,  119,  119,  119,
+       30,   24,   33,   26,   28,   31,   28,   25,  119,  119,
+       98,  103,  105,  109,  113
     } ;
 
-static yyconst short int yy_def[65] =
+static yyconst short int yy_def[86] =
     {   0,
-       62,    1,   62,   62,   62,   62,   62,   62,   63,   62,
-       62,   62,   62,   64,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   63,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,    0,   62,   62
+       80,    1,   80,   80,   80,   80,   80,   80,   81,   80,
+       80,   80,   80,   82,   80,   80,   80,   80,   80,   80,
+       80,   80,   83,   80,   80,   80,   80,   80,   80,   80,
+       83,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   81,   80,   84,   80,   80,   85,
+       80,   80,   80,   80,   80,   83,   83,   83,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,    0,
+       80,   80,   80,   80,   80
     } ;
 
-static yyconst short int yy_nxt[123] =
+static yyconst short int yy_nxt[171] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
        14,   15,   16,   17,   18,   19,   20,   21,   22,   23,
-       24,   25,   26,   27,   28,   29,   30,   31,   32,   33,
-       34,   35,   23,   36,   37,   38,   39,    4,   40,   41,
-       42,   46,   52,   54,   46,   45,   49,   53,   54,   49,
-       45,   49,   56,   61,   56,   60,   54,   59,   43,   58,
-       57,   54,   56,   55,   47,   45,   49,   47,   45,   49,
-       51,   50,   45,   49,   45,   45,   48,   44,   43,   62,
-        3,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
+       24,   25,   26,   27,   28,   29,   30,   31,   31,   32,
+       33,   34,   35,   36,   31,   31,   31,   31,   31,   31,
+       31,   31,   31,   37,   38,   39,   40,    4,   41,   42,
+       43,   46,   52,   54,   56,   62,   46,   53,   55,   52,
+       56,   62,   79,   58,   78,   77,   76,   75,   69,   58,
+       74,   65,   73,   72,   65,   71,   47,   70,   68,   67,
+       66,   47,   65,   64,   61,   60,   59,   52,   51,   50,
+       48,   63,   44,   80,   80,   80,   80,   63,   45,   45,
 
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62
+       45,   45,   45,   49,   49,   80,   49,   49,   57,   57,
+       45,   45,   80,   45,   49,   49,   80,   49,    3,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80
     } ;
 
-static yyconst short int yy_chk[123] =
+static yyconst short int yy_chk[171] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    9,   22,   23,   45,   47,   50,   22,   54,   64,
-       47,   50,   61,   58,   57,   52,   23,   49,   43,   42,
-       41,   54,   40,   37,    9,   47,   50,   45,   47,   50,
-       17,   14,   47,   50,   63,   63,   13,    8,    7,    3,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    9,   20,   22,   23,   30,   45,   20,   22,   52,
+       56,   62,   78,   23,   77,   76,   75,   74,   52,   56,
+       73,   72,   71,   67,   66,   63,    9,   54,   49,   43,
+       42,   45,   41,   38,   28,   27,   26,   18,   17,   14,
+       13,   30,    8,    3,    0,    0,    0,   62,   81,   81,
 
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62
+       81,   81,   81,   82,   82,    0,   82,   82,   83,   83,
+       84,   84,    0,   84,   85,   85,    0,   85,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80,
+       80,   80,   80,   80,   80,   80,   80,   80,   80,   80
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -459,7 +473,7 @@ void write_word(char *yytext,char *symbol_name){
 }
 
 
-#line 463 "lex.yy.c"
+#line 477 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -610,13 +624,13 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 65 "SLR\\wordParser.l"
+#line 68 "SLR\\wordParser.l"
 
 
 
 
 
-#line 620 "lex.yy.c"
+#line 634 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -667,13 +681,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 63 )
+				if ( yy_current_state >= 81 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 81 );
+		while ( yy_base[yy_current_state] != 119 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -701,323 +715,365 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 70 "SLR\\wordParser.l"
+#line 73 "SLR\\wordParser.l"
 {
   write_word(yytext,"'IDENTIFIER'");
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 75 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'COMMENT1'");
-}
-	YY_BREAK
-case 3:
-YY_RULE_SETUP
-#line 79 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'PLUS'");
-}
-	YY_BREAK
-case 4:
-YY_RULE_SETUP
-#line 83 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'SUBTRACT'");
-}
-	YY_BREAK
-case 5:
-YY_RULE_SETUP
-#line 87 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'COLON'");
-}
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 91 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'AT'");
-}
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 95 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'SURPRISE'");
-}
-	YY_BREAK
-case 8:
-YY_RULE_SETUP
-#line 99 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'SLASH'");
-}
-	YY_BREAK
-case 9:
-YY_RULE_SETUP
-#line 103 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'COMMENT2'");
-}
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 107 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'COMMENT3'");
-}
-	YY_BREAK
-case 11:
-YY_RULE_SETUP
-#line 111 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'END_COMMENT'");
-}
-	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 116 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'NEXT_LINE'");
-}
-	YY_BREAK
-case 13:
-YY_RULE_SETUP
-#line 121 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'LEFT_BRACE'");
-}
-	YY_BREAK
-case 14:
-YY_RULE_SETUP
-#line 125 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'RIGHT_BRACE'");
-}
-	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 129 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'LEFT_ANGLE_BRACKET'");
-}
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 133 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
-}
-	YY_BREAK
-case 17:
-YY_RULE_SETUP
-#line 137 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'COMMA'");
-}
-	YY_BREAK
-case 18:
-YY_RULE_SETUP
-#line 141 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'EQUAL'");
-}
-	YY_BREAK
-case 19:
-YY_RULE_SETUP
-#line 145 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'NOT_EQUAL'");
-}
-	YY_BREAK
-case 20:
-YY_RULE_SETUP
-#line 150 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'QUESTION'");
-}
-	YY_BREAK
-case 21:
-YY_RULE_SETUP
-#line 154 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'LEFT_BRACKET'");
-}
-	YY_BREAK
-case 22:
-YY_RULE_SETUP
-#line 158 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'RIGHT_BRACKET'");
-}
-	YY_BREAK
-case 23:
-YY_RULE_SETUP
-#line 162 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'LEFT_PARENTHESES'");
-}
-	YY_BREAK
-case 24:
-YY_RULE_SETUP
-#line 166 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'RIGHT_PARENTHESES'");
-}
-	YY_BREAK
-case 25:
-YY_RULE_SETUP
-#line 170 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'semicolon'");
-}
-	YY_BREAK
-case 26:
-YY_RULE_SETUP
-#line 174 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'StringLiteral'");
-}
-	YY_BREAK
-case 27:
-YY_RULE_SETUP
-#line 178 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'CharacterLiteral'");
-}
-	YY_BREAK
-case 28:
-YY_RULE_SETUP
-#line 182 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'NO_ENGLISH_CH'");
-}
-	YY_BREAK
-case 29:
-YY_RULE_SETUP
-#line 186 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'EXE_QUOTES'");
-}
-	YY_BREAK
-case 30:
-YY_RULE_SETUP
-#line 190 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'TILDE'");
-}
-	YY_BREAK
-case 31:
-YY_RULE_SETUP
-#line 194 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'CARET'");
-}
-	YY_BREAK
-case 32:
-YY_RULE_SETUP
-#line 198 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'SPOT'");
-}
-	YY_BREAK
-case 33:
-YY_RULE_SETUP
-#line 202 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'STAR'");
-}
-	YY_BREAK
-case 34:
-YY_RULE_SETUP
-#line 206 "SLR\\wordParser.l"
-{
-  write_word(yytext,"'AND'");
-}
-	YY_BREAK
-case 35:
-YY_RULE_SETUP
-#line 210 "SLR\\wordParser.l"
+#line 82 "SLR\\wordParser.l"
 {
   write_word(yytext,"'OR'");
 }
 	YY_BREAK
-case 36:
+case 3:
 YY_RULE_SETUP
-#line 214 "SLR\\wordParser.l"
+#line 86 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'AND'");
+}
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 90 "SLR\\wordParser.l"
 {
   write_word(yytext,"'BIT_OR'");
 }
 	YY_BREAK
-case 37:
+case 5:
 YY_RULE_SETUP
-#line 218 "SLR\\wordParser.l"
+#line 94 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'CARET'");
+}
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 98 "SLR\\wordParser.l"
 {
   write_word(yytext,"'BIT_AND'");
 }
 	YY_BREAK
-case 38:
+case 7:
 YY_RULE_SETUP
-#line 222 "SLR\\wordParser.l"
+#line 102 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'POUND'");
+  write_word(yytext,"'DB_EQUAL'");
 }
 	YY_BREAK
-case 39:
+case 8:
 YY_RULE_SETUP
-#line 226 "SLR\\wordParser.l"
+#line 106 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'SINGLE_QUOTES'");
+  write_word(yytext,"'NOT_EQUAL'");
 }
 	YY_BREAK
-case 40:
+case 9:
 YY_RULE_SETUP
-#line 230 "SLR\\wordParser.l"
+#line 110 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'DOLLAR'");
+  write_word(yytext,"'LEFT_ANGLE_BRACKET'");
 }
 	YY_BREAK
-case 41:
+case 10:
 YY_RULE_SETUP
-#line 234 "SLR\\wordParser.l"
+#line 114 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
+}
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 118 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'LT_EQUAL'");
+}
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 122 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'GT_EQUAL'");
+}
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 129 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'PLUS'");
+}
+	YY_BREAK
+case 14:
+YY_RULE_SETUP
+#line 133 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'SUBTRACT'");
+}
+	YY_BREAK
+case 15:
+YY_RULE_SETUP
+#line 137 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'STAR'");
+}
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 141 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'SLASH'");
+}
+	YY_BREAK
+case 17:
+YY_RULE_SETUP
+#line 145 "SLR\\wordParser.l"
 {
   write_word(yytext,"'PRECENTAGE'");
 }
 	YY_BREAK
+case 18:
+YY_RULE_SETUP
+#line 151 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'COMMENT1'");
+}
+	YY_BREAK
+case 19:
+YY_RULE_SETUP
+#line 157 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'COLON'");
+}
+	YY_BREAK
+case 20:
+YY_RULE_SETUP
+#line 161 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'AT'");
+}
+	YY_BREAK
+case 21:
+YY_RULE_SETUP
+#line 165 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'SURPRISE'");
+}
+	YY_BREAK
+case 22:
+YY_RULE_SETUP
+#line 171 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'COMMENT2'");
+}
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 175 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'COMMENT3'");
+}
+	YY_BREAK
+case 24:
+YY_RULE_SETUP
+#line 179 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'END_COMMENT'");
+}
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 184 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'NEXT_LINE'");
+}
+	YY_BREAK
+case 26:
+YY_RULE_SETUP
+#line 189 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'LEFT_BRACE'");
+}
+	YY_BREAK
+case 27:
+YY_RULE_SETUP
+#line 193 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'RIGHT_BRACE'");
+}
+	YY_BREAK
+case 28:
+YY_RULE_SETUP
+#line 199 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'COMMA'");
+}
+	YY_BREAK
+case 29:
+YY_RULE_SETUP
+#line 203 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'EQUAL'");
+}
+	YY_BREAK
+case 30:
+YY_RULE_SETUP
+#line 212 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'LAMBDA_TO'");
+}
+	YY_BREAK
+case 31:
+YY_RULE_SETUP
+#line 217 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'QUESTION'");
+}
+	YY_BREAK
+case 32:
+YY_RULE_SETUP
+#line 221 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'LEFT_BRACKET'");
+}
+	YY_BREAK
+case 33:
+YY_RULE_SETUP
+#line 225 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'RIGHT_BRACKET'");
+}
+	YY_BREAK
+case 34:
+YY_RULE_SETUP
+#line 229 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'LEFT_PARENTHESES'");
+}
+	YY_BREAK
+case 35:
+YY_RULE_SETUP
+#line 233 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'RIGHT_PARENTHESES'");
+}
+	YY_BREAK
+case 36:
+YY_RULE_SETUP
+#line 237 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'semicolon'");
+}
+	YY_BREAK
+case 37:
+YY_RULE_SETUP
+#line 241 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'StringLiteral'");
+}
+	YY_BREAK
+case 38:
+YY_RULE_SETUP
+#line 245 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'IntegerLiteral'");
+}
+	YY_BREAK
+case 39:
+YY_RULE_SETUP
+#line 249 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'CharacterLiteral'");
+}
+	YY_BREAK
+case 40:
+YY_RULE_SETUP
+#line 253 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'NO_ENGLISH_CH'");
+}
+	YY_BREAK
+case 41:
+YY_RULE_SETUP
+#line 257 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'AT_INTERFACE'");
+}
+	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 238 "SLR\\wordParser.l"
+#line 262 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'BACK_SLASH'");
+  write_word(yytext,"'EXE_QUOTES'");
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 242 "SLR\\wordParser.l"
+#line 266 "SLR\\wordParser.l"
 {
-  write_word(yytext,"'DOUBLE_QUOTES'");
+  write_word(yytext,"'TILDE'");
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 246 "SLR\\wordParser.l"
-{}
+#line 272 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'SPOT'");
+}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 248 "SLR\\wordParser.l"
+#line 282 "SLR\\wordParser.l"
 {
-
+  write_word(yytext,"'POUND'");
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 252 "SLR\\wordParser.l"
+#line 286 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'SINGLE_QUOTES'");
+}
+	YY_BREAK
+case 47:
+YY_RULE_SETUP
+#line 290 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'DOLLAR'");
+}
+	YY_BREAK
+case 48:
+YY_RULE_SETUP
+#line 296 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'BACK_SLASH'");
+}
+	YY_BREAK
+case 49:
+YY_RULE_SETUP
+#line 300 "SLR\\wordParser.l"
+{
+  write_word(yytext,"'DOUBLE_QUOTES'");
+}
+	YY_BREAK
+case 50:
+YY_RULE_SETUP
+#line 307 "SLR\\wordParser.l"
+{}
+	YY_BREAK
+case 51:
+YY_RULE_SETUP
+#line 309 "SLR\\wordParser.l"
+{
+
+}
+	YY_BREAK
+case 52:
+YY_RULE_SETUP
+#line 313 "SLR\\wordParser.l"
 ECHO;
 	YY_BREAK
-#line 1021 "lex.yy.c"
+#line 1077 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1309,7 +1365,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 63 )
+			if ( yy_current_state >= 81 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1344,11 +1400,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 63 )
+		if ( yy_current_state >= 81 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 62);
+	yy_is_jam = (yy_current_state == 80);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -1903,7 +1959,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 252 "SLR\\wordParser.l"
+#line 313 "SLR\\wordParser.l"
 
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){
