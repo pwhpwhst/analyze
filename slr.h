@@ -24,6 +24,10 @@
 
 class Slr{
 
+public:bool switchParseProcess;
+public:bool switchNotSilent;
+	   
+
 private:vector<P_Rule> ruleList;
 private:set<string> terminator;
 private:set<string> non_terminator;

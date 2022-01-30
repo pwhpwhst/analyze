@@ -283,48 +283,59 @@ int main(){
 
 	//单体分析 - 文法分析
 
+	bool isSingleAnalyze= false;
 
-	PrimarySymbolConverter primarySymbolConverter;
-	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\servlet\\Filter.java", primarySymbolConverter);
-	Node*  node_tree = slr.slr(env, compileInfo);
-	if (node_tree == nullptr) {
-		cout << "Filter.java" << ":" << "分析失败" << endl;
-	}
-	else {
-		cout << "Filter.java" << ":" << "分析成功" << endl;
-		Node::releaseNode(node_tree);
-	}
-
-
-//批量分析 - 文法分析
-/*
-	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
-	unordered_map<string, string> transfer_map;
-	transfer_map["start_id"] = "505556";
-	transfer_map["end_id"] = "505656";
-//	505455~505555												508916
-	vector<unordered_map<string, string>> result_list;
-
-
-tCompileFileDao->queryList(transfer_map, result_list);
-  for (auto &e:result_list) {
-	  string compile_file =e["path"]+"\\"+ e["file_name"];
-//		string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
+	if (isSingleAnalyze) {
+		slr.switchParseProcess = true;
+		slr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
-		slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
+		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\servlet\\Filter.java", primarySymbolConverter);
 		Node*  node_tree = slr.slr(env, compileInfo);
-		if (node_tree==nullptr) {
-			cout << e["file_name"] << ":" << "分析失败" << endl;
+		if (node_tree == nullptr) {
+			cout << "Filter.java" << ":" << "分析失败" << endl;
 		}
 		else {
-			cout << e["file_name"] << ":" << "分析成功" << endl;
+			cout << "Filter.java" << ":" << "分析成功" << endl;
 			Node::releaseNode(node_tree);
 		}
 	}
+	else {
+	//批量分析 - 文法分析
+			slr.switchParseProcess = false;
+			slr.switchNotSilent = false;
+			P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
+			unordered_map<string, string> transfer_map;
+			transfer_map["start_id"] = "505556";
+			transfer_map["end_id"] = "505656";
+		//	505455~505555												508916
+			vector<unordered_map<string, string>> result_list;
 
-  cout << "分析完成" << endl;
 
- */ 
+		tCompileFileDao->queryList(transfer_map, result_list);
+			for (auto &e:result_list) {
+				string compile_file =e["path"]+"\\"+ e["file_name"];
+		//		string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
+				PrimarySymbolConverter primarySymbolConverter;
+				slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
+				Node*  node_tree = slr.slr(env, compileInfo);
+				if (node_tree==nullptr) {
+					cout << e["file_name"] << ":" << "分析失败" << endl;
+				}
+				else {
+					cout << e["file_name"] << ":" << "分析成功" << endl;
+					Node::releaseNode(node_tree);
+				}
+			}
+
+			cout << "分析完成" << endl;
+
+			
+	}
+
+
+
+
+
 
 
 

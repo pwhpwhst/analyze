@@ -1823,7 +1823,9 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 	bool finished_flag = false;
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
-	cout << "打印过程" << endl;
+	if (switchParseProcess) {
+		cout << "打印过程" << endl;
+	}
 #endif
 	while (!finished_flag) {
 
@@ -1839,6 +1841,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 		string action = forecast_list[top_item->item_status][input_type];
 
 #ifdef __PRINT_PARSE_PROCESS
+	if (switchParseProcess) {
 		string top_symbol = "";
 		int top_status = 0;
 		if (top_item->node != nullptr) {
@@ -1846,7 +1849,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 			top_status = top_item->item_status;
 		}
 		cout << top_status << "," << top_symbol << "," << action << endl;
-
+	}
 #endif
 		if (action == "acc") {
 			resultTree = top_item->node;
@@ -1930,21 +1933,26 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 		else {
 
 #ifdef __PRINT_NOT_SILENT
-			cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
-			if (p_input != input.end()) {
-				cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
-			}
+	if (switchNotSilent) {
+		cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
+		if (p_input != input.end()) {
+			cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
+		}
+	}
+
 #endif
 
 			break;
 		}
 #ifdef __PRINT_PARSE_PROCESS
+	if (switchParseProcess) {
 		for (auto &e : item_node_stack1) {
 			if (e->node != nullptr) {
 				cout << e->node->symbol << ",";
 			}
 		}
 		cout << endl;
+	}
 #endif
 
 	}
