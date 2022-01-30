@@ -22,6 +22,8 @@ public: Rule(const string &rule_str);
 //容器
 public: Rule(const Rule &rule);
 
+public: bool operator==( const Rule &rhs);
+
 public: virtual ~Rule();
 
 

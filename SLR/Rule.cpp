@@ -35,6 +35,27 @@ symbols=rule.symbols;
 first=rule.first;
 }
 
+bool Rule::operator==(const Rule & rhs)
+{
+
+	if (rule_name != rhs.rule_name) {
+		return false;
+	}
+	
+
+	if (symbols.size() != rhs.symbols.size()) {
+		return false;
+	}
+
+	for (int i1 = 0; i1 < symbols.size();i1++) {
+		if (symbols[i1]!= rhs.symbols[i1]) {
+			return false;
+		}
+	}
+	return true;
+
+}
+
 
 Rule::~Rule(){
 }

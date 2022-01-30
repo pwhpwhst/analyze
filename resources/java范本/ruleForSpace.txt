@@ -50,8 +50,10 @@ TypeParameters : 'LEFT_ANGLE_BRACKET' Ig_TypeParameterList 'RIGHT_ANGLE_BRACKET'
 Ig_TypeParameterList : TypeParameter _Ig_TypeParameterList
 _Ig_TypeParameterList : 'COMMA' TypeParameter _Ig_TypeParameterList
 _Ig_TypeParameterList : 0
-TypeParameter : Identifier TypeParameters
+-- TypeParameter : Identifier TypeParameters
 TypeParameter : Identifier
+TypeParameter : Identifier 'extends' Bound
+Bound : ReferenceType
 -- 类的模板参数 尖括号部分 end
 -- 类的 extends 和 implments 部分 begin
 Type : BasicType _BasicTypeList
@@ -123,6 +125,7 @@ FormalParameters : 'LEFT_PARENTHESES' FormalParameterDecls 'RIGHT_PARENTHESES'
 FormalParameterDecls : Type FormalParameterDeclsRest
 FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
 FormalParameterDeclsRest : VariableDeclaratorId
+FormalParameterDeclsRest : 'THREE_SPOT' VariableDeclaratorId
 VariableDeclaratorId : Identifier _BasicTypeList
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
 BlockStatements : Block BlockStatements
@@ -180,7 +183,7 @@ Expression2 : Expression3 Expression2Rest
 Expression2Rest : InfixOp Expression3
 Expression2Rest : 0
 InfixOp : 'NOT_EQUAL'
-Expression3 : Primary
+Expression3 : Primary SelectorList
 Primary : Literal
 Primary : ParExpression
 Primary : _IdentifierList
@@ -189,6 +192,10 @@ Primary : 'new' Creator
 Literal : 'StringLiteral'
 Literal : 'IntegerLiteral'
 Literal : 'null'
+SelectorList : Selector SelectorList
+SelectorList : 0
+Selector : 'SPOT' Identifier
+Selector : 'SPOT' Identifier Arguments
 Creator : CreatedName ClassCreatorRest
 Creator : CreatedName ArrayCreatorRest
 ArrayCreatorRest : 'LEFT_BRACKET' Expression 'RIGHT_BRACKET'
@@ -204,6 +211,7 @@ Arguments : 'LEFT_PARENTHESES' Expression ExpressionList 'RIGHT_PARENTHESES'
 ExpressionList : 'COMMA' Expression
 ExpressionList : 0
 TypeArgumentsOrDiamond : 'LEFT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
+TypeArgumentsOrDiamond : TypeArguments
 IdentifierSuffix : Arguments
 ParExpression : 'LEFT_PARENTHESES' Expression 'RIGHT_PARENTHESES'
 AssignmentOperator : 'EQUAL'
@@ -257,8 +265,14 @@ InterfaceMemberDecl : ClassDeclaration
 InterfaceMemberDecl : InterfaceDeclaration
 InterfaceMemberDecl : 'void' Identifier VoidInterfaceMethodDeclaratorRest
 InterfaceMemberDecl : InterfaceMethodOrFieldDecl
+InterfaceMemberDecl : InterfaceGenericMethodDecl
 InterfaceMethodOrFieldDecl : Type Identifier InterfaceMethodOrFieldRest
+InterfaceMethodOrFieldRest : ConstantDeclaratorsRest 'semicolon'
 InterfaceMethodOrFieldRest : InterfaceMethodDeclaratorRest
+InterfaceGenericMethodDecl : TypeParameters Type Identifier InterfaceMethodDeclaratorRest
+InterfaceGenericMethodDecl : TypeParameters void Identifier InterfaceMethodDeclaratorRest
+ConstantDeclaratorsRest : ConstantDeclaratorRest
+ConstantDeclaratorRest : _BasicTypeList 'EQUAL' VariableInitializer
 InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'semicolon'
 InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'throws' QualifiedIdentifierList 'semicolon'
 VoidInterfaceMethodDeclaratorRest : FormalParameters 'semicolon'

@@ -283,29 +283,26 @@ int main(){
 
 	//单体分析 - 文法分析
 
-/*
+
 	PrimarySymbolConverter primarySymbolConverter;
-	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\LambdaExpression.java", primarySymbolConverter);
+	slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\servlet\\Filter.java", primarySymbolConverter);
 	Node*  node_tree = slr.slr(env, compileInfo);
 	if (node_tree == nullptr) {
-		cout << "LambdaExpression.java" << ":" << "分析失败" << endl;
+		cout << "Filter.java" << ":" << "分析失败" << endl;
 	}
 	else {
-		cout << "LambdaExpression.java" << ":" << "分析成功" << endl;
-		delete node_tree;
+		cout << "Filter.java" << ":" << "分析成功" << endl;
+		Node::releaseNode(node_tree);
 	}
-	cout << "abcd" << endl;
-*/
-
 
 
 //批量分析 - 文法分析
-
+/*
 	P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 	unordered_map<string, string> transfer_map;
-	transfer_map["start_id"] = "505455";
-	transfer_map["end_id"] = "505555";
-
+	transfer_map["start_id"] = "505556";
+	transfer_map["end_id"] = "505656";
+//	505455~505555												508916
 	vector<unordered_map<string, string>> result_list;
 
 
@@ -321,13 +318,13 @@ tCompileFileDao->queryList(transfer_map, result_list);
 		}
 		else {
 			cout << e["file_name"] << ":" << "分析成功" << endl;
-			delete node_tree;
+			Node::releaseNode(node_tree);
 		}
 	}
 
   cout << "分析完成" << endl;
 
-  
+ */ 
 
 
 

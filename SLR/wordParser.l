@@ -273,6 +273,10 @@ AT_INTERFACE @{SPACE}*interface
   write_word(yytext,"'SPOT'");
 }
 
+"\.\.\." {
+  write_word(yytext,"'THREE_SPOT'");
+}
+
 
 
 

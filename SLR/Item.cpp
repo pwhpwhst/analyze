@@ -28,6 +28,15 @@ Item::Item(const Item &item) {
 	this->end_for_symbol = item.end_for_symbol;
 }
 
+bool Item::operator==(const Item & rhs)
+{
+	if (this->status!= rhs.status) {
+		return false;
+	}
+	return *(this->rule) == *(rhs.rule);
+	
+}
+
 
 Item::~Item() {
 	this->rule = nullptr;

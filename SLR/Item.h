@@ -22,6 +22,8 @@ public: Item(const P_Rule &rule, int status);
 		//ÈÝÆ÷
 public: Item(const Item &item);
 
+public: bool operator==(const Item &rhs);
+
 public: virtual ~Item();
 
 
