@@ -289,25 +289,25 @@ int main(){
 		slr.switchParseProcess = true;
 		slr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
-		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\servlet\\Filter.java", primarySymbolConverter);
-		Node*  node_tree = slr.slr(env, compileInfo);
+		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\servlet\\http\\ServletRequest.java", primarySymbolConverter);
+		Node*  node_tree = slr.slr(env, compileInfo); 
 		if (node_tree == nullptr) {
-			cout << "Filter.java" << ":" << "分析失败" << endl;
+			cout << "ServletRequest.java" << ":" << "分析失败" << endl;
 		}
 		else {
-			cout << "Filter.java" << ":" << "分析成功" << endl;
+			cout << "ServletRequest.java" << ":" << "分析成功" << endl;
 			Node::releaseNode(node_tree);
 		}
 	}
 	else {
 	//批量分析 - 文法分析
 			slr.switchParseProcess = false;
-			slr.switchNotSilent = false;
+			slr.switchNotSilent = true;
 			P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 			unordered_map<string, string> transfer_map;
-			transfer_map["start_id"] = "505556";
-			transfer_map["end_id"] = "505656";
-		//	505455~505555												508916
+			transfer_map["start_id"] = "505657";
+			transfer_map["end_id"] = "505857";
+		//	505455~505656												508916
 			vector<unordered_map<string, string>> result_list;
 
 

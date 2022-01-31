@@ -3,7 +3,7 @@ ele_begin : CompilationUnit
 CompilationUnit : ImportDeclarationList
 CompilationUnit : ImportDeclarationList TypeDeclaration
 CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList
-CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList TypeDeclaration
+CompilationUnit : 'package' QualifiedIdentifier 'semicolon' ImportDeclarationList TypeDeclarationList
 ImportDeclarationList : ImportDeclaration ImportDeclarationList
 ImportDeclarationList : 0
 ImportDeclaration : 'import' _IdentifierList 'semicolon'
@@ -16,6 +16,8 @@ _IdentifierList : 'class' 'SPOT' _IdentifierList
 _IdentifierList : Identifier
 _IdentifierList : 'class'
 -- 类的上侧部分 end
+TypeDeclarationList : TypeDeclaration TypeDeclarationList
+TypeDeclarationList : 0
 TypeDeclaration : ClassOrInterfaceDeclaration
 TypeDeclaration : 'semicolon'
 ClassOrInterfaceDeclaration : ModifierList ClassDeclaration
@@ -77,12 +79,13 @@ _ReferenceType : 'void' TypeArguments
 TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 TypeArgumentList : TypeArgument 'COMMA' TypeArgumentList
 TypeArgumentList : TypeArgument
-TypeArgument : ReferenceType
+TypeArgument : ReferenceType _BasicTypeList
+TypeArgument : BasicType _BasicTypeList
 TypeArgument : 'QUESTION'
 TypeArgument : 'QUESTION' 'extends' ReferenceType
 TypeArgument : 'QUESTION' 'super' ReferenceType
 TypeList : ReferenceType 'COMMA' TypeList
-TypeList : ReferenceType
+TypeList : ReferenceType 
 -- 类的 extends 和 implments  部分 end
 -- ClassBodyDeclarationList 实现 begin
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
@@ -111,6 +114,7 @@ VariableDeclaratorRest : _BasicTypeList 'EQUAL' VariableInitializer
 VariableDeclaratorList : 'COMMA' VariableDeclarator VariableDeclaratorList
 VariableDeclaratorList : 0
 VariableDeclarator : Identifier _BasicTypeList
+VariableInitializer : ArrayInitializer
 VariableInitializer : Expression
 -- 类成员变量声明 实现 end
 -- 类方法变量声明 实现 begin
@@ -122,10 +126,14 @@ QualifiedIdentifierList : QualifiedIdentifier 'COMMA' QualifiedIdentifierList
 QualifiedIdentifierList : QualifiedIdentifier
 FormalParameters : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
 FormalParameters : 'LEFT_PARENTHESES' FormalParameterDecls 'RIGHT_PARENTHESES'
-FormalParameterDecls : Type FormalParameterDeclsRest
+FormalParameterDecls : VariableModifierList Type FormalParameterDeclsRest
 FormalParameterDeclsRest : VariableDeclaratorId 'COMMA' FormalParameterDecls
 FormalParameterDeclsRest : VariableDeclaratorId
 FormalParameterDeclsRest : 'THREE_SPOT' VariableDeclaratorId
+VariableModifierList : VariableModifier VariableModifierList
+VariableModifierList : 0
+VariableModifier : 'final'
+VariableModifier : Annotation
 VariableDeclaratorId : Identifier _BasicTypeList
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
 BlockStatements : Block BlockStatements
@@ -170,9 +178,9 @@ NonBrace : 'LAMBDA_TO'
 NonBrace : 'new'
 NonBrace : 'LEFT_BRACKET'
 NonBrace : 'RIGHT_BRACKET'
-NonBrace : 'synchronized'
 NonBrace : 'default'
-NonBrace : 'final'
+NonBrace : Modifier
+NonBrace : 'void'
 NonBrace : BasicType
 -- 类方法变量声明 实现 end
 -- 表达式实现 begin
@@ -180,12 +188,32 @@ Expression : Expression1
 Expression : Expression1 AssignmentOperator Expression1
 Expression1 : Expression2
 Expression2 : Expression3 Expression2Rest
-Expression2Rest : InfixOp Expression3
+Expression2Rest : InfixOp Expression3 Expression2Rest
 Expression2Rest : 0
+InfixOp : 'OR'
+InfixOp : 'AND'
+InfixOp : 'BIT_OR'
+InfixOp : 'CARET'
+InfixOp : 'BIT_AND'
+InfixOp : 'DB_EQUAL'
 InfixOp : 'NOT_EQUAL'
+InfixOp : 'LEFT_ANGLE_BRACKET'
+InfixOp : 'RIGHT_ANGLE_BRACKET'
+InfixOp : 'LT_EQUAL'
+InfixOp : 'GT_EQUAL'
+InfixOp : 'LEFT_ANGLE_BRACKET' 'LEFT_ANGLE_BRACKET'
+InfixOp : 'RIGHT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
+InfixOp : 'LEFT_ANGLE_BRACKET' 'LEFT_ANGLE_BRACKET' 'LEFT_ANGLE_BRACKET'
+InfixOp : 'PLUS'
+InfixOp : 'SUBTRACT'
+InfixOp : 'STAR'
+InfixOp : 'SLASH'
+InfixOp : 'PRECENTAGE'
 Expression3 : Primary SelectorList
 Primary : Literal
 Primary : ParExpression
+Primary : 'this'
+Primary : 'this' Arguments
 Primary : _IdentifierList
 Primary : _IdentifierList IdentifierSuffix
 Primary : 'new' Creator
@@ -199,6 +227,12 @@ Selector : 'SPOT' Identifier Arguments
 Creator : CreatedName ClassCreatorRest
 Creator : CreatedName ArrayCreatorRest
 ArrayCreatorRest : 'LEFT_BRACKET' Expression 'RIGHT_BRACKET'
+ArrayCreatorRest : _BasicTypeList ArrayInitializer
+ArrayInitializer : 'LEFT_BRACE' VariableInitializerList 'RIGHT_BRACE'
+VariableInitializerList :  VariableInitializer VariableInitializerListRest
+VariableInitializerList : 0
+VariableInitializerListRest :  'COMMA' VariableInitializer VariableInitializerListRest
+VariableInitializerListRest : 0
 CreatedName : Identifier _CreatedName
 CreatedName : Identifier TypeArgumentsOrDiamond _CreatedName
 _CreatedName : 'SPOT' Identifier TypeArgumentsOrDiamond _CreatedName
@@ -260,7 +294,11 @@ InterfaceBody: 'LEFT_BRACE' InterfaceBodyDeclarationList 'RIGHT_BRACE'
 InterfaceBodyDeclarationList : InterfaceBodyDeclaration InterfaceBodyDeclarationList
 InterfaceBodyDeclarationList : 0
 InterfaceBodyDeclaration : 'semicolon'
-InterfaceBodyDeclaration : ModifierList InterfaceMemberDecl
+InterfaceBodyDeclaration : InterfaceModifierList InterfaceMemberDecl
+InterfaceModifierList : InterfaceModifier InterfaceModifierList
+InterfaceModifierList : 0
+InterfaceModifier : Modifier
+InterfaceModifier : 'default'
 InterfaceMemberDecl : ClassDeclaration
 InterfaceMemberDecl : InterfaceDeclaration
 InterfaceMemberDecl : 'void' Identifier VoidInterfaceMethodDeclaratorRest
@@ -275,15 +313,25 @@ ConstantDeclaratorsRest : ConstantDeclaratorRest
 ConstantDeclaratorRest : _BasicTypeList 'EQUAL' VariableInitializer
 InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'semicolon'
 InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'throws' QualifiedIdentifierList 'semicolon'
+InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList Block
+InterfaceMethodDeclaratorRest : FormalParameters _BasicTypeList 'throws' QualifiedIdentifierList Block
 VoidInterfaceMethodDeclaratorRest : FormalParameters 'semicolon'
 VoidInterfaceMethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList 'semicolon'
+VoidInterfaceMethodDeclaratorRest : FormalParameters Block
+VoidInterfaceMethodDeclaratorRest : FormalParameters 'throws' QualifiedIdentifierList Block
 -- interface 实现 end
 -- enum 实现 begin
 EnumDeclaration : 'enum' Identifier EnumBody
+EnumDeclaration : 'enum' Identifier 'implements' TypeList EnumBody
 EnumBody : 'LEFT_BRACE' EnumConstants 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstants 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstants EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstants 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBodyDeclarations : 'semicolon' ClassBodyDeclarationList
 EnumConstants : EnumConstant 'COMMA' EnumConstants
 EnumConstants : EnumConstant
 EnumConstant : Identifier
+EnumConstant : Identifier Arguments
 -- enum 实现 end
 -- 类构造器 实现 begin
 ConstructorDeclaratorRest : FormalParameters Block

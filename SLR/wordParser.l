@@ -111,9 +111,13 @@ AT_INTERFACE @{SPACE}*interface
   write_word(yytext,"'LEFT_ANGLE_BRACKET'");
 }
 
+
+
 ">" {
   write_word(yytext,"'RIGHT_ANGLE_BRACKET'");
 }
+
+
 
 "<=" {
   write_word(yytext,"'LT_EQUAL'");
@@ -203,11 +207,6 @@ AT_INTERFACE @{SPACE}*interface
 "=" {
   write_word(yytext,"'EQUAL'");
 }
-
-
-
-
-
 
 "->" {
   write_word(yytext,"'LAMBDA_TO'");
