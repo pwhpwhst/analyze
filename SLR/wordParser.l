@@ -156,10 +156,20 @@ AT_INTERFACE @{SPACE}*interface
   write_word(yytext,"'COMMENT1'");
 }
 
+"++" {
+  write_word(yytext,"'TWO_PLUS'");
+}
 
+"--" {
+  write_word(yytext,"'TWO_SUBTRACT'");
+}
 
 ":" {
   write_word(yytext,"'COLON'");
+}
+
+"::" {
+  write_word(yytext,"'TWO_COLON'");
 }
 
 "@" {

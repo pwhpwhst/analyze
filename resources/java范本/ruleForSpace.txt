@@ -152,13 +152,9 @@ NonBrace : 'LEFT_ANGLE_BRACKET'
 NonBrace : 'RIGHT_ANGLE_BRACKET'
 NonBrace : 'LT_EQUAL'
 NonBrace : 'GT_EQUAL'
-NonBrace : 'PLUS'
-NonBrace : 'SUBTRACT'
 NonBrace : 'STAR'
 NonBrace : 'SLASH'
 NonBrace : 'PRECENTAGE'
-NonBrace : 'TILDE'
-NonBrace : 'SURPRISE'
 NonBrace : 'semicolon'
 NonBrace : 'EQUAL'
 NonBrace : 'SPOT'
@@ -181,11 +177,15 @@ NonBrace : 'RIGHT_BRACKET'
 NonBrace : 'default'
 NonBrace : Modifier
 NonBrace : 'void'
+NonBrace : 'extends'
 NonBrace : BasicType
+NonBrace : PrefixOp
+NonBrace : 'TWO_COLON'
 -- 类方法变量声明 实现 end
 -- 表达式实现 begin
-Expression : Expression1
-Expression : Expression1 AssignmentOperator Expression1
+Expression : AssignmentExpression
+AssignmentExpression : Expression1
+AssignmentExpression : Expression1 AssignmentOperator Expression1
 Expression1 : Expression2
 Expression2 : Expression3 Expression2Rest
 Expression2Rest : InfixOp Expression3 Expression2Rest
@@ -209,17 +209,34 @@ InfixOp : 'SUBTRACT'
 InfixOp : 'STAR'
 InfixOp : 'SLASH'
 InfixOp : 'PRECENTAGE'
-Expression3 : Primary SelectorList
-Primary : Literal
-Primary : ParExpression
-Primary : 'this'
-Primary : 'this' Arguments
-Primary : _IdentifierList
-Primary : _IdentifierList IdentifierSuffix
-Primary : 'new' Creator
+Expression3 : PrefixOp Expression3
+Expression3 : Primary SelectorList PostfixOpList
+PrefixOp : 'TWO_PLUS'
+PrefixOp : 'TWO_SUBTRACT'
+PrefixOp : 'SURPRISE'
+PrefixOp : 'TILDE'
+PrefixOp : 'PLUS'
+PrefixOp : 'SUBTRACT'
+PostfixOpList : PostfixOp PostfixOpList
+PostfixOpList : 0
+PostfixOp : 'TWO_PLUS'
+PostfixOp : 'TWO_SUBTRACT'
+Primary : PrimaryNoNewArray
+Primary : ArrayCreationExpression
+PrimaryNoNewArray : Literal
+PrimaryNoNewArray : ParExpression
+PrimaryNoNewArray : 'this'
+PrimaryNoNewArray : 'this' Arguments
+PrimaryNoNewArray : _IdentifierList
+PrimaryNoNewArray : _IdentifierList IdentifierSuffix
+PrimaryNoNewArray : MethodReference
+MethodReference : Type 'TWO_COLON' 'new'
+ArrayCreationExpression : 'new' Creator
+ArrayCreationExpression : 'new' BasicType ArrayCreatorRest
 Literal : 'StringLiteral'
 Literal : 'IntegerLiteral'
 Literal : 'null'
+Literal : 'CharacterLiteral'
 SelectorList : Selector SelectorList
 SelectorList : 0
 Selector : 'SPOT' Identifier
@@ -242,7 +259,7 @@ ClassCreatorRest : Arguments
 ClassCreatorRest : Arguments ClassBody
 Arguments : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
 Arguments : 'LEFT_PARENTHESES' Expression ExpressionList 'RIGHT_PARENTHESES'
-ExpressionList : 'COMMA' Expression
+ExpressionList : 'COMMA' Expression ExpressionList
 ExpressionList : 0
 TypeArgumentsOrDiamond : 'LEFT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
 TypeArgumentsOrDiamond : TypeArguments
