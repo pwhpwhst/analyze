@@ -270,9 +270,7 @@ int main(){
 	CompileInfo compileInfo;
 	
 
-	if (-1 == slr.init(rule_file)) {
-		return -1;
-	}
+
 
 	//单体分析 - 词法分析
 	/*
@@ -283,23 +281,34 @@ int main(){
 
 	//单体分析 - 文法分析
 
-	bool isSingleAnalyze= false;
+	/*
+	0-单体分析
+	1-批量分析
+	2-非终端对应什么终端？
+	*/
+	int mode= 0;
 
-	if (isSingleAnalyze) {
+	if (mode==0) {
+		if (-1 == slr.init(rule_file)) {
+			return -1;
+		}
 		slr.switchParseProcess = true;
 		slr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
-		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el\\ExpressionFactory.java", primarySymbolConverter);
+		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\annotation\\Generated.java", primarySymbolConverter);
 		Node*  node_tree = slr.slr(env, compileInfo); 
 		if (node_tree == nullptr) {
-			cout << "ExpressionFactory.java" << ":" << "分析失败" << endl;
+			cout << "Generated.java" << ":" << "分析失败" << endl;
 		}
 		else {
-			cout << "ExpressionFactory.java" << ":" << "分析成功" << endl;
+			cout << "Generated.java" << ":" << "分析成功" << endl;
 			Node::releaseNode(node_tree);
 		}
 	}
-	else {
+	else if(mode==1) {
+		if (-1 == slr.init(rule_file)) {
+			return -1;
+		}
 	//批量分析 - 文法分析
 			slr.switchParseProcess = false;
 			slr.switchNotSilent = true;
@@ -331,6 +340,9 @@ int main(){
 			cout << "分析完成" << endl;
 
 			
+	}
+	else if (mode==2) {
+		slr.calculate_f_terminate("Expression", rule_file);
 	}
 
 

@@ -38,7 +38,7 @@ private:vector<P_Lex_Word>  total_lex_word_list;
 
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
 
-private: void get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,unordered_map<int,unordered_map<string,int>> &convert_map,
+private: void get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp,
 	const set<string> &non_terminator, const set<string> &zero_terminator,unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const string start_symbol);
 
 private: void calculate_f_first(unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const set<string> &terminator,const set<string> &non_terminator);
@@ -72,6 +72,8 @@ public: Node* slr(Env &env,CompileInfo &compileInfo);
 
 public: int init(string rule_file);
 
+
+
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter);
 
 private: int startsWith(string s, string sub);
@@ -91,5 +93,10 @@ private: void calculate_first_set(const vector<string> &strArr, set<string> &res
 private: bool is_P_Item_equal(const P_Item & c1, const P_Item & c2);
 
 private: bool shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node, int level);
+
+public: int calculate_f_terminate(string symbol, string rule_file);
+
+private: void calculate_f_terminate_inline(string symbol, const vector<P_Rule> &ruleList,
+	const set<string> &terminator, const set<string> &non_terminator);
 };
 
