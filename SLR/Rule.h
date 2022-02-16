@@ -6,6 +6,7 @@ using namespace std;
 
 class Rule{
 
+public: int index;
 public: string rule_name;
 public: vector<string> symbols;
 

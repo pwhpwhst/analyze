@@ -57,7 +57,8 @@ public: void printStackTree(Node* &node_tree,string ignore_file_path);
 private: void printGraph(vector<vector<P_Item>> &items_list,
 unordered_map<int,unordered_map<string,int>> &convert_map);
 
-		 
+private: void calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> &has_calculated_end_for_symbol_set, unordered_map<string, set<P_Item>> &from_map,
+	vector<string> &first_input, set<string> _first_set,  unordered_map<string, set<string>> &f_first);
 		 
 
 private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string,string>> &forecast_list,
@@ -79,6 +80,8 @@ public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverte
 private: int startsWith(string s, string sub);
 
 private: int endsWith(string s, string sub);
+
+private: string replaceAll(string str, string sub, string replacement);
 
 public: Slr();
 
