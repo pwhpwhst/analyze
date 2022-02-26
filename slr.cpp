@@ -2,7 +2,7 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-#define __PRINT_GRAPH
+//#define __PRINT_GRAPH
 //#define __PRINT_LEX_WORD_LIST
 //#define __PRINT_PARSE_PROCESS
 #define __PRINT_NOT_SILENT
@@ -1422,17 +1422,15 @@ items_list 项集
 
 
 */
-void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp,
+void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 	const set<string> &non_terminator, const set<string> &zero_terminator, unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const string start_symbol) {
 
-	//vector<vector<P_Item>> items_list_temp;
 
-	//unordered_map<int, unordered_map<string, int>> convert_map_temp;
 	unordered_map<int, unordered_map<string, int>> reverse_convert_map;
 
 
 	vector<P_Item> items0;
-	items_list_temp.push_back(items0);
+	items_list.push_back(items0);
 
 	//用于计算闭包
 	deque<string> rule_name_deq;
@@ -1459,7 +1457,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			_first_set.insert(fakeDymbol);
 			P_Item _p_item(new Item(e, 0, _first_set));
 			has_calculated_end_for_symbol_set.insert(_p_item);
-			items_list_temp[0].push_back(_p_item);
+			items_list[0].push_back(_p_item);
 			_items_set.insert(_p_item);
 			_visited_items_set.insert(_p_item);
 			rule_name_set.insert(_p_item->rule->symbols[_p_item->status]);
@@ -1473,11 +1471,11 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 
 	//	rule_name_set rule_name_deq 用于计算闭包
 
-	calClosure(items_list_temp[0], rule_name_set, ruleList, non_terminator, from_map, _items_set, _visited_items_set, zero_terminator);
+	calClosure(items_list[0], rule_name_set, ruleList, non_terminator, from_map, _items_set, _visited_items_set, zero_terminator);
 	//计算 end_for_symbol
-	calEndForSymbol("0", items_list_temp[0], has_calculated_end_for_symbol_set, from_map, first_input, _first_set, f_first);
+	calEndForSymbol("0", items_list[0], has_calculated_end_for_symbol_set, from_map, first_input, _first_set, f_first);
 
-	for (const auto &e : items_list_temp[0]) {
+	for (const auto &e : items_list[0]) {
 		set<string> eraseSet;
 		set<string> insertSet;
 		for (const auto &e2 : e->end_for_symbol) {
@@ -1511,7 +1509,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 	while (status_que.size() > 0) {
 		int status_number = status_que.back();
 		//收集所有移动符号
-		for (P_Item &e : items_list_temp[status_number]) {
+		for (P_Item &e : items_list[status_number]) {
 			if (e->rule->symbols.size() > e->status) {
 				move_symbol_set.insert(e->rule->symbols[e->status]);
 			}
@@ -1527,7 +1525,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			vector<P_Item> _items;
 			_items_set.clear();
 			bool is_final_item = false;
-			for (P_Item &e : items_list_temp[status_number]) {
+			for (P_Item &e : items_list[status_number]) {
 				if (e->rule->symbols.size() > e->status) {
 					if (e->rule->symbols[e->status] == symble) {
 						P_Item _p_item(new Item(e->rule, e->status + 1, e->end_for_symbol));
@@ -1573,10 +1571,10 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			//判断是否本次item是否已经存在
 			bool isExist = false;
 			int items_list_index = -1;
-			for (int i1 = 0; i1 < items_list_temp.size(); i1++) {
-				if (items_list_temp[i1].size() == _items.size()) {
+			for (int i1 = 0; i1 < items_list.size(); i1++) {
+				if (items_list[i1].size() == _items.size()) {
 					bool flag = true;
-					for (auto &e : items_list_temp[i1]) {
+					for (auto &e : items_list[i1]) {
 
 						bool isMatch = false;
 						for (const auto &e2 : _items_set) {
@@ -1610,7 +1608,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 					set<string> insertSet;
 					for (const auto &e2 : e->end_for_symbol) {
 						if (startsWith(e2, "Fake_X_") == 1) {
-							string s = replaceAll(e2, "X", std::to_string(items_list_temp.size()));
+							string s = replaceAll(e2, "X", std::to_string(items_list.size()));
 							insertSet.insert(s);
 							eraseSet.insert(e2);
 						}
@@ -1625,9 +1623,9 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 
 				
 
-				items_list_temp.push_back(_items);
-				status_que.push_front(items_list_temp.size() - 1);
-				items_list_index = items_list_temp.size() - 1;
+				items_list.push_back(_items);
+				status_que.push_front(items_list.size() - 1);
+				items_list_index = items_list.size() - 1;
 
 
 				if (is_final_item) {
@@ -1640,7 +1638,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			else {
 
 				for (const auto &e1 : _items) {
-					for (const auto &e : items_list_temp[items_list_index]) {
+					for (const auto &e : items_list[items_list_index]) {
 						if (e1 == e) {
 							e->end_for_symbol.insert(e1->end_for_symbol.begin(), e1->end_for_symbol.end());
 							break;
@@ -1697,76 +1695,21 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 		}
 	*/
 
-	/*
-	unordered_map<int, set<int>> newItemToOldItemMap;
-	unordered_map<int, int> oldItemToNewItemMap;
-	int index = 0;
-	for (int i1 = 0; i1 < items_list_temp.size(); i1++) {
-		if (oldItemToNewItemMap.count(i1) == 0) {
-			for (int i2 = i1; i2 < items_list_temp.size(); i2++) {
-				if (items_list_temp[i1].size() == items_list_temp[i2].size()) {
-
-					bool isMatch = true;
-					for (const auto &e1 : items_list_temp[i1]) {
-						bool isFound = false;
-						for (const auto &e2 : items_list_temp[i2]) {
-							if (*e1 == *e2) {
-								isFound = true;
-								break;
-							}
-						}
-						if (!isFound) {
-							isMatch = false;
-							break;
-						}
-					}
-
-					if (isMatch) {
-						oldItemToNewItemMap[i2] = index;
-						newItemToOldItemMap[index].insert(i2);
-
-					}
+	refreshEndForSymbolFlow(items_list);
 
 
+	for (const auto &e : items_list) {
+		for (auto &e1 : e) {
+			set<string> rmSet;
+			for (auto &e2 : e1->end_for_symbol) {
+				if (startsWith(e2,"Fake_")==1) {
+					rmSet.insert(e2);
 				}
 			}
-			index++;
-		}
 
-	}
-
-
-
-
-
-	for (int i1 = 0; i1 < index; i1++) {
-		items_list.push_back(vector<P_Item>());
-		for (const auto &e : items_list_temp[*newItemToOldItemMap[i1].begin()]) {
-			items_list[i1].push_back(P_Item(new Item(e->rule, e->status)));
-		}
-
-		for (auto &e1 : items_list[i1]) {
-
-
-			for (const auto &e2 : newItemToOldItemMap[i1]) {
-				for (const auto &e21 : items_list_temp[e2]) {
-					if (*e1 == *e21) {
-						e1->end_for_symbol.insert(e21->end_for_symbol.begin(), e21->end_for_symbol.end());
-					}
-				}
+			for (auto &e2 : rmSet) {
+				e1->end_for_symbol.erase(e2);
 			}
-		}
-
-
-	}
-
-	for (const auto &e : convert_map_temp) {
-		int newId = oldItemToNewItemMap[e.first];
-		if (convert_map.count(newId) == 0) {
-			convert_map[newId] = unordered_map<string, int>();
-		}
-		for (auto &e2 : e.second) {
-			convert_map[newId][e2.first] = oldItemToNewItemMap[e2.second];
 		}
 	}
 
@@ -1784,29 +1727,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			}
 		}
 	}
-	*/
 
-
-
-
-
-refreshEndForSymbolFlow(items_list_temp);
-
-
-	for (const auto &e : items_list_temp) {
-		for (auto &e1 : e) {
-			set<string> rmSet;
-			for (auto &e2 : e1->end_for_symbol) {
-				if (startsWith(e2,"Fake_")==1) {
-					rmSet.insert(e2);
-				}
-			}
-
-			for (auto &e2 : rmSet) {
-				e1->end_for_symbol.erase(e2);
-			}
-		}
-	}
 
 
 #ifdef __PRINT_GRAPH
