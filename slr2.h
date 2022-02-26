@@ -22,8 +22,7 @@
 
 
 
-class Slr{
-
+class Slr2{
 
 	class P_Item_Cmp
 	{
@@ -66,30 +65,6 @@ class Slr{
 		}
 		else {
 			return c1->status < c2->status;
-		}
-
-	}
-	};
-
-	class Map_Cmp
-	{
-	public: bool operator ()(const unordered_map<string, int> &c1, const unordered_map<string, int> &c2) const {
-		if (c1.at("itemId") < c2.at("itemId")) {
-			return true;
-		}
-		else if (c2.at("itemId") < c1.at("itemId")) {
-			return false;
-		}
-		else {
-			if (c1.at("ruleId") < c2.at("ruleId")) {
-				return true;
-			}
-			else if (c2.at("ruleId") < c1.at("ruleId")) {
-				return false;
-			}
-			else {
-				return c1.at("statusId") < c2.at("statusId");
-			}
 		}
 
 	}
@@ -156,11 +131,11 @@ private: int endsWith(string s, string sub);
 
 private: string replaceAll(string str, string sub, string replacement);
 
-public: Slr();
+public: Slr2();
 
 private: void paresOrders(const string& rule_file,vector<string>& orders,unordered_map<string,string> &temp_forecast_map);
 
-public: virtual ~Slr();
+public: virtual ~Slr2();
 
 private: void log(const string& s);
 
@@ -175,14 +150,10 @@ public: int calculate_f_terminate(string symbol, string rule_file);
 private: void calculate_f_terminate_inline(string symbol, const vector<P_Rule> &ruleList,
 	const set<string> &terminator, const set<string> &non_terminator);
 
-
 private: void calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const vector<P_Rule> &ruleList,
 	const set<string> &non_terminator, unordered_map<string, set<P_Item>> &from_map, set<P_Item, P_Item_Cmp> &_items_set,
 	set<P_Item, P_Item_Cmp> &_visited_items_set, const set<string> &zero_terminator);
 
-//private:bool refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp , unordered_map<string, set<string>> &f_first, int items_list_index);
-
-private:void refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp);
 
 };
 

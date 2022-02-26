@@ -7,6 +7,7 @@
 #include"symbols\Env.h"
 #include"symbols\CompileInfo.h"
 #include"slr.h"
+#include"slr2.h"
 #include"symbols\Type.h"
 #include"symbols\Tag.h"
 #include"SLR\Lex_Word.h"
@@ -267,6 +268,7 @@ int main(){
 	Env env;
 	cout << "分析器初始化！" << endl;
 	Slr slr;
+	Slr2 slr2;
 	CompileInfo compileInfo;
 	
 
@@ -280,7 +282,6 @@ int main(){
 	*/
 
 	//单体分析 - 文法分析
-
 	/*
 	0-单体分析
 	1-批量分析
@@ -289,13 +290,79 @@ int main(){
 	int mode= 0;
 
 	if (mode==0) {
+
+
+		if (-1 == slr2.init(rule_file)) {
+			return -1;
+		}
 		if (-1 == slr.init(rule_file)) {
 			return -1;
 		}
+
+		for (int i1 = 0; i1 < slr.items_list.size();i1++) {
+			
+
+
+
+			for (int i2 = 0; i2 < slr.items_list[i1].size();i2++) {
+				
+				bool isMatch=true;
+				if (slr.items_list[i1][i2]->end_for_symbol.size() != slr2.items_list[i1][i2]->end_for_symbol.size()) {
+					
+					isMatch = false;
+				}
+				else {
+					for (const auto &e : slr.items_list[i1][i2]->end_for_symbol) {
+						if (slr2.items_list[i1][i2]->end_for_symbol.count(e)==0) {
+							isMatch = false;
+							break;
+						}
+					}
+				}
+
+				if (!isMatch) {
+					cout << "项" << i1 <<","<< slr.items_list[i1][i2]->rule->index << "有差异" << endl;
+					cout <<"新:" << endl;
+					cout << slr.items_list[i1][i2]->rule->rule_name;
+					cout << " :";
+					for (auto e2 : slr.items_list[i1][i2]->rule->symbols) {
+						cout << " " << e2;
+					}
+					cout << " " << slr.items_list[i1][i2]->status << " ###";
+					for (auto e2 : slr.items_list[i1][i2]->end_for_symbol) {
+						cout << " " << e2;
+					}
+					cout << endl;
+
+
+					cout << "旧:" << endl;
+					cout << slr2.items_list[i1][i2]->rule->rule_name;
+					cout << " :";
+					for (auto e2 : slr2.items_list[i1][i2]->rule->symbols) {
+						cout << " " << e2;
+					}
+					cout << " " << slr2.items_list[i1][i2]->status << " ###";
+					for (auto e2 : slr2.items_list[i1][i2]->end_for_symbol) {
+						cout << " " << e2;
+					}
+					cout << endl;
+
+
+				}
+
+			}
+		}
+
+		
+
+		
+		/*
 		slr.switchParseProcess = true;
 		slr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
 		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\annotation\\Generated.java", primarySymbolConverter);
+		
+
 		Node*  node_tree = slr.slr(env, compileInfo); 
 		if (node_tree == nullptr) {
 			cout << "Generated.java" << ":" << "分析失败" << endl;
@@ -304,6 +371,7 @@ int main(){
 			cout << "Generated.java" << ":" << "分析成功" << endl;
 			Node::releaseNode(node_tree);
 		}
+		*/
 	}
 	else if(mode==1) {
 		if (-1 == slr.init(rule_file)) {

@@ -8,7 +8,7 @@
 #define __PRINT_NOT_SILENT
 #define __ALLOW_AMBIGULOUS
 
-#include "slr.h"
+#include "slr2.h"
 #include"symbols\PrimarySymbolConverter.h"
 #include <algorithm>
 using namespace std;
@@ -16,14 +16,14 @@ using namespace boost;
 
 
 
-int Slr::startsWith(string s, string sub) {
+int Slr2::startsWith(string s, string sub) {
 	if (sub.length() > s.length()) {
 		return 0;
 	}
 	return s.find(sub) == 0 ? 1 : 0;
 }
 
-int Slr::endsWith(string s, string sub) {
+int Slr2::endsWith(string s, string sub) {
 	if (sub.length() > s.length()) {
 		return 0;
 	}
@@ -31,7 +31,7 @@ int Slr::endsWith(string s, string sub) {
 }
 
 
-string Slr::replaceAll(string str, string sub, string replacement) {
+string Slr2::replaceAll(string str, string sub, string replacement) {
 	int pos;
 	pos = str.find(sub);
 	while (pos != -1) {
@@ -44,13 +44,13 @@ string Slr::replaceAll(string str, string sub, string replacement) {
 }
 
 
-void Slr::log(const string& s) {
+void Slr2::log(const string& s) {
 	//		  cout<<s<<endl;
 }
 
 
 
-int Slr::calculate_f_terminate(string symbol, string rule_file) {
+int Slr2::calculate_f_terminate(string symbol, string rule_file) {
 	ruleList.clear();
 	terminator.clear();
 	non_terminator.clear();
@@ -98,7 +98,7 @@ int Slr::calculate_f_terminate(string symbol, string rule_file) {
 
 
 
-int Slr::init(string rule_file) {
+int Slr2::init(string rule_file) {
 	ruleList.clear();
 	terminator.clear();
 	non_terminator.clear();
@@ -159,13 +159,9 @@ int Slr::init(string rule_file) {
 	log("构建 LR（0）算法的状态机 end");
 
 
-
-
-
-	for (auto e: items_list) {
-		sort(e.begin(),e.end(), P_Item_Cmp2());
+	for (auto e : items_list) {
+		sort(e.begin(), e.end(), P_Item_Cmp2());
 	}
-
 
 	unordered_map<string, set<int>> r_rule_item_map;
 	ostringstream os;
@@ -239,12 +235,13 @@ int Slr::init(string rule_file) {
 	}
 
 	if (detect_ambigulous(forecast_list, ruleList, items_list)) {
-		return -1;
+		//return -1;
+		return 0;
 	}
 	return 0;
 }
 
-void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter) {
+void Slr2::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter) {
 	total_lex_word_list.clear();
 
 	//定义上下文
@@ -288,7 +285,7 @@ void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 	total_lex_word_list.back()->type = "'end'";
 }
 
-Node* Slr::slr(Env& env, CompileInfo &compileInfo) {
+Node* Slr2::slr(Env& env, CompileInfo &compileInfo) {
 
 	vector<P_Lex_Word>  lex_word_list;
 
@@ -311,7 +308,7 @@ Node* Slr::slr(Env& env, CompileInfo &compileInfo) {
 }
 
 
-void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList,
+void Slr2::calculate_f_first(unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList,
 	const set<string> &terminator, const set<string> &non_terminator) {
 	// 计算first函数
 
@@ -429,7 +426,7 @@ void Slr::calculate_f_first(unordered_map<string, set<string>> &f_first, const v
 }
 
 
-void Slr::calculate_f_terminate_inline(string symbol, const vector<P_Rule> &ruleList,
+void Slr2::calculate_f_terminate_inline(string symbol, const vector<P_Rule> &ruleList,
 	const set<string> &terminator, const set<string> &non_terminator) {
 	set<P_Rule> has_calculate_symbol_set;
 	vector<P_Rule> rule_stack;
@@ -527,7 +524,7 @@ void Slr::calculate_f_terminate_inline(string symbol, const vector<P_Rule> &rule
 
 
 
-void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first, set<string> &zero_terminator,
+void Slr2::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first, set<string> &zero_terminator,
 	const vector<P_Rule> &ruleList, const set<string> &non_terminator, const set<string> &terminator, string start_symbol) {
 
 	for (const auto &e : non_terminator) {
@@ -707,7 +704,7 @@ void Slr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unord
 }
 
 
-void Slr::printGraph(vector<vector<P_Item>> &items_list,
+void Slr2::printGraph(vector<vector<P_Item>> &items_list,
 	unordered_map<int, unordered_map<string, int>> &convert_map) {
 	cout << "打印转移状态图的点" << endl;
 
@@ -741,7 +738,7 @@ void Slr::printGraph(vector<vector<P_Item>> &items_list,
 }
 
 
-void Slr::printStack(Node* &node_tree) {
+void Slr2::printStack(Node* &node_tree) {
 	cout << "深度优先遍历:" << endl;
 	vector<Node*> item_node_stack2;
 	item_node_stack2.push_back(node_tree);
@@ -772,7 +769,7 @@ void Slr::printStack(Node* &node_tree) {
 	}
 }
 
-bool Slr::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node, int level) {
+bool Slr2::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node, int level) {
 	for (int i1 = 1; i1 <= level; i1++) {
 		int i2 = i1;
 
@@ -803,7 +800,7 @@ bool Slr::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node, int l
 }
 
 //Ig_TypeParameterList
-void Slr::printStackTree(Node* &node_tree, string ignore_file_path) {
+void Slr2::printStackTree(Node* &node_tree, string ignore_file_path) {
 
 	cout << "打印语法树:" << endl;
 
@@ -1020,7 +1017,7 @@ void Slr::printStackTree(Node* &node_tree, string ignore_file_path) {
 }
 
 
-void Slr::parse_all_symbol(set<string> &terminator, set<string> &non_terminator, set<string> &zero_terminator, const vector<P_Rule> &ruleList) {
+void Slr2::parse_all_symbol(set<string> &terminator, set<string> &non_terminator, set<string> &zero_terminator, const vector<P_Rule> &ruleList) {
 	for (auto rule : ruleList) {
 		for (auto s : rule->symbols) {
 			if (s[0] == '\'') {
@@ -1135,7 +1132,7 @@ void Slr::parse_all_symbol(set<string> &terminator, set<string> &non_terminator,
 }
 
 
-void Slr::calculate_first_set(const vector<string> &strArr, set<string> &result_set, unordered_map<string, set<string>> &f_first) {
+void Slr2::calculate_first_set(const vector<string> &strArr, set<string> &result_set, unordered_map<string, set<string>> &f_first) {
 	result_set.clear();
 	bool has_zero = true;
 	for (const string &e : strArr) {
@@ -1158,7 +1155,7 @@ void Slr::calculate_first_set(const vector<string> &strArr, set<string> &result_
 
 }
 
-bool Slr::is_P_Item_equal(const P_Item &c1, const P_Item &c2) {
+bool Slr2::is_P_Item_equal(const P_Item &c1, const P_Item &c2) {
 	if (c1->rule < c2->rule) {
 		return false;
 	}
@@ -1178,7 +1175,7 @@ bool Slr::is_P_Item_equal(const P_Item &c1, const P_Item &c2) {
 
 
 
-void Slr::calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const vector<P_Rule> &ruleList,
+void Slr2::calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const vector<P_Rule> &ruleList,
 	const set<string> &non_terminator, unordered_map<string, set<P_Item>> &from_map, set<P_Item, P_Item_Cmp> &_items_set,
 	set<P_Item, P_Item_Cmp> &_visited_items_set, const set<string> &zero_terminator) {
 	//用于计算闭包
@@ -1223,13 +1220,6 @@ void Slr::calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const v
 				for (int i1 = 0; i1 <= e->symbols.size(); i1++) {
 
 					P_Item _p_item(new Item(e, i1));
-
-
-					ostringstream os;
-					os << "Fake_" << "X" << "_" << _p_item->rule->index << "_" << _p_item->status;
-					string fakeDymbol = os.str();
-					_p_item->end_for_symbol.insert(fakeDymbol);
-
 					if (_items_set.count(_p_item) == 0) {
 
 						_items.push_back(_p_item);
@@ -1266,7 +1256,7 @@ void Slr::calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const v
 
 
 
-void Slr::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> &has_calculated_end_for_symbol_set, unordered_map<string, set<P_Item>> &from_map,
+void Slr2::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> &has_calculated_end_for_symbol_set, unordered_map<string, set<P_Item>> &from_map,
 	vector<string> &first_input, set<string> _first_set, unordered_map<string, set<string>> &f_first) {
 
 	for (auto &e : _items) {
@@ -1301,6 +1291,7 @@ void Slr::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> 
 									if (has_calculated_end_for_symbol_set.count(e3) != 0) {
 										_first_set.insert(e3->end_for_symbol.begin(), e3->end_for_symbol.end());
 										result_set.insert(_first_set.begin(), _first_set.end());
+										//result_set.insert("fake_" + itemIndex + string("_") + (e3->rule->index + "_" + e3->status));
 									}
 									else {
 										que.push_back(e3);
@@ -1311,6 +1302,7 @@ void Slr::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> 
 								}
 								else {
 									result_set.insert(_first_set.begin(), _first_set.end());
+									//result_set.insert("fake_" + itemIndex + string("_") + (e3->rule->index + "_" + e3->status));
 								}
 							}
 							if (!is_calculat_success) {
@@ -1324,7 +1316,6 @@ void Slr::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> 
 					}
 					if (is_calculat_success) {
 						e4->end_for_symbol.insert(result_set.begin(), result_set.end());
-
 						que.pop_back();
 						has_calculated_end_for_symbol_set.insert(e4);
 					}
@@ -1338,97 +1329,21 @@ void Slr::calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> 
 }
 
 
-
-
-void Slr::refreshEndForSymbolFlow(vector<vector<P_Item>>  &items_list_temp) {
-	bool isChange = true;
-	deque<int> fakeSymbol_deq;
-	set<int> fakeSymbol_set;
-	unordered_map<string,set<string>> fakeSymbolMap;
-	
-
-	while (isChange) {
-		isChange = false;
-		fakeSymbol_set.clear();
-
-		fakeSymbol_deq.push_front(0);
-		fakeSymbol_set.insert(0);
-
-		while (fakeSymbol_deq.size() > 0) {
-			int itemNumber = fakeSymbol_deq.back();
-			for (const auto &e : items_list_temp[itemNumber]) {
-				ostringstream os;
-				os << "Fake_" << itemNumber << "_" << e->rule->index << "_" << e->status;
-				string fakeSymbol = os.str();
-				for (const auto &e2 : items_list_temp[itemNumber]) {
-					if (e2->end_for_symbol.count(fakeSymbol) > 0) {
-						int originNum = e2->end_for_symbol.size();
-						e2->end_for_symbol.insert(e->end_for_symbol.begin(), e->end_for_symbol.end());
-						if (originNum != e2->end_for_symbol.size()) {
-							isChange = true;
-						}
-					}
-				}
-
-			}
-
-
-			for (const auto &e : items_list_temp[itemNumber]) {
-				if (e->status!=e->rule->symbols.size()&&convert_map[itemNumber].count(e->rule->symbols[e->status]) > 0) {
-
-
-					int nextItemNumber = convert_map[itemNumber][e->rule->symbols[e->status]];
-					bool isChange2 = false;
-
-
-					for (const auto &e2 : items_list_temp[nextItemNumber]) {
-						if (e2->rule->index== e->rule->index&&e2->status==(e->status+1)) {
-							int originNum = e2->end_for_symbol.size();
-							e2->end_for_symbol.insert(e->end_for_symbol.begin(), e->end_for_symbol.end());
-							if (originNum != e2->end_for_symbol.size()) {
-								isChange = true;
-								isChange2 = true;
-							}
-						}
-					}
-
-
-					if (fakeSymbol_set.count(nextItemNumber)==0||isChange2) {
-						fakeSymbol_deq.push_front(nextItemNumber);
-						fakeSymbol_set.insert(nextItemNumber);
-					}
-						
-
-					
-
-				}
-			}
-			
-			fakeSymbol_deq.pop_back();
-
-		}
-
-
-
-	}
-
-
-}
-
-
-
 /*
 items_list 项集
 
 
 */
-void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp,
+void Slr2::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 	const set<string> &non_terminator, const set<string> &zero_terminator, unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const string start_symbol) {
 
-	//vector<vector<P_Item>> items_list_temp;
+	vector<vector<P_Item>> items_list_temp;
 
-	//unordered_map<int, unordered_map<string, int>> convert_map_temp;
+	unordered_map<int, unordered_map<string, int>> convert_map_temp;
 	unordered_map<int, unordered_map<string, int>> reverse_convert_map;
+
+
+
 
 
 	vector<P_Item> items0;
@@ -1453,10 +1368,6 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 		if (e->rule_name == start_symbol) {
 			_first_set.clear();
 			_first_set.insert("'$'");
-			ostringstream os;
-			os<< "Fake_" << 0 << "_" << e->index << "_" << 0;
-			string fakeDymbol = os.str();
-			_first_set.insert(fakeDymbol);
 			P_Item _p_item(new Item(e, 0, _first_set));
 			has_calculated_end_for_symbol_set.insert(_p_item);
 			items_list_temp[0].push_back(_p_item);
@@ -1474,25 +1385,10 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 	//	rule_name_set rule_name_deq 用于计算闭包
 
 	calClosure(items_list_temp[0], rule_name_set, ruleList, non_terminator, from_map, _items_set, _visited_items_set, zero_terminator);
+
+
 	//计算 end_for_symbol
 	calEndForSymbol("0", items_list_temp[0], has_calculated_end_for_symbol_set, from_map, first_input, _first_set, f_first);
-
-	for (const auto &e : items_list_temp[0]) {
-		set<string> eraseSet;
-		set<string> insertSet;
-		for (const auto &e2 : e->end_for_symbol) {
-			if (startsWith(e2, "Fake_X_") == 1) {
-				string s=replaceAll(e2, "X", std::to_string(0));
-				insertSet.insert(s);
-				eraseSet.insert(e2);
-			}
-		}
-		for (const auto &e2 : eraseSet) {
-			e->end_for_symbol.erase(e2);
-		}
-		e->end_for_symbol.insert(insertSet.begin(), insertSet.end());
-	}
-
 
 	rule_name_set.clear();
 
@@ -1520,8 +1416,8 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 		from_map.clear();
 		has_calculated_end_for_symbol_set.clear();
 
-		if (convert_map.find(status_number) == convert_map.end()) {
-			convert_map[status_number] = unordered_map<string, int>();
+		if (convert_map_temp.find(status_number) == convert_map_temp.end()) {
+			convert_map_temp[status_number] = unordered_map<string, int>();
 		}
 		for (string symble : move_symbol_set) {
 			vector<P_Item> _items;
@@ -1531,12 +1427,6 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 				if (e->rule->symbols.size() > e->status) {
 					if (e->rule->symbols[e->status] == symble) {
 						P_Item _p_item(new Item(e->rule, e->status + 1, e->end_for_symbol));
-
-						ostringstream os;
-						os << "Fake_" << "X" << "_" << _p_item->rule->index << "_" << _p_item->status;
-						string fakeDymbol = os.str();
-						_p_item->end_for_symbol.insert(fakeDymbol);
-
 						has_calculated_end_for_symbol_set.insert(_p_item);
 						if (_p_item->rule->rule_name == start_symbol && _p_item->status == 1) {
 							is_final_item = true;
@@ -1566,6 +1456,10 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 
 
 			calClosure(_items, rule_name_set, ruleList, non_terminator, from_map, _items_set, _visited_items_set, zero_terminator);
+
+
+
+
 			//计算 end_for_symbol
 			calEndForSymbol("X", _items, has_calculated_end_for_symbol_set, from_map, first_input, _first_set, f_first);
 
@@ -1577,20 +1471,10 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 				if (items_list_temp[i1].size() == _items.size()) {
 					bool flag = true;
 					for (auto &e : items_list_temp[i1]) {
-
-						bool isMatch = false;
-						for (const auto &e2 : _items_set) {
-							if (*e2 == *e) {
-								isMatch = true;
-								break;
-							}
-						}
-						if (!isMatch) {
+						if (_items_set.count(e) == 0) {
 							flag = false;
 							break;
 						}
-
-
 					}
 					if (flag) {
 						items_list_index = i1;
@@ -1599,63 +1483,25 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 					}
 				}
 			}
-
-
-			//
-
 			if (!isExist) {
-				
-				for (const auto &e : _items) {
-					set<string> eraseSet;
-					set<string> insertSet;
-					for (const auto &e2 : e->end_for_symbol) {
-						if (startsWith(e2, "Fake_X_") == 1) {
-							string s = replaceAll(e2, "X", std::to_string(items_list_temp.size()));
-							insertSet.insert(s);
-							eraseSet.insert(e2);
-						}
-					}
-					for (const auto &e2 : eraseSet) {
-						e->end_for_symbol.erase(e2);
-					}
-					e->end_for_symbol.insert(insertSet.begin(), insertSet.end());
-				}
-
-
-
-				
-
 				items_list_temp.push_back(_items);
 				status_que.push_front(items_list_temp.size() - 1);
 				items_list_index = items_list_temp.size() - 1;
 
-
 				if (is_final_item) {
-					if (convert_map.find(items_list_index) == convert_map.end()) {
-						convert_map[items_list_index] = unordered_map<string, int>();
+					if (convert_map_temp.find(items_list_index) == convert_map_temp.end()) {
+						convert_map_temp[items_list_index] = unordered_map<string, int>();
 					}
-					convert_map[items_list_index]["'$'"] = -1;
+					convert_map_temp[items_list_index]["'$'"] = -1;
 				}
 			}
-			else {
 
-				for (const auto &e1 : _items) {
-					for (const auto &e : items_list_temp[items_list_index]) {
-						if (e1 == e) {
-							e->end_for_symbol.insert(e1->end_for_symbol.begin(), e1->end_for_symbol.end());
-							break;
-						}
-					}
-				}
-
-
-			}
-
-			convert_map[status_number][symble] = items_list_index;
+			convert_map_temp[status_number][symble] = items_list_index;
 			reverse_convert_map[items_list_index][symble] = status_number;
 			rule_name_deq.clear();
 			rule_name_set.clear();
 		}
+
 
 
 
@@ -1697,7 +1543,7 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 		}
 	*/
 
-	/*
+
 	unordered_map<int, set<int>> newItemToOldItemMap;
 	unordered_map<int, int> oldItemToNewItemMap;
 	int index = 0;
@@ -1784,39 +1630,20 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp
 			}
 		}
 	}
-	*/
 
 
 
-
-
-refreshEndForSymbolFlow(items_list_temp);
-
-
-	for (const auto &e : items_list_temp) {
-		for (auto &e1 : e) {
-			set<string> rmSet;
-			for (auto &e2 : e1->end_for_symbol) {
-				if (startsWith(e2,"Fake_")==1) {
-					rmSet.insert(e2);
-				}
-			}
-
-			for (auto &e2 : rmSet) {
-				e1->end_for_symbol.erase(e2);
-			}
-		}
-	}
 
 
 #ifdef __PRINT_GRAPH
-	printGraph(items_list_temp, convert_map);
+	printGraph(items_list, convert_map);
+
 #endif
 
 }
 
 
-bool Slr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
+bool Slr2::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
 	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list) {
 	bool flag = false;
 	set<int> item_set;
@@ -1880,7 +1707,7 @@ bool Slr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list
 
 
 
-void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecast_list,
+void Slr2::calculate_forecast_list(vector<unordered_map<string, string>> &forecast_list,
 	const vector<vector<P_Item>> &items_list, const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule, int> &rule_map,
 	unordered_map<int, unordered_map<string, int>> &convert_map, unordered_map<string, set<string>> &f_follow) {
 	for (int i1 = 0; i1 < items_list.size(); i1++) {
@@ -2006,7 +1833,7 @@ void Slr::calculate_forecast_list(vector<unordered_map<string, string>> &forecas
 #endif
 }
 
-Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string, string>> &forecast_list,
+Node* Slr2::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string, string>> &forecast_list,
 	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &input) {
 	struct ItemNode {
 		Node *node;
@@ -2162,7 +1989,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 
 
 /*
-void Slr::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) {
+void Slr2::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) {
 
 	cout << "生成中间代码:" << endl;
 
@@ -2203,7 +2030,7 @@ void Slr::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) 
 */
 
 
-void Slr::paresOrders(const string& rule_file, vector<string>& orders, unordered_map<string, string> &temp_forecast_map) {
+void Slr2::paresOrders(const string& rule_file, vector<string>& orders, unordered_map<string, string> &temp_forecast_map) {
 	ifstream input_file;
 	input_file.open(rule_file.data());
 	string rule_str;
@@ -2379,12 +2206,12 @@ void Slr::paresOrders(const string& rule_file, vector<string>& orders, unordered
 
 
 
-Slr::Slr() {
+Slr2::Slr2() {
 
 }
 
 
-Slr::~Slr() {
+Slr2::~Slr2() {
 }
 
 /**
