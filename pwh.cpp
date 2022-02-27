@@ -25,107 +25,10 @@
 
 
 
-int testForSynax(){
-//string rule_file="E:\\Users\\Administrator\\Desktop\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\pwh的试验\\ruleForLexical.txt";
-//string compile_file="E:\\Users\\Administrator\\Desktop\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\pwh的试验\\testForLexical.txt";
-
-string rule_file="C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\rule.txt";
-//string compile_file= "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh.java";
-string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
-string ignore_file_path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ignore.txt";
-
-//string rule_file="F:\\codeWeaponStore\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\rule.txt";
-//string compile_file="F:\\codeWeaponStore\\project2018.3_2018.9\\2018.3~2018.9\\编译原理实验\\微型编译器\\test.txt";
-Env env;
-//
 
 
 
-cout<<"尝试将java转成符号表！"<<endl;
-Slr slr;
-CompileInfo compileInfo;
-PrimarySymbolConverter primarySymbolConverter;
 
-if (-1 == slr.init(rule_file)) {
-	return -1;
-}
-slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
-Node*  node_tree =slr.slr( env, compileInfo);
-
-
-#ifdef __PRINT_NODE_TREE
-if (node_tree != nullptr) {
-	//printStack(node_tree);
-	slr.printStackTree(node_tree, ignore_file_path);
-}
-#endif
-
-JAVATreeAnalyzer javaTreeAnalyzer;
-vector<P_MethodOrFieldEntity> result_vector;
-
-javaTreeAnalyzer.parse(node_tree, result_vector);
-
-cout << endl;
-for (auto &e : result_vector) {
-	cout << e->beg_index<<","<<e->end_index << endl;
-}
-
-
-delete node_tree;
-
-cout<<"检测完成！"<<endl;
-
-return 0;
-}
-
-
-int testForSpace() {
-
-
-
-	string rule_file = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForSpace.txt";
-
-	Env env;
-	cout << "尝试将java转成符号表！" << endl;
-	Slr slr;
-	CompileInfo compileInfo;
-	PrimarySymbolConverter primarySymbolConverter;
-
-	if (-1 == slr.init(rule_file)) {
-		return -1;
-	}
-
-	string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
-	slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
-	Node*  node_tree = slr.slr(env, compileInfo);
-
-
-	string ignore_file_path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ignore.txt";
-	#ifdef __PRINT_NODE_TREE
-		if (node_tree != nullptr) {
-			//printStack(node_tree);
-			slr.printStackTree(node_tree, ignore_file_path);
-		}
-	#endif
-
-
-	JAVASpaceTreeAnalyzer javaSpaceTreeAnalyzer;
-	vector<P_MethodOrFieldEntity> result_vector;
-
-	if (node_tree != nullptr) {
-		javaSpaceTreeAnalyzer.parse(node_tree, result_vector);
-
-		cout << endl;
-		for (auto &e : result_vector) {
-			cout << e->beg_index << "," << e->end_index << endl;
-		}
-		delete node_tree;
-	}
-
-	cout << "检测完成！" << endl;
-
-	return 0;
-}
 
 
 
@@ -262,15 +165,18 @@ int main(){
 	
 	//getFileList("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java");
 
+
 	string rule_file = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForSpace.txt";
 
 	Env env;
 	cout << "分析器初始化！" << endl;
 	Slr slr;
 	CompileInfo compileInfo;
-	
-
-
+	set<string> end_symbol_set;
+	end_symbol_set.insert("'class','IDENTIFIER'");
+	end_symbol_set.insert("'enum','IDENTIFIER'");
+	end_symbol_set.insert("'interface','IDENTIFIER'");
+	end_symbol_set.insert("'AT_INTERFACE','IDENTIFIER'");
 
 	//单体分析 - 词法分析
 	/*
@@ -285,6 +191,8 @@ int main(){
 	1-批量分析
 	2-非终端对应什么终端？
 	*/
+	JAVATreeAnalyzer javaTreeAnalyzer;
+	
 	int mode= 1;
 
 	if (mode==0) {
@@ -293,20 +201,17 @@ int main(){
 			return -1;
 		}
 
-		
-
 		slr.switchParseProcess = true;
 		slr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
-		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\annotation\\Generated.java", primarySymbolConverter);
-		
+		slr.init_total_lex_word_list("C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\valves\\RemoteIpValve.java", primarySymbolConverter, end_symbol_set);
 
 		Node*  node_tree = slr.slr(env, compileInfo); 
 		if (node_tree == nullptr) {
-			cout << "Generated.java" << ":" << "分析失败" << endl;
+			cout << "RemoteIpValve.java" << ":" << "分析失败" << endl;
 		}
 		else {
-			cout << "Generated.java" << ":" << "分析成功" << endl;
+			cout << "RemoteIpValve.java" << ":" << "分析成功" << endl;
 			Node::releaseNode(node_tree);
 		}
 
@@ -321,24 +226,26 @@ int main(){
 			P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
 			unordered_map<string, string> transfer_map;
 			//transfer_map["start_id"] = "505657";
-			transfer_map["start_id"] = "505455";
-			transfer_map["end_id"] = "505857";
-		//	505455~505656												508916
+			transfer_map["start_id"] = "508917";
+			transfer_map["end_id"] = "510647";
+		//	508917  510647												
 			vector<unordered_map<string, string>> result_list;
 
 
 		tCompileFileDao->queryList(transfer_map, result_list);
 			for (auto &e:result_list) {
 				string compile_file =e["path"]+"\\"+ e["file_name"];
-		//		string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\catalina\\ant\\AbstractCatalinaCommandTask.java";
 				PrimarySymbolConverter primarySymbolConverter;
-				slr.init_total_lex_word_list(compile_file, primarySymbolConverter);
+				slr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set);
 				Node*  node_tree = slr.slr(env, compileInfo);
 				if (node_tree==nullptr) {
 					cout << e["file_name"] << ":" << "分析失败" << endl;
 				}
 				else {
 					cout << e["file_name"] << ":" << "分析成功" << endl;
+					unordered_map<string, string> resultMap;
+					javaTreeAnalyzer.findTypeDeclarationListBegin(node_tree, resultMap);
+					cout << resultMap["begin"] << endl;
 					Node::releaseNode(node_tree);
 				}
 			}
@@ -363,9 +270,7 @@ int main(){
 
 
 
-	//testForSynax();
-	//testForLexer();
-	//testForSpace();
+
 
 
 

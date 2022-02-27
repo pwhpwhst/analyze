@@ -3,6 +3,7 @@
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
 //#define __PRINT_GRAPH
+#define __CHECK_CONFILCT
 //#define __PRINT_LEX_WORD_LIST
 //#define __PRINT_PARSE_PROCESS
 #define __PRINT_NOT_SILENT
@@ -244,7 +245,7 @@ int Slr::init(string rule_file) {
 	return 0;
 }
 
-void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter) {
+void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter,set<string> &endSymbolSet) {
 	total_lex_word_list.clear();
 
 	//定义上下文
@@ -254,6 +255,7 @@ void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 	log("生成输入");
 
 	vector<P_Lex_Word>  _total_lex_word_list;
+	vector <string> behaves;
 	_total_lex_word_list.clear();
 	word_parser(compile_file, _total_lex_word_list);
 
@@ -262,8 +264,41 @@ void Slr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 		primarySymbolConverter.convert(*e, *p);
 		if (p->type != "0") {
 			total_lex_word_list.push_back(p);
-		}
+			/*
+			if (endSymbolSet.count(p->type) > 0) {
+				break;
+			}
+			*/
 
+			bool isMatch = false;
+			for (const auto &e2:endSymbolSet) {
+				bool isMatch2 = true;
+
+				behaves.clear();
+				split(behaves, e2, is_any_of(","));
+				if (total_lex_word_list.size() < behaves.size()) {
+					isMatch2 = false;
+				}
+				else {
+					for (int i1 = behaves.size() - 1, i2 = total_lex_word_list.size() - 1; i1 >= 0; i1--,i2--) {
+						if (behaves[i1] != total_lex_word_list[i2]->type) {
+							isMatch2 = false;
+							break;
+						}
+					}
+				}
+
+				if (isMatch2) {
+					isMatch = true;
+					break;
+				}
+
+			}
+
+			if (isMatch) {
+				break;
+			}
+		}
 	}
 
 	/*
@@ -1713,6 +1748,11 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 		}
 	}
 
+#ifdef __PRINT_GRAPH
+	printGraph(items_list, convert_map);
+#endif
+
+#ifdef __CHECK_CONFILCT
 	for (int i1 = 0; i1 < items_list.size(); i1++) {
 		const auto &e1 = items_list[i1];
 		set<string> checkSet;
@@ -1720,19 +1760,38 @@ void Slr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 			if (e2->status == e2->rule->symbols.size()) {
 				int num1 = checkSet.size();
 				int num2 = e2->end_for_symbol.size();
+				if (e2->end_for_symbol.count("'$'")==1) {
+					num2--;
+				}
 				checkSet.insert(e2->end_for_symbol.begin(), e2->end_for_symbol.end());
+				checkSet.erase("'$'");
 				if (checkSet.size() < (num1 + num2)) {
-					cout << "item" << i1 << "存在规约-规约冲突" << endl;
+					cout << "item" << i1 <<":"<< e2->rule->index << "存在规约-规约冲突" << endl;
+					for(const auto &e3:e2->end_for_symbol) {
+						if (e3=="'$'") {
+							continue;
+						}
+						for (const auto &e4 : e1) {
+							if (e4->status != e4->rule->symbols.size()) {
+								continue;
+							}
+							if (*e4 == *e2) {
+								break;
+							}
+							if (e4->end_for_symbol.count(e3)>0) {
+								cout << e3<<","<< e4->rule->index << endl;
+							}
+						}
+					}
+
 				}
 			}
 		}
 	}
-
-
-
-#ifdef __PRINT_GRAPH
-	printGraph(items_list_temp, convert_map);
 #endif
+
+
+
 
 }
 
@@ -2064,6 +2123,7 @@ Node* Slr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminato
 
 #endif
 
+			//别忘了去实现内存，暂时先不写
 			break;
 		}
 #ifdef __PRINT_PARSE_PROCESS

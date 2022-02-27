@@ -54,7 +54,7 @@ void write_word(char *yytext,char *symbol_name){
 
 
 IDENTIFIER [_0-9a-zA-Z]+
-StringLiteral \"((\\['"?\\abfnrtv])|[^\\\"])*\"
+StringLiteral \"((\\['"?\\abfnrtv])|[^\\\n\"])*\"
 IntegerLiteral [-+]?[0-9]+[lL]?
 CharacterLiteral \'((\\['"?\\abfnrtv])|[^\\\'])\'
 

@@ -11,7 +11,7 @@ class TreeAnalyzer {
 public: TreeAnalyzer();
 public: virtual ~TreeAnalyzer();
 
-public: virtual void parse(Node *treeNode,vector<P_MethodOrFieldEntity> &result_vector)=0;
+//public: virtual void parse(Node *treeNode,vector<P_MethodOrFieldEntity> &result_vector)=0;
 
 };
 

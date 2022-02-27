@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<unordered_map>
 #include "../../Entity/MethodOrFieldEntity.h"
 #include "../../SLR/Node.h"
 #include "../TreeAnalyzer.h"
@@ -12,17 +13,7 @@ class JAVATreeAnalyzer :virtual public TreeAnalyzer {
 public: JAVATreeAnalyzer();
 public: virtual ~JAVATreeAnalyzer();
 
-public: void parse(Node *treeNode, vector<P_MethodOrFieldEntity> &result_vector);
-
-private:void parse_MethodOrFieldDecl(MethodOrFieldEntity &entity, Node *node);
-
-private:void parse_Type(MethodOrFieldEntity &entity, Node *node);
-
-private:void parse_MethodOrFieldRest(MethodOrFieldEntity &entity, Node *node);
-
-private:void parse_FormalParameterDecls(MethodOrFieldEntity &entity, Node *node);
-
-private:void parse_Block(MethodOrFieldEntity &entity, Node *node);
+public: void findTypeDeclarationListBegin(Node *treeNode, unordered_map<string, string> &resultMap);
 };
 
 
