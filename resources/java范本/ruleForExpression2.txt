@@ -1,0 +1,68 @@
+ele_begin : Primary
+-- »ù´¡  --
+Identifier : 'IDENTIFIER'
+IdentifierList : 'SPOT' Identifier IdentifierList
+IdentifierList : 0
+Literal : 'IntegerLiteral'
+Literal : 'FloatingPointLiteral'
+Literal : 'BooleanLiteral'
+Literal : 'CharacterLiteral'
+Literal : 'null'
+-- Name --
+ExpressionName : Identifier
+TypeName : 'TypeNameId'
+TypeName : PackageOrTypeName 'SPOT' 'TypeNameId'
+PackageOrTypeName : 'PackageOrTypeNameId'
+PackageOrTypeName : PackageOrTypeName 'SPOT' 'PackageOrTypeNameId'
+MethodName : Identifier
+-- TypeArguments
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentList : TypeArguments TypeArgumentList
+TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+TypeArgumentList : 0
+NonANGLE_BRACKET : 'QUESTION'
+NonANGLE_BRACKET : 'extends'
+NonANGLE_BRACKET : 'super'
+NonANGLE_BRACKET : 'COMMA'
+NonANGLE_BRACKET : Identifier
+NonANGLE_BRACKET : 'ClassTypeId'
+-- type
+Type : PrimitiveType
+Type : ReferenceType
+PrimitiveType : NumericType
+PrimitiveType : 'boolean'
+NumericType : IntegralType
+NumericType : FloatingPointType
+IntegralType : 'byte'
+IntegralType : 'short'
+IntegralType : 'int'
+IntegralType : 'long'
+IntegralType : 'char'
+FloatingPointType : 'float'
+FloatingPointType : 'double'
+ReferenceType : TypeVariable
+ReferenceType : ClassOrInterfaceType
+ReferenceType : ArrayType
+TypeVariable : 'TypeVariableId'
+ClassOrInterfaceType : ClassType
+ClassType : 'ClassTypeId' 
+ClassType : 'ClassTypeId' TypeArguments
+ClassType : ClassOrInterfaceType 'SPOT' 'ClassTypeId'
+ClassType : ClassOrInterfaceType 'SPOT' 'ClassTypeId' TypeArguments
+ArrayType : PrimitiveType Dims
+ArrayType : ClassOrInterfaceType Dims
+ArrayType : TypeVariable Dims
+Dims : 'LEFT_BRACKET' 'RIGTH_BRACKET' BRACKETList
+BRACKETList : 'LEFT_BRACKET' 'RIGTH_BRACKET' BRACKETList
+BRACKETList : 0
+-- Expression --
+Primary : PrimaryNoNewArray
+PrimaryNoNewArray : Literal
+PrimaryNoNewArray : ClassLiteral
+PrimaryNoNewArray : 'this'
+PrimaryNoNewArray : TypeName 'SPOT' 'this'
+PrimaryNoNewArray : LEFT_PARENTHESES AnnotationContent RIGHT_PARENTHESES
+ClassLiteral : TypeName BRACKETList 'SPOT' 'class'
+ClassLiteral : NumericType BRACKETList 'SPOT' 'class'
+ClassLiteral : 'boolean' BRACKETList 'SPOT' 'class'
+ClassLiteral : 'void' 'SPOT' 'class'

@@ -1,0 +1,183 @@
+ele_begin : TypeDeclarationList
+-- »ù´¡  --
+Identifier : 'IDENTIFIER'
+Literal : 'StringLiteral'
+Literal : 'IntegerLiteral'
+Literal : 'null'
+Literal : 'CharacterLiteral'
+Type : PrimitiveType
+Type : ReferenceType
+PrimitiveType : AnnotationList NumericType
+PrimitiveType : AnnotationList 'boolean'
+NumericType : IntegralType
+NumericType : FloatingPointType
+IntegralType : 'byte'
+IntegralType : 'short'
+IntegralType : 'int'
+IntegralType : 'long'
+IntegralType : 'char'
+ReferenceType : ClassOrInterfaceType
+ReferenceType : TypeVariable
+ReferenceType : ArrayType
+ClassOrInterfaceType : ClassType
+ClassOrInterfaceType : InterfaceType
+ClassType : AnnotationList Identifier
+ClassType : ClassOrInterfaceType 'SPOT' AnnotationList Identifier
+ClassType : AnnotationList Identifier TypeArguments
+ClassType : ClassOrInterfaceType 'SPOT' AnnotationList Identifier TypeArguments
+InterfaceType : ClassType
+TypeVariable : AnnotationList Identifier
+ArrayType : PrimitiveType Dims
+ArrayType : ClassOrInterfaceType Dims
+ArrayType : TypeVariable Dims
+Dims : Dim Dims
+Dims : AnnotationList Dim
+Dim : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+AnnotationList : Annotation AnnotationList
+AnnotationList : 0
+TypeParameter : TypeParameterModifierList Identifier
+TypeParameter : TypeParameterModifierList Identifier TypeBound
+TypeParameterModifierList : TypeParameterModifier TypeParameterModifierList
+TypeParameterModifierList : 0
+TypeParameterModifier : Annotation
+TypeBound : 'extends' TypeVariable
+TypeBound : 'extends' ClassOrInterfaceType AdditionalBoundList
+AdditionalBoundList : AdditionalBound AdditionalBoundList
+AdditionalBoundList : 0
+AdditionalBound : 'BIT_AND' InterfaceType
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentList : TypeArgument TypeArgumentList2
+TypeArgumentList2 : 'COMMA' TypeArgument TypeArgumentList2
+TypeArgumentList2 : 0
+TypeArgument : ReferenceType
+TypeArgument : Wildcard
+Wildcard : AnnotationList 'QUESTION'
+Wildcard : AnnotationList 'QUESTION' WildcardBounds
+WildcardBounds : 'extends' ReferenceType
+WildcardBounds : 'super' ReferenceType
+-- Name --
+---- CompilationUnit ------
+ClassModifierList : PackageOrClassModifier ClassModifierList
+ClassModifierList : 0
+-- Name ------
+TypeName : Identifier
+TypeName : PackageOrTypeName 'SPOT' Identifier
+PackageOrTypeName : Identifier
+PackageOrTypeName : PackageOrTypeName 'SPOT' Identifier
+-- Annotation ------
+Annotation : NormalAnnotation
+Annotation : MarkerAnnotation
+Annotation : SingleElementAnnotation
+MarkerAnnotation : 'AT' TypeName
+NormalAnnotation : 'AT' TypeName AnnotationContent
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : AnnotationContent AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : 0
+NonPARENTHESES : 'AND'
+NonPARENTHESES : 'AT'
+NonPARENTHESES : 'AT_INTERFACE'
+NonPARENTHESES : 'BIT_AND'
+NonPARENTHESES : 'BIT_OR'
+NonPARENTHESES : 'CARET'
+NonPARENTHESES : 'COLON'
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'CharacterLiteral'
+NonPARENTHESES : 'DB_EQUAL'
+NonPARENTHESES : 'EQUAL'
+NonPARENTHESES : 'GT_EQUAL'
+NonPARENTHESES : 'IDENTIFIER'
+NonPARENTHESES : 'IntegerLiteral'
+NonPARENTHESES : 'LAMBDA_TO'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LT_EQUAL'
+NonPARENTHESES : 'NOT_EQUAL'
+NonPARENTHESES : 'OR'
+NonPARENTHESES : 'PLUS'
+NonPARENTHESES : 'PRECENTAGE'
+NonPARENTHESES : 'QUESTION'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'SLASH'
+NonPARENTHESES : 'SPOT'
+NonPARENTHESES : 'STAR'
+NonPARENTHESES : 'SUBTRACT'
+NonPARENTHESES : 'SURPRISE'
+NonPARENTHESES : 'StringLiteral'
+NonPARENTHESES : 'THREE_SPOT'
+NonPARENTHESES : 'TILDE'
+NonPARENTHESES : 'TWO_COLON'
+NonPARENTHESES : 'TWO_PLUS'
+NonPARENTHESES : 'TWO_SUBTRACT'
+NonPARENTHESES : 'abstract'
+NonPARENTHESES : 'boolean'
+NonPARENTHESES : 'byte'
+NonPARENTHESES : 'char'
+NonPARENTHESES : 'class'
+NonPARENTHESES : 'default'
+NonPARENTHESES : 'double'
+NonPARENTHESES : 'enum'
+NonPARENTHESES : 'extends'
+NonPARENTHESES : 'final'
+NonPARENTHESES : 'float'
+NonPARENTHESES : 'implements'
+NonPARENTHESES : 'int'
+NonPARENTHESES : 'interface'
+NonPARENTHESES : 'long'
+NonPARENTHESES : 'native'
+NonPARENTHESES : 'new'
+NonPARENTHESES : 'null'
+NonPARENTHESES : 'private'
+NonPARENTHESES : 'protected'
+NonPARENTHESES : 'public'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'short'
+NonPARENTHESES : 'static'
+NonPARENTHESES : 'super'
+NonPARENTHESES : 'synchronized'
+NonPARENTHESES : 'this'
+NonPARENTHESES : 'throws'
+NonPARENTHESES : 'transient'
+NonPARENTHESES : 'void'
+NonPARENTHESES : 'volatile'
+-- TypeDeclaration ------
+TypeDeclarationList : TypeDeclaration TypeDeclarationList
+TypeDeclarationList : 0
+TypeDeclaration : ClassDeclaration
+TypeDeclaration : InterfaceDeclaration
+InterfaceDeclaration : NormalInterfaceDeclaration
+InterfaceDeclaration : AnnotationTypeDeclaration
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier TypeParameters ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier Superclass ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier TypeParameters Superclass ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier Superinterfaces ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier TypeParameters Superinterfaces ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier Superclass Superinterfaces ClassBody
+NormalInterfaceDeclaration : ClassModifierList 'interface' Identifier TypeParameters Superclass Superinterfaces ClassBody
+AnnotationTypeDeclaration : ClassModifierList 'AT_INTERFACE' Identifier
+TypeDeclaration : 'semicolon'
+ClassDeclaration : NormalClassDeclaration
+ClassDeclaration : EnumDeclaration
+NormalClassDeclaration : ClassModifierList 'class' Identifier
+NormalClassDeclaration : ClassModifierList 'enum' Identifier
+PackageOrClassModifier : Annotation
+PackageOrClassModifier : 'public'
+PackageOrClassModifier : 'protected'
+PackageOrClassModifier : 'private'
+PackageOrClassModifier : 'abstract'
+PackageOrClassModifier : 'static'
+PackageOrClassModifier : 'final'
+PackageOrClassModifier : 'strictfp'
+TypeParameters : 'LEFT_ANGLE_BRACKET' TypeParameterList 'RIGHT_ANGLE_BRACKET'
+TypeParameterList : TypeParameter TypeParameterList2
+TypeParameterList2 : 'COMMA' TypeParameter TypeParameterList2
+TypeParameterList2 : 0
+Superclass : 'extends' ClassType
+Superinterfaces : 'implements' InterfaceTypeList
+InterfaceTypeList : InterfaceType InterfaceTypeList2
+InterfaceTypeList2 : 'COMMA' InterfaceType InterfaceTypeList2
+InterfaceTypeList2 : 0

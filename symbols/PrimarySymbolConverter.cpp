@@ -5,7 +5,7 @@
 PrimarySymbolConverter::PrimarySymbolConverter() {
 
 	string key_word_array[] = { "default","interface","throws","this","package","import","public","protected","private","static","abstract","final","native","synchronized","transient","volatile",
-		"void","class","extends","super","implements","byte","short","char","int","long","float","double","boolean","null","enum","new" };
+		"void","class","extends","super","implements","byte","short","char","int","long","float","double","boolean","null","enum","new","instanceof" };
 	for (auto &e : key_word_array) {
 		key_word_set.insert(e);
 	}
@@ -16,6 +16,10 @@ PrimarySymbolConverter::~PrimarySymbolConverter() {
 
 }
 
+
+void PrimarySymbolConverter::identifierMap(string idName, string type) {
+	env[idName] =type;
+}
 
 void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord) {
 	newLexWord.content = oriLexWord.content;
@@ -103,6 +107,12 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 
 		if (key_word_set.count(oriLexWord.content) > 0) {
 			newLexWord.type = "'"+oriLexWord.content+"'";
+		}
+		else if (oriLexWord.content == "true"| oriLexWord.content == "false") {
+			newLexWord.type = "'BooleanLiteral'";
+		}
+		else if (env.count(oriLexWord.content) == 1) {
+			newLexWord.type =  env[oriLexWord.content] ;
 		}else {
 			newLexWord.type = oriLexWord.type;
 		}

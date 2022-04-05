@@ -22,8 +22,7 @@
 
 
 
-class Slr{
-
+class Lr1 {
 
 	class P_Item_Cmp
 	{
@@ -71,34 +70,10 @@ class Slr{
 	}
 	};
 
-	class Map_Cmp
-	{
-	public: bool operator ()(const unordered_map<string, int> &c1, const unordered_map<string, int> &c2) const {
-		if (c1.at("itemId") < c2.at("itemId")) {
-			return true;
-		}
-		else if (c2.at("itemId") < c1.at("itemId")) {
-			return false;
-		}
-		else {
-			if (c1.at("ruleId") < c2.at("ruleId")) {
-				return true;
-			}
-			else if (c2.at("ruleId") < c1.at("ruleId")) {
-				return false;
-			}
-			else {
-				return c1.at("statusId") < c2.at("statusId");
-			}
-		}
-
-	}
-	};
-
 
 public:bool switchParseProcess;
 public:bool switchNotSilent;
-	   
+
 
 private:vector<P_Rule> ruleList;
 private:set<string> terminator;
@@ -109,46 +84,46 @@ private:unordered_map<int, unordered_map<string, int>> convert_map;
 private:vector<P_Lex_Word>  total_lex_word_list;
 
 
-private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
+private: void parse_all_symbol(set<string> &terminator, set<string> &non_terminator, set<string> &zero_terminator, const vector<P_Rule> &ruleList);
 
 private: void get_items_list_and_convert_map(vector<vector<P_Item>> &items_list_temp,
-	const set<string> &non_terminator, const set<string> &zero_terminator,unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const string start_symbol);
+	const set<string> &non_terminator, const set<string> &zero_terminator, unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const string start_symbol);
 
-private: void calculate_f_first(unordered_map<string,set<string>> &f_first,const vector<P_Rule> &ruleList,const set<string> &terminator,const set<string> &non_terminator);
+private: void calculate_f_first(unordered_map<string, set<string>> &f_first, const vector<P_Rule> &ruleList, const set<string> &terminator, const set<string> &non_terminator);
 
-private: void calculate_f_follow(unordered_map<string,set<string>> &f_follow, unordered_map<string,set<string>> &f_first,set<string> &zero_terminator,
-	const vector<P_Rule> &ruleList,const set<string> &non_terminator,const set<string> &terminator,string start_symbol);
+private: void calculate_f_follow(unordered_map<string, set<string>> &f_follow, unordered_map<string, set<string>> &f_first, set<string> &zero_terminator,
+	const vector<P_Rule> &ruleList, const set<string> &non_terminator, const set<string> &terminator, string start_symbol);
 
-private: void calculate_forecast_list(vector<unordered_map<string,string>> &forecast_list,
-	const vector<vector<P_Item>> &items_list,const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule,int> &rule_map,
-	 unordered_map<int,unordered_map<string,int>> &convert_map, unordered_map<string,set<string>> &f_follow);
+private: void calculate_forecast_list(vector<unordered_map<string, string>> &forecast_list,
+	const vector<vector<P_Item>> &items_list, const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule, int> &rule_map,
+	unordered_map<int, unordered_map<string, int>> &convert_map, unordered_map<string, set<string>> &f_follow);
 
 private: void printStack(Node* &node_tree);
 
-public: void printStackTree(Node* &node_tree,string ignore_file_path);
+public: void printStackTree(Node* &node_tree, string ignore_file_path);
 
 private: void printGraph(vector<vector<P_Item>> &items_list,
-unordered_map<int,unordered_map<string,int>> &convert_map);
+	unordered_map<int, unordered_map<string, int>> &convert_map);
 
 private: void calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_Item> &has_calculated_end_for_symbol_set, unordered_map<string, set<P_Item>> &from_map,
-	vector<string> &first_input, set<string> _first_set,  unordered_map<string, set<string>> &f_first);
-		 
+	vector<string> &first_input, set<string> _first_set, unordered_map<string, set<string>> &f_first);
 
-private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string,string>> &forecast_list,
-	unordered_map<int,unordered_map<string,int>> &convert_map,vector<P_Lex_Word> &input);
 
-private: bool detect_ambigulous( vector<unordered_map<string,string>> &forecast_list,
- const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
+private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string, string>> &forecast_list,
+	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &input);
 
-private: void gen_middle_code(Env &env,Node* &node_tree,CompileInfo &compileInfo);
+private: bool detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
+	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list);
 
-public: Node* slr(Env &env,CompileInfo &compileInfo);
+private: void gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo);
+
+public: Node* slr(Env &env, CompileInfo &compileInfo);
 
 public: int init(string rule_file);
 
 
 
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter);
 
 private: int startsWith(string s, string sub);
 
@@ -156,11 +131,11 @@ private: int endsWith(string s, string sub);
 
 private: string replaceAll(string str, string sub, string replacement);
 
-public: Slr();
+public: Lr1();
 
-private: void paresOrders(const string& rule_file,vector<string>& orders,unordered_map<string,string> &temp_forecast_map);
+private: void paresOrders(const string& rule_file, vector<string>& orders, unordered_map<string, string> &temp_forecast_map);
 
-public: virtual ~Slr();
+public: virtual ~Lr1();
 
 private: void log(const string& s);
 
@@ -175,14 +150,9 @@ public: int calculate_f_terminate(string symbol, string rule_file);
 private: void calculate_f_terminate_inline(string symbol, const vector<P_Rule> &ruleList,
 	const set<string> &terminator, const set<string> &non_terminator);
 
-
 private: void calClosure(vector<P_Item> &_items, set<string> &rule_name_set, const vector<P_Rule> &ruleList,
 	const set<string> &non_terminator, unordered_map<string, set<P_Item>> &from_map, set<P_Item, P_Item_Cmp> &_items_set,
 	set<P_Item, P_Item_Cmp> &_visited_items_set, const set<string> &zero_terminator);
 
-//private:bool refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp , unordered_map<string, set<string>> &f_first, int items_list_index);
-
-private:void refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp);
 
 };
-

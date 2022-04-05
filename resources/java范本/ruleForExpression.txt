@@ -1,0 +1,206 @@
+ele_begin : Primary
+-- »ù´¡  --
+Identifier : 'IDENTIFIER'
+IdentifierList : 'SPOT' Identifier IdentifierList
+IdentifierList : 0
+Literal : 'IntegerLiteral'
+Literal : 'FloatingPointLiteral'
+Literal : 'BooleanLiteral'
+Literal : 'CharacterLiteral'
+Literal : 'null'
+-- Name --
+TypeName : 'TypeNameId'
+TypeName : PackageOrTypeName 'SPOT' 'TypeNameId'
+PackageOrTypeName : 'PackageOrTypeNameId'
+PackageOrTypeName : PackageOrTypeName 'SPOT' 'PackageOrTypeNameId'
+MethodName : Identifier
+ExpressionName : IdName
+IdName : Identifier
+IdName : Identifier 'SPOT' IdName
+-- type --
+Type : PrimitiveType
+Type : ReferenceType
+PrimitiveType : NumericType
+PrimitiveType : 'boolean'
+NumericType : IntegralType
+NumericType : FloatingPointType
+IntegralType : 'byte'
+IntegralType : 'short'
+IntegralType : 'int'
+IntegralType : 'long'
+IntegralType : 'char'
+FloatingPointType : 'float'
+FloatingPointType : 'double'
+ReferenceType : TypeVariable
+ReferenceType : ClassOrInterfaceType
+ReferenceType : ArrayType
+TypeVariable : 'TypeVariableId'
+ClassOrInterfaceType : 'ClassTypeId' 
+ClassOrInterfaceType : 'ClassTypeId' TypeArguments
+ClassOrInterfaceType : ClassOrInterfaceType 'SPOT' 'ClassTypeId'
+ClassOrInterfaceType : ClassOrInterfaceType 'SPOT' 'ClassTypeId' TypeArguments
+ArrayType : PrimitiveType Dims
+ArrayType : ClassOrInterfaceType Dims
+ArrayType : TypeVariable Dims
+Dims : 'LEFT_BRACKET' 'RIGTH_BRACKET' BRACKETList
+BRACKETList : 'LEFT_BRACKET' 'RIGTH_BRACKET' BRACKETList
+BRACKETList : 0
+-- Annotation ------
+AnnotationList : Annotation AnnotationList
+AnnotationList : 0
+Annotation : NormalAnnotation
+Annotation : MarkerAnnotation
+Annotation : SingleElementAnnotation
+MarkerAnnotation : 'AT' TypeName
+NormalAnnotation : 'AT' TypeName AnnotationContent
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : AnnotationContent AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES
+NonPARENTHESES : 'AND'
+NonPARENTHESES : 'AT'
+NonPARENTHESES : 'AT_INTERFACE'
+NonPARENTHESES : 'BIT_AND'
+NonPARENTHESES : 'BIT_OR'
+NonPARENTHESES : 'CARET'
+NonPARENTHESES : 'COLON'
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'CharacterLiteral'
+NonPARENTHESES : 'DB_EQUAL'
+NonPARENTHESES : 'EQUAL'
+NonPARENTHESES : 'GT_EQUAL'
+NonPARENTHESES : 'IDENTIFIER'
+NonPARENTHESES : 'IntegerLiteral'
+NonPARENTHESES : 'LAMBDA_TO'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LT_EQUAL'
+NonPARENTHESES : 'NOT_EQUAL'
+NonPARENTHESES : 'OR'
+NonPARENTHESES : 'PLUS'
+NonPARENTHESES : 'PRECENTAGE'
+NonPARENTHESES : 'QUESTION'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'SLASH'
+NonPARENTHESES : 'SPOT'
+NonPARENTHESES : 'STAR'
+NonPARENTHESES : 'SUBTRACT'
+NonPARENTHESES : 'SURPRISE'
+NonPARENTHESES : 'StringLiteral'
+NonPARENTHESES : 'THREE_SPOT'
+NonPARENTHESES : 'TILDE'
+NonPARENTHESES : 'TWO_COLON'
+NonPARENTHESES : 'TWO_PLUS'
+NonPARENTHESES : 'TWO_SUBTRACT'
+NonPARENTHESES : 'abstract'
+NonPARENTHESES : 'boolean'
+NonPARENTHESES : 'byte'
+NonPARENTHESES : 'char'
+NonPARENTHESES : 'class'
+NonPARENTHESES : 'default'
+NonPARENTHESES : 'double'
+NonPARENTHESES : 'enum'
+NonPARENTHESES : 'extends'
+NonPARENTHESES : 'final'
+NonPARENTHESES : 'float'
+NonPARENTHESES : 'implements'
+NonPARENTHESES : 'int'
+NonPARENTHESES : 'interface'
+NonPARENTHESES : 'long'
+NonPARENTHESES : 'native'
+NonPARENTHESES : 'new'
+NonPARENTHESES : 'null'
+NonPARENTHESES : 'private'
+NonPARENTHESES : 'protected'
+NonPARENTHESES : 'public'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'short'
+NonPARENTHESES : 'static'
+NonPARENTHESES : 'super'
+NonPARENTHESES : 'synchronized'
+NonPARENTHESES : 'this'
+NonPARENTHESES : 'throws'
+NonPARENTHESES : 'transient'
+NonPARENTHESES : 'void'
+NonPARENTHESES : 'volatile'
+-- Primary --
+Primary : PrimaryNoNewArray
+PrimaryNoNewArray : Literal
+PrimaryNoNewArray : ClassLiteral
+PrimaryNoNewArray : 'this'
+ClassLiteral : TypeName BRACKETList 'SPOT' 'class'
+ClassLiteral : NumericType BRACKETList 'SPOT' 'class'
+ClassLiteral : 'boolean' BRACKETList 'SPOT' 'class'
+ClassLiteral : 'void' 'SPOT' 'class'
+PrimaryNoNewArray : TypeName 'SPOT' 'this'
+PrimaryNoNewArray : LEFT_PARENTHESES AnnotationContent RIGHT_PARENTHESES
+PrimaryNoNewArray : UnqualifiedClassInstanceCreationExpression
+UnqualifiedClassInstanceCreationExpression : 'new' ClassOrInterfaceTypeToInstantiate 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+UnqualifiedClassInstanceCreationExpression : 'new' TypeArguments ClassOrInterfaceTypeToInstantiate 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+UnqualifiedClassInstanceCreationExpression : 'new' ClassOrInterfaceTypeToInstantiate AnnotationContent
+UnqualifiedClassInstanceCreationExpression : 'new' TypeArguments ClassOrInterfaceTypeToInstantiate AnnotationContent
+UnqualifiedClassInstanceCreationExpression : 'new' ClassOrInterfaceTypeToInstantiate 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Block
+UnqualifiedClassInstanceCreationExpression : 'new' TypeArguments ClassOrInterfaceTypeToInstantiate 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Block
+UnqualifiedClassInstanceCreationExpression : 'new' ClassOrInterfaceTypeToInstantiate AnnotationContent Block
+UnqualifiedClassInstanceCreationExpression : 'new' TypeArguments ClassOrInterfaceTypeToInstantiate AnnotationContent Block
+ClassOrInterfaceTypeToInstantiate : AnnotationList Identifier 'SPOT' ClassOrInterfaceTypeToInstantiate
+ClassOrInterfaceTypeToInstantiate : AnnotationList Identifier
+ClassOrInterfaceTypeToInstantiate : AnnotationList Identifier 'SPOT' ClassOrInterfaceTypeToInstantiate TypeArgumentsOrDiamond
+ClassOrInterfaceTypeToInstantiate : AnnotationList Identifier TypeArgumentsOrDiamond
+TypeArgumentsOrDiamond : TypeArguments
+TypeArgumentsOrDiamond : 'LEFT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
+-- Block ------
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
+BlockStatements : 0
+NonBrace : Identifier
+NonBrace : 'AT'
+NonBrace : 'OR'
+NonBrace : 'AND'
+NonBrace : 'BIT_OR'
+NonBrace : 'CARET'
+NonBrace : 'BIT_AND'
+NonBrace : 'DB_EQUAL'
+NonBrace : 'NOT_EQUAL'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'LT_EQUAL'
+NonBrace : 'GT_EQUAL'
+NonBrace : 'STAR'
+NonBrace : 'SLASH'
+NonBrace : 'PRECENTAGE'
+NonBrace : 'semicolon'
+NonBrace : 'EQUAL'
+NonBrace : 'SPOT'
+NonBrace : 'this'
+NonBrace : 'super'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_PARENTHESES'
+NonBrace : 'null'
+NonBrace : 'StringLiteral'
+NonBrace : 'IntegerLiteral'
+NonBrace : 'CharacterLiteral'
+NonBrace : 'COMMA'
+NonBrace : 'class'
+NonBrace : 'QUESTION'
+NonBrace : 'COLON'
+NonBrace : 'LAMBDA_TO'
+NonBrace : 'new'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'default'
+NonBrace : Modifier
+NonBrace : 'void'
+NonBrace : 'extends'
+NonBrace : PrefixOp
+NonBrace : 'TWO_COLON'
+PrefixOp : 'TWO_PLUS'
+PrefixOp : 'TWO_SUBTRACT'
+PrefixOp : 'SURPRISE'
+PrefixOp : 'TILDE'
+PrefixOp : 'PLUS'
+PrefixOp : 'SUBTRACT'

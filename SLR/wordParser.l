@@ -52,11 +52,25 @@ void write_word(char *yytext,char *symbol_name){
 
 %}
 
-
 IDENTIFIER [_0-9a-zA-Z]+
-StringLiteral \"((\\['"?\\abfnrtv])|[^\\\n\"])*\"
+StringLiteral \"((\\['"?\\abfnrtvu0-9])|[^\\\n\"])*\"
 IntegerLiteral [-+]?[0-9]+[lL]?
-CharacterLiteral \'((\\['"?\\abfnrtv])|[^\\\'])\'
+CharacterLiteral \'((\\['"?\\abfnrtvu0-9]+)|[^\\\'])\'
+
+
+DecimalFloatingPointLiteral1 [0-9]+\.([0-9]+)?([eE][+-]?[0-9]+)?[fFdD]?
+DecimalFloatingPointLiteral2 \.[0-9]+([eE][+-]?[0-9]+)?[fFdD]?
+DecimalFloatingPointLiteral3 [0-9]+[eE][+-]?[0-9]+[fFdD]?
+DecimalFloatingPointLiteral4 [0-9]+([eE][+-]?[0-9]+)?[fFdD]
+DecimalFloatingPointLiteral ({DecimalFloatingPointLiteral1}|{DecimalFloatingPointLiteral2}{DecimalFloatingPointLiteral3}|{DecimalFloatingPointLiteral4})
+
+HexDigits [0-9a-fA-F](([0-9a-fA-F]+)?[0-9a-fA-F])?
+HexNumeral 0[xX]{HexDigits}
+HexadecimalFloatingPointLiteral ((HexNumeral[\.]?)|(0[xX]({HexDigits})?\.{HexDigits}))[pP][+-]?[0-9]+[fFdD]?
+
+FloatingPointLiteral (({DecimalFloatingPointLiteral})|({HexadecimalFloatingPointLiteral}))
+
+
 
 U       [\x80-\xbf]
 U2      [\xc2-\xdf]
@@ -73,8 +87,6 @@ AT_INTERFACE @{SPACE}*interface
 {IDENTIFIER} {
   write_word(yytext,"'IDENTIFIER'");
 }
-
-
 
 
 
@@ -218,6 +230,64 @@ AT_INTERFACE @{SPACE}*interface
   write_word(yytext,"'EQUAL'");
 }
 
+"*=" {
+  write_word(yytext,"'MULTI_EQUAL'");
+}
+
+"/=" {
+  write_word(yytext,"'DIVIDE_EQUAL'");
+}
+
+"%=" {
+  write_word(yytext,"'PRECENTAGE_EQUAL'");
+}
+
+
+
+"+=" {
+  write_word(yytext,"'PLUS_EQUAL'");
+}
+
+"-=" {
+  write_word(yytext,"'SUBTRACT_EQUAL'");
+}
+
+"<<=" {
+  write_word(yytext,"'LEFT_SHIFT_EQUAL'");
+}
+
+">>=" {
+  write_word(yytext,"'RIGHT_SHIFT_EQUAL'");
+}
+
+">>>=" {
+  write_word(yytext,"'RIGHT_SHIFT2_EQUAL'");
+}
+
+"<<" {
+  write_word(yytext,"'LEFT_SHIFT'");
+}
+
+">>" {
+  write_word(yytext,"'RIGHT_SHIFT'");
+}
+
+">>>" {
+  write_word(yytext,"'RIGHT_SHIFT2'");
+}
+
+"&=" {
+  write_word(yytext,"'AND_EQUAL'");
+}
+
+"^=" {
+  write_word(yytext,"'XOR_EQUAL'");
+}
+
+"|=" {
+  write_word(yytext,"'OR_EQUAL'");
+}
+
 "->" {
   write_word(yytext,"'LAMBDA_TO'");
 }
@@ -257,6 +327,10 @@ AT_INTERFACE @{SPACE}*interface
 
 {CharacterLiteral} {
   write_word(yytext,"'CharacterLiteral'");
+}
+
+{FloatingPointLiteral} {
+  write_word(yytext,"'FloatingPointLiteral'");
 }
 
 {NO_ENGLISH_CH} {

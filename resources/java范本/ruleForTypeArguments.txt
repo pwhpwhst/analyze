@@ -1,0 +1,32 @@
+ele_begin : TypeArguments
+-- »ù´¡  --
+Identifier : 'IDENTIFIER'
+IdentifierList : 'SPOT' Identifier IdentifierList
+IdentifierList : 0
+-- Name --
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentList : ClassOrInterfaceType 'COMMA' TypeArgumentList
+TypeArgumentList : TypeVariable 'COMMA' TypeArgumentList
+TypeArgumentList : ArrayType 'COMMA' TypeArgumentList
+TypeArgumentList : Wildcard 'COMMA' TypeArgumentList
+TypeArgumentList : ClassOrInterfaceType
+TypeArgumentList : TypeVariable
+TypeArgumentList : ArrayType
+TypeArgumentList : Wildcard
+Wildcard : 'QUESTION'
+Wildcard : 'QUESTION' WildcardBounds
+WildcardBounds : 'extends' ReferenceType
+WildcardBounds : 'super' ReferenceType
+ReferenceType : TypeVariable
+ReferenceType : ClassOrInterfaceType
+ReferenceType : ArrayType
+TypeVariable : 'TypeVariableId'
+ClassOrInterfaceType : 'ClassTypeId' 
+ClassOrInterfaceType : 'ClassTypeId' TypeArguments
+ClassOrInterfaceType : ClassOrInterfaceType 'SPOT' 'ClassTypeId'
+ClassOrInterfaceType : ClassOrInterfaceType 'SPOT' 'ClassTypeId' TypeArguments
+ArrayType : PrimitiveType Dims
+ArrayType : ClassOrInterfaceType Dims
+ArrayType : TypeVariable Dims
+BRACKETList : 'LEFT_BRACKET' 'RIGTH_BRACKET' BRACKETList
+BRACKETList : 0

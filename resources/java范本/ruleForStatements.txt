@@ -1,0 +1,159 @@
+ele_begin : Block
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' 'RIGHT_BRACE'
+BlockStatements : BlockStatement BlockStatements
+BlockStatements : BlockStatement
+BlockStatement : Statement 'semicolon'
+BlockStatement : Statement _Block
+Statement : NonBrace Statement
+Statement : TypeArguments Statement
+Statement : BRACKETContent Statement
+Statement : _Block Statement
+Statement : AnnotationContent Statement
+Statement : TypeArguments
+Statement : BRACKETContent
+Statement : _Block
+Statement : AnnotationContent
+Statement : NonBrace
+StatementEle : 'IDENTIFIER'
+-- StatementEle : 'AND'
+-- StatementEle : 'AND_EQUAL'
+-- StatementEle : 'AT'
+-- StatementEle : 'AT_INTERFACE'
+-- StatementEle : 'BIT_AND'
+-- StatementEle : 'BIT_OR'
+-- StatementEle : 'BooleanLiteral'
+-- StatementEle : 'CARET'
+-- StatementEle : 'COLON'
+-- StatementEle : 'COMMA'
+-- StatementEle : 'CharacterLiteral'
+-- StatementEle : 'ClassTypeId'
+-- StatementEle : 'DB_EQUAL'
+-- StatementEle : 'DIVIDE_EQUAL'
+-- StatementEle : 'EQUAL'
+-- StatementEle : 'FloatingPointLiteral'
+-- StatementEle : 'GT_EQUAL'
+-- StatementEle : 'IDENTIFIER'
+-- StatementEle : 'Identifier'
+-- StatementEle : 'IntegerLiteral'
+-- StatementEle : 'LAMBDA_TO'
+-- StatementEle : 'LEFT_SHIFT'
+-- StatementEle : 'LEFT_SHIFT_EQUAL'
+-- StatementEle : 'LT_EQUAL'
+-- StatementEle : 'MULTI_EQUAL'
+-- StatementEle : 'NOT_EQUAL'
+-- StatementEle : 'OR'
+-- StatementEle : 'OR_EQUAL'
+-- StatementEle : 'PLUS'
+-- StatementEle : 'PLUS_EQUAL'
+-- StatementEle : 'PRECENTAGE'
+-- StatementEle : 'PRECENTAGE_EQUAL'
+-- StatementEle : 'PackageOrTypeNameId'
+-- StatementEle : 'QUESTION'
+-- StatementEle : 'RIGHT_SHIFT'
+-- StatementEle : 'RIGHT_SHIFT2'
+-- StatementEle : 'RIGHT_SHIFT2_EQUAL'
+-- StatementEle : 'RIGHT_SHIFT_EQUAL'
+-- StatementEle : 'RIGTH_BRACKET'
+-- StatementEle : 'SLASH'
+-- StatementEle : 'SPOT'
+-- StatementEle : 'STAR'
+-- StatementEle : 'SUBTRACT'
+-- StatementEle : 'SUBTRACT_EQUAL'
+-- StatementEle : 'SURPRISE'
+-- StatementEle : 'StringLiteral'
+-- StatementEle : 'THREE_SPOT'
+-- StatementEle : 'TILDE'
+-- StatementEle : 'TWO_COLON'
+-- StatementEle : 'TWO_PLUS'
+-- StatementEle : 'TWO_SUBTRACT'
+-- StatementEle : 'TypeNameId'
+-- StatementEle : 'XOR_EQUAL'
+-- StatementEle : 'abstract'
+-- StatementEle : 'boolean'
+-- StatementEle : 'byte'
+-- StatementEle : 'char'
+-- StatementEle : 'class'
+-- StatementEle : 'default'
+-- StatementEle : 'double'
+-- StatementEle : 'enum'
+-- StatementEle : 'extends'
+-- StatementEle : 'final'
+-- StatementEle : 'float'
+-- StatementEle : 'implements'
+-- StatementEle : 'instanceof'
+-- StatementEle : 'int'
+-- StatementEle : 'interface'
+-- StatementEle : 'long'
+-- StatementEle : 'native'
+-- StatementEle : 'new'
+-- StatementEle : 'null'
+-- StatementEle : 'private'
+-- StatementEle : 'protected'
+-- StatementEle : 'public'
+-- StatementEle : 'semicolon'
+-- StatementEle : 'short'
+-- StatementEle : 'static'
+-- StatementEle : 'super'
+-- StatementEle : 'synchronized'
+-- StatementEle : 'this'
+-- StatementEle : 'throws'
+-- StatementEle : 'transient'
+-- StatementEle : 'void'
+-- StatementEle : 'volatile'
+-- TypeArguments --
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArguments : 'LEFT_ANGLE_BRACKET' 'RIGHT_ANGLE_BRACKET'
+TypeArgumentList : TypeArguments TypeArgumentList
+TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+TypeArgumentList : NonANGLE_BRACKET
+TypeArgumentList : TypeArguments
+NonANGLE_BRACKET : StatementEle
+NonANGLE_BRACKET : 'LEFT_BRACE'
+NonANGLE_BRACKET : 'LEFT_BRACKET'
+NonANGLE_BRACKET : 'LEFT_PARENTHESES'
+NonANGLE_BRACKET : 'RIGHT_BRACE'
+NonANGLE_BRACKET : 'RIGHT_BRACKET'
+NonANGLE_BRACKET : 'RIGHT_PARENTHESES'
+-- Block --
+_Block : 'LEFT_BRACE' _BlockStatements 'RIGHT_BRACE'
+_Block : 'LEFT_BRACE' 'RIGHT_BRACE'
+_BlockStatements : Block _BlockStatements
+_BlockStatements : NonBrace _BlockStatements
+_BlockStatements : NonBrace
+_BlockStatements : Block
+NonBrace : StatementEle
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'RIGHT_PARENTHESES'
+-- BRACKET --
+BRACKETContent : 'LEFT_BRACKET' BRACKETList 'RIGHT_BRACKET'
+BRACKETContent : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+BRACKETList : BRACKETContent BRACKETList
+BRACKETList : NonBRACKET BRACKETList
+BRACKETList : NonBRACKET
+BRACKETList : BRACKETContent
+NonBRACKET : StatementEle
+NonBRACKET : 'LEFT_BRACE'
+NonBRACKET : 'LEFT_ANGLE_BRACKET'
+NonBRACKET : 'LEFT_PARENTHESES'
+NonBRACKET : 'RIGHT_BRACE'
+NonBRACKET : 'RIGHT_ANGLE_BRACKET'
+NonBRACKET : 'RIGHT_PARENTHESES'
+-- AnnotationContent --
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContent : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : AnnotationContent AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES
+AnnotationContentStatements : AnnotationContent
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
