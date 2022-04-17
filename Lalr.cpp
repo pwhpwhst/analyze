@@ -2,7 +2,7 @@
 //#define __PRINT_F_FIRST
 //#define __PRINT_F_FOLLOW
 //#define __PRINT_FORECAST
-//#define __PRINT_GRAPH
+#define __PRINT_GRAPH
 #define __CHECK_CONFILCT
 //#define __PRINT_LEX_WORD_LIST
 #define __PRINT_PARSE_PROCESS
@@ -12,6 +12,14 @@
 #include "Lalr.h"
 #include"symbols\PrimarySymbolConverter.h"
 #include <algorithm>
+#include "MD5.h"
+#include "dao/TFileMD5Dao.h"
+#include "dao/TItemDao.h"
+#include "dao/TConvertMapDao.h"
+#include "dao/TShortCodeDao.h"
+#include "dao/TMoveTableDao.h"
+#include "dao/TForecastDao.h"
+
 using namespace std;
 using namespace boost;
 
@@ -97,13 +105,79 @@ int Lalr::calculate_f_terminate(string symbol, string rule_file) {
 }
 
 
+string replaceAll(string str, string sub, string replacement) {
+	int pos;
+	pos = str.find(sub);
+	while (pos != -1) {
+		// str.length()求字符的长度，注意str必须是string类型
+		str.replace(pos, string(sub).length(), replacement);
+		pos = str.find(sub);
+	}
+
+	return str;
+}
+
+
+string getMD5(string fileName) {
+	string oriFileName = fileName;
+	fileName = replaceAll(fileName, "\\", "&&");
+	fileName = replaceAll(fileName, "&&", "\\\\");
+	ifstream input_file;
+	input_file.open(fileName.data());
+	string str;
+	ostringstream os;
+	while (getline(input_file, str)) {
+		os << str << endl;
+	}
+	MD5 test;
+	string md5 = test.encode(os.str());
+	return md5;
+}
+
+
+
 
 
 int Lalr::init(string rule_file) {
+
+	string md5=getMD5(rule_file);
+
+	P_TFileMD5Dao tFileMD5Dao = TFileMD5Dao::getInstance();
+
+
+
+	unordered_map<string, string> transfer_map;
+	string rule_file2 = replaceAll(replaceAll(rule_file, "\\", "&"), "&", "\\\\");
+
+	transfer_map["fileName"] = rule_file2;
+	vector<unordered_map<string, string>> result_list;
+
+	bool isChanged = false;
+
+	string oriMD5 = "0";
+	tFileMD5Dao->queryList(transfer_map, result_list);
+	if (result_list.size() == 0) {
+		isChanged = true;
+	}
+	else if (result_list[0]["md5"] != md5) {
+		isChanged = true;
+		oriMD5 = result_list[0]["md5"];
+	}
+	else {
+		oriMD5 = result_list[0]["md5"];
+	}
+
+
+
 	ruleList.clear();
 	terminator.clear();
 	non_terminator.clear();
+	//forecast_list.clear();
+	symbol_to_id.clear();
+	move_table.clear();
 	forecast_list.clear();
+	ordered_symbols.clear();
+
 	convert_map.clear();
 
 	//初始化
@@ -138,7 +212,13 @@ int Lalr::init(string rule_file) {
 	log("划出所有的终结符号和非终结符号");
 	set<string> zero_terminator;
 	parse_all_symbol(terminator, non_terminator, zero_terminator, ruleList);
-
+	for (auto it = terminator.begin(); it != terminator.end(); ++it) {
+		ordered_symbols.push_back(*it);
+	}
+	sort(ordered_symbols.begin(), ordered_symbols.end());
+	for (int i1 = 0; i1 < ordered_symbols.size();i1++) {
+		symbol_to_id[ordered_symbols[i1]] = i1;
+	}
 
 	//计算first函数
 	log("计算first函数");
@@ -156,7 +236,138 @@ int Lalr::init(string rule_file) {
 	//构建 LR（0）算法的状态机
 
 	log("构建 LR（0）算法的状态机 begin");
-	get_items_list_and_convert_map(items_list, non_terminator, zero_terminator, f_first, ruleList, start_symbol);
+	P_TItemDao tItemDao = TItemDao::getInstance();
+	P_TConvertMapDao tConvertMapDao = TConvertMapDao::getInstance();
+	if (isChanged) {
+		get_items_list_and_convert_map(items_list, non_terminator, zero_terminator, f_first, ruleList, start_symbol);
+
+		vector<unordered_map<string, string>> itemList;
+		ostringstream os;
+		for (int i1 = 0; i1 < items_list.size();i1++) {
+			for (const auto &e:items_list[i1]) {
+				itemList.push_back(unordered_map<string, string>());
+				itemList.back()["md5"] = md5;
+				itemList.back()["itemId"] = std::to_string(i1);
+				itemList.back()["ruleId"] = std::to_string(e->rule->index);
+				itemList.back()["status"] = std::to_string(e->status);
+				
+				os.str("");
+				auto it=e->end_for_symbol.begin();
+				while (it != e->end_for_symbol.end()) {
+					os << (*it);
+					++it;
+					if (it != e->end_for_symbol.end()) {
+						os << ",";
+					}
+				}
+
+				string str = os.str();
+				str=replaceAll(str, "'", "&&");
+				itemList.back()["endForSymbol"] = replaceAll(str, "&&", "\\'");
+				
+			}
+
+		}
+
+		vector<unordered_map<string, string>> itemTempList;
+		for (int i1 = 0; i1 < itemList.size();i1++) {
+			itemTempList.push_back(itemList[i1]);
+			if (itemTempList.size()==100) {
+				tItemDao->insertList(itemTempList);
+				itemTempList.clear();
+			}
+		}
+		if (itemTempList.size()>0) {
+			tItemDao->insertList(itemTempList);
+			itemTempList.clear();
+		}
+
+		vector<unordered_map<string, string>> convertMapList;
+		for (const auto &e : convert_map) {
+			for (const auto &e2:e.second) {
+				convertMapList.push_back(unordered_map<string, string>());
+				convertMapList.back()["md5"] = md5;
+				convertMapList.back()["srcItem"] = std::to_string(e.first);
+				string str = replaceAll(e2.first, "'", "&&");
+				convertMapList.back()["move"] = replaceAll(str, "&&", "\\'");
+				convertMapList.back()["descItem"] = std::to_string(e2.second);
+			}
+		}
+
+		vector<unordered_map<string, string>> convertMapTempList;
+		for (int i1 = 0; i1 < convertMapList.size(); i1++) {
+			convertMapTempList.push_back(convertMapList[i1]);
+			if (convertMapTempList.size() == 100) {
+				tConvertMapDao->insertList(convertMapTempList);
+				convertMapTempList.clear();
+			}
+		}
+		if (convertMapTempList.size() > 0) {
+			tConvertMapDao->insertList(convertMapTempList);
+			convertMapTempList.clear();
+		}
+
+
+		transfer_map.clear();
+		transfer_map["md5"] = oriMD5;
+		tItemDao->deleteRecord(transfer_map);
+		tConvertMapDao->deleteRecord(transfer_map);
+
+
+		unordered_map<string, string> map;
+		map["fileName"] = rule_file2;
+		map["md5"] = md5;
+
+		if (oriMD5 == "0") {
+			vector<unordered_map<string, string>> list;
+			list.push_back(map);
+			tFileMD5Dao->insertList(list);
+		}
+		else {
+			tFileMD5Dao->update(map);
+		}
+
+	}
+	else {
+		//transfer_map.clear();
+		//transfer_map["md5"] = md5;
+		//result_list.clear();
+		//vector <string> strs;
+		//tItemDao->queryList(transfer_map, result_list);
+
+		//int item_count = atoi(result_list.back()["itemId"].c_str())+1;
+		//set<string> temp_set;
+		//for (int i1 = 0; i1 < item_count;i1++) {
+		//	items_list.push_back(vector<P_Item>());
+		//}
+		//for (auto &e: result_list) {
+		//	int itemId = atoi(e["itemId"].c_str());
+		//	int ruleId = atoi(e["ruleId"].c_str());
+		//	int status = atoi(e["status"].c_str());
+		//	strs.clear();
+		//	temp_set.clear();
+		//	split(strs, e["endForSymbol"], is_any_of(","));
+		//	temp_set.insert(strs.begin(),strs.end());
+		//	items_list[itemId].push_back(P_Item(new Item(ruleList[ruleId], status, temp_set)));
+		//}
+		//
+
+		transfer_map.clear();
+		transfer_map["md5"] = md5;
+		result_list.clear();
+
+		tConvertMapDao->queryList(transfer_map, result_list);
+		for (auto &e : result_list) {
+			int srcItem = atoi(e["srcItem"].c_str());
+			string move = e["move"];
+			int descItem = atoi(e["descItem"].c_str());
+			if (convert_map.count(srcItem) == 0) {
+				convert_map[srcItem] = unordered_map<string, int>();
+			}
+			convert_map[srcItem][move] = descItem;
+		}
+	}
+	
 	log("构建 LR（0）算法的状态机 end");
 
 
@@ -168,80 +379,138 @@ int Lalr::init(string rule_file) {
 	}
 
 
-	unordered_map<string, set<int>> r_rule_item_map;
-	ostringstream os;
-	for (int i1 = 0; i1 < items_list.size(); i1++) {
-		const auto &e1 = items_list[i1];
-		for (const auto &e2 : e1) {
-			if (e2->rule->symbols.size() == e2->status) {
-				os.str("");
-				os << e2->rule->rule_name << " : ";
-				for (int i2 = 0; i2 < e2->rule->symbols.size(); i2++) {
-					os << e2->rule->symbols[i2];
-					if (i2 != (e2->rule->symbols.size() - 1)) {
-						os << " ";
-					}
-				}
-				if (r_rule_item_map.find(os.str()) == r_rule_item_map.end()) {
-					r_rule_item_map[os.str()] = set<int>();
-				}
-				r_rule_item_map[os.str()].insert(i1);
+	log("构建预测表");
+
+	P_TShortCodeDao tShortCodeDao = TShortCodeDao::getInstance();
+	P_TMoveTableDao tMoveTableDao = TMoveTableDao::getInstance();
+	P_TForecastDao tForecastDao = TForecastDao::getInstance();
+	
+	if (isChanged) {
+		calculate_forecast_list(items_list, terminator, ruleList, rule_map, convert_map, f_follow);
+
+		vector<unordered_map<string, string>> shortCodeList;
+		for (int i1 = 0; i1 < ordered_symbols.size(); i1++) {
+			shortCodeList.push_back(unordered_map<string, string>());
+			shortCodeList.back()["md5"] = md5;
+			shortCodeList.back()["symbol"] = replaceAll(replaceAll(ordered_symbols[i1], "'", "&&"), "&&", "\\'");
+			shortCodeList.back()["shortCode"] = std::to_string(i1);
+		}
+
+		vector<unordered_map<string, string>> shortCodeTempList;
+		for (int i1 = 0; i1 < shortCodeList.size(); i1++) {
+			shortCodeTempList.push_back(shortCodeList[i1]);
+			if (shortCodeTempList.size() == 100) {
+				tShortCodeDao->insertList(shortCodeTempList);
+				shortCodeTempList.clear();
 			}
 		}
+		if (shortCodeTempList.size() > 0) {
+			tShortCodeDao->insertList(shortCodeTempList);
+			shortCodeTempList.clear();
+		}
+
+
+		vector<unordered_map<string, string>> moveTableList;
+		for (int i1 = 0; i1 < move_table.size(); i1++) {
+			moveTableList.push_back(unordered_map<string, string>());
+			moveTableList.back()["md5"] = md5;
+			moveTableList.back()["itemId"] = std::to_string(i1);
+			moveTableList.back()["interalId"] = std::to_string(move_table[i1]);
+		}
+		vector<unordered_map<string, string>> moveTableTempList;
+		for (int i1 = 0; i1 < moveTableList.size(); i1++) {
+			moveTableTempList.push_back(moveTableList[i1]);
+			if (moveTableTempList.size() == 100) {
+				tMoveTableDao->insertList(moveTableTempList);
+				moveTableTempList.clear();
+			}
+		}
+		if (moveTableTempList.size() > 0) {
+			tMoveTableDao->insertList(moveTableTempList);
+			moveTableTempList.clear();
+		}
+
+		vector<unordered_map<string, string>> forecastList;
+		for (int i1 = 0; i1 < forecast_list.size(); i1++) {
+			for (const auto &e : forecast_list[i1]) {
+				forecastList.push_back(unordered_map<string, string>());
+				forecastList.back()["md5"] = md5;
+				forecastList.back()["interalId"] = std::to_string(i1);
+				forecastList.back()["shortCode"] = std::to_string(e.first);
+				forecastList.back()["action"] = e.second;
+			}
+
+		}
+		vector<unordered_map<string, string>> forecastTempList;
+		for (int i1 = 0; i1 < forecastList.size(); i1++) {
+			forecastTempList.push_back(forecastList[i1]);
+			if (forecastTempList.size() == 100) {
+				tForecastDao->insertList(forecastTempList);
+				forecastTempList.clear();
+			}
+		}
+		if (forecastTempList.size() > 0) {
+			tForecastDao->insertList(forecastTempList);
+			forecastTempList.clear();
+		}
+
+		transfer_map.clear();
+		transfer_map["md5"] = oriMD5;
+		tShortCodeDao->deleteRecord(transfer_map);
+		tMoveTableDao->deleteRecord(transfer_map);
+		tForecastDao->deleteRecord(transfer_map);
+
 	}
+	else {
+		transfer_map.clear();
+		transfer_map["md5"] = md5;
+		result_list.clear();
+		tShortCodeDao->queryList(transfer_map, result_list);
+
+		for (const auto &e : result_list) {
+			ordered_symbols.push_back(e.at("symbol"));
+		}
+		sort(ordered_symbols.begin(), ordered_symbols.end());
+		for (int i1 = 0; i1 < ordered_symbols.size(); i1++) {
+			symbol_to_id[ordered_symbols[i1]] = i1;
+		}
 
 
-	log("构建预测表");
-	calculate_forecast_list(forecast_list, items_list, terminator, ruleList, rule_map, convert_map, f_follow);
+
+		transfer_map.clear();
+		transfer_map["md5"] = md5;
+		result_list.clear();
+		tMoveTableDao->queryList(transfer_map, result_list);
+		for (const auto &e : result_list) {
+			move_table.push_back(atoi(e.at("interalId").c_str()));
+		}
+		
+
+		transfer_map.clear();
+		transfer_map["md5"] = md5;
+		result_list.clear();
+		tForecastDao->queryList(transfer_map, result_list);
+		for (const auto &e : result_list) {
+			if (atoi(e.at("interalId").c_str()) != (forecast_list.size()-1)) {
+				int num=atoi(e.at("interalId").c_str()) - (forecast_list.size() - 1);
+				for (int i1 = 0; i1 < num;i1++) {
+					forecast_list.push_back(unordered_map<int, string>());
+				}
+			}
+			forecast_list.back()[atoi(e.at("shortCode").c_str())] = e.at("action");
+		}
+
+	}
 
 	//解决移入-规约冲突
 	log("解决移入-规约冲突");
 
-	for (const auto &e : temp_forecast_map) {
-		string_list.clear();
-		split(string_list, e.first, is_any_of("|"));
-		string rule_str = string_list[0];
-		string move = string_list[1];
-		for (const auto &e1 : r_rule_item_map[string_list[0]]) {
-			string method = forecast_list[e1][string_list[1]];
-			if (method.find(",") != string::npos) {
-				string_list.clear();
-				split(string_list, method, is_any_of(","));
-				string s, r;
 
-				for (const auto &e2 : string_list) {
-					if (startsWith(e2, "s")) {
-						s = e2;
-					}
-					else if (startsWith(e2, "r")) {
-						P_Rule rule = ruleList[atoi(e2.substr(1).c_str())];
-						os.str("");
-						os << rule->rule_name << " : ";
-						for (int i2 = 0; i2 < rule->symbols.size(); i2++) {
-							os << rule->symbols[i2];
-							if (i2 != (rule->symbols.size() - 1)) {
-								os << " ";
-							}
-						}
-						if (rule_str == os.str()) {
-							r = e2;
-						}
-					}
-				}
-				if (e.second == "s") {
-					forecast_list[e1][move] = s;
-				}
-				else if (e.second == "r") {
-					forecast_list[e1][move] = r;
-				}
-			}
-		}
-
-	}
-
-	if (detect_ambigulous(forecast_list, ruleList, items_list)) {
+	if (detect_ambigulous(ruleList, items_list)) {
 		return -1;
 	}
+
+
 	return 0;
 }
 
@@ -376,7 +645,7 @@ Node* Lalr::slr(Env& env, CompileInfo &compileInfo) {
 			//构造语法树
 			lex_word_list.pop_back();
 
-			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, forecast_list, convert_map, lex_word_list);
+			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, convert_map, lex_word_list);
 			//			if (node_tree != nullptr) {
 			//				gen_middle_code(env, node_tree, compileInfo);
 			//			}
@@ -1878,21 +2147,20 @@ void Lalr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 }
 
 
-bool Lalr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
-	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list) {
+bool Lalr::detect_ambigulous(const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list) {
 	bool flag = false;
 	set<int> item_set;
 	set<int> rule_set;
-	for (int i1 = 0; i1 < forecast_list.size(); i1++) {
-		const auto e1 = forecast_list[i1];
+	for (int i1 = 0; i1 < move_table.size(); i1++) {
+		const auto e1 = forecast_list[move_table[i1]];
 		for (auto &e2 : e1) {
-			if (e2.first == "0") {
+			if (e2.first!=-1 &&ordered_symbols[e2.first] == "0") {
 				continue;
 			}
 			if (e2.second.find(",") != string::npos) {
 
 				flag = true;
-				cout << "存在二义性:" << i1 << "," << e2.first << ":" << e2.second << endl;
+				cout << "存在二义性:" << i1 << "," << ordered_symbols[e2.first] << ":" << e2.second << endl;
 				item_set.insert(i1);
 				vector <string> string_list;
 				split(string_list, e2.second, is_any_of(","));
@@ -1908,7 +2176,6 @@ bool Lalr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_lis
 			}
 		}
 	}
-
 	if (flag) {
 		cout << "打印转移状态图的点" << endl;
 		for (const int &i1 : item_set) {
@@ -1942,11 +2209,10 @@ bool Lalr::detect_ambigulous(vector<unordered_map<string, string>> &forecast_lis
 
 
 
-void Lalr::calculate_forecast_list(vector<unordered_map<string, string>> &forecast_list,
-	const vector<vector<P_Item>> &items_list, const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule, int> &rule_map,
+void Lalr::calculate_forecast_list(const vector<vector<P_Item>> &items_list, const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule, int> &rule_map,
 	unordered_map<int, unordered_map<string, int>> &convert_map, unordered_map<string, set<string>> &f_follow) {
 	for (int i1 = 0; i1 < items_list.size(); i1++) {
-		unordered_map<string, string> _map;
+		unordered_map<int, string> _map;
 		vector <string> string_list;
 		for (auto &e1 : terminator) {
 			string s = "";
@@ -1975,22 +2241,7 @@ void Lalr::calculate_forecast_list(vector<unordered_map<string, string>> &foreca
 				}
 			}
 
-			/*
-			if (r.find(",") != string::npos) {
-				string_list.clear();
-				split(string_list, r, is_any_of(","));
-				r = "";
-				for (auto &e2:string_list) {
-					if (!(ruleList[atoi(e2.substr(1).c_str())]->symbols.size() == 1 && ruleList[atoi(e2.substr(1).c_str())]->symbols[0] == "0")) {
-						if (r == "") {
-							r = e2;
-						}else {
-							r += "," + e2;
-						}
-					}
-				}
-			}
-			*/
+
 
 			if (s == "") {
 				s = r;
@@ -2002,9 +2253,13 @@ void Lalr::calculate_forecast_list(vector<unordered_map<string, string>> &foreca
 				if (s == "s-1"&&r == "r0") {
 					s = "acc";
 				}
-				_map[e1] = s;
+				_map[symbol_to_id[e1]] = s;
 			}
 		}
+
+
+
+
 		//专门针对 0 和 $ begin
 		string r = "";
 		for (const auto &e2 : items_list[i1]) {
@@ -2026,49 +2281,110 @@ void Lalr::calculate_forecast_list(vector<unordered_map<string, string>> &foreca
 			}
 		}
 
-		/*
-		if (r.find(",") != string::npos) {
-			string_list.clear();
-			split(string_list, r, is_any_of(","));
-			r = "";
-			for (auto &e2 : string_list) {
-				if (!(ruleList[atoi(e2.substr(1).c_str())]->symbols.size() == 1 && ruleList[atoi(e2.substr(1).c_str())]->symbols[0] == "0")) {
-					if (r == "") {
-						r = e2;
-					}
-					else {
-						r += "," + e2;
-					}
-				}
-			}
-		}
-		*/
 
 		if (r != "") {
 			if (r == "r0") {
 				r = "acc";
 			}
-			_map["0"] = r;
-			_map["'$'"] = r;
+			_map[symbol_to_id["0"]] = r;
+			_map[symbol_to_id["'$'"]] = r;
 		}
 		//专门针对 0 和 $ end
+		simplifyMap(_map);
 
+		int index = -1;
+		for (int i2 = 0; i2 < forecast_list.size(); i2++) {
+			if (is_map_same(forecast_list[i2], _map)) {
+				index = i2;
+				break;
+			}
+		}
 
-		forecast_list.push_back(_map);
+		if (index == -1) {
+			forecast_list.push_back(_map);
+			index = forecast_list.size() - 1;
+		}
+		//move_table[i1] = index;
+		move_table.push_back(index);
+
 	}
 
 #ifdef __PRINT_FORECAST
-	for (int i1 = 0; i1 < forecast_list.size(); i1++) {
+
+	for (int i1 = 0; i1 < move_table.size(); i1++) {
 		cout << i1 << ":" << endl;
-		for (const auto &e : forecast_list[i1]) {
-			cout << e.first << ":" << e.second << endl;
+		for (const auto &e : forecast_list[move_table[i1]]) {
+			if (e.first == -1) {
+				cout << "any" << ":" << e.second << endl;
+			}
+			else {
+				cout << ordered_symbols[e.first] << ":" << e.second << endl;
+			}
+			
 		}
-		cout << endl;
 	}
+
 #endif
 }
 
-Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string, string>> &forecast_list,
+
+void Lalr::simplifyMap(unordered_map<int,string> &map) {
+	unordered_map<string, int> action_count_map;
+
+	int normal_action_count = 0;
+	for (const auto &e: map) {
+		if (action_count_map.count(e.second) == 0) {
+			action_count_map[e.second] = 0;
+		}
+		action_count_map[e.second] = action_count_map[e.second] + 1;
+		normal_action_count++;
+	}
+	int error_action_count = terminator.size() - normal_action_count;
+	
+
+	int max = 0;
+	string action;
+	for (const auto &e: action_count_map) {
+		if (e.second>max) {
+			action = e.first;
+			max= e.second;
+		}
+	}
+	if (error_action_count > max) {
+		max = error_action_count;
+		action = "";
+	}
+	else {
+		set<int> _set;
+		for (const auto &e : map) {
+			if (e.second == action) {
+				_set.insert(e.first);
+			}
+		}
+
+		for (const auto &e : _set) {
+			map.erase(e);
+		}
+	}
+	map[-1] = action;
+
+}
+
+bool Lalr::is_map_same(unordered_map<int,string> &map1, unordered_map<int, string> &map2) {
+	if (map1.size() != map2.size()) {
+		return false;
+	}
+	else {
+		for (const auto &e : map1) {
+			if (map2.count(e.first)==0 || map2[e.first] != e.second) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
+Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
 	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &input) {
 	struct ItemNode {
 		Node *node;
@@ -2101,7 +2417,14 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		else {
 			input_type = "'$'";
 		}
-		string action = forecast_list[top_item->item_status][input_type];
+
+		string action;
+		if (forecast_list[move_table[top_item->item_status]].count(symbol_to_id[input_type])==0) {
+			action = forecast_list[move_table[top_item->item_status]][-1];
+		}
+		else {
+			action = forecast_list[move_table[top_item->item_status]][symbol_to_id[input_type]];
+		}
 
 #ifdef __PRINT_PARSE_PROCESS
 		if (switchParseProcess) {

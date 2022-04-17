@@ -15,6 +15,9 @@
 #include "dao/TCompileFileDao.h"
 #include<io.h>
 #include<boost/algorithm/string.hpp>
+#include "MD5.h"
+#include "dao/TFileMD5Dao.h"
+#include "dao/TConvertMapDao.h"
 
 
 void findSpecificNode(Node *node_tree,string ruleName,vector<Node*> &nodeList) {
@@ -34,21 +37,37 @@ void findSpecificNode(Node *node_tree,string ruleName,vector<Node*> &nodeList) {
 				queue.push_front(e);
 			}
 		}
-
 		queue.pop_back();
 	}
-
-	
 }
 
 
 
 
+
+
+
+
+
+
+
+
 int main() {
+//	MD5算法来自于
+// https://blog.csdn.net/think_A_lot/article/details/86749730
+
+	//string rule_file4 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+
+	//bool isChanged=isRuleFileChanged(rule_file4);
+
+	//cout << "isChanged=" << isChanged << endl;
+
+
+
 	Env env;
 	CompileInfo compileInfo;
 
-	int mode = 4;
+	int mode = 5;
 	cout << "分析器初始化！" << endl;
 	if (mode == 0) {
 		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPrimary.txt";
@@ -85,8 +104,8 @@ int main() {
 
 
 
-		set<int> itemSet = { 101 };
-		lalr.printGraph(itemSet);
+		//set<int> itemSet = { 101 };
+		//lalr.printGraph(itemSet);
 
 	}
 	else if (mode == 1) {
@@ -185,12 +204,12 @@ int main() {
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
-		lalr.switchParseProcess = false;
+		lalr.switchParseProcess = true;
 		lalr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
 		set<string> end_symbol_set0;
-		string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\org\\apache\\tomcat\\websocket";
-		string fileName = "WsSession.java";
+		string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java\\jakarta\\el";
+		string fileName = "ArrayELResolver.java";
 		string compile_file = path + "\\" + fileName;
 
 		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);

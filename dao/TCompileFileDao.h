@@ -14,9 +14,9 @@ public: virtual ~TCompileFileDao();
 
 private: static shared_ptr<TCompileFileDao> instance;
 
-public: void insertList( vector<unordered_map<string, string>> &list);
-
 public: static shared_ptr<TCompileFileDao> getInstance();
+
+public: void insertList( vector<unordered_map<string, string>> &list);
 
 public: void queryList( unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list);
 };

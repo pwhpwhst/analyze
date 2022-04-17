@@ -99,11 +99,18 @@ class Lalr{
 public:bool switchParseProcess;
 public:bool switchNotSilent;
 	   
-
+private:string md5;
 private:vector<P_Rule> ruleList;
 private:set<string> terminator;
 private:set<string> non_terminator;
-private:vector< unordered_map< string, string>> forecast_list;
+
+
+//private:vector< unordered_map< string, string>> forecast_list;
+private: vector<string> ordered_symbols;
+private: unordered_map<string, int> symbol_to_id;
+private: vector<int>move_table;
+private: vector< unordered_map< int, string>> forecast_list;
+
 public:vector<vector<P_Item>> items_list;
 private:unordered_map<int, unordered_map<string, int>> convert_map;
 private:vector<P_Lex_Word>  total_lex_word_list;
@@ -119,8 +126,7 @@ private: void calculate_f_first(unordered_map<string,set<string>> &f_first,const
 private: void calculate_f_follow(unordered_map<string,set<string>> &f_follow, unordered_map<string,set<string>> &f_first,set<string> &zero_terminator,
 	const vector<P_Rule> &ruleList,const set<string> &non_terminator,const set<string> &terminator,string start_symbol);
 
-private: void calculate_forecast_list(vector<unordered_map<string,string>> &forecast_list,
-	const vector<vector<P_Item>> &items_list,const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule,int> &rule_map,
+private: void calculate_forecast_list(const vector<vector<P_Item>> &items_list,const set<string> &terminator, vector<P_Rule> &ruleList, unordered_map<P_Rule,int> &rule_map,
 	 unordered_map<int,unordered_map<string,int>> &convert_map, unordered_map<string,set<string>> &f_follow);
 
 private: void printStack(Node* &node_tree);
@@ -140,11 +146,10 @@ private: void calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_It
 	vector<string> &first_input, set<string> _first_set,  unordered_map<string, set<string>> &f_first);
 		 
 
-private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator, vector<unordered_map<string,string>> &forecast_list,
+private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
 	unordered_map<int,unordered_map<string,int>> &convert_map,vector<P_Lex_Word> &input);
 
-private: bool detect_ambigulous( vector<unordered_map<string,string>> &forecast_list,
- const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
+private: bool detect_ambigulous( const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
 
 private: void gen_middle_code(Env &env,Node* &node_tree,CompileInfo &compileInfo);
 
@@ -192,5 +197,8 @@ private: void calClosure(vector<P_Item> &_items, set<string> &rule_name_set, con
 
 private:void refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp);
 
+private:void simplifyMap(unordered_map<int, string> &map);
+
+private:bool is_map_same(unordered_map<int, string> &map1, unordered_map<int, string> &map2);
 };
 
