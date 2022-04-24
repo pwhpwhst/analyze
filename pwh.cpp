@@ -62,46 +62,42 @@ int main() {
 
 	//cout << "isChanged=" << isChanged << endl;
 
-
+	//0 - 测试 -Package
+	//1 - 测试 -expression
+	//3 - 查看非终端符号实际囊括的终端符号
+	//4 - 真实批量
+	//5 - 真实单体
 
 	Env env;
 	CompileInfo compileInfo;
 
-	int mode = 5;
+	int mode = 0;
 	cout << "分析器初始化！" << endl;
 	if (mode == 0) {
-		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPrimary.txt";
-
-		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForStatements.txt";
 
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
-
-		string fileName = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\Sample.java";
-
-
-
-
 		Lalr lalr;
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
-
 		lalr.switchParseProcess = true;
 		lalr.switchNotSilent = true;
-
 		PrimarySymbolConverter primarySymbolConverter;
-		primarySymbolConverter.identifierMap("String", "'TypeNameId'");
 		set<string> end_symbol_set0;
-		lalr.init_total_lex_word_list(fileName, primarySymbolConverter, end_symbol_set0);
+		string path = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本";
+		string fileName = "Sample.java";
+		string compile_file = path + "\\" + fileName;
+
+		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
 		Node*  node_tree = lalr.slr(env, compileInfo);
 		if (node_tree == nullptr) {
-			cout << "Sample.java" << ":" << "分析失败" << endl;
+			cout << fileName << ":" << "分析失败" << endl;
 		}
 		else {
-			lalr.printStackTree(node_tree, "");
+			cout << fileName << ":" << "分析成功" << endl;
+			Node::releaseNode(node_tree);
 		}
-
 
 
 		//set<int> itemSet = { 101 };

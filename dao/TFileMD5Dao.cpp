@@ -100,9 +100,10 @@ void TFileMD5Dao::update(unordered_map<string, string> &transfer_map) {
 
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "update t_file_md5(file_name,md5) ";
+		sql_os << "update t_file_md5 ";
 		sql_os << "set md5='"<< transfer_map["md5"]<<"' ";
 		sql_os << "where file_name='"<< transfer_map["fileName"]<<"'";
+		mysql_query(&conn, "set names gbk");
 		res = mysql_query(&conn, sql_os.str().data());
 		mysql_close(&conn);
 	}
