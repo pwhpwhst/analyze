@@ -19,6 +19,8 @@
 #include "dao/TShortCodeDao.h"
 #include "dao/TMoveTableDao.h"
 #include "dao/TForecastDao.h"
+#include "dao/TRuleDao.h"
+
 
 using namespace std;
 using namespace boost;
@@ -329,29 +331,6 @@ int Lalr::init(string rule_file) {
 
 	}
 	else {
-		//transfer_map.clear();
-		//transfer_map["md5"] = md5;
-		//result_list.clear();
-		//vector <string> strs;
-		//tItemDao->queryList(transfer_map, result_list);
-
-		//int item_count = atoi(result_list.back()["itemId"].c_str())+1;
-		//set<string> temp_set;
-		//for (int i1 = 0; i1 < item_count;i1++) {
-		//	items_list.push_back(vector<P_Item>());
-		//}
-		//for (auto &e: result_list) {
-		//	int itemId = atoi(e["itemId"].c_str());
-		//	int ruleId = atoi(e["ruleId"].c_str());
-		//	int status = atoi(e["status"].c_str());
-		//	strs.clear();
-		//	temp_set.clear();
-		//	split(strs, e["endForSymbol"], is_any_of(","));
-		//	temp_set.insert(strs.begin(),strs.end());
-		//	items_list[itemId].push_back(P_Item(new Item(ruleList[ruleId], status, temp_set)));
-		//}
-		//
-
 		transfer_map.clear();
 		transfer_map["md5"] = md5;
 		result_list.clear();
@@ -384,6 +363,8 @@ int Lalr::init(string rule_file) {
 	P_TShortCodeDao tShortCodeDao = TShortCodeDao::getInstance();
 	P_TMoveTableDao tMoveTableDao = TMoveTableDao::getInstance();
 	P_TForecastDao tForecastDao = TForecastDao::getInstance();
+	P_TRuleDao tRuleDao = TRuleDao::getInstance();
+
 	
 	if (isChanged) {
 		calculate_forecast_list(items_list, terminator, ruleList, rule_map, convert_map, f_follow);
@@ -454,26 +435,48 @@ int Lalr::init(string rule_file) {
 			forecastTempList.clear();
 		}
 
+		
+		vector<unordered_map<string, string>> ruleList0;
+		for (int i1 = 0; i1 < ruleList.size(); i1++) {
+			ruleList0.push_back(unordered_map<string, string>());
+			ruleList0.back()["md5"] = md5;
+			ruleList0.back()["id"] = std::to_string(i1);
+			sb.str("");
+			for (const auto &e: ruleList[i1]->symbols) {
+				sb << e << " ";
+			}
+			ruleList0.back()["ruleName"] = ruleList[i1]->rule_name;
+			ruleList0.back()["rule"] = replaceAll(replaceAll(sb.str(), "'", "&&"), "&&", "\\'");
+		}
+
+		if (ruleList0.size() > 0) {
+			tRuleDao->insertList(ruleList0);
+			ruleList0.clear();
+		}
+		
+
+
 		transfer_map.clear();
 		transfer_map["md5"] = oriMD5;
 		tShortCodeDao->deleteRecord(transfer_map);
 		tMoveTableDao->deleteRecord(transfer_map);
 		tForecastDao->deleteRecord(transfer_map);
+		tRuleDao->deleteRecord(transfer_map);
 
 	}
 	else {
-		transfer_map.clear();
-		transfer_map["md5"] = md5;
-		result_list.clear();
-		tShortCodeDao->queryList(transfer_map, result_list);
+		//transfer_map.clear();
+		//transfer_map["md5"] = md5;
+		//result_list.clear();
+		//tShortCodeDao->queryList(transfer_map, result_list);
 
-		for (const auto &e : result_list) {
-			ordered_symbols.push_back(e.at("symbol"));
-		}
-		sort(ordered_symbols.begin(), ordered_symbols.end());
-		for (int i1 = 0; i1 < ordered_symbols.size(); i1++) {
-			symbol_to_id[ordered_symbols[i1]] = i1;
-		}
+		//for (const auto &e : result_list) {
+		//	ordered_symbols.push_back(e.at("symbol"));
+		//}
+		//sort(ordered_symbols.begin(), ordered_symbols.end());
+		//for (int i1 = 0; i1 < ordered_symbols.size(); i1++) {
+		//	symbol_to_id[ordered_symbols[i1]] = i1;
+		//}
 
 
 
@@ -2242,13 +2245,20 @@ void Lalr::calculate_forecast_list(const vector<vector<P_Item>> &items_list, con
 			}
 
 
-
-			if (s == "") {
+#ifdef __ALLOW_AMBIGULOUS
+		if (s == "") {
 				s = r;
-			}
-			//			else if (r != "") {
-			//				s += "," + r;
-			//			}
+		}
+#else
+		if (s == "") {
+			s = r;
+		}
+		else if (r != "") {
+			s += "," + r;
+		}
+#endif
+
+
 			if (s != "") {
 				if (s == "s-1"&&r == "r0") {
 					s = "acc";

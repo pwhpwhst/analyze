@@ -78,7 +78,13 @@ U3      [\xe0-\xef]
 U4      [\xf0-\xf4]
 NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U} 
 SPACE ([ ])
+SPACE2 ({SPACE}|\n)
 AT_INTERFACE @{SPACE}*interface
+COMMA_RIGHT_BRACE ,{SPACE2}*\}
+COMMA_semicolon ,{SPACE2}*;
+
+
+
 %%
 
 
@@ -88,7 +94,13 @@ AT_INTERFACE @{SPACE}*interface
   write_word(yytext,"'IDENTIFIER'");
 }
 
+{COMMA_RIGHT_BRACE} {
+  write_word(yytext,"'COMMA_RIGHT_BRACE'");
+}
 
+{COMMA_semicolon} {
+  write_word(yytext,"'COMMA_semicolon'");
+}
 
 
 "||" {

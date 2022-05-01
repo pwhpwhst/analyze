@@ -10,7 +10,8 @@ Literal : 'CharacterLiteral'
 Literal : 'null'
 -- UnannType 3--
 UnannType : UnannPrimitiveType
-UnannType : UnannReferenceType
+UnannType : UnannClassOrInterfaceType
+UnannType : UnannArrayType
 UnannPrimitiveType : NumericType
 UnannPrimitiveType : 'boolean'
 NumericType : IntegralType
@@ -22,8 +23,6 @@ IntegralType : 'long'
 IntegralType : 'char'
 FloatingPointType : 'float'
 FloatingPointType : 'double'
-UnannReferenceType : UnannClassOrInterfaceType
-UnannReferenceType : UnannArrayType
 UnannClassOrInterfaceType : UnannClassType 'SPOT' UnannClassOrInterfaceType
 UnannClassOrInterfaceType : UnannClassType 'SPOT' AnnotationList UnannClassOrInterfaceType
 UnannClassOrInterfaceType : UnannClassType
@@ -75,7 +74,6 @@ NormalClassDeclaration : 'class' Identifier 'extends' ClassType 'implements' Int
 NormalClassDeclaration : ModifierList 'class' Identifier 'extends' ClassType 'implements' InterfaceTypeList ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
-ModifierList 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
 ModifierList : Modifier ModifierList
 ModifierList : Modifier
 Modifier : Annotation
@@ -86,6 +84,11 @@ Modifier : 'abstract'
 Modifier : 'static'
 Modifier : 'final'
 Modifier : 'strictfp'
+Modifier : 'default'
+Modifier : 'volatile'
+Modifier : 'synchronized'
+Modifier : 'transient'
+Modifier : 'native'
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 InterfaceTypeList : ClassType
 ClassType : ClassType 'SPOT' ClassTypeUnit
@@ -98,7 +101,7 @@ ClassTypeUnit : AnnotationList Identifier TypeArguments
 EnumDeclaration : 'enum' Identifier EnumBody
 EnumDeclaration : ModifierList 'enum' Identifier EnumBody
 EnumDeclaration : 'enum' Identifier  'implements' InterfaceTypeList EnumBody
-EnumDeclaration : ModifierList 'enum' Identifier  'implements' InterfaceTypeList EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier 'implements' InterfaceTypeList EnumBody
 -- NormalInterfaceDeclaration 9------
 InterfaceDeclaration : NormalInterfaceDeclaration
 InterfaceDeclaration : AnnotationTypeDeclaration
@@ -115,6 +118,7 @@ AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier AnnotationTypeBody
 AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier AnnotationTypeBody
 -- Block 11------
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
 BlockStatements : Block BlockStatements
 BlockStatements : NonBrace BlockStatements
 BlockStatements : 0
@@ -139,7 +143,6 @@ StatementEle : 'CARET'
 StatementEle : 'COLON'
 -- StatementEle : 'COMMA'  12
 StatementEle : 'CharacterLiteral'
-StatementEle : 'ClassTypeId'
 StatementEle : 'DB_EQUAL'
 StatementEle : 'DIVIDE_EQUAL'
 StatementEle : 'EQUAL'
@@ -230,7 +233,10 @@ NonANGLE_BRACKET : 'extends'
 NonANGLE_BRACKET : 'super'
 NonANGLE_BRACKET : 'COMMA'
 NonANGLE_BRACKET : Identifier
-NonANGLE_BRACKET : 'ClassTypeId'
+NonANGLE_BRACKET : UnannPrimitiveType
+NonANGLE_BRACKET : 'SPOT'
+NonANGLE_BRACKET : 'LEFT_BRACKET'
+NonANGLE_BRACKET : 'RIGHT_BRACKET'
 -- Annotation 15------
 AnnotationList : Annotation AnnotationList
 AnnotationList : Annotation
@@ -241,8 +247,11 @@ MarkerAnnotation : 'AT' DetailIdentifier
 NormalAnnotation : 'AT' DetailIdentifier AnnotationContent
 AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
 AnnotationContentStatements : AnnotationContent AnnotationContentStatements
+AnnotationContentStatements : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' AnnotationContentStatements
 AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
 AnnotationContentStatements : NonPARENTHESES
+AnnotationContentStatements : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+AnnotationContentStatements : AnnotationContent
 NonPARENTHESES : StatementEle
 NonPARENTHESES : 'COMMA'
 NonPARENTHESES : 'semicolon'
@@ -250,6 +259,7 @@ NonPARENTHESES : 'LEFT_BRACE'
 NonPARENTHESES : 'LEFT_BRACKET'
 NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
 NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
 NonPARENTHESES : 'RIGHT_BRACKET'
 NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
 -- DimExpr  16--
@@ -264,6 +274,7 @@ NonDim : 'LEFT_BRACE'
 NonDim : 'LEFT_PARENTHESES'
 NonDim : 'LEFT_ANGLE_BRACKET'
 NonDim : 'RIGHT_BRACE'
+NonDim : 'COMMA_RIGHT_BRACE'
 NonDim : 'RIGHT_PARENTHESES'
 NonDim : 'RIGHT_ANGLE_BRACKET'
 -- Dims 17--
@@ -276,6 +287,7 @@ Expression : ele Expression
 Expression : ele
 ele : StatementEle
 ele : AnnotationContent
+ele : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
 ele : DimExpr
 ele : Block
 ele : TypeArguments
@@ -306,20 +318,24 @@ VariableDeclaratorId : Identifier
 -------- MethodDeclaration1 22--------------
 MethodDeclaration : MethodHeader MethodBody
 MethodDeclaration : ModifierList MethodHeader MethodBody
-MethodHeader : Result MethodDeclarator
-MethodHeader : Result MethodDeclarator Throws
-MethodHeader : TypeArguments Result MethodDeclarator
-MethodHeader : TypeArguments Result MethodDeclarator Throws
-MethodHeader : TypeArguments AnnotationList Result MethodDeclarator
-MethodHeader : TypeArguments AnnotationList Result MethodDeclarator Throws
+MethodHeader : UnannType MethodDeclarator
+MethodHeader : UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments UnannType MethodDeclarator
+MethodHeader : TypeArguments UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator Throws
+MethodHeader : 'void' MethodDeclarator
+MethodHeader : 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments 'void' MethodDeclarator
+MethodHeader : TypeArguments 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator Throws
 MethodHeader : MethodDeclarator
 MethodHeader : MethodDeclarator Throws
 MethodHeader : TypeArguments MethodDeclarator
 MethodHeader : TypeArguments MethodDeclarator Throws
 MethodHeader : TypeArguments AnnotationList MethodDeclarator
 MethodHeader : TypeArguments AnnotationList MethodDeclarator Throws
-Result : UnannType
-Result : 'void'
 MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
 MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims
 MethodDeclarator : Identifier AnnotationContent
@@ -332,15 +348,17 @@ ExceptionTypeList : ClassType
 ------ EnumBody 23 -------------
 EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumConstantList 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' 'COMMA' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 EnumConstantList : MethodDeclarator 'COMMA' EnumConstantList
+EnumConstantList : Identifier 'COMMA' EnumConstantList
 EnumConstantList : MethodDeclarator
--------- AnnotationTypeBody --------------
+EnumConstantList : Identifier
+-------- AnnotationTypeBody 24 a2--------------
 AnnotationTypeBody : 'LEFT_BRACE' AnnotationTypeMemberDeclarationList 'RIGHT_BRACE'
 AnnotationTypeMemberDeclarationList : AnnotationTypeMemberDeclaration AnnotationTypeMemberDeclarationList
 AnnotationTypeMemberDeclarationList : 0

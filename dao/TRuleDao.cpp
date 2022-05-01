@@ -1,4 +1,4 @@
-#include "TShortCodeDao.h"
+#include "TRuleDao.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -6,40 +6,42 @@
 using namespace std;
 
 
-P_TShortCodeDao TShortCodeDao::instance = nullptr;
+P_TRuleDao TRuleDao::instance = nullptr;
 
 
-TShortCodeDao::TShortCodeDao() {
+TRuleDao::TRuleDao() {
 }
 
-TShortCodeDao::~TShortCodeDao() {
+TRuleDao::~TRuleDao() {
 }
 
-P_TShortCodeDao TShortCodeDao::getInstance() {
+P_TRuleDao TRuleDao::getInstance() {
 	if (instance == nullptr) {
-		instance = P_TShortCodeDao(new TShortCodeDao);
+		instance = P_TRuleDao(new TRuleDao);
 	}
 	return instance;
 };
 
 
 
-void TShortCodeDao::insertList(vector<unordered_map<string, string>> &list) {
+void TRuleDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (list.size() == 0) {
 		return;
 	}
 	MYSQL conn;
 	int res;
 	mysql_init(&conn);
+
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "insert into t_short_code(md5,symbol,short_code) ";
+		sql_os << "insert into t_rule(md5,id,rule_name,rule) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["md5"] << "'" << ",";
-			sql_os << "'" << list[i1]["symbol"] << "'" << ",";
-			sql_os << list[i1]["shortCode"] ;
+			sql_os  << list[i1]["id"]  << ",";
+			sql_os << "'" << list[i1]["ruleName"] << "'" << ",";
+			sql_os << "'" << list[i1]["rule"] << "'";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -53,7 +55,7 @@ void TShortCodeDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void TShortCodeDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void TRuleDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -63,14 +65,14 @@ void TShortCodeDao::queryList(unordered_map<string, string> &transfer_map, vecto
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "md5","symbol","short_code" };
+		string col[] = { "md5","id","rule_name","rule" };
 
 		unordered_map<string, int> col_map;
-		for (int i1 = 0; i1 < 3; i1++) {
+		for (int i1 = 0; i1 < 4; i1++) {
 			col_map[col[i1]] = i1;
 		}
 
-		sql_os << "select  md5,symbol,short_code from t_short_code ";
+		sql_os << "select  md5,id,rule from t_rule ";
 		sql_os << "where 1=1 ";
 		if (transfer_map.find("md5") != transfer_map.end()) {
 			sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -83,8 +85,9 @@ void TShortCodeDao::queryList(unordered_map<string, string> &transfer_map, vecto
 				mysql_row = mysql_fetch_row(mysql_result);
 				result_list.push_back(unordered_map<string, string>());
 				result_list.back()["md5"] = mysql_row[col_map["md5"]];
-				result_list.back()["symbol"] = mysql_row[col_map["symbol"]];
-				result_list.back()["shortCode"] = mysql_row[col_map["short_code"]];
+				result_list.back()["id"] = mysql_row[col_map["id"]];
+				result_list.back()["ruleName"] = mysql_row[col_map["rule_name"]];
+				result_list.back()["rule"] = mysql_row[col_map["rule"]];
 			}
 		}
 		mysql_close(&conn);
@@ -92,7 +95,7 @@ void TShortCodeDao::queryList(unordered_map<string, string> &transfer_map, vecto
 }
 
 
-void TShortCodeDao::deleteRecord(unordered_map<string, string> &transfer_map) {
+void TRuleDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 	MYSQL conn;
 	MYSQL_ROW mysql_row;
 	mysql_init(&conn);
@@ -106,7 +109,7 @@ void TShortCodeDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 		ostringstream sql_os;
 
 
-		sql_os << "delete from t_short_code ";
+		sql_os << "delete from t_rule ";
 		sql_os << "where 1=1 ";
 		if (transfer_map.find("md5") != transfer_map.end()) {
 			sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
