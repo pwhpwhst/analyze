@@ -11,19 +11,14 @@ using namespace std;
 class Env{
 
 
-private: unordered_map<string,SmbolInfo> table;
+private: unordered_map<string, unordered_map<string,string>> table;
 protected: Env *prev;
+
+protected: vector<Env*> childList;
 
 public: Env();
 
-public: Env(Env *env);
-
-public: void traversal();
-
-public: bool put(const string& id,const SmbolInfo &info);
-
-public: SmbolInfo &get(const string& id);
-
 public: virtual ~Env();
+
 };
 

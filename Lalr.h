@@ -98,14 +98,15 @@ class Lalr{
 
 public:bool switchParseProcess;
 public:bool switchNotSilent;
-	   
+
+public:string ruleFileName;
 private:string md5;
 private:vector<P_Rule> ruleList;
 private:set<string> terminator;
 private:set<string> non_terminator;
 
+public:unordered_map<int, int> ruleIdToSubId;
 
-//private:vector< unordered_map< string, string>> forecast_list;
 private: vector<string> ordered_symbols;
 private: unordered_map<string, int> symbol_to_id;
 private: vector<int>move_table;
@@ -166,7 +167,7 @@ private: int startsWith(string s, string sub);
 
 private: int endsWith(string s, string sub);
 
-private: string replaceAll(string str, string sub, string replacement);
+public: string replaceAll(string str, string sub, string replacement);
 
 public: Lalr();
 

@@ -1,0 +1,380 @@
+ele_begin : CompilationUnit
+-- »ù´¡  2--
+Identifier : 'IDENTIFIER'
+IdentifierList : 'SPOT' Identifier IdentifierList
+IdentifierList : 0
+Literal : 'IntegerLiteral'
+Literal : 'FloatingPointLiteral'
+Literal : 'BooleanLiteral'
+Literal : 'CharacterLiteral'
+Literal : 'null'
+-- UnannType 3--
+UnannType : UnannPrimitiveType
+UnannType : UnannClassOrInterfaceType
+UnannType : UnannArrayType
+UnannPrimitiveType : NumericType
+UnannPrimitiveType : 'boolean'
+NumericType : IntegralType
+NumericType : FloatingPointType
+IntegralType : 'byte'
+IntegralType : 'short'
+IntegralType : 'int'
+IntegralType : 'long'
+IntegralType : 'char'
+FloatingPointType : 'float'
+FloatingPointType : 'double'
+UnannClassOrInterfaceType : UnannClassType 'SPOT' UnannClassOrInterfaceType
+UnannClassOrInterfaceType : UnannClassType 'SPOT' AnnotationList UnannClassOrInterfaceType
+UnannClassOrInterfaceType : UnannClassType
+UnannClassType : Identifier
+UnannClassType : Identifier TypeArguments
+UnannArrayType : UnannPrimitiveType Dims
+UnannArrayType : UnannClassOrInterfaceType Dims
+-- CompilationUnit 4--
+CompilationUnit : PackageDeclaration
+CompilationUnit : ImportDeclarationList
+CompilationUnit : TypeDeclarationList
+CompilationUnit : PackageDeclaration ImportDeclarationList
+CompilationUnit : PackageDeclaration TypeDeclarationList
+CompilationUnit : ImportDeclarationList TypeDeclarationList
+CompilationUnit : PackageDeclaration ImportDeclarationList TypeDeclarationList
+PackageDeclaration : AnnotationList 'package' DetailIdentifier 'semicolon'
+PackageDeclaration : 'package' DetailIdentifier 'semicolon'
+DetailIdentifier : Identifier 'SPOT' DetailIdentifier
+DetailIdentifier : Identifier
+--- ImportDeclarationList 5----
+ImportDeclarationList : ImportDeclaration ImportDeclarationList
+ImportDeclarationList : ImportDeclaration
+ImportDeclaration : 'import' DetailIdentifier 'semicolon'
+ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
+ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+-- TypeDeclarationList 6--
+TypeDeclarationList : TypeDeclaration TypeDeclarationList
+TypeDeclarationList : TypeDeclaration
+TypeDeclaration : ClassDeclaration
+TypeDeclaration : InterfaceDeclaration
+TypeDeclaration : 'semicolon'
+-- ClassDeclaration  7--
+ClassDeclaration : NormalClassDeclaration
+ClassDeclaration : EnumDeclaration
+NormalClassDeclaration : 'class' Identifier ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' ClassType ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier 'extends' ClassType ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments 'extends' ClassType ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'extends' ClassType ClassBody
+NormalClassDeclaration : 'class' Identifier 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : 'class' Identifier 'extends' ClassType 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier 'extends' ClassType 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
+ModifierList : Modifier ModifierList
+ModifierList : Modifier
+Modifier : Annotation
+Modifier : 'public'
+Modifier : 'protected'
+Modifier : 'private'
+Modifier : 'abstract'
+Modifier : 'static'
+Modifier : 'final'
+Modifier : 'strictfp'
+Modifier : 'default'
+Modifier : 'volatile'
+Modifier : 'synchronized'
+Modifier : 'transient'
+Modifier : 'native'
+InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+InterfaceTypeList : ClassType
+ClassType : ClassType 'SPOT' ClassTypeUnit
+ClassType : ClassTypeUnit
+ClassTypeUnit : Identifier
+ClassTypeUnit : Identifier TypeArguments
+ClassTypeUnit : AnnotationList Identifier
+ClassTypeUnit : AnnotationList Identifier TypeArguments
+-- EnumDeclaration 8------
+EnumDeclaration : 'enum' Identifier EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier EnumBody
+EnumDeclaration : 'enum' Identifier  'implements' InterfaceTypeList EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier 'implements' InterfaceTypeList EnumBody
+-- NormalInterfaceDeclaration 9------
+InterfaceDeclaration : NormalInterfaceDeclaration
+InterfaceDeclaration : AnnotationTypeDeclaration
+NormalInterfaceDeclaration : 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier 'extends' InterfaceTypeList ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'extends' InterfaceTypeList ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'extends' InterfaceTypeList ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'extends' InterfaceTypeList ClassBody
+-- AnnotationTypeDeclaration 10------
+AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier AnnotationTypeBody
+AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier AnnotationTypeBody
+-- Block 11------
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
+BlockStatements : 0
+NonBrace : StatementEle
+NonBrace : 'COMMA'
+NonBrace : 'semicolon'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'RIGHT_PARENTHESES'
+StatementEle : 'IDENTIFIER'
+StatementEle : 'AND'
+StatementEle : 'AND_EQUAL'
+StatementEle : 'AT'
+StatementEle : 'AT_INTERFACE'
+StatementEle : 'BIT_AND'
+StatementEle : 'BIT_OR'
+StatementEle : 'BooleanLiteral'
+StatementEle : 'CARET'
+StatementEle : 'COLON'
+-- StatementEle : 'COMMA'  12
+StatementEle : 'CharacterLiteral'
+StatementEle : 'DB_EQUAL'
+StatementEle : 'DIVIDE_EQUAL'
+StatementEle : 'EQUAL'
+StatementEle : 'FloatingPointLiteral'
+StatementEle : 'GT_EQUAL'
+StatementEle : 'IntegerLiteral'
+StatementEle : 'LAMBDA_TO'
+StatementEle : 'LEFT_SHIFT'
+StatementEle : 'LEFT_SHIFT_EQUAL'
+StatementEle : 'LT_EQUAL'
+StatementEle : 'MULTI_EQUAL'
+StatementEle : 'NOT_EQUAL'
+StatementEle : 'OR'
+StatementEle : 'OR_EQUAL'
+StatementEle : 'PLUS'
+StatementEle : 'PLUS_EQUAL'
+StatementEle : 'PRECENTAGE'
+StatementEle : 'PRECENTAGE_EQUAL'
+StatementEle : 'PackageOrTypeNameId'
+StatementEle : 'QUESTION'
+StatementEle : 'RIGHT_SHIFT'
+StatementEle : 'RIGHT_SHIFT2'
+StatementEle : 'RIGHT_SHIFT2_EQUAL'
+StatementEle : 'RIGHT_SHIFT_EQUAL'
+StatementEle : 'RIGTH_BRACKET'
+StatementEle : 'SLASH'
+StatementEle : 'SPOT'
+StatementEle : 'STAR'
+StatementEle : 'SUBTRACT'
+StatementEle : 'SUBTRACT_EQUAL'
+StatementEle : 'SURPRISE'
+StatementEle : 'StringLiteral'
+StatementEle : 'THREE_SPOT'
+StatementEle : 'TILDE'
+StatementEle : 'TWO_COLON'
+StatementEle : 'TWO_PLUS'
+StatementEle : 'TWO_SUBTRACT'
+StatementEle : 'TypeNameId'
+StatementEle : 'XOR_EQUAL'
+StatementEle : 'abstract'
+StatementEle : 'boolean'
+StatementEle : 'byte'
+StatementEle : 'char'
+StatementEle : 'class'
+StatementEle : 'default'
+StatementEle : 'double'
+StatementEle : 'enum'
+StatementEle : 'extends'
+StatementEle : 'final'
+StatementEle : 'float'
+StatementEle : 'implements'
+StatementEle : 'instanceof'
+StatementEle : 'int'
+StatementEle : 'interface'
+StatementEle : 'long'
+StatementEle : 'native'
+StatementEle : 'new'
+StatementEle : 'null'
+StatementEle : 'private'
+StatementEle : 'protected'
+StatementEle : 'public'
+-- StatementEle : 'semicolon'  13
+StatementEle : 'short'
+StatementEle : 'static'
+StatementEle : 'super'
+StatementEle : 'synchronized'
+StatementEle : 'this'
+StatementEle : 'throws'
+StatementEle : 'transient'
+StatementEle : 'void'
+StatementEle : 'volatile'
+-- TypeArguments 14--
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+TypeArgumentList : TypeArguments TypeArgumentList
+TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+TypeArgumentList : 0
+NonANGLE_BRACKET : 'QUESTION'
+NonANGLE_BRACKET : 'extends'
+NonANGLE_BRACKET : 'super'
+NonANGLE_BRACKET : 'COMMA'
+NonANGLE_BRACKET : Identifier
+NonANGLE_BRACKET : UnannPrimitiveType
+NonANGLE_BRACKET : 'SPOT'
+NonANGLE_BRACKET : 'LEFT_BRACKET'
+NonANGLE_BRACKET : 'RIGHT_BRACKET'
+-- Annotation 15------
+AnnotationList : Annotation AnnotationList
+AnnotationList : Annotation
+Annotation : NormalAnnotation
+Annotation : MarkerAnnotation
+Annotation : SingleElementAnnotation
+MarkerAnnotation : 'AT' DetailIdentifier
+NormalAnnotation : 'AT' DetailIdentifier AnnotationContent
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : AnnotationContent AnnotationContentStatements
+AnnotationContentStatements : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES
+AnnotationContentStatements : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+AnnotationContentStatements : AnnotationContent
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+-- DimExpr  16--
+DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+DimStatements : DimExpr DimStatements
+DimStatements : NonDim DimStatements
+DimStatements : 0
+NonDim : StatementEle
+NonDim : 'COMMA'
+NonDim : 'semicolon'
+NonDim : 'LEFT_BRACE'
+NonDim : 'LEFT_PARENTHESES'
+NonDim : 'LEFT_ANGLE_BRACKET'
+NonDim : 'RIGHT_BRACE'
+NonDim : 'COMMA_RIGHT_BRACE'
+NonDim : 'RIGHT_PARENTHESES'
+NonDim : 'RIGHT_ANGLE_BRACKET'
+-- Dims 17--
+Dims : Dim Dims
+Dims : Dim
+Dim : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+Dim : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+-------- Expression 18--------------
+Expression : ele Expression
+Expression : ele
+ele : StatementEle
+ele : AnnotationContent
+ele : 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+ele : DimExpr
+ele : Block
+ele : TypeArguments
+--------ClassBody 19--------------
+ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
+ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
+ClassBodyDeclarationList : 0
+ClassBodyDeclaration : ClassMemberDeclaration
+ClassBodyDeclaration : InstanceInitializer
+ClassBodyDeclaration : StaticInitializer
+ClassMemberDeclaration : FieldDeclaration
+ClassMemberDeclaration : MethodDeclaration
+ClassMemberDeclaration : ClassDeclaration
+ClassMemberDeclaration : InterfaceDeclaration
+ClassMemberDeclaration : 'semicolon'
+-- InstanceInitializer 20--
+InstanceInitializer : Block
+StaticInitializer : 'static' Block
+-------- FieldDeclaration  21--------------
+FieldDeclaration : UnannType VariableDeclaratorList 'semicolon'
+FieldDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
+VariableDeclaratorList : VariableDeclarator 'COMMA' VariableDeclaratorList
+VariableDeclaratorList : VariableDeclarator
+VariableDeclarator : VariableDeclaratorId
+VariableDeclarator : VariableDeclaratorId 'EQUAL' Expression
+VariableDeclaratorId : Identifier Dims
+VariableDeclaratorId : Identifier
+-------- MethodDeclaration1 22--------------
+MethodDeclaration : MethodHeader MethodBody
+MethodDeclaration : ModifierList MethodHeader MethodBody
+MethodHeader : UnannType MethodDeclarator
+MethodHeader : UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments UnannType MethodDeclarator
+MethodHeader : TypeArguments UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator Throws
+MethodHeader : 'void' MethodDeclarator
+MethodHeader : 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments 'void' MethodDeclarator
+MethodHeader : TypeArguments 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator Throws
+MethodHeader : MethodDeclarator
+MethodHeader : MethodDeclarator Throws
+MethodHeader : TypeArguments MethodDeclarator
+MethodHeader : TypeArguments MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList MethodDeclarator
+MethodHeader : TypeArguments AnnotationList MethodDeclarator Throws
+MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims
+MethodDeclarator : Identifier AnnotationContent
+MethodDeclarator : Identifier AnnotationContent Dims
+MethodBody : Block
+MethodBody : 'semicolon'
+Throws : 'throws' ExceptionTypeList
+ExceptionTypeList : ClassType 'COMMA' ExceptionTypeList
+ExceptionTypeList : ClassType
+------ EnumBody 23 -------------
+EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+EnumConstantList : MethodDeclarator 'COMMA' EnumConstantList
+EnumConstantList : Identifier 'COMMA' EnumConstantList
+EnumConstantList : MethodDeclarator
+EnumConstantList : Identifier
+-------- AnnotationTypeBody 24 a2--------------
+AnnotationTypeBody : 'LEFT_BRACE' AnnotationTypeMemberDeclarationList 'RIGHT_BRACE'
+AnnotationTypeMemberDeclarationList : AnnotationTypeMemberDeclaration AnnotationTypeMemberDeclarationList
+AnnotationTypeMemberDeclarationList : 0
+AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclaration
+AnnotationTypeMemberDeclaration : FieldDeclaration
+AnnotationTypeMemberDeclaration : ClassDeclaration
+AnnotationTypeMemberDeclaration : InterfaceDeclaration
+AnnotationTypeMemberDeclaration : 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims DefaultValue 'semicolon'
+DefaultValue : 'default' ElementValue
+ElementValue : Expression
+ElementValue : Annotation

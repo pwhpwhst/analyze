@@ -4,16 +4,17 @@
 using namespace std;
 
 
-class Token{
+class Token {
 
-public: int tag;
+public: string tag;
 
 public: string content;
+public: long content2 = 0;
 
-//默认构造器
+		//默认构造器
 public: Token();
 
-public: Token(int tag,string content);
+public: Token(const string &tag, const string &content, const long &content2);
 
 public: virtual ~Token();
 

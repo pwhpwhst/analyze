@@ -2,6 +2,7 @@
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
+#include <iostream>
 using namespace std;
 
 
@@ -75,7 +76,15 @@ void TCompileFileDao::queryList( unordered_map<string,string> &transfer_map,vect
 		if (transfer_map.find("end_id") != transfer_map.end()) {
 			sql_os << "and id<" << transfer_map["end_id"] << " ";
 		}
-		
+		if (transfer_map.find("fileNameList") != transfer_map.end()) {
+			sql_os << "and file_name in (" << transfer_map["fileNameList"] << ") ";
+		}
+
+		if (transfer_map.find("orderFileName") != transfer_map.end()&&transfer_map.at("orderFileName")=="true") {
+			sql_os << "order by file_name";
+		}
+
+		//cout << sql_os.str() << endl;
 
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);

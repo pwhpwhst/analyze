@@ -142,6 +142,14 @@ string getMD5(string fileName) {
 
 int Lalr::init(string rule_file) {
 
+
+
+	vector <string> strs;
+	split(strs, rule_file, is_any_of("\\"));
+
+
+	ruleFileName = strs[strs.size() - 1];
+	ruleFileName = replaceAll(ruleFileName, ".txt", "");
 	string md5=getMD5(rule_file);
 
 	P_TFileMD5Dao tFileMD5Dao = TFileMD5Dao::getInstance();
@@ -196,9 +204,19 @@ int Lalr::init(string rule_file) {
 	unordered_map<string, string> temp_forecast_map;
 	paresOrders(rule_file, orders, temp_forecast_map);
 
+	unordered_map<string, int> ruleNameCountMap;
+	ruleIdToSubId.clear();
 	for (const auto &e : orders) {
 		ruleList.push_back(P_Rule(new Rule(e)));
 		ruleList.back()->index = ruleList.size() - 1;
+
+		int num = 0;
+		if (ruleNameCountMap.count(ruleList.back()->rule_name) != 0) {
+			num = ruleNameCountMap[ruleList.back()->rule_name];
+		}
+		ruleIdToSubId[ruleList.back()->index] = num;
+		ruleNameCountMap[ruleList.back()->rule_name] = num + 1;
+
 	}
 
 
@@ -2467,6 +2485,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			P_Rule best_rule = ruleList[atoi(action.substr(1).c_str())];
 			Node *parent_node = new Node();
 			parent_node->symbol = best_rule->rule_name;
+			parent_node->ruleId = atoi(action.substr(1).c_str());
 			parent_node->offset = 0;
 			parent_node->parent = nullptr;
 
@@ -2559,46 +2578,46 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 }
 
 
-/*
-void Lalr::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) {
 
-	cout << "生成中间代码:" << endl;
+//void Lalr::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) {
+//
+//	cout << "生成中间代码:" << endl;
+//
+//	set<string> has_calculate_set;
+//	unordered_map<string, Token*> result_map; //这个起到类似上下文的作用
+//	vector<P_NodeValue> stack;
+//	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
+//
+//	while (stack.size() > 0) {
+//		auto top = stack.back();
+//
+//		//cout<<top->node->get_rule_str()<<endl;
+//		P_SDT_genertor sdt_genertor = SDT_Factory::instance.factory[top->node->get_rule_str()];
+//
+//		if (sdt_genertor != nullptr) {
+//
+//			P_NodeValue p_nodeValue = sdt_genertor->handle(top, result_map, has_calculate_set, env, compileInfo);
+//			if (compileInfo.errInfo != "") {
+//				break;
+//			}
+//			if (p_nodeValue != nullptr) {
+//				stack.push_back(p_nodeValue);
+//			}
+//			else {
+//				stack.pop_back();
+//			}
+//		}
+//		else {
+//			break;
+//		}
+//	}
+//	for (auto &e : result_map) {
+//		if (e.second != nullptr) {
+//			delete e.second;
+//		}
+//	}
+//}
 
-	set<string> has_calculate_set;
-	unordered_map<string, Token*> result_map; //这个起到类似上下文的作用
-	vector<P_NodeValue> stack;
-	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
-
-	while (stack.size() > 0) {
-		auto top = stack.back();
-
-		//cout<<top->node->get_rule_str()<<endl;
-		P_SDT_genertor sdt_genertor = SDT_Factory::instance.factory[top->node->get_rule_str()];
-
-		if (sdt_genertor != nullptr) {
-
-			P_NodeValue p_nodeValue = sdt_genertor->handle(top, result_map, has_calculate_set, env, compileInfo);
-			if (compileInfo.errInfo != "") {
-				break;
-			}
-			if (p_nodeValue != nullptr) {
-				stack.push_back(p_nodeValue);
-			}
-			else {
-				stack.pop_back();
-			}
-		}
-		else {
-			break;
-		}
-	}
-	for (auto &e : result_map) {
-		if (e.second != nullptr) {
-			delete e.second;
-		}
-	}
-}
-*/
 
 
 void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordered_map<string, string> &temp_forecast_map) {

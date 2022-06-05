@@ -5,6 +5,8 @@
 #include"symbols\Type.h"
 #include"symbols\Tag.h"
 #include"SLR\Lex_Word.h"
+#include"SLR\NodeValue.h"
+#include"SLR\SDT_Factory.h"
 #include"symbols\PrimarySymbolConverter.h"
 #include"treeAnalyzer\java\JAVATreeAnalyzer.h"
 #include"treeAnalyzer\java\JAVASpaceTreeAnalyzer.h"
@@ -126,7 +128,7 @@ int main() {
 	Env env;
 	CompileInfo compileInfo;
 
-	string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+	string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 
 	Lalr lalr;
 	if (-1 == lalr.init(rule_file0)) {
@@ -176,12 +178,52 @@ int main() {
 
 
 
+void gen_middle_code(Lalr &lalr,Env &env, Node* &node_tree, unordered_map<string,string> &imfo_map) {
+
+	cout << "生成中间代码:" << endl;
+
+	//set<string> has_calculate_set;
+	unordered_map<string, P_NodeValue> nodeValueMap;
+
+	vector<P_NodeValue> stack;
+	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
+
+	//P_NodeValue childNodeValue = nullptr;
+	while (stack.size() > 0) {
+		auto top = stack.back();
+		string  sdtKey=lalr.ruleFileName + "_" + top->node->symbol + "_" + std::to_string(lalr.ruleIdToSubId[top->node->ruleId]);
+		P_SDT_genertor sdt_genertor = SDT_Factory::instance.getSDT_genertor(sdtKey);
+		if (sdt_genertor == nullptr) {
+			cout<<sdtKey << "未定义";
+			throw;
+		}
+
+		sdt_genertor->handle(top, stack, env, nodeValueMap);
+
+		//if (sdt_genertor != nullptr) {
+
+		//	P_NodeValue p_nodeValue = sdt_genertor->handle(top, has_calculate_set, env);
+		//	if (p_nodeValue != nullptr) {
+		//		stack.push_back(p_nodeValue);
+		//	}
+		//	else {
+		//		stack.pop_back();
+		//	}
+		//}
+		//else {
+		//	break;
+		//}
+	}
+
+}
+
+
 
 int main() {
 //	MD5算法来自于
 // https://blog.csdn.net/think_A_lot/article/details/86749730
 
-	//string rule_file4 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+	//string rule_file4 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 
 	//bool isChanged=isRuleFileChanged(rule_file4);
 
@@ -190,22 +232,32 @@ int main() {
 	//0 - 测试 -Package
 	//1 - 测试 -expression
 	//3 - 查看非终端符号实际囊括的终端符号
-	//4 - 真实批量
-	//5 - 真实单体
+	//4 - 真实批量	done
+	//5 - 真实单体	done
+	//6 - 逐步小批量测试
+	//7 - 真实单体
 
 	Env env;
 	CompileInfo compileInfo;
 
-	int mode = 4;
-	cout << "分析器初始化！" << endl;
-	if (mode == 0) {
+	int Mode0 = 0;
+	int Mode1 = 1;
+	int Mode3 = 3;
+	int Mode4 = 4;
+	int Mode5 = 5;
+	int Mode6 = 6;
+	int Mode7 = 7;
 
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+	int mode = 0;
+	cout << "分析器初始化！" << endl;
+	if (mode == Mode0) {
+
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 		Lalr lalr;
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
-		lalr.switchParseProcess = true;
+		lalr.switchParseProcess = false;
 		lalr.switchNotSilent = true;
 		PrimarySymbolConverter primarySymbolConverter;
 		set<string> end_symbol_set0;
@@ -221,6 +273,13 @@ int main() {
 		}
 		else {
 			cout << fileName << ":" << "分析成功" << endl;
+			//lalr.printStackTree(node_tree, "");
+			unordered_map<string, string> imfo_map;
+			gen_middle_code(lalr,env, node_tree, imfo_map);
+
+			
+
+			//lalr.printStackTree(node_tree, "");
 			Node::releaseNode(node_tree);
 		}
 
@@ -229,7 +288,7 @@ int main() {
 		//lalr.printGraph(itemSet);
 
 	}
-	else if (mode == 1) {
+	else if (mode == Mode1) {
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForExpression.txt";
 		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForExpressionConflict.txt";
 		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPrimary.txt";
@@ -258,7 +317,7 @@ int main() {
 		}
 
 	}
-	else if (mode == 3) {
+	else if (mode == Mode3) {
 
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPrimary.txt";
 
@@ -272,9 +331,9 @@ int main() {
 
 		lalr.calculate_f_terminate("Expression", rule_file0);
 	}
-	else if (mode == 4) {
+	else if (mode == Mode4) {
 
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 
 		Lalr lalr;
 		if (-1 == lalr.init(rule_file0)) {
@@ -319,8 +378,8 @@ int main() {
 
 		}
 		cout << "分析完成" << endl;
-	}else if (mode == 5) {
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\ruleForPackages.txt";
+	}else if (mode == Mode5) {
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 		Lalr lalr;
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
@@ -346,6 +405,234 @@ int main() {
 		}
 		//set<int> itemSet = { 196 };
 		//lalr.printGraph(itemSet);
+	}
+	else if (mode == Mode6) {
+		P_TCompileFileDao tCompileFileDao = TCompileFileDao::getInstance();
+		unordered_map<string, string> transfer_map;
+		vector<unordered_map<string, string>> result_list;
+		string fileArr[] = {
+		"AbandonedConfig.java",
+		"AbandonedTrace.java",
+		"AbsoluteOrder.java",
+		"AbstractAccessLogValve.java",
+		"AbstractAjpProtocol.java",
+		"AbstractArchiveResource.java",
+		"AbstractArchiveResourceSet.java",
+		"AbstractCatalinaCommandTask.java",
+		"AbstractCatalinaTask.java",
+		"AbstractChunk.java",
+		"AbstractEndpoint.java",
+		"AbstractFileResourceSet.java",
+		"AbstractGroup.java",
+		"AbstractHttp11JsseProtocol.java",
+		"AbstractHttp11Protocol.java",
+		"AbstractInputStreamJar.java",
+		"AbstractJsseEndpoint.java",
+		"AbstractNonZeroStream.java",
+		"AbstractObjectCreationFactory.java",
+		"AbstractProcessor.java",
+		"AbstractProcessorLight.java",
+		"AbstractProtocol.java",
+		"AbstractRef.java",
+		"AbstractReplicatedMap.java",
+		"AbstractResource.java",
+		"AbstractResourceSet.java",
+		"AbstractRole.java",
+		"AbstractRxTask.java",
+		"AbstractSender.java",
+		"AbstractSingleArchiveResource.java",
+		"AbstractSingleArchiveResourceSet.java",
+		"AbstractStream.java",
+		"AbstractStreamProvider.java",
+		"AbstractUser.java",
+		"AcceptEncoding.java",
+		"AcceptLanguage.java",
+		"Acceptor.java",
+		"AccessLog.java",
+		"AccessLogAdapter.java",
+		"AccessLogValve.java",
+		"ActionCode.java",
+		"ActionHook.java",
+		"Adapter.java",
+		"AddDefaultCharsetFilter.java",
+		"AddPortOffsetRule.java",
+		"AjpMessage.java",
+		"AjpNio2Protocol.java",
+		"AjpNioProtocol.java",
+		"AjpProcessor.java",
+		"AnnotationElementValue.java",
+		"AnnotationEntry.java",
+		"Annotations.java",
+		"AntCompiler.java",
+		"ApplicationBufferHandler.java",
+		"ApplicationContext.java",
+		"ApplicationContextFacade.java",
+		"ApplicationDispatcher.java",
+		"ApplicationFilterChain.java",
+		"ApplicationFilterConfig.java",
+		"ApplicationFilterFactory.java",
+		"ApplicationFilterRegistration.java",
+		"ApplicationHttpRequest.java",
+		"ApplicationHttpResponse.java",
+		"ApplicationMapping.java",
+		"ApplicationParameter.java",
+		"ApplicationPart.java",
+		"ApplicationPushBuilder.java",
+		"ApplicationRequest.java",
+		"ApplicationResponse.java",
+		"ApplicationServletRegistration.java",
+		"ApplicationSessionCookieConfig.java",
+		"AprLifecycleListener.java",
+		"AprStatus.java",
+		"Arg.java",
+		"ArithmeticNode.java",
+		"ArrayElementValue.java",
+		"ArrayELResolver.java",
+		"Arrays.java",
+		"ArrayStack.java",
+		"Ascii.java",
+		"Asn1Parser.java",
+		"Asn1Writer.java",
+		"AstAnd.java",
+		"AstAssign.java",
+		"AstBracketSuffix.java",
+		"AstChoice.java",
+		"AstCompositeExpression.java",
+		"AstConcatenation.java",
+		"AstDeferredExpression.java",
+		"AstDiv.java",
+		"AstDotSuffix.java",
+		"AstDynamicExpression.java",
+		"AstEmpty.java",
+		"AstEqual.java",
+		"AstFalse.java",
+		"AstFloatingPoint.java",
+		"AstFunction.java",
+		"AstGreaterThan.java",
+		"AstGreaterThanEqual.java",
+		"AstIdentifier.java"
+		};
+
+		ostringstream os;
+		for (int i1 = 0; i1 < 100;i1++) {
+			os << "'" << fileArr[i1] << "'";
+			if (i1!= 100-1) {
+				os << "," ;
+			}
+		}
+		transfer_map["fileNameList"] = os.str();
+		transfer_map["orderFileName"] = "true";
+		tCompileFileDao->queryList(transfer_map, result_list);
+
+		
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
+		Lalr lalr;
+		if (-1 == lalr.init(rule_file0)) {
+			return -1;
+		}
+
+		lalr.switchParseProcess = false;
+		lalr.switchNotSilent = true;
+		PrimarySymbolConverter primarySymbolConverter;
+		set<string> end_symbol_set0;
+
+		//result_list.back()["id"] = mysql_row[col_map["id"]];
+		//result_list.back()["path"] = mysql_row[col_map["path"]];
+		//result_list.back()["file_name"] = mysql_row[col_map["file_name"]];
+		//result_list.back()["status"] = mysql_row[col_map["status"]];
+
+
+		for (auto &e:result_list) {
+			string path = e["path"];
+			string fileName = e["file_name"];
+			string className0 = lalr.replaceAll(fileName, ".java", "");
+			string compile_file = path + "\\" + fileName;
+
+			lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+
+			Node*  node_tree = lalr.slr(env, compileInfo);
+			if (node_tree == nullptr) {
+				cout << fileName << ":" << "分析失败" << endl;
+			}
+			else {
+				//cout << fileName << ":" << "分析成功" << endl;
+				vector<Node*> totalNodeList;
+				vector<Node*> nodeList;
+
+				nodeList.clear();
+				findSpecificNode(node_tree, "NormalClassDeclaration", nodeList);
+				for (const auto &e: nodeList) {
+					totalNodeList.push_back(e);
+				}
+				
+
+				nodeList.clear();
+				findSpecificNode(node_tree, "NormalInterfaceDeclaration", nodeList);
+				for (const auto &e : nodeList) {
+					totalNodeList.push_back(e);
+				}
+				
+
+				for (const auto &e : totalNodeList) {
+					for (const auto e2 : e->child_node_list) {
+						if (e2->symbol == "Identifier") {
+							string _className = e2->child_node_list[0]->content;
+							if (className0 != _className) {
+								_className = className0 + "$" + _className;
+							}
+							cout << _className << endl;
+						}
+					}
+				}
+
+				Node::releaseNode(node_tree);
+			}
+		}
+		
+	}
+	else if (mode == Mode7) {
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
+		Lalr lalr;
+		if (-1 == lalr.init(rule_file0)) {
+			return -1;
+		}
+
+		lalr.switchParseProcess = false;
+		lalr.switchNotSilent = true;
+		PrimarySymbolConverter primarySymbolConverter;
+		set<string> end_symbol_set0;
+		string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el";
+		string className0 = "StandardELContext";
+		string fileName = className0+".java";
+		string compile_file = path + "\\" + fileName;
+
+
+
+		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+
+		Node*  node_tree = lalr.slr(env, compileInfo);
+		if (node_tree == nullptr) {
+			cout << fileName << ":" << "分析失败" << endl;
+		}
+		else {
+			cout << fileName << ":" << "分析成功" << endl;
+			vector<Node*> nodeList;
+			findSpecificNode(node_tree, "NormalClassDeclaration", nodeList);
+
+			for (const auto &e : nodeList) {
+				for (const auto e2:e->child_node_list) {
+					if (e2->symbol == "Identifier") {
+						string _className = e2->child_node_list[0]->content;
+						if (className0!= _className) {
+							_className = className0 + "$" + _className;
+						}
+						cout << _className << endl;
+					}
+				}
+			}
+
+			Node::releaseNode(node_tree);
+		}
 	}
 
 
