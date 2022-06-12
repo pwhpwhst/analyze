@@ -17,4 +17,18 @@ protected: ostringstream os;
 
 typedef std::shared_ptr<SDT_genertor> P_SDT_genertor;
 
+class Non_Terminate_genertor :public SDT_genertor {
+public: Non_Terminate_genertor();
+public: P_NodeValue handle(const P_NodeValue &nodeValue, vector<P_NodeValue> &stack, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) = 0;
+public: virtual ~Non_Terminate_genertor();
+};
+
+
+
+class Non_Terminate_Skip_genertor :public SDT_genertor {
+public: Non_Terminate_Skip_genertor();
+public: P_NodeValue handle(const P_NodeValue &nodeValue, vector<P_NodeValue> &stack, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~Non_Terminate_Skip_genertor();
+};
 
