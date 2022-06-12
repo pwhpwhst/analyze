@@ -20,7 +20,8 @@
 #include "dao/TMoveTableDao.h"
 #include "dao/TForecastDao.h"
 #include "dao/TRuleDao.h"
-
+#include"SLR\NodeValue.h"
+#include"SLR\SDT_Factory.h"
 
 using namespace std;
 using namespace boost;
@@ -667,9 +668,6 @@ Node* Lalr::slr(Env& env, CompileInfo &compileInfo) {
 			lex_word_list.pop_back();
 
 			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, convert_map, lex_word_list);
-			//			if (node_tree != nullptr) {
-			//				gen_middle_code(env, node_tree, compileInfo);
-			//			}
 
 			lex_word_list.clear();
 			return node_tree;
@@ -2792,7 +2790,31 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 }
 
 
+void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
 
+	cout << "生成中间代码:" << endl;
+
+	//set<string> has_calculate_set;
+	unordered_map<string, P_NodeValue> nodeValueMap;
+
+	vector<P_NodeValue> stack;
+	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
+
+	//P_NodeValue childNodeValue = nullptr;
+	while (stack.size() > 0) {
+		auto top = stack.back();
+		string  sdtKey = ruleFileName + "_" + top->node->symbol + "_" + std::to_string(ruleIdToSubId[top->node->ruleId]);
+		P_SDT_genertor sdt_genertor = SDT_Factory::instance.getSDT_genertor(sdtKey);
+		if (sdt_genertor == nullptr) {
+			cout << sdtKey << "未定义";
+			throw;
+		}
+
+		sdt_genertor->handle(top, stack, env, nodeValueMap);
+
+	}
+
+}
 
 
 

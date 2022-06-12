@@ -43,6 +43,7 @@ R001_DefaultAnalyzer::~R001_DefaultAnalyzer() {
 void R001_CompilationUnit_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_2Analyzer");
 	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list= nodeValue->context["CompilationUnit"];
 }
 
 

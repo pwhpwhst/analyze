@@ -20,6 +20,9 @@
 #include "MD5.h"
 #include "dao/TFileMD5Dao.h"
 #include "dao/TConvertMapDao.h"
+#include "symbols/java/Array.h"
+#include "symbols/java/Class.h"
+
 
 
 void findSpecificNode(Node *node_tree,string ruleName,vector<Node*> &nodeList) {
@@ -200,26 +203,13 @@ void gen_middle_code(Lalr &lalr,Env &env, Node* &node_tree, unordered_map<string
 
 		sdt_genertor->handle(top, stack, env, nodeValueMap);
 
-		//if (sdt_genertor != nullptr) {
-
-		//	P_NodeValue p_nodeValue = sdt_genertor->handle(top, has_calculate_set, env);
-		//	if (p_nodeValue != nullptr) {
-		//		stack.push_back(p_nodeValue);
-		//	}
-		//	else {
-		//		stack.pop_back();
-		//	}
-		//}
-		//else {
-		//	break;
-		//}
 	}
 
 }
 
 
 
-int main() {
+int main1() {
 //	MD5算法来自于
 // https://blog.csdn.net/think_A_lot/article/details/86749730
 
@@ -277,8 +267,9 @@ int main() {
 			unordered_map<string, string> imfo_map;
 			gen_middle_code(lalr,env, node_tree, imfo_map);
 
-			
-
+			Array* p = (Array*)(env.list.get());
+			Class* p2 = (Class*)(p->list[0].get());
+			cout << "className=" << p2->className << endl;
 			//lalr.printStackTree(node_tree, "");
 			Node::releaseNode(node_tree);
 		}

@@ -3,7 +3,11 @@
 #include <iostream>
 #include "SDT_Factory.h"
 #include "../treeAnalyzer/java/R001Analyzer.h"
+#include<boost/algorithm/string.hpp>
 using namespace std;
+using namespace boost;
+
+
 
 SDT_Factory SDT_Factory::instance;
 SDT_Factory::SDT_Factory() {
@@ -736,16 +740,12 @@ P_SDT_genertor SDT_Factory::getSDT_genertor(const string &key) {
 	case 355: factory["R001_ElementValue_0"] = P_SDT_genertor(new R001_ElementValue_0Analyzer()); break;
 	case 356: factory["R001_ElementValue_1"] = P_SDT_genertor(new R001_ElementValue_1Analyzer()); break;
 	default:
-		if ("R001_'class'_0" == key
-			|| "R001_'IDENTIFIER'_0" == key
-			|| "R001_'LEFT_BRACE'_0" == key
-			|| "R001_0_0" == key
-			|| "R001_'RIGHT_BRACE'_0" == key
-			|| "R001_'LEFT_PARENTHESES'_0" == key
-			|| "R001_'RIGHT_PARENTHESES'_0" == key
-			|| "R001_'int'_0" == key
-			|| "R001_'semicolon'_0" == key) {
-			factory[key] = P_SDT_genertor(new R001_DefaultAnalyzer());
+		if (key.find("R001_") == 0) {
+			vector <string> string_list;
+			split(string_list, key, is_any_of("_"));
+			if (string_list[1] == "0" || string_list[1].find("'") == 0) {
+				factory[key] = P_SDT_genertor(new R001_DefaultAnalyzer());
+			}
 		};
 	}
 

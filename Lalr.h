@@ -152,7 +152,7 @@ private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &termi
 
 private: bool detect_ambigulous( const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
 
-private: void gen_middle_code(Env &env,Node* &node_tree,CompileInfo &compileInfo);
+public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
 
 public: Node* slr(Env &env,CompileInfo &compileInfo);
 

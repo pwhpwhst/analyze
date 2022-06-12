@@ -297,9 +297,7 @@ Node* Lr1::slr(Env& env, CompileInfo &compileInfo) {
 			lex_word_list.pop_back();
 
 			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, forecast_list, convert_map, lex_word_list);
-			//			if (node_tree != nullptr) {
-			//				gen_middle_code(env, node_tree, compileInfo);
-			//			}
+
 
 			lex_word_list.clear();
 			return node_tree;

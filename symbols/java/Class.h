@@ -5,10 +5,11 @@
 using namespace std;
 
 
-class Class :virtual public Token {
+class Class : public Token {
 
 public: string className;
 public: P_Token list;
+public: P_Token prev;
 
 //默认构造器
 public: Class();
