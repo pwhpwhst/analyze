@@ -1,14 +1,4 @@
 #include "R001Tests.h"
-#include <iostream>
-#include <set>
-#include <vector>
-#include <deque>
-#include <string>
-#include <unordered_map>
-#include <boost/algorithm/string.hpp>
-#include <fstream>
-#include <sstream>
-#include<boost/algorithm/string.hpp>
 #include"../Lalr.h"
 #include "../symbols/java/Array.h"
 #include "../symbols/java/Class.h"
@@ -16,12 +6,12 @@
 using namespace std;
 R001Tests::R001Tests() {}
 R001Tests::~R001Tests() {}
-int R001Tests::test1() {
+int R001Tests::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env &env) {
 
-	Env env;
+	
 	CompileInfo compileInfo;
 
-	string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	string rule_file0 = i_rule_file;
 	Lalr lalr;
 	if (-1 == lalr.init(rule_file0)) {
 		return -1;
@@ -30,8 +20,8 @@ int R001Tests::test1() {
 	lalr.switchNotSilent = true;
 	PrimarySymbolConverter primarySymbolConverter;
 	set<string> end_symbol_set0;
-	string path = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
-	string fileName = "Sample.java";
+	string path = i_testCaseFolder;
+	string fileName = i_test_file;
 	string compile_file = path + "\\" + fileName;
 
 	lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
@@ -46,16 +36,55 @@ int R001Tests::test1() {
 		unordered_map<string, string> imfo_map;
 		lalr.gen_middle_code(env, node_tree, imfo_map);
 
-		Array* p = (Array*)(env.list.get());
-		Class* p2 = (Class*)(p->list[0].get());
-		cout << "className=" << p2->className << endl;
+
 		//lalr.printStackTree(node_tree, "");
 		Node::releaseNode(node_tree);
 	}
+	return 0;
 }
 
 
-void main() {
-	R001Tests r001Tests;
-	r001Tests.test1();
+int main() {
+	//R001Tests r001Tests;
+	//Env env;
+	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	//string i_test_file = "SingleClass.java";
+	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	//Array* p = (Array*)(env.list.get());
+	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "className=" << p2->className << endl;
+
+
+	//R001Tests r001Tests;
+	//Env env;
+	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	//string i_test_file = "SingleEnum.java";
+	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	//Array* p = (Array*)(env.list.get());
+	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "className=" << p2->className << endl;
+
+	//R001Tests r001Tests;
+	//Env env;
+	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	//string i_test_file = "SingleInterface.java";
+	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	//Array* p = (Array*)(env.list.get());
+	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "className=" << p2->className << endl;
+
+
+	//R001Tests r001Tests;
+	//Env env;
+	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	//string i_test_file = "SingleAnnotation.java";
+	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	//Array* p = (Array*)(env.list.get());
+	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "className=" << p2->className << endl;
+	
 }

@@ -274,10 +274,7 @@ void R001_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, En
 }
 
 
-//TypeDeclaration : InterfaceDeclaration
-void R001_TypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_TypeDeclaration_1");
-}
+
 
 
 //TypeDeclaration : 'semicolon'
@@ -286,94 +283,9 @@ void R001_TypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 }
 
 
-//ClassDeclaration : EnumDeclaration
-void R001_ClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ClassDeclaration_1");
-}
 
 
-//NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
-void R001_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_2");
-}
 
-
-//NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
-void R001_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_3");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier 'extends' ClassType ClassBody
-void R001_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_4");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier 'extends' ClassType ClassBody
-void R001_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_5");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier TypeArguments 'extends' ClassType ClassBody
-void R001_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_6");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'extends' ClassType ClassBody
-void R001_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_7");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_8");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_9");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier TypeArguments 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_10");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_11");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier 'extends' ClassType 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_12");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier 'extends' ClassType 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_13");
-}
-
-
-//NormalClassDeclaration : 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_14");
-}
-
-
-//NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments 'extends' ClassType 'implements' InterfaceTypeList ClassBody
-void R001_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalClassDeclaration_15");
-}
 
 
 //ModifierList : Modifier ModifierList
@@ -514,100 +426,19 @@ void R001_ClassTypeUnit_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 }
 
 
-//EnumDeclaration : 'enum' Identifier EnumBody
-void R001_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumDeclaration_0");
-}
 
 
-//EnumDeclaration : ModifierList 'enum' Identifier EnumBody
-void R001_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumDeclaration_1");
-}
 
 
-//EnumDeclaration : 'enum' Identifier  'implements' InterfaceTypeList EnumBody
-void R001_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumDeclaration_2");
-}
 
 
-//EnumDeclaration : ModifierList 'enum' Identifier 'implements' InterfaceTypeList EnumBody
-void R001_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumDeclaration_3");
-}
 
 
-//InterfaceDeclaration : NormalInterfaceDeclaration
-void R001_InterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_InterfaceDeclaration_0");
-}
 
 
-//InterfaceDeclaration : AnnotationTypeDeclaration
-void R001_InterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_InterfaceDeclaration_1");
-}
 
 
-//NormalInterfaceDeclaration : 'interface' Identifier ClassBody
-void R001_NormalInterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_0");
-}
 
-
-//NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
-void R001_NormalInterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_1");
-}
-
-
-//NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
-void R001_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_2");
-}
-
-
-//NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
-void R001_NormalInterfaceDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_3");
-}
-
-
-//NormalInterfaceDeclaration : 'interface' Identifier 'extends' InterfaceTypeList ClassBody
-void R001_NormalInterfaceDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_4");
-}
-
-
-//NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'extends' InterfaceTypeList ClassBody
-void R001_NormalInterfaceDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_5");
-}
-
-
-//NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'extends' InterfaceTypeList ClassBody
-void R001_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_6");
-}
-
-
-//NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'extends' InterfaceTypeList ClassBody
-void R001_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_NormalInterfaceDeclaration_7");
-}
-
-
-//AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier AnnotationTypeBody
-void R001_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeDeclaration_0");
-}
-
-
-//AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier AnnotationTypeBody
-void R001_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeDeclaration_1");
-}
 
 
 //Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
@@ -1882,10 +1713,7 @@ void R001_ExceptionTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 }
 
 
-//EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
-void R001_EnumBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_0");
-}
+
 
 
 //EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
