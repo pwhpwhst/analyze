@@ -1716,46 +1716,7 @@ void R001_ExceptionTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 
 
 
-//EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
-void R001_EnumBody_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_1");
-}
 
-
-//EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
-void R001_EnumBody_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_2");
-}
-
-
-//EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
-void R001_EnumBody_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_3");
-}
-
-
-//EnumBody : 'LEFT_BRACE' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-void R001_EnumBody_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_4");
-}
-
-
-//EnumBody : 'LEFT_BRACE' EnumConstantList 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-void R001_EnumBody_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_5");
-}
-
-
-//EnumBody : 'LEFT_BRACE' 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-void R001_EnumBody_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_6");
-}
-
-
-//EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
-void R001_EnumBody_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_7");
-}
 
 
 //EnumConstantList : MethodDeclarator 'COMMA' EnumConstantList
@@ -1782,22 +1743,10 @@ void R001_EnumConstantList_3Analyzer::handle(const P_NodeValue &nodeValue, Env &
 }
 
 
-//AnnotationTypeBody : 'LEFT_BRACE' AnnotationTypeMemberDeclarationList 'RIGHT_BRACE'
-void R001_AnnotationTypeBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeBody_0");
-}
 
 
-//AnnotationTypeMemberDeclarationList : AnnotationTypeMemberDeclaration AnnotationTypeMemberDeclarationList
-void R001_AnnotationTypeMemberDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeMemberDeclarationList_0");
-}
 
 
-//AnnotationTypeMemberDeclarationList : 0
-void R001_AnnotationTypeMemberDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeMemberDeclarationList_1");
-}
 
 
 //AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclaration
@@ -1812,10 +1761,7 @@ void R001_AnnotationTypeMemberDeclaration_1Analyzer::handle(const P_NodeValue &n
 }
 
 
-//AnnotationTypeMemberDeclaration : ClassDeclaration
-void R001_AnnotationTypeMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_AnnotationTypeMemberDeclaration_2");
-}
+
 
 
 //AnnotationTypeMemberDeclaration : InterfaceDeclaration

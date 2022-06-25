@@ -53,7 +53,12 @@ int main() {
 	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
 	//Array* p = (Array*)(env.list.get());
 	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "classType=" << p2->classType << endl;
 	//cout << "className=" << p2->className << endl;
+	//Array* p3 = (Array*)p2->list.get();
+	//Class* p4 = (Class*)(p3->list[0].get());
+	//cout << "classType=" << p4->classType << endl;
+	//cout << "subClassName=" << p4->className << endl;
 
 
 	//R001Tests r001Tests;
@@ -64,7 +69,12 @@ int main() {
 	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
 	//Array* p = (Array*)(env.list.get());
 	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "classType=" << p2->classType << endl;
 	//cout << "className=" << p2->className << endl;
+	//Array* p3 = (Array*)p2->list.get();
+	//Class* p4 = (Class*)(p3->list[0].get());
+	//cout << "subClassType=" << p4->classType << endl;
+	//cout << "subClassName=" << p4->className << endl;
 
 	//R001Tests r001Tests;
 	//Env env;
@@ -74,17 +84,29 @@ int main() {
 	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
 	//Array* p = (Array*)(env.list.get());
 	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "classType=" << p2->classType << endl;
 	//cout << "className=" << p2->className << endl;
+	//Array* p3 = (Array*)p2->list.get();
+	//Class* p4 = (Class*)(p3->list[0].get());
+	//cout << "subClassType=" << p4->classType << endl;
+	//cout << "subClassName=" << p4->className << endl;
+
+	R001Tests r001Tests;
+	Env env;
+	string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	string i_test_file = "SingleAnnotation.java";
+	r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	Array* p = (Array*)(env.list.get());
+	Class* p2 = (Class*)(p->list[0].get());
+	cout << "classType=" << p2->classType << endl;
+	cout << "className=" << p2->className << endl;
+	Array* p3 = (Array*)p2->list.get();
+	Class* p4 = (Class*)(p3->list[0].get());
+	cout << "subClassType=" << p4->classType << endl;
+	cout << "subClassName=" << p4->className << endl;
 
 
-	//R001Tests r001Tests;
-	//Env env;
-	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
-	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
-	//string i_test_file = "SingleAnnotation.java";
-	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
-	//Array* p = (Array*)(env.list.get());
-	//Class* p2 = (Class*)(p->list[0].get());
-	//cout << "className=" << p2->className << endl;
-	
+
+
 }

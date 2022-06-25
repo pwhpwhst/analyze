@@ -295,9 +295,7 @@ void R001_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue
 
 
 
-
-
-//ClassBody: 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
+//ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R001_ClassBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_ClassBody_0Analyzer");
 	nodeValue->context["ClassBody"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
@@ -349,6 +347,7 @@ void R001_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
 	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["EnumBody"];
 }
 
@@ -360,6 +359,7 @@ void R001_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
 	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["EnumBody"];
 }
 
@@ -371,6 +371,7 @@ void R001_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
 	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["EnumBody"];
 }
 
@@ -382,6 +383,7 @@ void R001_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
 	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["EnumBody"];
 }
 
@@ -393,10 +395,7 @@ void R001_ClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &
 }
 
 
-//EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
-void R001_EnumBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_EnumBody_0");
-}
+
 
 
 
@@ -531,4 +530,91 @@ void R001_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeVal
 	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationTypeBody"];
 	p->classType = "AnnotationTypeDeclaration";
+}
+
+
+//AnnotationTypeMemberDeclaration : ClassDeclaration
+void R001_AnnotationTypeMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_AnnotationTypeMemberDeclaration_2");
+	nodeValue->context["AnnotationTypeMemberDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassDeclaration"];
+}
+
+
+//AnnotationTypeMemberDeclarationList : AnnotationTypeMemberDeclaration AnnotationTypeMemberDeclarationList
+void R001_AnnotationTypeMemberDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_AnnotationTypeMemberDeclarationList_0");
+
+	nodeValue->context["AnnotationTypeMemberDeclarationList"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["AnnotationTypeMemberDeclarationList"];
+	Array * p = (Array *)(nodeValue->context["AnnotationTypeMemberDeclarationList"].get());
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["AnnotationTypeMemberDeclaration"]);
+
+}
+
+
+//AnnotationTypeMemberDeclarationList : 0
+void R001_AnnotationTypeMemberDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_AnnotationTypeMemberDeclarationList_1");
+	nodeValue->context["AnnotationTypeMemberDeclarationList"] = P_Token(new Array());
+}
+
+
+
+//AnnotationTypeBody : 'LEFT_BRACE' AnnotationTypeMemberDeclarationList 'RIGHT_BRACE'
+void R001_AnnotationTypeBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_AnnotationTypeBody_0");
+	nodeValue->context["AnnotationTypeBody"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["AnnotationTypeMemberDeclarationList"];
+}
+
+
+
+//EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+void R001_EnumBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_EnumBody_0");
+}
+
+
+
+//EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
+void R001_EnumBody_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_EnumBody_1");
+}
+
+
+//EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
+void R001_EnumBody_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_EnumBody_2");
+}
+
+
+//EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
+void R001_EnumBody_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_EnumBody_3");
+}
+
+
+//EnumBody : 'LEFT_BRACE' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+void R001_EnumBody_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+	logR001("R001_EnumBody_4");
+}
+
+
+//EnumBody : 'LEFT_BRACE' EnumConstantList 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+void R001_EnumBody_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+	logR001("R001_EnumBody_5");
+}
+
+
+//EnumBody : 'LEFT_BRACE' 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+void R001_EnumBody_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+	logR001("R001_EnumBody_6");
+}
+
+
+//EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
+void R001_EnumBody_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+	logR001("R001_EnumBody_7");
 }
