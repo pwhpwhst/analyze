@@ -5,7 +5,7 @@
 using namespace std;
 
 void logR001(const string& s) {
-			  cout<<s<<endl;
+	//		  cout<<s<<endl;
 }
 
 R001_DefaultAnalyzer::R001_DefaultAnalyzer() {
@@ -39,11 +39,66 @@ R001_DefaultAnalyzer::~R001_DefaultAnalyzer() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "R001Analyzer3.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//CompilationUnit : PackageDeclaration
+void R001_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_0");
+}
+
+
+//CompilationUnit : ImportDeclarationList
+void R001_CompilationUnit_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_1");
+}
+
+
+//CompilationUnit : PackageDeclaration ImportDeclarationList
+void R001_CompilationUnit_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_3");
+}
+
+
 //CompilationUnit : TypeDeclarationList
 void R001_CompilationUnit_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_2Analyzer");
 	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
-	env.list= nodeValue->context["CompilationUnit"];
+	env.list = nodeValue->context["CompilationUnit"];
+}
+
+
+//CompilationUnit : PackageDeclaration TypeDeclarationList
+void R001_CompilationUnit_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_4");
+	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list = nodeValue->context["CompilationUnit"];
+}
+
+
+//CompilationUnit : ImportDeclarationList TypeDeclarationList
+void R001_CompilationUnit_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_5");
+	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list = nodeValue->context["CompilationUnit"];
+}
+
+
+//CompilationUnit : PackageDeclaration ImportDeclarationList TypeDeclarationList
+void R001_CompilationUnit_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_CompilationUnit_6");
+	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list = nodeValue->context["CompilationUnit"];
+}
+
+
+
+//TypeDeclarationList : TypeDeclaration TypeDeclarationList
+void R001_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_TypeDeclarationList_0");
+	nodeValue->context["TypeDeclarationList"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+	Array * p = (Array *)(nodeValue->context["TypeDeclarationList"].get());
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"]);
 }
 
 
@@ -330,6 +385,12 @@ void R001_ClassMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 	nodeValue->context["ClassMemberDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassDeclaration"];
 }
 
+//ClassMemberDeclaration : InterfaceDeclaration
+void R001_ClassMemberDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ClassMemberDeclaration_3");
+	nodeValue->context["ClassMemberDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["InterfaceDeclaration"];
+}
+
 
 //Identifier : 'IDENTIFIER'
 void R001_Identifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
@@ -570,6 +631,7 @@ void R001_AnnotationTypeBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env
 //EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 void R001_EnumBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_EnumBody_0");
+	nodeValue->context["EnumBody"] = P_Token(new Array());
 }
 
 
@@ -577,44 +639,47 @@ void R001_EnumBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
 void R001_EnumBody_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_EnumBody_1");
+	nodeValue->context["EnumBody"] = P_Token(new Array());
 }
 
 
 //EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
 void R001_EnumBody_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_EnumBody_2");
+	nodeValue->context["EnumBody"] = P_Token(new Array());
 }
 
 
 //EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
 void R001_EnumBody_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_EnumBody_3");
+	nodeValue->context["EnumBody"] = P_Token(new Array());
 }
 
 
 //EnumBody : 'LEFT_BRACE' 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R001_EnumBody_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 	logR001("R001_EnumBody_4");
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 }
 
 
 //EnumBody : 'LEFT_BRACE' EnumConstantList 'semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R001_EnumBody_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 	logR001("R001_EnumBody_5");
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 }
 
 
 //EnumBody : 'LEFT_BRACE' 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R001_EnumBody_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 	logR001("R001_EnumBody_6");
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 }
 
 
 //EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_semicolon' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R001_EnumBody_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 	logR001("R001_EnumBody_7");
+	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 }

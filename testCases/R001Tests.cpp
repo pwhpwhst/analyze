@@ -44,7 +44,7 @@ int R001Tests::test1(string i_rule_file,string i_testCaseFolder,string i_test_fi
 }
 
 
-int main() {
+int main2() {
 	//R001Tests r001Tests;
 	//Env env;
 	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ğ´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
@@ -108,5 +108,5 @@ int main() {
 
 
 
-
+	return 0;
 }

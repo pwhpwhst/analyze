@@ -172,40 +172,7 @@ void R001_UnannArrayType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 }
 
 
-//CompilationUnit : PackageDeclaration
-void R001_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_0");
-}
 
-
-//CompilationUnit : ImportDeclarationList
-void R001_CompilationUnit_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_1");
-}
-
-
-//CompilationUnit : PackageDeclaration ImportDeclarationList
-void R001_CompilationUnit_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_3");
-}
-
-
-//CompilationUnit : PackageDeclaration TypeDeclarationList
-void R001_CompilationUnit_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_4");
-}
-
-
-//CompilationUnit : ImportDeclarationList TypeDeclarationList
-void R001_CompilationUnit_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_5");
-}
-
-
-//CompilationUnit : PackageDeclaration ImportDeclarationList TypeDeclarationList
-void R001_CompilationUnit_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_CompilationUnit_6");
-}
 
 
 //PackageDeclaration : AnnotationList 'package' DetailIdentifier 'semicolon'
@@ -268,10 +235,7 @@ void R001_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 }
 
 
-//TypeDeclarationList : TypeDeclaration TypeDeclarationList
-void R001_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_TypeDeclarationList_0");
-}
+
 
 
 
@@ -1467,10 +1431,7 @@ void R001_ClassMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 }
 
 
-//ClassMemberDeclaration : InterfaceDeclaration
-void R001_ClassMemberDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ClassMemberDeclaration_3");
-}
+
 
 
 //ClassMemberDeclaration : 'semicolon'
