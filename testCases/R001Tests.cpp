@@ -2,6 +2,7 @@
 #include"../Lalr.h"
 #include "../symbols/java/Array.h"
 #include "../symbols/java/Class.h"
+#include "../symbols/java/CompileUnit.h"
 
 using namespace std;
 R001Tests::R001Tests() {}
@@ -44,21 +45,24 @@ int R001Tests::test1(string i_rule_file,string i_testCaseFolder,string i_test_fi
 }
 
 
-int main2() {
-	//R001Tests r001Tests;
-	//Env env;
-	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
-	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
-	//string i_test_file = "SingleClass.java";
-	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
-	//Array* p = (Array*)(env.list.get());
-	//Class* p2 = (Class*)(p->list[0].get());
-	//cout << "classType=" << p2->classType << endl;
-	//cout << "className=" << p2->className << endl;
-	//Array* p3 = (Array*)p2->list.get();
-	//Class* p4 = (Class*)(p3->list[0].get());
-	//cout << "classType=" << p4->classType << endl;
-	//cout << "subClassName=" << p4->className << endl;
+int main() {
+	R001Tests r001Tests;
+	Env env;
+	string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	string i_test_file = "SingleClass.java";
+	r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+
+	CompileUnit* cu= (CompileUnit*)(env.list[0].get());
+	cout << "package="<< cu->package << endl;
+	Array* p = (Array*)(cu->type_declaration_list.get());
+	Class* p2 = (Class*)(p->list[0].get());
+	cout << "classType=" << p2->classType << endl;
+	cout << "className=" << p2->className << endl;
+	Array* p3 = (Array*)p2->list.get();
+	Class* p4 = (Class*)(p3->list[0].get());
+	cout << "classType=" << p4->classType << endl;
+	cout << "subClassName=" << p4->className << endl;
 
 
 	//R001Tests r001Tests;
@@ -91,20 +95,20 @@ int main2() {
 	//cout << "subClassType=" << p4->classType << endl;
 	//cout << "subClassName=" << p4->className << endl;
 
-	R001Tests r001Tests;
-	Env env;
-	string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
-	string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
-	string i_test_file = "SingleAnnotation.java";
-	r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
-	Array* p = (Array*)(env.list.get());
-	Class* p2 = (Class*)(p->list[0].get());
-	cout << "classType=" << p2->classType << endl;
-	cout << "className=" << p2->className << endl;
-	Array* p3 = (Array*)p2->list.get();
-	Class* p4 = (Class*)(p3->list[0].get());
-	cout << "subClassType=" << p4->classType << endl;
-	cout << "subClassName=" << p4->className << endl;
+	//R001Tests r001Tests;
+	//Env env;
+	//string i_rule_file = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R001.txt";
+	//string i_testCaseFolder = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\testCases";
+	//string i_test_file = "SingleAnnotation.java";
+	//r001Tests.test1( i_rule_file,  i_testCaseFolder,  i_test_file, env);
+	//Array* p = (Array*)(env.list.get());
+	//Class* p2 = (Class*)(p->list[0].get());
+	//cout << "classType=" << p2->classType << endl;
+	//cout << "className=" << p2->className << endl;
+	//Array* p3 = (Array*)p2->list.get();
+	//Class* p4 = (Class*)(p3->list[0].get());
+	//cout << "subClassType=" << p4->classType << endl;
+	//cout << "subClassName=" << p4->className << endl;
 
 
 

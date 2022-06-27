@@ -22,9 +22,10 @@
 #include "dao/TConvertMapDao.h"
 #include "symbols/java/Array.h"
 #include "symbols/java/Class.h"
+#include "symbols/java/CompileUnit.h"
 
 
-int main() {
+int main2() {
 
 	Env env;
 	CompileInfo compileInfo;
@@ -76,9 +77,7 @@ int main() {
 		for (int i1 = 0; i1 < result_list.size(); i1++) {
 
 			auto &e = result_list[i1];
-			if (e["file_name"] != "package-info.java") {
-				continue;
-			}
+
 			string compile_file = e["path"] + "\\" + e["file_name"];
 
 			lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
@@ -97,7 +96,8 @@ int main() {
 
 			int class_num = 0;
 			vector<Class*> class_stack;
-			Array* p = (Array*)(env.list.get());
+			CompileUnit* cu = (CompileUnit*)(env.list[0].get());
+			Array* p = (Array*)(cu->type_declaration_list.get());
 			//Class* p2 = (Class*)(p->list[0].get());
 			set<Class*> has_visited_set;
 
@@ -130,7 +130,7 @@ int main() {
 					//if (presentPtr->classType == "NormalClassDeclaration") {
 					//	class_num++;
 					//}
-					if (presentPtr->classType == "NormalInterfaceDeclaration") {
+					if (presentPtr->classType == "EnumDeclaration") {
 						class_num++;
 					}
 
@@ -174,7 +174,8 @@ int main() {
 
 		int class_num = 0;
 		vector<Class*> class_stack;
-		Array* p = (Array*)(env.list.get());
+		CompileUnit* cu = (CompileUnit*)(env.list[0].get());
+		Array* p = (Array*)(cu->type_declaration_list.get());
 		//Class* p2 = (Class*)(p->list[0].get());
 		set<Class*> has_visited_set;
 

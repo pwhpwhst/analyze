@@ -22,7 +22,7 @@
 #include "dao/TConvertMapDao.h"
 #include "symbols/java/Array.h"
 #include "symbols/java/Class.h"
-
+#include "symbols/java/CompileUnit.h"
 
 
 void findSpecificNode(Node *node_tree,string ruleName,vector<Node*> &nodeList) {
@@ -267,7 +267,8 @@ int main1() {
 			unordered_map<string, string> imfo_map;
 			gen_middle_code(lalr,env, node_tree, imfo_map);
 
-			Array* p = (Array*)(env.list.get());
+			CompileUnit* cu = (CompileUnit*)(env.list[0].get());
+			Array* p = (Array*)(cu->type_declaration_list.get());
 			Class* p2 = (Class*)(p->list[0].get());
 			cout << "className=" << p2->className << endl;
 			//lalr.printStackTree(node_tree, "");

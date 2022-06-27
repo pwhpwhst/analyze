@@ -175,28 +175,10 @@ void R001_UnannArrayType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 
 
 
-//PackageDeclaration : AnnotationList 'package' DetailIdentifier 'semicolon'
-void R001_PackageDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_PackageDeclaration_0");
-}
 
 
-//PackageDeclaration : 'package' DetailIdentifier 'semicolon'
-void R001_PackageDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_PackageDeclaration_1");
-}
 
 
-//DetailIdentifier : Identifier 'SPOT' DetailIdentifier
-void R001_DetailIdentifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_DetailIdentifier_0");
-}
-
-
-//DetailIdentifier : Identifier
-void R001_DetailIdentifier_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_DetailIdentifier_1");
-}
 
 
 //ImportDeclarationList : ImportDeclaration ImportDeclarationList

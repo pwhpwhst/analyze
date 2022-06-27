@@ -16,7 +16,7 @@ class Env{
 //
 //protected: vector<Env*> childList;
 
-public: P_Token list;
+public: vector<P_Token> list;
 
 public: Env();
 

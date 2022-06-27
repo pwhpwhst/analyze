@@ -1,11 +1,12 @@
 #include "R001Analyzer.h"
 #include "../../symbols/java/Class.h"
 #include "../../symbols/java/Array.h"
+#include "../../symbols/java/CompileUnit.h"
 #include<iostream>
 using namespace std;
 
 void logR001(const string& s) {
-	//		  cout<<s<<endl;
+			  cout<<s<<endl;
 }
 
 R001_DefaultAnalyzer::R001_DefaultAnalyzer() {
@@ -40,55 +41,96 @@ R001_DefaultAnalyzer::~R001_DefaultAnalyzer() {
 #include "R001Analyzer3.h"
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+string getPackageName(Array *ptr) {
+	
+		ostringstream os;
+		for (int i1 = 0; i1 < ptr->list.size();i1++) {
+			os << ptr->list[i1]->content;
+			if (i1!= ptr->list.size()-1) {
+				os << ".";
+			}
+		}
+		return os.str();
+}
 
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 //CompilationUnit : PackageDeclaration
 void R001_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_0");
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
+	
 }
 
 
 //CompilationUnit : ImportDeclarationList
 void R001_CompilationUnit_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_1");
+	nodeValue->context["CompilationUnit"] = P_Token(new CompileUnit());
 }
 
 
 //CompilationUnit : PackageDeclaration ImportDeclarationList
 void R001_CompilationUnit_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_3");
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
 }
 
 
 //CompilationUnit : TypeDeclarationList
 void R001_CompilationUnit_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_2Analyzer");
-	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
-	env.list = nodeValue->context["CompilationUnit"];
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+
+	p->type_declaration_list = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
+	
 }
 
 
 //CompilationUnit : PackageDeclaration TypeDeclarationList
 void R001_CompilationUnit_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_4");
-	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
-	env.list = nodeValue->context["CompilationUnit"];
+
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+
+	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
+
+	p->type_declaration_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
 
 
 //CompilationUnit : ImportDeclarationList TypeDeclarationList
 void R001_CompilationUnit_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_5");
-	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
-	env.list = nodeValue->context["CompilationUnit"];
+
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+
+	p->type_declaration_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
 
 
 //CompilationUnit : PackageDeclaration ImportDeclarationList TypeDeclarationList
 void R001_CompilationUnit_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_6");
-	nodeValue->context["CompilationUnit"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeDeclarationList"];
-	env.list = nodeValue->context["CompilationUnit"];
+
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+
+	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
+	p->type_declaration_list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
 
 
@@ -141,7 +183,7 @@ void R001_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 	logR001("R001_NormalClassDeclaration_0Analyzer");
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -154,7 +196,7 @@ void R001_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -167,7 +209,7 @@ void R001_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -181,7 +223,7 @@ void R001_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -195,7 +237,7 @@ void R001_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -207,7 +249,7 @@ void R001_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -220,7 +262,7 @@ void R001_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -232,7 +274,7 @@ void R001_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 6, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -244,7 +286,7 @@ void R001_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -256,7 +298,7 @@ void R001_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue,
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -269,7 +311,7 @@ void R001_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -281,7 +323,7 @@ void R001_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 6, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -293,7 +335,7 @@ void R001_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 6, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 }
@@ -305,7 +347,7 @@ void R001_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 7, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -318,7 +360,7 @@ void R001_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 7, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -331,7 +373,7 @@ void R001_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue
 
 	Class *p = new Class();
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 8, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalClassDeclaration";
 
@@ -395,7 +437,7 @@ void R001_ClassMemberDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue,
 //Identifier : 'IDENTIFIER'
 void R001_Identifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_Identifier_0Analyzer");
-	nodeValue->context["identifier"] = P_Token(new Token("string", nodeValue->node->child_node_list[0]->content, 0));
+	nodeValue->context["Identifier"] = P_Token(new Token("string", nodeValue->node->child_node_list[0]->content, 0));
 }
 
 
@@ -407,7 +449,7 @@ void R001_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["EnumBody"];
 }
@@ -419,7 +461,7 @@ void R001_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["EnumBody"];
 }
@@ -431,7 +473,7 @@ void R001_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["EnumBody"];
 }
@@ -443,7 +485,7 @@ void R001_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 	Class *p = new Class();
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->classType = "EnumDeclaration";
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["EnumBody"];
 }
@@ -473,7 +515,7 @@ void R001_NormalInterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -485,7 +527,7 @@ void R001_NormalInterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -499,7 +541,7 @@ void R001_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -511,7 +553,7 @@ void R001_NormalInterfaceDeclaration_3Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -523,7 +565,7 @@ void R001_NormalInterfaceDeclaration_4Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -535,7 +577,7 @@ void R001_NormalInterfaceDeclaration_5Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -547,7 +589,7 @@ void R001_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -559,7 +601,7 @@ void R001_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeVa
 
 	Class *p = new Class();
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 6, NodeValue::SYN)]->context["ClassBody"];
 	p->classType = "NormalInterfaceDeclaration";
 }
@@ -577,7 +619,7 @@ void R001_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeVal
 	logR001("R001_AnnotationTypeDeclaration_0");
 	Class *p = new Class();
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationTypeBody"];
 	p->classType = "AnnotationTypeDeclaration";
 }
@@ -588,7 +630,7 @@ void R001_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeVal
 	logR001("R001_AnnotationTypeDeclaration_1");
 	Class *p = new Class();
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
-	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["identifier"]->content;
+	p->className = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"]->content;
 	p->list = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationTypeBody"];
 	p->classType = "AnnotationTypeDeclaration";
 }
@@ -682,4 +724,39 @@ void R001_EnumBody_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 void R001_EnumBody_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_EnumBody_7");
 	nodeValue->context["EnumBody"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+}
+
+
+
+//DetailIdentifier : Identifier 'SPOT' DetailIdentifier
+void R001_DetailIdentifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_DetailIdentifier_0");
+	nodeValue->context["DetailIdentifier"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DetailIdentifier"];
+	Array *p = (Array *)nodeValue->context["DetailIdentifier"].get();
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]);
+}
+
+
+//DetailIdentifier : Identifier
+void R001_DetailIdentifier_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_DetailIdentifier_1");
+	Array *p = new Array();
+	nodeValue->context["DetailIdentifier"] = P_Token(p);
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]);
+}
+
+
+//PackageDeclaration : AnnotationList 'package' DetailIdentifier 'semicolon'
+void R001_PackageDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_PackageDeclaration_0");
+	Array *arr=(Array*)nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DetailIdentifier"].get();
+	nodeValue->context["PackageDeclaration"]= P_Token(new Token("string", getPackageName(arr),0));
+}
+
+
+//PackageDeclaration : 'package' DetailIdentifier 'semicolon'
+void R001_PackageDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_PackageDeclaration_1");
+	Array *arr = (Array*)nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DetailIdentifier"].get();
+	nodeValue->context["PackageDeclaration"] = P_Token(new Token("string", getPackageName(arr), 0));
 }
