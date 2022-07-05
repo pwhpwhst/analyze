@@ -1,4 +1,5 @@
 #include "R001Analyzer.h"
+#include "../../symbols/java/Method.h"
 #include "../../symbols/java/Class.h"
 #include "../../symbols/java/Array.h"
 #include "../../symbols/java/CompileUnit.h"
@@ -6,7 +7,7 @@
 using namespace std;
 
 void logR001(const string& s) {
-			  cout<<s<<endl;
+	cout<<s<<endl;
 }
 
 R001_DefaultAnalyzer::R001_DefaultAnalyzer() {
@@ -759,4 +760,193 @@ void R001_PackageDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env
 	logR001("R001_PackageDeclaration_1");
 	Array *arr = (Array*)nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DetailIdentifier"].get();
 	nodeValue->context["PackageDeclaration"] = P_Token(new Token("string", getPackageName(arr), 0));
+}
+
+
+
+
+
+
+//MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
+void R001_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclarator_0");
+	Method *p=new Method();
+	p->methodName= nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]->content;
+	nodeValue->context["MethodDeclarator"] = P_Token(p);
+}
+
+
+//MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims
+void R001_MethodDeclarator_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclarator_1");
+	Method *p = new Method();
+	p->methodName = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]->content;
+	nodeValue->context["MethodDeclarator"] = P_Token(p);
+}
+
+
+//MethodDeclarator : Identifier AnnotationContent
+void R001_MethodDeclarator_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclarator_2");
+	Method *p = new Method();
+	p->methodName = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]->content;
+	nodeValue->context["MethodDeclarator"] = P_Token(p);
+}
+
+
+//MethodDeclarator : Identifier AnnotationContent Dims
+void R001_MethodDeclarator_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclarator_3");
+	Method *p = new Method();
+	p->methodName = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"]->content;
+	nodeValue->context["MethodDeclarator"] = P_Token(p);
+}
+
+
+
+
+//MethodHeader : UnannType MethodDeclarator
+void R001_MethodHeader_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_0");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : UnannType MethodDeclarator Throws
+void R001_MethodHeader_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_1");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments UnannType MethodDeclarator
+void R001_MethodHeader_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_2");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments UnannType MethodDeclarator Throws
+void R001_MethodHeader_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_3");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator
+void R001_MethodHeader_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_4");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator Throws
+void R001_MethodHeader_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_5");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : 'void' MethodDeclarator
+void R001_MethodHeader_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_6");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : 'void' MethodDeclarator Throws
+void R001_MethodHeader_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_7");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments 'void' MethodDeclarator
+void R001_MethodHeader_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_8");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments 'void' MethodDeclarator Throws
+void R001_MethodHeader_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_9");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator
+void R001_MethodHeader_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_10");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator Throws
+void R001_MethodHeader_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_11");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : MethodDeclarator
+void R001_MethodHeader_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_12");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : MethodDeclarator Throws
+void R001_MethodHeader_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_13");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments MethodDeclarator
+void R001_MethodHeader_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_14");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments MethodDeclarator Throws
+void R001_MethodHeader_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_15");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList MethodDeclarator
+void R001_MethodHeader_16Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_16");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodHeader : TypeArguments AnnotationList MethodDeclarator Throws
+void R001_MethodHeader_17Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodHeader_17");
+	nodeValue->context["MethodHeader"] = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+}
+
+
+//MethodDeclaration : MethodHeader MethodBody
+void R001_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclaration_0");
+	nodeValue->context["MethodDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodHeader"];
+}
+
+
+//MethodDeclaration : ModifierList MethodHeader MethodBody
+void R001_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_MethodDeclaration_1");
+	nodeValue->context["MethodDeclaration"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodHeader"];
+}
+
+
+//ClassMemberDeclaration : MethodDeclaration
+void R001_ClassMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ClassMemberDeclaration_1");
+	nodeValue->context["ClassMemberDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodDeclaration"];
 }

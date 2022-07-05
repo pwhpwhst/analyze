@@ -1407,10 +1407,7 @@ void R001_ClassMemberDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 }
 
 
-//ClassMemberDeclaration : MethodDeclaration
-void R001_ClassMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ClassMemberDeclaration_1");
-}
+
 
 
 
@@ -1482,148 +1479,12 @@ void R001_VariableDeclaratorId_1Analyzer::handle(const P_NodeValue &nodeValue, E
 }
 
 
-//MethodDeclaration : MethodHeader MethodBody
-void R001_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclaration_0");
-}
 
 
-//MethodDeclaration : ModifierList MethodHeader MethodBody
-void R001_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclaration_1");
-}
 
 
-//MethodHeader : UnannType MethodDeclarator
-void R001_MethodHeader_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_0");
-}
 
 
-//MethodHeader : UnannType MethodDeclarator Throws
-void R001_MethodHeader_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_1");
-}
-
-
-//MethodHeader : TypeArguments UnannType MethodDeclarator
-void R001_MethodHeader_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_2");
-}
-
-
-//MethodHeader : TypeArguments UnannType MethodDeclarator Throws
-void R001_MethodHeader_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_3");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator
-void R001_MethodHeader_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_4");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator Throws
-void R001_MethodHeader_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_5");
-}
-
-
-//MethodHeader : 'void' MethodDeclarator
-void R001_MethodHeader_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_6");
-}
-
-
-//MethodHeader : 'void' MethodDeclarator Throws
-void R001_MethodHeader_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_7");
-}
-
-
-//MethodHeader : TypeArguments 'void' MethodDeclarator
-void R001_MethodHeader_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_8");
-}
-
-
-//MethodHeader : TypeArguments 'void' MethodDeclarator Throws
-void R001_MethodHeader_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_9");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator
-void R001_MethodHeader_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_10");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator Throws
-void R001_MethodHeader_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_11");
-}
-
-
-//MethodHeader : MethodDeclarator
-void R001_MethodHeader_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_12");
-}
-
-
-//MethodHeader : MethodDeclarator Throws
-void R001_MethodHeader_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_13");
-}
-
-
-//MethodHeader : TypeArguments MethodDeclarator
-void R001_MethodHeader_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_14");
-}
-
-
-//MethodHeader : TypeArguments MethodDeclarator Throws
-void R001_MethodHeader_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_15");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList MethodDeclarator
-void R001_MethodHeader_16Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_16");
-}
-
-
-//MethodHeader : TypeArguments AnnotationList MethodDeclarator Throws
-void R001_MethodHeader_17Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodHeader_17");
-}
-
-
-//MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES'
-void R001_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclarator_0");
-}
-
-
-//MethodDeclarator : Identifier 'LEFT_PARENTHESES' 'RIGHT_PARENTHESES' Dims
-void R001_MethodDeclarator_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclarator_1");
-}
-
-
-//MethodDeclarator : Identifier AnnotationContent
-void R001_MethodDeclarator_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclarator_2");
-}
-
-
-//MethodDeclarator : Identifier AnnotationContent Dims
-void R001_MethodDeclarator_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_MethodDeclarator_3");
-}
 
 
 //MethodBody : Block

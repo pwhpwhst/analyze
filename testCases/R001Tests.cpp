@@ -2,6 +2,7 @@
 #include"../Lalr.h"
 #include "../symbols/java/Array.h"
 #include "../symbols/java/Class.h"
+#include "../symbols/java/Method.h"
 #include "../symbols/java/CompileUnit.h"
 
 using namespace std;
@@ -63,6 +64,10 @@ int main() {
 	Class* p4 = (Class*)(p3->list[0].get());
 	cout << "classType=" << p4->classType << endl;
 	cout << "subClassName=" << p4->className << endl;
+	Method* p5 = (Method*)(p3->list[1].get());
+	cout << "methodName=" << p5->methodName<< endl;
+	Method* p6 = (Method*)(p3->list[2].get());
+	cout << "methodName=" << p6->methodName << endl;
 
 
 	//R001Tests r001Tests;

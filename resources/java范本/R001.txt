@@ -1,5 +1,5 @@
 ele_begin : CompilationUnit
--- »ù´¡  2--
+-- »ù´¡  2	https://docs.oracle.com/javase/specs/jls/se8/html/jls-19.html	--
 Identifier : 'IDENTIFIER'
 IdentifierList : 'SPOT' Identifier IdentifierList
 IdentifierList : 0
