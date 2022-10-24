@@ -1,4 +1,4 @@
-#include "ErpClassDao.h"
+#include "ErpImportDao.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -6,25 +6,25 @@
 using namespace std;
 
 
-P_ErpClassDao ErpClassDao::instance = nullptr;
+P_ErpImportDao ErpImportDao::instance = nullptr;
 
 
-ErpClassDao::ErpClassDao() {
+ErpImportDao::ErpImportDao() {
 }
 
-ErpClassDao::~ErpClassDao() {
+ErpImportDao::~ErpImportDao() {
 }
 
-P_ErpClassDao ErpClassDao::getInstance() {
+P_ErpImportDao ErpImportDao::getInstance() {
 	if (instance == nullptr) {
-		instance = P_ErpClassDao(new ErpClassDao);
+		instance = P_ErpImportDao(new ErpImportDao);
 	}
 	return instance;
 };
 
 
 
-void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
+void ErpImportDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -34,14 +34,15 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		sql_os << "insert into erp_class(id,fileId, name, package, project, comment) ";
+		sql_os << "insert into erp_import(id,fileId, name, isStatic,isSingle, project, comment) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["id"] << "'" << ",";
 			sql_os << "'" << list[i1]["fileId"] << "'" << ",";
 			sql_os << "'" << list[i1]["name"] << "'" << ",";
-			sql_os << "'" << list[i1]["package"] << "'" << ",";
+			sql_os << list[i1]["isStatic"]  << ",";
+			sql_os << list[i1]["isSingle"] << ",";
 			sql_os << "'" << list[i1]["project"] << "'" << ",";
 			sql_os << "'" << list[i1]["comment"] << "'";
 			sql_os << ")";
@@ -58,7 +59,7 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void ErpImportDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -68,14 +69,14 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "id","fileId","name","package","project","comment" };
+		string col[] = { "id","fileId","name","isStatic","isSingle","project","comment" };
 
 		unordered_map<string, int> col_map;
 		for (int i1 = 0; i1 < 5; i1++) {
 			col_map[col[i1]] = i1;
 		}
 
-		sql_os << "select  id,fileId, name, package, project, comment from erp_class ";
+		sql_os << "select  id,fileId, name,isStatic,isSingle, project, comment from erp_import ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -90,7 +91,8 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 				result_list.back()["id"] = mysql_row[col_map["id"]];
 				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["name"] = mysql_row[col_map["name"]];
-				result_list.back()["package"] = mysql_row[col_map["package"]];
+				result_list.back()["isStatic"] = mysql_row[col_map["isStatic"]];
+				result_list.back()["isSingle"] = mysql_row[col_map["isSingle"]];
 				result_list.back()["project"] = mysql_row[col_map["project"]];
 				result_list.back()["comment"] = mysql_row[col_map["comment"]];
 			}
@@ -103,7 +105,7 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 
 
 
-void ErpClassDao::deleteRecord(unordered_map<string, string> &transfer_map) {
+void ErpImportDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 	MYSQL conn;
 	MYSQL_ROW mysql_row;
 	mysql_init(&conn);
@@ -117,7 +119,7 @@ void ErpClassDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 		ostringstream sql_os;
 
 
-		sql_os << "delete from erp_class ";
+		sql_os << "delete from erp_import ";
 		sql_os << "where 1=1 ";
 		if (transfer_map.find("project") != transfer_map.end()) {
 			sql_os << "and project =" << "'" << transfer_map["project"] << "'" << " ";

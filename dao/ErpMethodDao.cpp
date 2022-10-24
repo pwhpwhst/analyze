@@ -1,4 +1,4 @@
-#include "ErpClassDao.h"
+#include "ErpMethodDao.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -6,25 +6,25 @@
 using namespace std;
 
 
-P_ErpClassDao ErpClassDao::instance = nullptr;
+P_ErpMethodDao ErpMethodDao::instance = nullptr;
 
 
-ErpClassDao::ErpClassDao() {
+ErpMethodDao::ErpMethodDao() {
 }
 
-ErpClassDao::~ErpClassDao() {
+ErpMethodDao::~ErpMethodDao() {
 }
 
-P_ErpClassDao ErpClassDao::getInstance() {
+P_ErpMethodDao ErpMethodDao::getInstance() {
 	if (instance == nullptr) {
-		instance = P_ErpClassDao(new ErpClassDao);
+		instance = P_ErpMethodDao(new ErpMethodDao);
 	}
 	return instance;
 };
 
 
 
-void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
+void ErpMethodDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -34,22 +34,22 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		sql_os << "insert into erp_class(id,fileId, name, package, project, comment) ";
+		sql_os << "insert into erp_method(id,classId, typeId, name, comment, project) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["id"] << "'" << ",";
-			sql_os << "'" << list[i1]["fileId"] << "'" << ",";
+			sql_os << "'" << list[i1]["classId"] << "'" << ",";
+			sql_os << "'" << list[i1]["typeId"] << "'" << ",";
 			sql_os << "'" << list[i1]["name"] << "'" << ",";
-			sql_os << "'" << list[i1]["package"] << "'" << ",";
-			sql_os << "'" << list[i1]["project"] << "'" << ",";
-			sql_os << "'" << list[i1]["comment"] << "'";
+			sql_os << "'" << list[i1]["comment"] << "'" << ",";
+			sql_os << "'" << list[i1]["project"] << "'";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
 			}
 		}
-		cout << sql_os.str() << endl;
+		//cout << sql_os.str() << endl;
 		res = mysql_query(&conn, sql_os.str().data());
 		mysql_close(&conn);
 	}
@@ -58,7 +58,7 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -68,14 +68,14 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "id","fileId","name","package","project","comment" };
+		string col[] = { "id","classId","typeId","name","comment","project" };
 
 		unordered_map<string, int> col_map;
 		for (int i1 = 0; i1 < 5; i1++) {
 			col_map[col[i1]] = i1;
 		}
 
-		sql_os << "select  id,fileId, name, package, project, comment from erp_class ";
+		sql_os << "select  id,classId, typeId, name, comment, project from erp_method ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -88,11 +88,11 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 				mysql_row = mysql_fetch_row(mysql_result);
 				result_list.push_back(unordered_map<string, string>());
 				result_list.back()["id"] = mysql_row[col_map["id"]];
-				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
+				result_list.back()["classId"] = mysql_row[col_map["classId"]];
+				result_list.back()["typeId"] = mysql_row[col_map["typeId"]];
 				result_list.back()["name"] = mysql_row[col_map["name"]];
-				result_list.back()["package"] = mysql_row[col_map["package"]];
-				result_list.back()["project"] = mysql_row[col_map["project"]];
 				result_list.back()["comment"] = mysql_row[col_map["comment"]];
+				result_list.back()["project"] = mysql_row[col_map["project"]];
 			}
 		}
 		mysql_close(&conn);
@@ -103,7 +103,7 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 
 
 
-void ErpClassDao::deleteRecord(unordered_map<string, string> &transfer_map) {
+void ErpMethodDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 	MYSQL conn;
 	MYSQL_ROW mysql_row;
 	mysql_init(&conn);
@@ -117,7 +117,7 @@ void ErpClassDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 		ostringstream sql_os;
 
 
-		sql_os << "delete from erp_class ";
+		sql_os << "delete from erp_method ";
 		sql_os << "where 1=1 ";
 		if (transfer_map.find("project") != transfer_map.end()) {
 			sql_os << "and project =" << "'" << transfer_map["project"] << "'" << " ";

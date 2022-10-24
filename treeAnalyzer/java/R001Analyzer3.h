@@ -181,40 +181,10 @@ void R001_UnannArrayType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 
 
 
-//ImportDeclarationList : ImportDeclaration ImportDeclarationList
-void R001_ImportDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclarationList_0");
-}
 
 
-//ImportDeclarationList : ImportDeclaration
-void R001_ImportDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclarationList_1");
-}
 
 
-//ImportDeclaration : 'import' DetailIdentifier 'semicolon'
-void R001_ImportDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclaration_0");
-}
-
-
-//ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
-void R001_ImportDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclaration_1");
-}
-
-
-//ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
-void R001_ImportDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclaration_2");
-}
-
-
-//ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
-void R001_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR001("R001_ImportDeclaration_3");
-}
 
 
 

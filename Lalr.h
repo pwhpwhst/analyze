@@ -12,12 +12,12 @@
 #include <sstream>
 
 #include"SLR\Item.h"
-#include"SLR\Rule.h"
 #include"SLR\Node.h"
 #include"SLR\Lex_Word.h"
 #include"symbols\Env.h"
-#include"symbols\CompileInfo.h"
 #include"symbols\PrimarySymbolConverter.h"
+#include"symbols\CompileInfo.h"
+#include"SLR\Rule.h"
 //#include"SDT\SDT_generator.h"
 
 

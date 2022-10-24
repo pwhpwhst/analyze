@@ -87,7 +87,7 @@ bool endsWith(string s, string sub) {
 }
 
 
-void getFileList(string base_path) {
+void getFileList(string base_path,string project) {
 	//获取文件列表 begin
 	vector<string> files;
 	//	string base_path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat-main\\tomcat-main\\java";
@@ -97,7 +97,7 @@ void getFileList(string base_path) {
 	vector <string> behaves;
 	ostringstream os;
 	vector <unordered_map<string, string>> file_list;
-
+	
 	for (auto &e : files) {
 		behaves.clear();
 		boost::split(behaves, e, boost::is_any_of("\\"));
@@ -115,6 +115,7 @@ void getFileList(string base_path) {
 			file_list.back()["path"] = os.str();
 			file_list.back()["fileName"] = behaves.back();
 			file_list.back()["status"] = "0";
+			file_list.back()["project"] = project;
 		}
 	}
 

@@ -1,13 +1,17 @@
 #include "R001Analyzer.h"
 #include "../../symbols/java/Method.h"
 #include "../../symbols/java/Class.h"
+#include "../../symbols/java/Import.h"
 #include "../../symbols/java/Array.h"
 #include "../../symbols/java/CompileUnit.h"
 #include<iostream>
+#include <sstream>
 using namespace std;
 
+
+
 void logR001(const string& s) {
-	cout<<s<<endl;
+	//cout<<s<<endl;
 }
 
 R001_DefaultAnalyzer::R001_DefaultAnalyzer() {
@@ -63,6 +67,8 @@ void R001_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	logR001("R001_CompilationUnit_0");
 	CompileUnit *p = new CompileUnit();
 	nodeValue->context["CompilationUnit"] = P_Token(p);
+
+	p->import_class_list = P_Token(new Array());
 	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
 	
 }
@@ -71,7 +77,10 @@ void R001_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //CompilationUnit : ImportDeclarationList
 void R001_CompilationUnit_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_CompilationUnit_1");
-	nodeValue->context["CompilationUnit"] = P_Token(new CompileUnit());
+	CompileUnit *p = new CompileUnit();
+	nodeValue->context["CompilationUnit"] = P_Token(p);
+	p->import_class_list= nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ImportDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
 
 
@@ -81,6 +90,8 @@ void R001_CompilationUnit_3Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	CompileUnit *p = new CompileUnit();
 	nodeValue->context["CompilationUnit"] = P_Token(p);
 	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
+	p->import_class_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"];
+	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
 
 
@@ -90,6 +101,7 @@ void R001_CompilationUnit_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	CompileUnit *p = new CompileUnit();
 	nodeValue->context["CompilationUnit"] = P_Token(p);
 
+	p->import_class_list = P_Token(new Array());
 	p->type_declaration_list = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
 	env.list.push_back(nodeValue->context["CompilationUnit"]);
 	
@@ -104,7 +116,7 @@ void R001_CompilationUnit_4Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	nodeValue->context["CompilationUnit"] = P_Token(p);
 
 	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
-
+	p->import_class_list = P_Token(new Array());
 	p->type_declaration_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
 	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
@@ -117,6 +129,7 @@ void R001_CompilationUnit_5Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	CompileUnit *p = new CompileUnit();
 	nodeValue->context["CompilationUnit"] = P_Token(p);
 
+	p->import_class_list = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ImportDeclarationList"];
 	p->type_declaration_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
 	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
@@ -130,6 +143,7 @@ void R001_CompilationUnit_6Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	nodeValue->context["CompilationUnit"] = P_Token(p);
 
 	p->package = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["PackageDeclaration"]->content;
+	p->import_class_list = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"];
 	p->type_declaration_list = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeDeclarationList"];
 	env.list.push_back(nodeValue->context["CompilationUnit"]);
 }
@@ -949,4 +963,103 @@ void R001_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 void R001_ClassMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_ClassMemberDeclaration_1");
 	nodeValue->context["ClassMemberDeclaration"] = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodDeclaration"];
+}
+
+
+
+//ImportDeclaration : 'import' DetailIdentifier 'semicolon'
+void R001_ImportDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclaration_0");
+
+	Array * p = (Array *)(nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DetailIdentifier"].get());
+	ostringstream sb;
+	for (int i1 = 0; i1 < p->list.size();i1++) {
+		sb << p->list[i1]->content;
+		if (i1!=(p->list.size()-1)) {
+			sb << ".";
+		}
+	}
+	Import *p1 = new Import();
+	nodeValue->context["ImportDeclaration"] = P_Token(p1);
+	p1->name = sb.str();
+	p1->isSingle = 1;
+	p1->isStatic = 0;
+}
+
+
+//ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
+void R001_ImportDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclaration_1");
+
+	Array * p = (Array *)(nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DetailIdentifier"].get());
+	ostringstream sb;
+	for (int i1 = 0; i1 < p->list.size(); i1++) {
+		sb << p->list[i1]->content;
+		if (i1 != (p->list.size() - 1)) {
+			sb << ".";
+		}
+	}
+	Import *p1 = new Import();
+	nodeValue->context["ImportDeclaration"] = P_Token(p1);
+	p1->name = sb.str();
+	p1->isSingle = 1;
+	p1->isStatic = 1;
+}
+
+
+//ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+void R001_ImportDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclaration_2");
+
+	Array * p = (Array *)(nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DetailIdentifier"].get());
+	ostringstream sb;
+	for (int i1 = 0; i1 < p->list.size(); i1++) {
+		sb << p->list[i1]->content;
+		if (i1 != (p->list.size() - 1)) {
+			sb << ".";
+		}
+	}
+	Import *p1 = new Import();
+	nodeValue->context["ImportDeclaration"] = P_Token(p1);
+	p1->name = sb.str();
+	p1->isSingle = 0;
+	p1->isStatic = 0;
+}
+
+
+//ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+void R001_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclaration_3");
+	Array * p = (Array *)(nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DetailIdentifier"].get());
+	ostringstream sb;
+	for (int i1 = 0; i1 < p->list.size(); i1++) {
+		sb << p->list[i1]->content;
+		if (i1 != (p->list.size() - 1)) {
+			sb << ".";
+		}
+	}
+	Import *p1 = new Import();
+	nodeValue->context["ImportDeclaration"] = P_Token(p1);
+	p1->name = sb.str();
+	p1->isSingle = 0;
+	p1->isStatic = 1;
+}
+
+
+
+//ImportDeclarationList : ImportDeclaration ImportDeclarationList
+void R001_ImportDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclarationList_0");
+	Array *p = (Array *)(nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"].get());
+	nodeValue->context["ImportDeclarationList"] = P_Token(p);
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ImportDeclaration"]);
+}
+
+
+//ImportDeclarationList : ImportDeclaration
+void R001_ImportDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR001("R001_ImportDeclarationList_1");
+	Array *p = new Array();
+	nodeValue->context["ImportDeclarationList"] = P_Token(p);
+	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ImportDeclaration"]);
 }
