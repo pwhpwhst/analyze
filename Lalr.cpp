@@ -2473,6 +2473,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			node->symbol = (*p_input)->type;
 			node->content = (*p_input)->content;
 			node->index = (*p_input)->index;
+			node->lineNum = (*p_input)->lineNum;
 			node->parent = nullptr;
 			node->offset = 0;
 			item_node_stack1.back()->node = node;
@@ -2810,7 +2811,16 @@ void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, str
 			throw;
 		}
 
+		//sdt_genertor->handle(top, stack, env, nodeValueMap);
+
+	try{
 		sdt_genertor->handle(top, stack, env, nodeValueMap);
+	}
+	catch (...) {
+		cout << "catch (...)" << endl;
+	}
+
+
 
 	}
 

@@ -1,4 +1,26 @@
 
+//	https://docs.oracle.com/javase/specs/jls/se8/html/jls-19.html
+
+//(Lexical Structure)
+//
+//(Types, Values, and Variables)
+//
+//(Names)
+//
+//(Packages)
+//
+//(Classes)
+//
+//(Interfaces)
+//
+//(Arrays)
+//
+//(Blocks and Statements)
+//
+//(Expressions)
+
+
+
 #include "R001Tests.h"
 #include"../Lalr.h"
 #include "../symbols/java/Import.h"
@@ -19,7 +41,6 @@ R001Tests::R001Tests() {}
 R001Tests::~R001Tests() {}
 int R001Tests::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env &env) {
 
-	
 	CompileInfo compileInfo;
 
 	string rule_file0 = i_rule_file;
@@ -199,6 +220,7 @@ void scanMethod() {
 		//载入词法流
 		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
+		//构筑语法树
 		Env env;
 		Node*  node_tree = lalr.slr(env, compileInfo);
 		if (node_tree == nullptr) {
@@ -253,6 +275,10 @@ void scanMethod() {
 			importList.back()["comment"] = "";
 		}
 
+
+		//MethodDeclaration : MethodHeader MethodBody
+	//MethodBody: Block
+
 		for (auto &e : classMembersPtr->list) {
 			if (e != nullptr&& e->tag == "Method") {
 				cout << ((Method*)e.get())->methodName << endl;
@@ -263,6 +289,10 @@ void scanMethod() {
 				methodList.back()["name"] = ((Method*)e.get())->methodName;
 				methodList.back()["comment"] = "";
 				methodList.back()["project"] = projectName;
+				methodList.back()["bodyBeg"] = std::to_string(((Method*)e.get())->bodyBeg);
+				methodList.back()["bodyEnd"] = std::to_string(((Method*)e.get())->bodyEnd);
+				methodList.back()["bodyBegLine"] = std::to_string(((Method*)e.get())->bodyBegLine);
+				methodList.back()["bodyEndLine"] = std::to_string(((Method*)e.get())->bodyEndLine);
 			}
 		}
 		//分析env end
