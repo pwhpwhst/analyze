@@ -81,9 +81,7 @@ void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector
 
 		sql_os << "select  id,classId, typeId, name, comment, project,bodyBeg,bodyEnd,bodyBegLine,bodyEndLine from erp_method ";
 		sql_os << "where 1=1 ";
-		//if (transfer_map.find("md5") != transfer_map.end()) {
-		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
-		//}
+
 
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);
@@ -97,6 +95,55 @@ void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector
 				result_list.back()["name"] = mysql_row[col_map["name"]];
 				result_list.back()["comment"] = mysql_row[col_map["comment"]];
 				result_list.back()["project"] = mysql_row[col_map["project"]];
+				result_list.back()["bodyBeg"] = mysql_row[col_map["bodyBeg"]];
+				result_list.back()["bodyEnd"] = mysql_row[col_map["bodyEnd"]];
+				result_list.back()["bodyBegLine"] = mysql_row[col_map["bodyBegLine"]];
+				result_list.back()["bodyEndLine"] = mysql_row[col_map["bodyEndLine"]];
+			}
+		}
+		mysql_close(&conn);
+	}
+}
+
+
+void ErpMethodDao::queryListWithPath(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+
+	result_list.clear();
+	MYSQL conn;
+	MYSQL_ROW mysql_row;
+	mysql_init(&conn);
+
+	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
+
+		ostringstream sql_os;
+		string col[] = { "path","fileName","package","className","methodName","bodyBeg","bodyEnd","bodyBegLine","bodyEndLine" };
+
+
+
+
+		unordered_map<string, int> col_map;
+		for (int i1 = 0; i1 < 8; i1++) {
+			col_map[col[i1]] = i1;
+		}
+
+		sql_os << "select f.path,f.file_name fileName, c.package, c.name className, m.name methodName, m.bodyBeg, m.bodyEnd, m.bodyBegLine, m.bodyEndLine from erp_method m, erp_class c, t_compile_file f ";
+		sql_os << "where 1=1 ";
+		sql_os << "and m.project = '" << transfer_map["project"] << "' ";
+		sql_os << "and c.project = '"<<transfer_map["project"]<<"' ";
+		sql_os << "and c.id = m.classId ";
+		sql_os << "and c.fileId = f.id ";
+
+		if (mysql_query(&conn, sql_os.str().data()) == 0) {
+			MYSQL_RES *mysql_result = mysql_store_result(&conn);
+			long num_row = mysql_num_rows(mysql_result);
+			for (size_t i1 = 0; i1 < num_row; i1++) {
+				mysql_row = mysql_fetch_row(mysql_result);
+				result_list.push_back(unordered_map<string, string>());
+				result_list.back()["path"] = mysql_row[col_map["path"]];
+				result_list.back()["fileName"] = mysql_row[col_map["fileName"]];
+				result_list.back()["package"] = mysql_row[col_map["package"]];
+				result_list.back()["className"] = mysql_row[col_map["className"]];
+				result_list.back()["methodName"] = mysql_row[col_map["methodName"]];
 				result_list.back()["bodyBeg"] = mysql_row[col_map["bodyBeg"]];
 				result_list.back()["bodyEnd"] = mysql_row[col_map["bodyEnd"]];
 				result_list.back()["bodyBegLine"] = mysql_row[col_map["bodyBegLine"]];
