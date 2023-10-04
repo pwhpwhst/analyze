@@ -1,6 +1,6 @@
 #pragma once
-#include "SmbolInfo.h"
 #include <unordered_map>
+#include "Token.h"
 using namespace std;
 
 

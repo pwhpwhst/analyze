@@ -1,8 +1,6 @@
 #include<vector>
 #include<iostream>
 #include "Lex_Word.h"
- #include "../symbols/SmbolInfo.h"
-  #include "../symbols/Tag.h"
 using namespace std;
 
 extern "C"

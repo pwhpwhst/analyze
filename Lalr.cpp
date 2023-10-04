@@ -657,7 +657,7 @@ void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter 
 
 
 
-Node* Lalr::slr(Env& env, CompileInfo &compileInfo) {
+Node* Lalr::slr(Env& env) {
 
 	vector<P_Lex_Word>  lex_word_list;
 

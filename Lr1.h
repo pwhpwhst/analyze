@@ -11,13 +11,12 @@
 #include <fstream>
 #include <sstream>
 
+#include"symbols\PrimarySymbolConverter.h"
 #include"SLR\Item.h"
 #include"SLR\Rule.h"
 #include"SLR\Node.h"
 #include"SLR\Lex_Word.h"
 #include"symbols\Env.h"
-#include"symbols\CompileInfo.h"
-#include"symbols\PrimarySymbolConverter.h"
 //#include"SDT\SDT_generator.h"
 
 
@@ -115,9 +114,9 @@ private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &termi
 private: bool detect_ambigulous(vector<unordered_map<string, string>> &forecast_list,
 	const vector<P_Rule> &ruleList, const vector<vector<P_Item>> items_list);
 
-private: void gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo);
+private: void gen_middle_code(Env &env, Node* &node_tree);
 
-public: Node* slr(Env &env, CompileInfo &compileInfo);
+public: Node* slr(Env &env);
 
 public: int init(string rule_file);
 

@@ -286,7 +286,7 @@ void Lr1::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 	total_lex_word_list.back()->type = "'end'";
 }
 
-Node* Lr1::slr(Env& env, CompileInfo &compileInfo) {
+Node* Lr1::slr(Env& en) {
 
 	vector<P_Lex_Word>  lex_word_list;
 
