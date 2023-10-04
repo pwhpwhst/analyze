@@ -46,7 +46,7 @@ string getPackageName(Array *ptr) {
 }
 
 void logR001(const string& s) {
-	cout<<s<<endl;
+//	cout<<s<<endl;
 }
 
 R001_DefaultAnalyzer::R001_DefaultAnalyzer() {
@@ -663,8 +663,11 @@ void R001_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 void R001_ImportDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR001("R001_ImportDeclarationList_0");
 	Array *p = (Array *)(nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"].get());
-	nodeValue->context["ImportDeclarationList"] = P_Token(p);
+	logR001("a");
+	nodeValue->context["ImportDeclarationList"] = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"];
+	logR001("b");
 	p->list.push_front(nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ImportDeclaration"]);
+	logR001("c");
 }
 
 

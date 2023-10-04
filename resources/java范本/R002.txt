@@ -1,0 +1,3 @@
+ele_begin : CompilationUnit
+CompilationUnit : Identifier
+Identifier : 'IDENTIFIER'

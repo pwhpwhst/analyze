@@ -89,8 +89,11 @@ void sitTest() {
 }
 
 void scanMethod() {
-	string projectName = "AaronDemo";
-	string projectBasePath = "C:\\Users\\Administrator\\Desktop\\Maven\\src\\main\\java";
+	//string projectName = "AaronDemo";
+	//string projectBasePath = "C:\\Users\\Administrator\\Desktop\\Maven\\src\\main\\java";
+
+	string projectName = "AaronTomcat";
+	string projectBasePath = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
 
 	string i_rule_file = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R001.txt";
 
@@ -228,11 +231,11 @@ void scanMethod() {
 }
 
 
-//int main() {
-//
-//	sitTest();
-//
-//}
+int main() {
+
+	sitTest();
+
+}
 
 
 
