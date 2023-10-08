@@ -1,4 +1,5 @@
 #include "ErpImportDao.h"
+#include "../Entity/ErpImportEntity.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -24,7 +25,7 @@ P_ErpImportDao ErpImportDao::getInstance() {
 
 
 
-void ErpImportDao::insertList(vector<unordered_map<string, string>> &list) {
+void ErpImportDao::insertList(vector<P_ErpImportEntity> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -38,13 +39,13 @@ void ErpImportDao::insertList(vector<unordered_map<string, string>> &list) {
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
-			sql_os << "'" << list[i1]["id"] << "'" << ",";
-			sql_os << "'" << list[i1]["fileId"] << "'" << ",";
-			sql_os << "'" << list[i1]["name"] << "'" << ",";
-			sql_os << list[i1]["isStatic"]  << ",";
-			sql_os << list[i1]["isSingle"] << ",";
-			sql_os << "'" << list[i1]["project"] << "'" << ",";
-			sql_os << "'" << list[i1]["comment"] << "'";
+			sql_os << "'" << list[i1]->id << "'" << ",";
+			sql_os << "'" << list[i1]->fileId << "'" << ",";
+			sql_os << "'" << list[i1]->name << "'" << ",";
+			sql_os << list[i1]->isStatic  << ",";
+			sql_os << list[i1]->isSingle << ",";
+			sql_os << "'" << list[i1]->project << "'" << ",";
+			sql_os << "'" << list[i1]->comment << "'";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -59,7 +60,7 @@ void ErpImportDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void ErpImportDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void ErpImportDao::queryList(unordered_map<string, string> &transfer_map, vector<P_ErpImportEntity> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -87,14 +88,14 @@ void ErpImportDao::queryList(unordered_map<string, string> &transfer_map, vector
 			long num_row = mysql_num_rows(mysql_result);
 			for (size_t i1 = 0; i1 < num_row; i1++) {
 				mysql_row = mysql_fetch_row(mysql_result);
-				result_list.push_back(unordered_map<string, string>());
-				result_list.back()["id"] = mysql_row[col_map["id"]];
-				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
-				result_list.back()["name"] = mysql_row[col_map["name"]];
-				result_list.back()["isStatic"] = mysql_row[col_map["isStatic"]];
-				result_list.back()["isSingle"] = mysql_row[col_map["isSingle"]];
-				result_list.back()["project"] = mysql_row[col_map["project"]];
-				result_list.back()["comment"] = mysql_row[col_map["comment"]];
+				result_list.push_back(P_ErpImportEntity());
+				result_list.back()->id = mysql_row[col_map["id"]];
+				result_list.back()->fileId = atol(mysql_row[col_map["fileId"]]);
+				result_list.back()->name = mysql_row[col_map["name"]];
+				result_list.back()->isStatic = atol(mysql_row[col_map["isStatic"]]);
+				result_list.back()->isSingle = atol(mysql_row[col_map["isSingle"]]);
+				result_list.back()->project = mysql_row[col_map["project"]];
+				result_list.back()->comment = mysql_row[col_map["comment"]];
 			}
 		}
 		mysql_close(&conn);

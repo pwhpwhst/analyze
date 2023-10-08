@@ -1,4 +1,5 @@
 #include "ErpClassDao.h"
+#include "../Entity/ErpClassEntity.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -24,7 +25,7 @@ P_ErpClassDao ErpClassDao::getInstance() {
 
 
 
-void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
+void ErpClassDao::insertList(vector<P_ErpClassEntity> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -38,12 +39,12 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
-			sql_os << "'" << list[i1]["id"] << "'" << ",";
-			sql_os << "'" << list[i1]["fileId"] << "'" << ",";
-			sql_os << "'" << list[i1]["name"] << "'" << ",";
-			sql_os << "'" << list[i1]["package"] << "'" << ",";
-			sql_os << "'" << list[i1]["project"] << "'" << ",";
-			sql_os << "'" << list[i1]["comment"] << "'";
+			sql_os << "'" << list[i1]->id << "'" << ",";
+			sql_os << "'" << list[i1]->fileId << "'" << ",";
+			sql_os << "'" << list[i1]->name << "'" << ",";
+			sql_os << "'" << list[i1]->package << "'" << ",";
+			sql_os << "'" << list[i1]->project << "'" << ",";
+			sql_os << "'" << list[i1]->comment << "'";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -57,7 +58,7 @@ void ErpClassDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<P_ErpClassEntity> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -85,13 +86,13 @@ void ErpClassDao::queryList(unordered_map<string, string> &transfer_map, vector<
 			long num_row = mysql_num_rows(mysql_result);
 			for (size_t i1 = 0; i1 < num_row; i1++) {
 				mysql_row = mysql_fetch_row(mysql_result);
-				result_list.push_back(unordered_map<string, string>());
-				result_list.back()["id"] = mysql_row[col_map["id"]];
-				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
-				result_list.back()["name"] = mysql_row[col_map["name"]];
-				result_list.back()["package"] = mysql_row[col_map["package"]];
-				result_list.back()["project"] = mysql_row[col_map["project"]];
-				result_list.back()["comment"] = mysql_row[col_map["comment"]];
+				result_list.push_back(P_ErpClassEntity());
+				result_list.back()->id = mysql_row[col_map["id"]];
+				result_list.back()->fileId = atol(mysql_row[col_map["fileId"]]);
+				result_list.back()->name = mysql_row[col_map["name"]];
+				result_list.back()->package = mysql_row[col_map["package"]];
+				result_list.back()->project = mysql_row[col_map["project"]];
+				result_list.back()->comment = mysql_row[col_map["comment"]];
 			}
 		}
 		mysql_close(&conn);

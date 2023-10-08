@@ -38,12 +38,12 @@ int R001Tests::test1(string i_rule_file,string i_testCaseFolder,string i_test_fi
 	return 0;
 }
 
-
-int main() {
-
-
-	return 0;
-}
-
+//
+//int main() {
+//
+//
+//	return 0;
+//}
+//
 
 

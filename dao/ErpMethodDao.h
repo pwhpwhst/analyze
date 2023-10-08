@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseDao.h"
+#include "../Entity/ErpMethodEntity.h"
 #include <vector>
 #include <unordered_map>
 using namespace std;
@@ -16,9 +17,9 @@ private: static shared_ptr<ErpMethodDao> instance;
 
 public: static shared_ptr<ErpMethodDao> getInstance();
 
-public: void insertList(vector<unordered_map<string, string>> &list);
+public: void insertList(vector<P_ErpMethodEntity> &list);
 
-public: void queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list);
+public: void queryList(unordered_map<string, string> &transfer_map, vector<P_ErpMethodEntity> &result_list);
 
 
 public: void queryListWithPath(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list);

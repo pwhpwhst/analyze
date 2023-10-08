@@ -24,7 +24,7 @@ P_ErpMethodDao ErpMethodDao::getInstance() {
 
 
 
-void ErpMethodDao::insertList(vector<unordered_map<string, string>> &list) {
+void ErpMethodDao::insertList(vector<P_ErpMethodEntity> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -38,16 +38,16 @@ void ErpMethodDao::insertList(vector<unordered_map<string, string>> &list) {
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
-			sql_os << "'" << list[i1]["id"] << "'" << ",";
-			sql_os << "'" << list[i1]["classId"] << "'" << ",";
-			sql_os << "'" << list[i1]["typeId"] << "'" << ",";
-			sql_os << "'" << list[i1]["name"] << "'" << ",";
-			sql_os << "'" << list[i1]["comment"] << "'" << ",";
-			sql_os << "'" << list[i1]["project"] << "'" << ",";
-			sql_os << list[i1]["bodyBeg"] << ",";
-			sql_os << list[i1]["bodyEnd"] << ",";
-			sql_os << list[i1]["bodyBegLine"] << ",";
-			sql_os << list[i1]["bodyEndLine"];
+			sql_os << "'" << list[i1]->id << "'" << ",";
+			sql_os << "'" << list[i1]->classId << "'" << ",";
+			sql_os << "'" << list[i1]->typeId << "'" << ",";
+			sql_os << "'" << list[i1]->name << "'" << ",";
+			sql_os << "'" << list[i1]->comment << "'" << ",";
+			sql_os << "'" << list[i1]->project << "'" << ",";
+			sql_os << list[i1]->bodyBeg << ",";
+			sql_os << list[i1]->bodyEnd << ",";
+			sql_os << list[i1]->bodyBegLine << ",";
+			sql_os << list[i1]->bodyEndLine;
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -62,7 +62,7 @@ void ErpMethodDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector<P_ErpMethodEntity> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -88,17 +88,17 @@ void ErpMethodDao::queryList(unordered_map<string, string> &transfer_map, vector
 			long num_row = mysql_num_rows(mysql_result);
 			for (size_t i1 = 0; i1 < num_row; i1++) {
 				mysql_row = mysql_fetch_row(mysql_result);
-				result_list.push_back(unordered_map<string, string>());
-				result_list.back()["id"] = mysql_row[col_map["id"]];
-				result_list.back()["classId"] = mysql_row[col_map["classId"]];
-				result_list.back()["typeId"] = mysql_row[col_map["typeId"]];
-				result_list.back()["name"] = mysql_row[col_map["name"]];
-				result_list.back()["comment"] = mysql_row[col_map["comment"]];
-				result_list.back()["project"] = mysql_row[col_map["project"]];
-				result_list.back()["bodyBeg"] = mysql_row[col_map["bodyBeg"]];
-				result_list.back()["bodyEnd"] = mysql_row[col_map["bodyEnd"]];
-				result_list.back()["bodyBegLine"] = mysql_row[col_map["bodyBegLine"]];
-				result_list.back()["bodyEndLine"] = mysql_row[col_map["bodyEndLine"]];
+				result_list.push_back(P_ErpMethodEntity());
+				result_list.back()->id = mysql_row[col_map["id"]];
+				result_list.back()->classId = mysql_row[col_map["classId"]];
+				result_list.back()->typeId = mysql_row[col_map["typeId"]];
+				result_list.back()->name = mysql_row[col_map["name"]];
+				result_list.back()->comment = mysql_row[col_map["comment"]];
+				result_list.back()->project = mysql_row[col_map["project"]];
+				result_list.back()->bodyBeg = atol(mysql_row[col_map["bodyBeg"]]);
+				result_list.back()->bodyEnd = atol(mysql_row[col_map["bodyEnd"]]);
+				result_list.back()->bodyBegLine = atol(mysql_row[col_map["bodyBegLine"]]);
+				result_list.back()->bodyEndLine = atol(mysql_row[col_map["bodyEndLine"]]);
 			}
 		}
 		mysql_close(&conn);
@@ -148,6 +148,10 @@ void ErpMethodDao::queryListWithPath(unordered_map<string, string> &transfer_map
 				result_list.back()["bodyEnd"] = mysql_row[col_map["bodyEnd"]];
 				result_list.back()["bodyBegLine"] = mysql_row[col_map["bodyBegLine"]];
 				result_list.back()["bodyEndLine"] = mysql_row[col_map["bodyEndLine"]];
+
+
+
+
 			}
 		}
 		mysql_close(&conn);
