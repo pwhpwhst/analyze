@@ -17,7 +17,7 @@ NodeValue::NodeValue(Node *node, int value_type) {
 //	this->context["pos"] = P_Token(new Token("pos", "-1"));
 //}
 
-P_Token NodeValue::get_context(string key) {
+P_Token NodeValue::get_context(string &key) {
 	if (this->context.count(key) == 0) {
 		context[key]= P_Token(new Token());
 	}

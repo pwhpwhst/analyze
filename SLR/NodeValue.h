@@ -17,7 +17,7 @@ public: NodeValue(Node *node, int value_type);
 public: virtual ~NodeValue();
 
 public: unordered_map<string, P_Token> context;
-public: P_Token get_context(string key);
+public: P_Token get_context(string &key);
 };
 
 typedef std::shared_ptr<NodeValue> P_NodeValue;

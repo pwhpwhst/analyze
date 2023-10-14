@@ -6,6 +6,7 @@
 #include<iostream>
 #include <fstream>
 #include <sstream>
+#include"SLR\SDT_Factory.h"
 using namespace std;
 using namespace boost;
 
@@ -13,6 +14,19 @@ RecursiveDescentJava::RecursiveDescentJava() {}
 
 RecursiveDescentJava::~RecursiveDescentJava() {}
 
+
+
+string RecursiveDescentJava::replaceAll(string str, string sub, string replacement) {
+	int pos;
+	pos = str.find(sub);
+	while (pos != -1) {
+		// str.length()求字符的长度，注意str必须是string类型
+		str.replace(pos, string(sub).length(), replacement);
+		pos = str.find(sub);
+	}
+
+	return str;
+}
 
 void RecursiveDescentJava::log(const string& s) {
 			  cout<<s<<endl;
@@ -276,6 +290,14 @@ void RecursiveDescentJava::paresOrders(const string& rule_file, vector<string>& 
 
 void RecursiveDescentJava::init(string rule_file) {
 
+	vector <string> strs;
+	split(strs, rule_file, is_any_of("\\"));
+
+
+	ruleFileName = strs[strs.size() - 1];
+	ruleFileName = replaceAll(ruleFileName, ".txt", "");
+
+
 	log("生成ruleListing");
 	ifstream input_file;
 	input_file.open(rule_file.data());
@@ -284,6 +306,22 @@ void RecursiveDescentJava::init(string rule_file) {
 	vector<string> orders;
 	unordered_map<string, string> temp_forecast_map;
 	paresOrders(rule_file, orders);
+
+	unordered_map<string, int> ruleNameCountMap;
+	ruleIdToSubId.clear();
+	for (const auto &e : orders) {
+		ruleList.push_back(P_Rule(new Rule(e)));
+		ruleList.back()->index = ruleList.size() - 1;
+
+		int num = 0;
+		if (ruleNameCountMap.count(ruleList.back()->rule_name) != 0) {
+			num = ruleNameCountMap[ruleList.back()->rule_name];
+		}
+		ruleIdToSubId[ruleList.back()->index] = num;
+		ruleNameCountMap[ruleList.back()->rule_name] = num + 1;
+
+	}
+
 
 	for (const auto &e : orders) {
 		ruleList.push_back(P_Rule(new Rule(e)));
@@ -335,7 +373,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 	typedef std::shared_ptr<ItemNode> P_ItemNode;
 	vector<P_ItemNode> item_node_stack1;
 	item_node_stack1.push_back(P_ItemNode(new ItemNode()));
-	log("压入：" + rootSymbol);
+//	log("压入：" + rootSymbol);
 	transferMap.clear();
 	findFirstAndLastRules(rootSymbol, transferMap);
 
@@ -371,8 +409,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 			else {
 				Node* parentNode = item_node_stack1.back()->node->parent;
 				while (item_node_stack1.back()->node != parentNode) {
-					log("弹出1：" + item_node_stack1.back()->node->symbol);
-					cout << "wordListId=" << wordListId << endl;
+//					log("弹出1：" + item_node_stack1.back()->node->symbol);
+//					cout << "wordListId=" << wordListId << endl;
 					Node::releaseNode(item_node_stack1.back()->node);
 					item_node_stack1.pop_back();
 				}
@@ -396,8 +434,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 				resultNodePtr= top_item->node;
 			}
 
-				log("弹出2：" + item_node_stack1.back()->node->symbol);
-				cout << "wordListId=" << wordListId << endl;
+//				log("弹出2：" + item_node_stack1.back()->node->symbol);
+//				cout << "wordListId=" << wordListId << endl;
 				item_node_stack1.pop_back();
 
 		}
@@ -407,6 +445,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 				if (wordListId< total_lex_word_list.size() 
 						&&total_lex_word_list[wordListId]->type == top_item->node->symbol) {
 					top_item->status = DONE;
+					top_item->node->content = total_lex_word_list[wordListId]->content;
 					top_item->node->index = wordListId;
 					top_item->node->lineNum = total_lex_word_list[wordListId]->lineNum;
 					wordListId++;
@@ -427,8 +466,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 				}
 				else {
 					for (int i1 = ruleList[top_item->node->ruleId]->symbols.size() - 1; i1 >= 0; i1--) {
-						log("压入：" + ruleList[top_item->node->ruleId]->symbols[i1]);
-						cout << "wordListId=" << wordListId << endl;
+//						log("压入：" + ruleList[top_item->node->ruleId]->symbols[i1]);
+//						cout << "wordListId=" << wordListId << endl;
 						item_node_stack1.push_back(P_ItemNode(new ItemNode()));
 						item_node_stack1.back()->node = new Node();
 						item_node_stack1.back()->node->symbol = ruleList[top_item->node->ruleId]->symbols[i1];
@@ -457,3 +496,37 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 	return resultNodePtr;
 }
 
+
+
+void RecursiveDescentJava::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
+
+	cout << "生成中间代码:" << endl;
+
+	//set<string> has_calculate_set;
+	unordered_map<string, P_NodeValue> nodeValueMap;
+
+	vector<P_NodeValue> stack;
+	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
+
+	//P_NodeValue childNodeValue = nullptr;
+	while (stack.size() > 0) {
+		auto top = stack.back();
+		string  sdtKey = ruleFileName + "_" + top->node->symbol + "_" + std::to_string(ruleIdToSubId[top->node->ruleId]);
+		P_SDT_genertor sdt_genertor = SDT_Factory::instance.getSDT_genertor(sdtKey);
+		if (sdt_genertor == nullptr) {
+			cout << sdtKey << "未定义";
+			throw;
+		}
+
+		try {
+			sdt_genertor->handle(top, stack, env, nodeValueMap);
+		}
+		catch (...) {
+			cout << "catch (...)" << endl;
+		}
+
+
+
+	}
+
+}

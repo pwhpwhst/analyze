@@ -129,8 +129,6 @@ StatementEle : 'throws'
 StatementEle : 'transient'
 StatementEle : 'void'
 StatementEle : 'volatile'
-ModifierList : Modifier ModifierList
-ModifierList : Modifier
 Modifier : 'public'
 Modifier : 'protected'
 Modifier : 'private'

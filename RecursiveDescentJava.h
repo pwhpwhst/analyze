@@ -11,6 +11,11 @@ public: RecursiveDescentJava();
 
 private:vector<P_Rule> ruleList;
 
+public:string ruleFileName;
+public:unordered_map<int, int> ruleIdToSubId;
+
+public:string replaceAll(string str, string sub, string replacement);
+
 public: virtual ~RecursiveDescentJava();
 public: void log(const string& s);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
@@ -24,6 +29,8 @@ public: int endsWith(const string& s, const string& sub);
 public: void paresOrders(const string& rule_file, vector<string>& orders);
 public: void init(string rule_file);
 public: Node* createNode(P_Rule &rule);
+
+public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
 };
 
 

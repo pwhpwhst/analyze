@@ -1,3 +1,4 @@
+#pragma once
 #include "pwh.h"
 #include"../Lalr.h"
 #include "../Util/Util.h"
@@ -7,6 +8,7 @@
 #include "../dao/ErpImportDao.h"
 #include "../symbols/PrimarySymbolConverter.h"
 #include "../RecursiveDescentJava.h"
+#include "../symbols/java/ClassToken.h"
 #include <iostream>
 
 
@@ -33,7 +35,20 @@ int main() {
 	recursiveDescentJava.init(rule_file0);
 	recursiveDescentJava.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
-	Node*  node_tree = recursiveDescentJava.slr(env,"CompilationUnit");
+	Node*  node_tree = recursiveDescentJava.slr(env,"ele_begin");
+
+
+	if (node_tree == nullptr) {
+		cout << fileName << ":" << "分析失败" << endl;
+	}
+	else {
+		cout << fileName << ":" << "分析成功" << endl;
+		unordered_map<string, string> imfo_map;
+		recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
+		Node::releaseNode(node_tree);
+		cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+	}
+
 
 
 	return 0;
