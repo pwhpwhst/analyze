@@ -1,0 +1,147 @@
+ele_begin : CompilationUnit
+CompilationUnit : PackageDeclaration ImportDeclarationList TypeDeclarationList
+CompilationUnit : PackageDeclaration ImportDeclarationList
+CompilationUnit : PackageDeclaration TypeDeclarationList
+CompilationUnit : ImportDeclarationList TypeDeclarationList
+CompilationUnit : PackageDeclaration
+CompilationUnit : ImportDeclarationList
+CompilationUnit : TypeDeclarationList
+PackageDeclaration : 'package' DetailIdentifier 'semicolon'
+DetailIdentifier : Identifier 'SPOT' DetailIdentifier
+DetailIdentifier : Identifier
+Identifier : 'IDENTIFIER'
+ImportDeclarationList : ImportDeclaration ImportDeclarationList
+ImportDeclarationList : ImportDeclaration
+ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
+ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+ImportDeclaration : 'import' DetailIdentifier 'semicolon'
+TypeDeclarationList : TypeDeclaration TypeDeclarationList
+TypeDeclarationList : TypeDeclaration
+TypeDeclaration : ClassDeclaration
+TypeDeclaration : 'semicolon'
+ClassDeclaration : NormalClassDeclaration
+NormalClassDeclaration : 'class' Identifier ClassBody
+ClassBody : 'LEFT_BRACE'
+ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
+ClassBodyDeclarationList : 0
+ClassBodyDeclaration : ClassMemberDeclaration
+ClassMemberDeclaration : MethodDeclaration
+MethodDeclaration : ModifierList MethodHeader MethodBody
+MethodDeclaration : MethodHeader MethodBody
+MethodHeader : 'void' MethodDeclarator
+MethodDeclarator : Identifier AnnotationContent
+ModifierList : Modifier ModifierList
+ModifierList : Modifier
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : NonPARENTHESES
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+StatementEle : 'IDENTIFIER'
+StatementEle : 'AND'
+StatementEle : 'AND_EQUAL'
+StatementEle : 'AT'
+StatementEle : 'AT_INTERFACE'
+StatementEle : 'BIT_AND'
+StatementEle : 'BIT_OR'
+StatementEle : 'BooleanLiteral'
+StatementEle : 'CARET'
+StatementEle : 'COLON'
+-- StatementEle : 'COMMA'  12
+StatementEle : 'CharacterLiteral'
+StatementEle : 'DB_EQUAL'
+StatementEle : 'DIVIDE_EQUAL'
+StatementEle : 'EQUAL'
+StatementEle : 'FloatingPointLiteral'
+StatementEle : 'GT_EQUAL'
+StatementEle : 'IntegerLiteral'
+StatementEle : 'LAMBDA_TO'
+StatementEle : 'LEFT_SHIFT'
+StatementEle : 'LEFT_SHIFT_EQUAL'
+StatementEle : 'LT_EQUAL'
+StatementEle : 'MULTI_EQUAL'
+StatementEle : 'NOT_EQUAL'
+StatementEle : 'OR'
+StatementEle : 'OR_EQUAL'
+StatementEle : 'PLUS'
+StatementEle : 'PLUS_EQUAL'
+StatementEle : 'PRECENTAGE'
+StatementEle : 'PRECENTAGE_EQUAL'
+StatementEle : 'PackageOrTypeNameId'
+StatementEle : 'QUESTION'
+StatementEle : 'RIGHT_SHIFT'
+StatementEle : 'RIGHT_SHIFT2'
+StatementEle : 'RIGHT_SHIFT2_EQUAL'
+StatementEle : 'RIGHT_SHIFT_EQUAL'
+StatementEle : 'RIGTH_BRACKET'
+StatementEle : 'SLASH'
+StatementEle : 'SPOT'
+StatementEle : 'STAR'
+StatementEle : 'SUBTRACT'
+StatementEle : 'SUBTRACT_EQUAL'
+StatementEle : 'SURPRISE'
+StatementEle : 'StringLiteral'
+StatementEle : 'THREE_SPOT'
+StatementEle : 'TILDE'
+StatementEle : 'TWO_COLON'
+StatementEle : 'TWO_PLUS'
+StatementEle : 'TWO_SUBTRACT'
+StatementEle : 'TypeNameId'
+StatementEle : 'XOR_EQUAL'
+StatementEle : 'abstract'
+StatementEle : 'boolean'
+StatementEle : 'byte'
+StatementEle : 'char'
+StatementEle : 'class'
+StatementEle : 'default'
+StatementEle : 'double'
+StatementEle : 'enum'
+StatementEle : 'extends'
+StatementEle : 'final'
+StatementEle : 'float'
+StatementEle : 'implements'
+StatementEle : 'instanceof'
+StatementEle : 'int'
+StatementEle : 'interface'
+StatementEle : 'long'
+StatementEle : 'native'
+StatementEle : 'new'
+StatementEle : 'null'
+StatementEle : 'private'
+StatementEle : 'protected'
+StatementEle : 'public'
+-- StatementEle : 'semicolon'  13
+StatementEle : 'short'
+StatementEle : 'static'
+StatementEle : 'super'
+StatementEle : 'synchronized'
+StatementEle : 'this'
+StatementEle : 'throws'
+StatementEle : 'transient'
+StatementEle : 'void'
+StatementEle : 'volatile'
+Modifier : 'public'
+Modifier : 'protected'
+Modifier : 'private'
+Modifier : 'abstract'
+Modifier : 'static'
+Modifier : 'final'
+Modifier : 'strictfp'
+Modifier : 'default'
+Modifier : 'volatile'
+Modifier : 'synchronized'
+Modifier : 'transient'
+Modifier : 'native'
+MethodBody : Block
+MethodBody : 'semicolon'
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+BlockStatements : 0

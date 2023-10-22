@@ -15,9 +15,9 @@ fi
 
 function SDT_Factory_Part_1(){
 
-ruleFile="R003.txt"
-index=0
-prefix="R003"
+ruleFile="R004.txt"
+index=145
+prefix="R004"
 
 
 ruleFileTmp="${ruleFile}.tmp"
@@ -48,9 +48,9 @@ rm -rf ${ruleFileTmp}
 
 
 function SDT_Factory_Part_2(){
-ruleFile="R003.txt"
-index=0
-prefix="R003"
+ruleFile="R004.txt"
+index=145
+prefix="R004"
 
 
 ruleFileTmp="${ruleFile}.tmp"
@@ -86,9 +86,8 @@ rm -rf ${ruleFileTmp}
 
 function gen_SDD_Rule_Header(){
 
-ruleFile="R003.txt"
-index=0
-prefix="R003"
+ruleFile="R004.txt"
+prefix="R004"
 
 logFile="a.txt"
 
@@ -148,7 +147,7 @@ writeFile "${logFile}" "};"
 
 
 
-		let index++
+
 		let subIndex++
 	fi
 
@@ -163,7 +162,7 @@ writeFile "${logFile}" "${prefix}_DefaultAnalyzer::${prefix}_DefaultAnalyzer() {
 writeFile "${logFile}" "${prefix}_DefaultAnalyzer::~${prefix}_DefaultAnalyzer() {}"
 
 
-index=0
+
 presentSymbol=""
 subIndex=0
 
@@ -190,7 +189,7 @@ writeFile "${logFile}" "${prefix}_${presentSymbol}_${subIndex}Analyzer::~${prefi
 
 
 
-		let index++
+
 		let subIndex++
 	fi
 
@@ -206,9 +205,8 @@ rm -rf ${ruleFileTmp}
 
 function gen_SDD_Rule_Body(){
 
-ruleFile="R003.txt"
-index=0
-prefix="R003"
+ruleFile="R004.txt"
+prefix="R004"
 
 analyzerCppFile="../../treeAnalyzer/java/R003Analyzer.cpp"
 
@@ -244,13 +242,12 @@ do
 			str=`echo ${str}|sed -e "s/#/ /g"|sed -e "s/beg_${presentSymbol} /beg_${presentSymbol} : /g"`
 			writeFile "${logFile}" "//${str}"
 			writeFile "${logFile}" "void ${prefix}_${presentSymbol}_${subIndex}Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {"
-			writeFile "${logFile}" "   logR003(\"${prefix}_${presentSymbol}_${subIndex}Analyzer\");"
+			writeFile "${logFile}" "   log${prefix}(\"${prefix}_${presentSymbol}_${subIndex}Analyzer\");"
 			writeFile "${logFile}" "   //TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer"
 			writeFile "${logFile}" "};"
 		fi
 
 
-		let index++
 		let subIndex++
 	fi
 done
@@ -272,4 +269,4 @@ rm -rf ${ruleFileTmp}
 
 #gen_SDD_Rule_Header
 
-#gen_SDD_Rule_Body
+gen_SDD_Rule_Body

@@ -1,6 +1,6 @@
 
 #include "R003Analyzer.h"
-#include "../../symbols/java/ClassToken.h"
+#include "../../symbols/java/ClassListToken.h"
 #include<iostream>
 #include <sstream>
 using namespace std;
@@ -193,8 +193,8 @@ void R003_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, En
 	logR003("R003_TypeDeclarationList_0Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
-	for (int i1 = 0; i1 < ((ClassToken *)(p0.get()))->list.size(); i1++) {
-		((ClassToken *)(p1.get()))->list.push_back(((ClassToken *)(p0.get()))->list[i1]);
+	for (int i1 = 0; i1 < ((ClassListToken *)(p0.get()))->list.size(); i1++) {
+		((ClassListToken *)(p1.get()))->list.push_back(((ClassListToken *)(p0.get()))->list[i1]);
 	}
 	nodeValue->context["TypeDeclarationList"] = p1;
 };
@@ -245,7 +245,7 @@ void R003_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 
 
 	Token * p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"].get();
-	ClassToken *p = new ClassToken();
+	ClassListToken *p = new ClassListToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
 	p->list.push_back(classEntity);

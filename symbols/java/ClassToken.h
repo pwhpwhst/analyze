@@ -10,7 +10,7 @@ using namespace std;
 
 class ClassToken : public Token  {
 
-public:  vector<P_ClassEntity> list;
+public:  P_ClassEntity classEntity;
 
 
 

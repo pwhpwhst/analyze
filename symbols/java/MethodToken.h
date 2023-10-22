@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <vector>
+#include <deque>
 #include "MethodEntity.h"
 #include "../Token.h"
 
@@ -10,7 +10,7 @@ using namespace std;
 
 class MethodToken : public Token  {
 
-public:  vector<P_MethodEntity> list;
+public:  deque<P_MethodEntity> list;
 
 
 

@@ -8,7 +8,7 @@
 #include "../dao/ErpImportDao.h"
 #include "../symbols/PrimarySymbolConverter.h"
 #include "../RecursiveDescentJava.h"
-#include "../symbols/java/ClassToken.h"
+#include "../symbols/java/ClassListToken.h"
 #include <iostream>
 
 
@@ -24,7 +24,7 @@ int main() {
 
 	Env env;
 	string path = "C:\\Users\\Administrator\\Desktop\\Maven3\\src\\main\\java\\com\\pwhTest\\hadoopTest";
-	string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R003.txt";
+	string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 	string fileName = "HadoopTest.java";
 	string compile_file = path + "\\" + fileName;
 
@@ -46,7 +46,16 @@ int main() {
 		unordered_map<string, string> imfo_map;
 		recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
 		Node::releaseNode(node_tree);
-		cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+		//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+
+
+		cout << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+		cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+		ImportListToken* importListToken=(ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
+		cout<< importListToken->list[0]->name << endl;
+		cout << importListToken->list[0]->isStatic << endl;
+		cout << importListToken->list[1]->name << endl;
+		cout << importListToken->list[1]->isStatic << endl;
 	}
 
 
