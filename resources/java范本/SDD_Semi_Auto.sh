@@ -269,4 +269,5 @@ rm -rf ${ruleFileTmp}
 
 #gen_SDD_Rule_Header
 
-gen_SDD_Rule_Body
+#gen_SDD_Rule_Body
+

@@ -52,10 +52,10 @@ void RecursiveDescentJava::init_total_lex_word_list(string compile_file, Primary
 	total_lex_word_list.clear();
 
 	//定义上下文
-	log("定义上下文");
+	//log("定义上下文");
 
 	//生成输入
-	log("生成输入");
+	//log("生成输入");
 
 	vector<P_Lex_Word>  _total_lex_word_list;
 	vector <string> behaves;
@@ -298,7 +298,7 @@ void RecursiveDescentJava::init(string rule_file) {
 	ruleFileName = replaceAll(ruleFileName, ".txt", "");
 
 
-	log("生成ruleListing");
+	//log("生成ruleListing");
 	ifstream input_file;
 	input_file.open(rule_file.data());
 
@@ -486,8 +486,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 		}
 	}
 
-	cout << "wordListId()=" << wordListId << endl;
-	cout << "total_lex_word_list.size()=" << total_lex_word_list.size() << endl;
+//	cout << "wordListId()=" << wordListId << endl;
+//	cout << "total_lex_word_list.size()=" << total_lex_word_list.size() << endl;
 
 	
 		

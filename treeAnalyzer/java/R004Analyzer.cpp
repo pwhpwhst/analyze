@@ -12,7 +12,7 @@ using namespace std;
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-		cout<<s<<endl;
+		//cout<<s<<endl;
 }
 
 
