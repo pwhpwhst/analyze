@@ -92,6 +92,14 @@ public: virtual ~R004_PackageDeclaration_0Analyzer();
 };
 
 
+//beg_PackageDeclaration : ModifierList 'package' DetailIdentifier 'semicolon'
+class R004_PackageDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_PackageDeclaration_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_PackageDeclaration_1Analyzer();
+};
+
+
 
 //beg_DetailIdentifier : Identifier 'SPOT' DetailIdentifier
 class R004_DetailIdentifier_0Analyzer :virtual public Non_Terminate_genertor {
@@ -224,6 +232,14 @@ class R004_NormalClassDeclaration_0Analyzer :virtual public Non_Terminate_genert
 public: R004_NormalClassDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_NormalClassDeclaration_0Analyzer();
+};
+
+
+//beg_NormalClassDeclaration: ModifierList 'class' Identifier ClassBody
+class R004_NormalClassDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NormalClassDeclaration_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NormalClassDeclaration_1Analyzer();
 };
 
 
@@ -1280,6 +1296,13 @@ public: virtual ~R004_Modifier_11Analyzer();
 };
 
 
+//beg_Modifier : Annotation
+class R004_Modifier_12Analyzer :virtual public Non_Terminate_genertor {
+public: R004_Modifier_12Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_Modifier_12Analyzer();
+};
+
 
 //beg_MethodBody : Block
 class R004_MethodBody_0Analyzer :virtual public Non_Terminate_genertor {
@@ -1313,4 +1336,11 @@ class R004_BlockStatements_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_BlockStatements_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_BlockStatements_0Analyzer();
+};
+
+//beg_Annotation : 'AT' DetailIdentifier AnnotationContent
+class R004_Annotation_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_Annotation_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_Annotation_0Analyzer();
 };

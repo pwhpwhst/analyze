@@ -56,6 +56,10 @@ R004_PackageDeclaration_0Analyzer::R004_PackageDeclaration_0Analyzer() {}
 R004_PackageDeclaration_0Analyzer::~R004_PackageDeclaration_0Analyzer() {}
 
 
+//beg_PackageDeclaration : ModifierList 'package' DetailIdentifier 'semicolon'
+R004_PackageDeclaration_1Analyzer::R004_PackageDeclaration_1Analyzer() {}
+R004_PackageDeclaration_1Analyzer::~R004_PackageDeclaration_1Analyzer() {}
+
 
 //beg_DetailIdentifier : Identifier 'SPOT' DetailIdentifier
 R004_DetailIdentifier_0Analyzer::R004_DetailIdentifier_0Analyzer() {}
@@ -145,6 +149,10 @@ R004_ClassDeclaration_0Analyzer::~R004_ClassDeclaration_0Analyzer() {}
 R004_NormalClassDeclaration_0Analyzer::R004_NormalClassDeclaration_0Analyzer() {}
 R004_NormalClassDeclaration_0Analyzer::~R004_NormalClassDeclaration_0Analyzer() {}
 
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
+R004_NormalClassDeclaration_1Analyzer::R004_NormalClassDeclaration_1Analyzer() {}
+R004_NormalClassDeclaration_1Analyzer::~R004_NormalClassDeclaration_1Analyzer() {}
 
 
 //beg_ClassBody : 'LEFT_BRACE'
@@ -848,6 +856,9 @@ R004_Modifier_11Analyzer::R004_Modifier_11Analyzer() {}
 R004_Modifier_11Analyzer::~R004_Modifier_11Analyzer() {}
 
 
+//beg_Modifier : Annotation
+R004_Modifier_12Analyzer::R004_Modifier_12Analyzer() {}
+R004_Modifier_12Analyzer::~R004_Modifier_12Analyzer() {}
 
 //beg_MethodBody : Block
 R004_MethodBody_0Analyzer::R004_MethodBody_0Analyzer() {}
@@ -870,3 +881,7 @@ R004_Block_0Analyzer::~R004_Block_0Analyzer() {}
 //beg_BlockStatements : 0
 R004_BlockStatements_0Analyzer::R004_BlockStatements_0Analyzer() {}
 R004_BlockStatements_0Analyzer::~R004_BlockStatements_0Analyzer() {}
+
+//beg_Annotation : 'AT' DetailIdentifier AnnotationContent
+R004_Annotation_0Analyzer::R004_Annotation_0Analyzer() {}
+R004_Annotation_0Analyzer::~R004_Annotation_0Analyzer() {}

@@ -162,6 +162,14 @@ void R004_PackageDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env
 };
 
 
+//beg_PackageDeclaration : ModifierList 'package' DetailIdentifier 'semicolon'
+void R004_PackageDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_PackageDeclaration_1Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DetailIdentifier"];
+	nodeValue->context["PackageDeclaration"] = p2;
+};
+
+
 
 //beg_DetailIdentifier : Identifier 'SPOT' DetailIdentifier
 void R004_DetailIdentifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
@@ -346,6 +354,20 @@ void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
+void R004_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_1Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -1287,6 +1309,11 @@ void R004_Modifier_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 	//TO DO  R004_Modifier_11Analyzer
 };
 
+//beg_Modifier : Annotation
+void R004_Modifier_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_Modifier_12Analyzer");
+	//TO DO  R004_Modifier_12Analyzer
+};
 
 
 //beg_MethodBody : Block
@@ -1319,3 +1346,10 @@ void R004_BlockStatements_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	//TO DO  R004_BlockStatements_0Analyzer
 };
 
+
+
+//beg_Annotation : 'AT' DetailIdentifier AnnotationContent
+void R004_Annotation_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_Annotation_0Analyzer");
+	//TO DO  R004_Annotation_0Analyzer
+};

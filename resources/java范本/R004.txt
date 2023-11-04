@@ -7,6 +7,7 @@ CompilationUnit : PackageDeclaration
 CompilationUnit : ImportDeclarationList
 CompilationUnit : TypeDeclarationList
 PackageDeclaration : 'package' DetailIdentifier 'semicolon'
+PackageDeclaration : ModifierList 'package' DetailIdentifier 'semicolon'
 DetailIdentifier : Identifier 'SPOT' DetailIdentifier
 DetailIdentifier : Identifier
 Identifier : 'IDENTIFIER'
@@ -22,6 +23,7 @@ TypeDeclaration : ClassDeclaration
 TypeDeclaration : 'semicolon'
 ClassDeclaration : NormalClassDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 ClassBody : 'LEFT_BRACE'
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
@@ -141,7 +143,9 @@ Modifier : 'volatile'
 Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'native'
+Modifier : Annotation
 MethodBody : Block
 MethodBody : 'semicolon'
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
 BlockStatements : 0
+Annotation : 'AT' DetailIdentifier AnnotationContent
