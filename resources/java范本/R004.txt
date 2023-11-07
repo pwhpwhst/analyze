@@ -20,8 +20,12 @@ ImportDeclaration : 'import' DetailIdentifier 'semicolon'
 TypeDeclarationList : TypeDeclaration TypeDeclarationList
 TypeDeclarationList : TypeDeclaration
 TypeDeclaration : ClassDeclaration
+TypeDeclaration : InterfaceDeclaration
 TypeDeclaration : 'semicolon'
 ClassDeclaration : NormalClassDeclaration
+ClassDeclaration : EnumDeclaration
+InterfaceDeclaration : NormalInterfaceDeclaration
+InterfaceDeclaration : AnnotationTypeDeclaration
 NormalClassDeclaration : 'class' Identifier ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
@@ -38,6 +42,23 @@ NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+EnumDeclaration : 'enum' Identifier ClassBody
+EnumDeclaration : ModifierList 'enum' Identifier ClassBody
+EnumDeclaration : 'enum' Identifier Superinterfaces ClassBody
+EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+ExtendsInterfaces : 'extends' InterfaceTypeList
+AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
+AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
+AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
+AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
 ClassBody : 'LEFT_BRACE'
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
@@ -163,6 +184,7 @@ MethodBody : 'semicolon'
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
 BlockStatements : 0
 Annotation : 'AT' DetailIdentifier AnnotationContent
+Annotation : 'AT' DetailIdentifier
 TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
 TypeArgumentList : 0

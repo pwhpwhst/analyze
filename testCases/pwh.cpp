@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
 	if (mode==0) {
 		Env env;
 		string path = "C:\\Users\\Administrator\\Desktop\\Maven3\\src\\main\\java\\com\\pwhTest\\hadoopTest";
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		string fileName = "HadoopTest.java";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		string compile_file = path + "\\" + fileName;
 
 		set<string> end_symbol_set0;

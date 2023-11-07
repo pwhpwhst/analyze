@@ -500,7 +500,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 
 void RecursiveDescentJava::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
 
-	cout << "生成中间代码:" << endl;
+	//cout << "生成中间代码:" << endl;
 
 	//set<string> has_calculate_set;
 	unordered_map<string, P_NodeValue> nodeValueMap;

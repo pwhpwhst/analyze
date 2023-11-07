@@ -135,15 +135,39 @@ R004_TypeDeclaration_0Analyzer::~R004_TypeDeclaration_0Analyzer() {}
 
 
 
-//beg_TypeDeclaration : 'semicolon'
+//beg_TypeDeclaration : InterfaceDeclaration
 R004_TypeDeclaration_1Analyzer::R004_TypeDeclaration_1Analyzer() {}
 R004_TypeDeclaration_1Analyzer::~R004_TypeDeclaration_1Analyzer() {}
+
+
+
+//beg_TypeDeclaration : 'semicolon'
+R004_TypeDeclaration_2Analyzer::R004_TypeDeclaration_2Analyzer() {}
+R004_TypeDeclaration_2Analyzer::~R004_TypeDeclaration_2Analyzer() {}
 
 
 
 //beg_ClassDeclaration : NormalClassDeclaration
 R004_ClassDeclaration_0Analyzer::R004_ClassDeclaration_0Analyzer() {}
 R004_ClassDeclaration_0Analyzer::~R004_ClassDeclaration_0Analyzer() {}
+
+
+
+//beg_ClassDeclaration : EnumDeclaration
+R004_ClassDeclaration_1Analyzer::R004_ClassDeclaration_1Analyzer() {}
+R004_ClassDeclaration_1Analyzer::~R004_ClassDeclaration_1Analyzer() {}
+
+
+
+//beg_InterfaceDeclaration : NormalInterfaceDeclaration
+R004_InterfaceDeclaration_0Analyzer::R004_InterfaceDeclaration_0Analyzer() {}
+R004_InterfaceDeclaration_0Analyzer::~R004_InterfaceDeclaration_0Analyzer() {}
+
+
+
+//beg_InterfaceDeclaration : AnnotationTypeDeclaration
+R004_InterfaceDeclaration_1Analyzer::R004_InterfaceDeclaration_1Analyzer() {}
+R004_InterfaceDeclaration_1Analyzer::~R004_InterfaceDeclaration_1Analyzer() {}
 
 
 
@@ -240,6 +264,108 @@ R004_NormalClassDeclaration_14Analyzer::~R004_NormalClassDeclaration_14Analyzer(
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
 R004_NormalClassDeclaration_15Analyzer::R004_NormalClassDeclaration_15Analyzer() {}
 R004_NormalClassDeclaration_15Analyzer::~R004_NormalClassDeclaration_15Analyzer() {}
+
+
+
+//beg_EnumDeclaration : 'enum' Identifier ClassBody
+R004_EnumDeclaration_0Analyzer::R004_EnumDeclaration_0Analyzer() {}
+R004_EnumDeclaration_0Analyzer::~R004_EnumDeclaration_0Analyzer() {}
+
+
+
+//beg_EnumDeclaration : ModifierList 'enum' Identifier ClassBody
+R004_EnumDeclaration_1Analyzer::R004_EnumDeclaration_1Analyzer() {}
+R004_EnumDeclaration_1Analyzer::~R004_EnumDeclaration_1Analyzer() {}
+
+
+
+//beg_EnumDeclaration : 'enum' Identifier Superinterfaces ClassBody
+R004_EnumDeclaration_2Analyzer::R004_EnumDeclaration_2Analyzer() {}
+R004_EnumDeclaration_2Analyzer::~R004_EnumDeclaration_2Analyzer() {}
+
+
+
+//beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces ClassBody
+R004_EnumDeclaration_3Analyzer::R004_EnumDeclaration_3Analyzer() {}
+R004_EnumDeclaration_3Analyzer::~R004_EnumDeclaration_3Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : 'interface' Identifier ClassBody
+R004_NormalInterfaceDeclaration_0Analyzer::R004_NormalInterfaceDeclaration_0Analyzer() {}
+R004_NormalInterfaceDeclaration_0Analyzer::~R004_NormalInterfaceDeclaration_0Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
+R004_NormalInterfaceDeclaration_1Analyzer::R004_NormalInterfaceDeclaration_1Analyzer() {}
+R004_NormalInterfaceDeclaration_1Analyzer::~R004_NormalInterfaceDeclaration_1Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
+R004_NormalInterfaceDeclaration_2Analyzer::R004_NormalInterfaceDeclaration_2Analyzer() {}
+R004_NormalInterfaceDeclaration_2Analyzer::~R004_NormalInterfaceDeclaration_2Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
+R004_NormalInterfaceDeclaration_3Analyzer::R004_NormalInterfaceDeclaration_3Analyzer() {}
+R004_NormalInterfaceDeclaration_3Analyzer::~R004_NormalInterfaceDeclaration_3Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
+R004_NormalInterfaceDeclaration_4Analyzer::R004_NormalInterfaceDeclaration_4Analyzer() {}
+R004_NormalInterfaceDeclaration_4Analyzer::~R004_NormalInterfaceDeclaration_4Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
+R004_NormalInterfaceDeclaration_5Analyzer::R004_NormalInterfaceDeclaration_5Analyzer() {}
+R004_NormalInterfaceDeclaration_5Analyzer::~R004_NormalInterfaceDeclaration_5Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+R004_NormalInterfaceDeclaration_6Analyzer::R004_NormalInterfaceDeclaration_6Analyzer() {}
+R004_NormalInterfaceDeclaration_6Analyzer::~R004_NormalInterfaceDeclaration_6Analyzer() {}
+
+
+
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+R004_NormalInterfaceDeclaration_7Analyzer::R004_NormalInterfaceDeclaration_7Analyzer() {}
+R004_NormalInterfaceDeclaration_7Analyzer::~R004_NormalInterfaceDeclaration_7Analyzer() {}
+
+
+
+//beg_ExtendsInterfaces : 'extends' InterfaceTypeList
+R004_ExtendsInterfaces_0Analyzer::R004_ExtendsInterfaces_0Analyzer() {}
+R004_ExtendsInterfaces_0Analyzer::~R004_ExtendsInterfaces_0Analyzer() {}
+
+
+
+//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
+R004_AnnotationTypeDeclaration_0Analyzer::R004_AnnotationTypeDeclaration_0Analyzer() {}
+R004_AnnotationTypeDeclaration_0Analyzer::~R004_AnnotationTypeDeclaration_0Analyzer() {}
+
+
+
+//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
+R004_AnnotationTypeDeclaration_1Analyzer::R004_AnnotationTypeDeclaration_1Analyzer() {}
+R004_AnnotationTypeDeclaration_1Analyzer::~R004_AnnotationTypeDeclaration_1Analyzer() {}
+
+
+
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
+R004_AnnotationTypeDeclaration_2Analyzer::R004_AnnotationTypeDeclaration_2Analyzer() {}
+R004_AnnotationTypeDeclaration_2Analyzer::~R004_AnnotationTypeDeclaration_2Analyzer() {}
+
+
+
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
+R004_AnnotationTypeDeclaration_3Analyzer::R004_AnnotationTypeDeclaration_3Analyzer() {}
+R004_AnnotationTypeDeclaration_3Analyzer::~R004_AnnotationTypeDeclaration_3Analyzer() {}
 
 
 
@@ -978,6 +1104,12 @@ R004_BlockStatements_0Analyzer::~R004_BlockStatements_0Analyzer() {}
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 R004_Annotation_0Analyzer::R004_Annotation_0Analyzer() {}
 R004_Annotation_0Analyzer::~R004_Annotation_0Analyzer() {}
+
+
+
+//beg_Annotation : 'AT' DetailIdentifier
+R004_Annotation_1Analyzer::R004_Annotation_1Analyzer() {}
+R004_Annotation_1Analyzer::~R004_Annotation_1Analyzer() {}
 
 
 
