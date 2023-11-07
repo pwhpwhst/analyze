@@ -1,23 +1,22 @@
-
 #include "R004Analyzer.h"
 #include "../../symbols/java/ClassListToken.h"
 #include "../../symbols/java/ClassToken.h"
 #include "../../symbols/java/ImportToken.h"
 #include "../../symbols/java/ImportListToken.h"
 #include "../../symbols/java/ImportEntity.h"
-#include<iostream>
+#include <iostream>
 #include <sstream>
 using namespace std;
 
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-		//cout<<s<<endl;
+	//cout<<s<<endl;
 }
 
 
 
-P_NodeValue R004_DefaultAnalyzer::handle(const P_NodeValue &nodeValue, vector<P_NodeValue> &stack,  Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+P_NodeValue R004_DefaultAnalyzer::handle(const P_NodeValue &nodeValue, vector<P_NodeValue> &stack, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 
 	logR004("R004_DefaultAnalyzer");
 	ostringstream os;
@@ -59,8 +58,8 @@ void R004_CompilationUnit_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ImportDeclarationList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeDeclarationList"];
 
-	if (p2==nullptr) {
-		p2= P_Token(new ClassListToken());
+	if (p2 == nullptr) {
+		p2 = P_Token(new ClassListToken());
 	}
 
 	((ClassListToken *)(p2.get()))->packageName = p0->content;
@@ -265,7 +264,7 @@ void R004_ImportDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DetailIdentifier"];
 	ImportToken *p = new ImportToken();
 	P_ImportEntity importEntity = P_ImportEntity(new ImportEntity);
-	importEntity->name = p1->content+".*";
+	importEntity->name = p1->content + ".*";
 	p->importEntity = importEntity;
 
 
@@ -295,10 +294,10 @@ void R004_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, En
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
 
-	if (p0!=nullptr) {
+	if (p0 != nullptr) {
 		((ClassListToken *)(p1.get()))->list.push_front(((ClassToken *)(p0.get()))->classEntity);
 	}
-	
+
 
 	nodeValue->context["TypeDeclarationList"] = p1;
 };
@@ -311,7 +310,7 @@ void R004_TypeDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, En
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
 
 	ClassListToken* p = new ClassListToken();
-	if (p0!=nullptr) {
+	if (p0 != nullptr) {
 		p->list.push_front(((ClassToken *)(p0.get()))->classEntity);
 	}
 
@@ -339,7 +338,7 @@ void R004_TypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_ClassDeclaration : NormalClassDeclaration
 void R004_ClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ClassDeclaration_0Analyzer");
-	
+
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["NormalClassDeclaration"];
 	nodeValue->context["ClassDeclaration"] = p0;
 };
@@ -363,6 +362,216 @@ void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 void R004_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_1Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
+void R004_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_2Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
+void R004_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_3Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superclass ClassBody
+void R004_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_4Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
+void R004_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_5Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
+void R004_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_6Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+void R004_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_7Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
+void R004_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_8Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
+void R004_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_9Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
+void R004_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_10Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
+void R004_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_11Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
+void R004_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_12Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
+void R004_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_13Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p2->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
+void R004_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_14Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+
+	ClassToken *p = new ClassToken();
+	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
+	classEntity->name = p1->content;
+	p->classEntity = classEntity;
+
+	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+void R004_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NormalClassDeclaration_15Analyzer");
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
@@ -1353,3 +1562,283 @@ void R004_Annotation_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 	logR004("R004_Annotation_0Analyzer");
 	//TO DO  R004_Annotation_0Analyzer
 };
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+void R004_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArguments_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+void R004_TypeArgumentList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentList_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_TypeArgumentList : 0
+void R004_TypeArgumentList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentList_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'QUESTION'
+void R004_NonANGLE_BRACKET_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'extends'
+void R004_NonANGLE_BRACKET_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'super'
+void R004_NonANGLE_BRACKET_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_2Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'COMMA'
+void R004_NonANGLE_BRACKET_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_3Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : Identifier
+void R004_NonANGLE_BRACKET_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_4Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : UnannPrimitiveType
+void R004_NonANGLE_BRACKET_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_5Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'SPOT'
+void R004_NonANGLE_BRACKET_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_6Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'LEFT_BRACKET'
+void R004_NonANGLE_BRACKET_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_7Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NonANGLE_BRACKET : 'RIGHT_BRACKET'
+void R004_NonANGLE_BRACKET_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonANGLE_BRACKET_8Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_UnannPrimitiveType : NumericType
+void R004_UnannPrimitiveType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_UnannPrimitiveType_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_UnannPrimitiveType : 'boolean'
+void R004_UnannPrimitiveType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_UnannPrimitiveType_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NumericType : IntegralType
+void R004_NumericType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NumericType_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_NumericType : FloatingPointType
+void R004_NumericType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NumericType_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_IntegralType : 'byte'
+void R004_IntegralType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_IntegralType_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_IntegralType : 'short'
+void R004_IntegralType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_IntegralType_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_IntegralType : 'int'
+void R004_IntegralType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_IntegralType_2Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_IntegralType : 'long'
+void R004_IntegralType_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_IntegralType_3Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_IntegralType : 'char'
+void R004_IntegralType_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_IntegralType_4Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_FloatingPointType : 'float'
+void R004_FloatingPointType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_FloatingPointType_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_FloatingPointType : 'double'
+void R004_FloatingPointType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_FloatingPointType_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_Superclass : 'extends' ClassType
+void R004_Superclass_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_Superclass_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassTypeEle : Identifier
+void R004_ClassTypeEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassTypeEle_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassTypeEle : AnnotationList Identifier
+void R004_ClassTypeEle_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassTypeEle_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassTypeEle : Identifier TypeArguments
+void R004_ClassTypeEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassTypeEle_2Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassTypeEle : AnnotationList Identifier TypeArguments
+void R004_ClassTypeEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassTypeEle_3Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassType : ClassTypeEle
+void R004_ClassType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassType_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_ClassType : ClassTypeEle 'SPOT' ClassType
+void R004_ClassType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassType_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_AnnotationList : Annotation AnnotationList
+void R004_AnnotationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_AnnotationList_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_AnnotationList : Annotation
+void R004_AnnotationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_AnnotationList_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_Superinterfaces : 'implements' InterfaceTypeList
+void R004_Superinterfaces_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_Superinterfaces_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_InterfaceTypeList : ClassType
+void R004_InterfaceTypeList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_InterfaceTypeList_0Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+void R004_InterfaceTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_InterfaceTypeList_1Analyzer");
+	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+

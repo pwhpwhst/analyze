@@ -14,8 +14,9 @@ fi
 
 
 function SDT_Factory_Part_1(){
+# SDT_Factory.cpp
 
-ruleFile="R004.txt"
+ruleFile="/c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/resources/java范本/R004.txt"
 index=145
 prefix="R004"
 
@@ -48,7 +49,7 @@ rm -rf ${ruleFileTmp}
 
 
 function SDT_Factory_Part_2(){
-ruleFile="R004.txt"
+ruleFile="/c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/resources/java范本/R004.txt"
 index=145
 prefix="R004"
 

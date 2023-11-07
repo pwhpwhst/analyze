@@ -56,9 +56,11 @@ R004_PackageDeclaration_0Analyzer::R004_PackageDeclaration_0Analyzer() {}
 R004_PackageDeclaration_0Analyzer::~R004_PackageDeclaration_0Analyzer() {}
 
 
+
 //beg_PackageDeclaration : ModifierList 'package' DetailIdentifier 'semicolon'
 R004_PackageDeclaration_1Analyzer::R004_PackageDeclaration_1Analyzer() {}
 R004_PackageDeclaration_1Analyzer::~R004_PackageDeclaration_1Analyzer() {}
+
 
 
 //beg_DetailIdentifier : Identifier 'SPOT' DetailIdentifier
@@ -150,9 +152,95 @@ R004_NormalClassDeclaration_0Analyzer::R004_NormalClassDeclaration_0Analyzer() {
 R004_NormalClassDeclaration_0Analyzer::~R004_NormalClassDeclaration_0Analyzer() {}
 
 
+
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 R004_NormalClassDeclaration_1Analyzer::R004_NormalClassDeclaration_1Analyzer() {}
 R004_NormalClassDeclaration_1Analyzer::~R004_NormalClassDeclaration_1Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
+R004_NormalClassDeclaration_2Analyzer::R004_NormalClassDeclaration_2Analyzer() {}
+R004_NormalClassDeclaration_2Analyzer::~R004_NormalClassDeclaration_2Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
+R004_NormalClassDeclaration_3Analyzer::R004_NormalClassDeclaration_3Analyzer() {}
+R004_NormalClassDeclaration_3Analyzer::~R004_NormalClassDeclaration_3Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superclass ClassBody
+R004_NormalClassDeclaration_4Analyzer::R004_NormalClassDeclaration_4Analyzer() {}
+R004_NormalClassDeclaration_4Analyzer::~R004_NormalClassDeclaration_4Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
+R004_NormalClassDeclaration_5Analyzer::R004_NormalClassDeclaration_5Analyzer() {}
+R004_NormalClassDeclaration_5Analyzer::~R004_NormalClassDeclaration_5Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
+R004_NormalClassDeclaration_6Analyzer::R004_NormalClassDeclaration_6Analyzer() {}
+R004_NormalClassDeclaration_6Analyzer::~R004_NormalClassDeclaration_6Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+R004_NormalClassDeclaration_7Analyzer::R004_NormalClassDeclaration_7Analyzer() {}
+R004_NormalClassDeclaration_7Analyzer::~R004_NormalClassDeclaration_7Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
+R004_NormalClassDeclaration_8Analyzer::R004_NormalClassDeclaration_8Analyzer() {}
+R004_NormalClassDeclaration_8Analyzer::~R004_NormalClassDeclaration_8Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
+R004_NormalClassDeclaration_9Analyzer::R004_NormalClassDeclaration_9Analyzer() {}
+R004_NormalClassDeclaration_9Analyzer::~R004_NormalClassDeclaration_9Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
+R004_NormalClassDeclaration_10Analyzer::R004_NormalClassDeclaration_10Analyzer() {}
+R004_NormalClassDeclaration_10Analyzer::~R004_NormalClassDeclaration_10Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
+R004_NormalClassDeclaration_11Analyzer::R004_NormalClassDeclaration_11Analyzer() {}
+R004_NormalClassDeclaration_11Analyzer::~R004_NormalClassDeclaration_11Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
+R004_NormalClassDeclaration_12Analyzer::R004_NormalClassDeclaration_12Analyzer() {}
+R004_NormalClassDeclaration_12Analyzer::~R004_NormalClassDeclaration_12Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
+R004_NormalClassDeclaration_13Analyzer::R004_NormalClassDeclaration_13Analyzer() {}
+R004_NormalClassDeclaration_13Analyzer::~R004_NormalClassDeclaration_13Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
+R004_NormalClassDeclaration_14Analyzer::R004_NormalClassDeclaration_14Analyzer() {}
+R004_NormalClassDeclaration_14Analyzer::~R004_NormalClassDeclaration_14Analyzer() {}
+
+
+
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+R004_NormalClassDeclaration_15Analyzer::R004_NormalClassDeclaration_15Analyzer() {}
+R004_NormalClassDeclaration_15Analyzer::~R004_NormalClassDeclaration_15Analyzer() {}
+
 
 
 //beg_ClassBody : 'LEFT_BRACE'
@@ -856,9 +944,12 @@ R004_Modifier_11Analyzer::R004_Modifier_11Analyzer() {}
 R004_Modifier_11Analyzer::~R004_Modifier_11Analyzer() {}
 
 
+
 //beg_Modifier : Annotation
 R004_Modifier_12Analyzer::R004_Modifier_12Analyzer() {}
 R004_Modifier_12Analyzer::~R004_Modifier_12Analyzer() {}
+
+
 
 //beg_MethodBody : Block
 R004_MethodBody_0Analyzer::R004_MethodBody_0Analyzer() {}
@@ -882,6 +973,218 @@ R004_Block_0Analyzer::~R004_Block_0Analyzer() {}
 R004_BlockStatements_0Analyzer::R004_BlockStatements_0Analyzer() {}
 R004_BlockStatements_0Analyzer::~R004_BlockStatements_0Analyzer() {}
 
+
+
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 R004_Annotation_0Analyzer::R004_Annotation_0Analyzer() {}
 R004_Annotation_0Analyzer::~R004_Annotation_0Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+R004_TypeArguments_0Analyzer::R004_TypeArguments_0Analyzer() {}
+R004_TypeArguments_0Analyzer::~R004_TypeArguments_0Analyzer() {}
+
+
+
+//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+R004_TypeArgumentList_0Analyzer::R004_TypeArgumentList_0Analyzer() {}
+R004_TypeArgumentList_0Analyzer::~R004_TypeArgumentList_0Analyzer() {}
+
+
+
+//beg_TypeArgumentList : 0
+R004_TypeArgumentList_1Analyzer::R004_TypeArgumentList_1Analyzer() {}
+R004_TypeArgumentList_1Analyzer::~R004_TypeArgumentList_1Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'QUESTION'
+R004_NonANGLE_BRACKET_0Analyzer::R004_NonANGLE_BRACKET_0Analyzer() {}
+R004_NonANGLE_BRACKET_0Analyzer::~R004_NonANGLE_BRACKET_0Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'extends'
+R004_NonANGLE_BRACKET_1Analyzer::R004_NonANGLE_BRACKET_1Analyzer() {}
+R004_NonANGLE_BRACKET_1Analyzer::~R004_NonANGLE_BRACKET_1Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'super'
+R004_NonANGLE_BRACKET_2Analyzer::R004_NonANGLE_BRACKET_2Analyzer() {}
+R004_NonANGLE_BRACKET_2Analyzer::~R004_NonANGLE_BRACKET_2Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'COMMA'
+R004_NonANGLE_BRACKET_3Analyzer::R004_NonANGLE_BRACKET_3Analyzer() {}
+R004_NonANGLE_BRACKET_3Analyzer::~R004_NonANGLE_BRACKET_3Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : Identifier
+R004_NonANGLE_BRACKET_4Analyzer::R004_NonANGLE_BRACKET_4Analyzer() {}
+R004_NonANGLE_BRACKET_4Analyzer::~R004_NonANGLE_BRACKET_4Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : UnannPrimitiveType
+R004_NonANGLE_BRACKET_5Analyzer::R004_NonANGLE_BRACKET_5Analyzer() {}
+R004_NonANGLE_BRACKET_5Analyzer::~R004_NonANGLE_BRACKET_5Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'SPOT'
+R004_NonANGLE_BRACKET_6Analyzer::R004_NonANGLE_BRACKET_6Analyzer() {}
+R004_NonANGLE_BRACKET_6Analyzer::~R004_NonANGLE_BRACKET_6Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'LEFT_BRACKET'
+R004_NonANGLE_BRACKET_7Analyzer::R004_NonANGLE_BRACKET_7Analyzer() {}
+R004_NonANGLE_BRACKET_7Analyzer::~R004_NonANGLE_BRACKET_7Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : 'RIGHT_BRACKET'
+R004_NonANGLE_BRACKET_8Analyzer::R004_NonANGLE_BRACKET_8Analyzer() {}
+R004_NonANGLE_BRACKET_8Analyzer::~R004_NonANGLE_BRACKET_8Analyzer() {}
+
+
+
+//beg_UnannPrimitiveType : NumericType
+R004_UnannPrimitiveType_0Analyzer::R004_UnannPrimitiveType_0Analyzer() {}
+R004_UnannPrimitiveType_0Analyzer::~R004_UnannPrimitiveType_0Analyzer() {}
+
+
+
+//beg_UnannPrimitiveType : 'boolean'
+R004_UnannPrimitiveType_1Analyzer::R004_UnannPrimitiveType_1Analyzer() {}
+R004_UnannPrimitiveType_1Analyzer::~R004_UnannPrimitiveType_1Analyzer() {}
+
+
+
+//beg_NumericType : IntegralType
+R004_NumericType_0Analyzer::R004_NumericType_0Analyzer() {}
+R004_NumericType_0Analyzer::~R004_NumericType_0Analyzer() {}
+
+
+
+//beg_NumericType : FloatingPointType
+R004_NumericType_1Analyzer::R004_NumericType_1Analyzer() {}
+R004_NumericType_1Analyzer::~R004_NumericType_1Analyzer() {}
+
+
+
+//beg_IntegralType : 'byte'
+R004_IntegralType_0Analyzer::R004_IntegralType_0Analyzer() {}
+R004_IntegralType_0Analyzer::~R004_IntegralType_0Analyzer() {}
+
+
+
+//beg_IntegralType : 'short'
+R004_IntegralType_1Analyzer::R004_IntegralType_1Analyzer() {}
+R004_IntegralType_1Analyzer::~R004_IntegralType_1Analyzer() {}
+
+
+
+//beg_IntegralType : 'int'
+R004_IntegralType_2Analyzer::R004_IntegralType_2Analyzer() {}
+R004_IntegralType_2Analyzer::~R004_IntegralType_2Analyzer() {}
+
+
+
+//beg_IntegralType : 'long'
+R004_IntegralType_3Analyzer::R004_IntegralType_3Analyzer() {}
+R004_IntegralType_3Analyzer::~R004_IntegralType_3Analyzer() {}
+
+
+
+//beg_IntegralType : 'char'
+R004_IntegralType_4Analyzer::R004_IntegralType_4Analyzer() {}
+R004_IntegralType_4Analyzer::~R004_IntegralType_4Analyzer() {}
+
+
+
+//beg_FloatingPointType : 'float'
+R004_FloatingPointType_0Analyzer::R004_FloatingPointType_0Analyzer() {}
+R004_FloatingPointType_0Analyzer::~R004_FloatingPointType_0Analyzer() {}
+
+
+
+//beg_FloatingPointType : 'double'
+R004_FloatingPointType_1Analyzer::R004_FloatingPointType_1Analyzer() {}
+R004_FloatingPointType_1Analyzer::~R004_FloatingPointType_1Analyzer() {}
+
+
+
+//beg_Superclass : 'extends' ClassType
+R004_Superclass_0Analyzer::R004_Superclass_0Analyzer() {}
+R004_Superclass_0Analyzer::~R004_Superclass_0Analyzer() {}
+
+
+
+//beg_ClassTypeEle : Identifier
+R004_ClassTypeEle_0Analyzer::R004_ClassTypeEle_0Analyzer() {}
+R004_ClassTypeEle_0Analyzer::~R004_ClassTypeEle_0Analyzer() {}
+
+
+
+//beg_ClassTypeEle : AnnotationList Identifier
+R004_ClassTypeEle_1Analyzer::R004_ClassTypeEle_1Analyzer() {}
+R004_ClassTypeEle_1Analyzer::~R004_ClassTypeEle_1Analyzer() {}
+
+
+
+//beg_ClassTypeEle : Identifier TypeArguments
+R004_ClassTypeEle_2Analyzer::R004_ClassTypeEle_2Analyzer() {}
+R004_ClassTypeEle_2Analyzer::~R004_ClassTypeEle_2Analyzer() {}
+
+
+
+//beg_ClassTypeEle : AnnotationList Identifier TypeArguments
+R004_ClassTypeEle_3Analyzer::R004_ClassTypeEle_3Analyzer() {}
+R004_ClassTypeEle_3Analyzer::~R004_ClassTypeEle_3Analyzer() {}
+
+
+
+//beg_ClassType : ClassTypeEle
+R004_ClassType_0Analyzer::R004_ClassType_0Analyzer() {}
+R004_ClassType_0Analyzer::~R004_ClassType_0Analyzer() {}
+
+
+
+//beg_ClassType : ClassTypeEle 'SPOT' ClassType
+R004_ClassType_1Analyzer::R004_ClassType_1Analyzer() {}
+R004_ClassType_1Analyzer::~R004_ClassType_1Analyzer() {}
+
+
+
+//beg_AnnotationList : Annotation AnnotationList
+R004_AnnotationList_0Analyzer::R004_AnnotationList_0Analyzer() {}
+R004_AnnotationList_0Analyzer::~R004_AnnotationList_0Analyzer() {}
+
+
+
+//beg_AnnotationList : Annotation
+R004_AnnotationList_1Analyzer::R004_AnnotationList_1Analyzer() {}
+R004_AnnotationList_1Analyzer::~R004_AnnotationList_1Analyzer() {}
+
+
+
+//beg_Superinterfaces : 'implements' InterfaceTypeList
+R004_Superinterfaces_0Analyzer::R004_Superinterfaces_0Analyzer() {}
+R004_Superinterfaces_0Analyzer::~R004_Superinterfaces_0Analyzer() {}
+
+
+
+//beg_InterfaceTypeList : ClassType
+R004_InterfaceTypeList_0Analyzer::R004_InterfaceTypeList_0Analyzer() {}
+R004_InterfaceTypeList_0Analyzer::~R004_InterfaceTypeList_0Analyzer() {}
+
+
+
+//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+R004_InterfaceTypeList_1Analyzer::R004_InterfaceTypeList_1Analyzer() {}
+R004_InterfaceTypeList_1Analyzer::~R004_InterfaceTypeList_1Analyzer() {}

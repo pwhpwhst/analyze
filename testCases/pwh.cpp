@@ -68,12 +68,12 @@ int main(int argc, char* argv[]) {
 
 		
 		Env env;
-		string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
+		//string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
-		//string fileName = argv[1];
-		//string compile_file = path + "\\" + fileName;
-		string fileName = "jakarta\\annotation\\Generated.java";
-		string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java";
+		string fileName = argv[2];
+		string compile_file = argv[1];
+		//string fileName = "jakarta\\annotation\\Generated.java";
+		//string compile_file = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java";
 
 		set<string> end_symbol_set0;
 
@@ -120,6 +120,13 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
+	else if (mode == 2) {
+		Lalr lalr;
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+		if (-1 == lalr.init(rule_file0)) {
+			return -1;
+		}
+	}
 }
 
 
