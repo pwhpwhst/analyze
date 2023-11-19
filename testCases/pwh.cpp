@@ -21,7 +21,7 @@ int pwh::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env
 
 
 int main(int argc, char* argv[]) {
-	int mode = 1;
+	int mode = 3;
 
 	if (mode==0) {
 		Env env;
@@ -49,15 +49,10 @@ int main(int argc, char* argv[]) {
 			recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
 			Node::releaseNode(node_tree);
 			//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
-
-
 			cout << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
-
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
 			cout << importListToken->list[0]->name << endl;
 			cout << importListToken->list[0]->isStatic << endl;
-
-
 			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 		}
 	}
@@ -120,11 +115,50 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
-	else if (mode == 2) {
+	else if(mode == 2) {
 		Lalr lalr;
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
+		}
+	}
+	else if (mode == 3) {
+		RecursiveDescentJava recursiveDescentJava;
+		Env env;
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
+		Lalr lalr;
+		if (-1 == lalr.init(rule_file0)) {
+			return -1;
+		}
+
+		lalr.switchParseProcess = false;
+		lalr.switchNotSilent = true;
+		lalr.switchAllowIllegalInput = true;
+		PrimarySymbolConverter primarySymbolConverter;
+		set<string> end_symbol_set0;
+		string path = "C:\\Users\\Administrator\\Desktop\\Maven3\\src\\main\\java\\com\\pwhTest\\hadoopTest";
+		string fileName = "HadoopTest.java";
+		string compile_file = path + "\\" + fileName;
+
+		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+
+		Node*  node_tree = lalr.slr(env);
+
+
+		if (node_tree == nullptr) {
+			cout << fileName << ":" << "analyze failed" << endl;
+		}
+		else {
+			cout << fileName << ":" << "analyze successfully" << endl;
+			unordered_map<string, string> imfo_map;
+			lalr.gen_middle_code(env, node_tree, imfo_map);
+			Node::releaseNode(node_tree);
+			//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+			cout << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
+			cout << importListToken->list[0]->name << endl;
+			cout << importListToken->list[0]->isStatic << endl;
+			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 		}
 	}
 }

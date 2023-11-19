@@ -97,6 +97,7 @@ class Lalr{
 
 public:bool switchParseProcess;
 public:bool switchNotSilent;
+public:bool switchAllowIllegalInput;
 
 public:string ruleFileName;
 private:string md5;

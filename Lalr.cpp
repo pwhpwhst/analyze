@@ -2426,6 +2426,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 
 	Node* resultTree = nullptr;
 	bool finished_flag = false;
+	bool unexception_input = false;
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
@@ -2437,12 +2438,18 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		P_ItemNode top_item = item_node_stack1.back();
 
 		string input_type;
-		if (p_input != input.end()) {
-			input_type = (*p_input)->type;
+		if (!unexception_input) {
+			if (p_input != input.end()) {
+				input_type = (*p_input)->type;
+			}
+			else {
+				input_type = "'$'";
+			}
 		}
 		else {
 			input_type = "'$'";
 		}
+
 
 		string action;
 		if (forecast_list[move_table[top_item->item_status]].count(symbol_to_id[input_type])==0) {
@@ -2545,21 +2552,26 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 
 		}
 		else {
+			if (!switchAllowIllegalInput) {
+				#ifdef __PRINT_NOT_SILENT
+								if (switchNotSilent) {
+									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << (*p_input)->content << endl;
 
-#ifdef __PRINT_NOT_SILENT
-			if (switchNotSilent) {
-				cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << (*p_input)->content << endl;
-				
-				cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
-				if (p_input != input.end()) {
-					cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
-				}
+									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
+									if (p_input != input.end()) {
+										cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
+									}
+								}
+
+				#endif
+
+				//别忘了去实现内存，暂时先不写
+				break;
+			}
+			else {
+				unexception_input = true;
 			}
 
-#endif
-
-			//别忘了去实现内存，暂时先不写
-			break;
 		}
 #ifdef __PRINT_PARSE_PROCESS
 		if (switchParseProcess) {
@@ -2573,6 +2585,27 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 #endif
 
 	}
+
+	if (resultTree!=nullptr) {
+
+		Node *parent_node = new Node();
+		parent_node->symbol = "ele_begin";
+
+		for (int i1 = 0; i1 < ruleList.size();i1++) {
+			if (ruleList[i1]->rule_name == "ele_begin") {
+				parent_node->ruleId = i1;
+			}
+		}
+
+		parent_node->offset = 0;
+		parent_node->parent = nullptr;
+
+		resultTree->parent = parent_node;
+		parent_node->child_node_list.push_back(resultTree);
+
+		resultTree = parent_node;
+	}
+
 	return resultTree;
 }
 
