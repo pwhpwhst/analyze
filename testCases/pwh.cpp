@@ -21,6 +21,12 @@ int pwh::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env
 
 
 int main(int argc, char* argv[]) {
+
+	//0 -递归下降法 单个文件测试
+	//1 -递归下降法 批量测试测试
+	//2 -Lalr文法适配性检测
+	//3 -Lalr 单个文件测试
+
 	int mode = 3;
 
 	if (mode==0) {
@@ -57,10 +63,6 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	else if(mode == 1) {
-
-
-
-
 		
 		Env env;
 		//string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
@@ -103,15 +105,8 @@ int main(int argc, char* argv[]) {
 			if (((ClassListToken *)(env.list[0].get()))->list.size()>0) {
 				cout <<"CLASS_NAME:"<< ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 			}
-			
 
-
-			
 	}
-
-
-
-
 
 	return 0;
 }
