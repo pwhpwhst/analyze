@@ -17,7 +17,6 @@ ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
 ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
 ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
 ImportDeclaration : 'import' DetailIdentifier 'semicolon'
-TypeDeclarationList : TypeDeclaration TypeDeclarationList
 TypeDeclarationList : TypeDeclaration
 TypeDeclaration : ClassDeclaration
 TypeDeclaration : InterfaceDeclaration

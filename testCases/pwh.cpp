@@ -10,7 +10,7 @@
 #include "../RecursiveDescentJava.h"
 #include "../symbols/java/ClassListToken.h"
 #include <iostream>
-
+#include <fstream>
 
 using namespace std;
 pwh::pwh() {}
@@ -26,10 +26,11 @@ int main(int argc, char* argv[]) {
 	//1 -递归下降法 批量测试测试
 	//2 -Lalr文法适配性检测
 	//3 -Lalr 单个文件测试
+	//4 批量测试
 
-	int mode = 3;
+	int mode = 4;
 
-	if (mode==0) {
+	if (mode == 0) {
 		Env env;
 		string path = "C:\\Users\\Administrator\\Desktop\\Maven3\\src\\main\\java\\com\\pwhTest\\hadoopTest";
 		string fileName = "HadoopTest.java";
@@ -62,8 +63,8 @@ int main(int argc, char* argv[]) {
 			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 		}
 	}
-	else if(mode == 1) {
-		
+	else if (mode == 1) {
+
 		Env env;
 		//string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
@@ -93,24 +94,24 @@ int main(int argc, char* argv[]) {
 			//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
 
 
-			cout << "PACKAGE_NAME:"<< ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+			cout << "PACKAGE_NAME:" << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
 
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
-			for (int i1 = 0; i1 < importListToken->list.size();i1++) {
+			for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
 				cout << "IMPORT_NAME:" << importListToken->list[i1]->name << endl;
 			}
-			
 
-	
-			if (((ClassListToken *)(env.list[0].get()))->list.size()>0) {
-				cout <<"CLASS_NAME:"<< ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+
+
+			if (((ClassListToken *)(env.list[0].get()))->list.size() > 0) {
+				cout << "CLASS_NAME:" << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 			}
 
-	}
+		}
 
-	return 0;
-}
-	else if(mode == 2) {
+		return 0;
+	}
+	else if (mode == 2) {
 		Lalr lalr;
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		if (-1 == lalr.init(rule_file0)) {
@@ -118,7 +119,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	else if (mode == 3) {
-		RecursiveDescentJava recursiveDescentJava;
+
 		Env env;
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		Lalr lalr;
@@ -156,7 +157,133 @@ int main(int argc, char* argv[]) {
 			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 		}
 	}
+	else if (mode == 4) {
+
+		string method = argv[1];
+		string srceListFile = argv[2];
+
+		//string method = "Lalr";
+		//string srceListFile = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh_local_0.txt";
+
+		//string method = "RecursiveDescent";
+		//string srceListFile = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh_local_0.txt";
+
+		if (method == "RecursiveDescent") {
+			string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+
+			string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
+			RecursiveDescentJava recursiveDescentJava;
+			PrimarySymbolConverter primarySymbolConverter;
+			recursiveDescentJava.init(rule_file0);
+
+			set<string> end_symbol_set0;
+
+			ifstream input_file;
+			input_file.open(srceListFile.data());
+			string fileStr;
+			while (getline(input_file, fileStr)) {
+				Env env;
+				if (recursiveDescentJava.startsWith(fileStr, "#") == 0) {
+					string compile_file = path + "\\" + fileStr;
+					recursiveDescentJava.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+
+					Node*  node_tree = recursiveDescentJava.slr(env, "ele_begin");
+
+					if (node_tree == nullptr) {
+						cout << fileStr << ":" << "analyze failed" << endl;
+					}
+					else {
+						cout << fileStr << ":" << "analyze successfully" << endl;
+						unordered_map<string, string> imfo_map;
+						recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
+						Node::releaseNode(node_tree);
+						//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+
+
+						cout << "PACKAGE_NAME:" << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+
+						ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
+						for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
+							cout << "IMPORT_NAME:" << importListToken->list[i1]->name << endl;
+						}
+
+
+
+						if (((ClassListToken *)(env.list[0].get()))->list.size() > 0) {
+							cout << "CLASS_NAME:" << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+						}
+					}
+
+				}
+			}
+
+
+
+		}
+		else if (method=="Lalr") {
+		
+			
+			
+			string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+			Lalr lalr;
+			if (-1 == lalr.init(rule_file0)) {
+				return -1;
+			}
+
+			lalr.switchParseProcess = false;
+			lalr.switchNotSilent = true;
+			lalr.switchAllowIllegalInput = true;
+			PrimarySymbolConverter primarySymbolConverter;
+			set<string> end_symbol_set0;
+
+			string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
+			//string fileName = "HadoopTest.java";
+			//string compile_file = path + "\\" + fileName;
+
+			ifstream input_file;
+			input_file.open(srceListFile.data());
+			string fileStr;
+			while (getline(input_file, fileStr)) {
+				Env env;
+				if (lalr.startsWith(fileStr,"#")==0) {
+					string compile_file = path + "\\" + fileStr;
+					lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+
+					Node*  node_tree = lalr.slr(env);
+
+					if (node_tree == nullptr) {
+						cout << fileStr << ":" << "analyze failed" << endl;
+					}
+					else {
+						cout << fileStr << ":" << "analyze successfully" << endl;
+						unordered_map<string, string> imfo_map;
+						lalr.gen_middle_code(env, node_tree, imfo_map);
+						Node::releaseNode(node_tree);
+						//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
+
+
+						cout << "PACKAGE_NAME:" << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+
+						ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
+						for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
+							cout << "IMPORT_NAME:" << importListToken->list[i1]->name << endl;
+						}
+
+
+
+						if (((ClassListToken *)(env.list[0].get()))->list.size() > 0) {
+							cout << "CLASS_NAME:" << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+						}
+					}
+
+
+				}	
+			}
+
+		}
+
+
+	}
+
 }
-
-
 

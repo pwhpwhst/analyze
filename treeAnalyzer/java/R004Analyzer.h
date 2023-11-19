@@ -183,20 +183,11 @@ public: virtual ~R004_ImportDeclaration_3Analyzer();
 
 
 
-//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
+//beg_TypeDeclarationList : TypeDeclaration
 class R004_TypeDeclarationList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_TypeDeclarationList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_TypeDeclarationList_0Analyzer();
-};
-
-
-
-//beg_TypeDeclarationList : TypeDeclaration
-class R004_TypeDeclarationList_1Analyzer :virtual public Non_Terminate_genertor {
-public: R004_TypeDeclarationList_1Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_TypeDeclarationList_1Analyzer();
 };
 
 

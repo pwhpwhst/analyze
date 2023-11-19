@@ -163,9 +163,9 @@ public: int init(string rule_file);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
 
-private: int startsWith(string s, string sub);
+public: int startsWith(string s, string sub);
 
-private: int endsWith(string s, string sub);
+public: int endsWith(string s, string sub);
 
 public: string replaceAll(string str, string sub, string replacement);
 

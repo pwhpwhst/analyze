@@ -117,15 +117,9 @@ R004_ImportDeclaration_3Analyzer::~R004_ImportDeclaration_3Analyzer() {}
 
 
 
-//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
+//beg_TypeDeclarationList : TypeDeclaration
 R004_TypeDeclarationList_0Analyzer::R004_TypeDeclarationList_0Analyzer() {}
 R004_TypeDeclarationList_0Analyzer::~R004_TypeDeclarationList_0Analyzer() {}
-
-
-
-//beg_TypeDeclarationList : TypeDeclaration
-R004_TypeDeclarationList_1Analyzer::R004_TypeDeclarationList_1Analyzer() {}
-R004_TypeDeclarationList_1Analyzer::~R004_TypeDeclarationList_1Analyzer() {}
 
 
 

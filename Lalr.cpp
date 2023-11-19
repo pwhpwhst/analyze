@@ -2438,6 +2438,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		P_ItemNode top_item = item_node_stack1.back();
 
 		string input_type;
+		string action;
 		if (!unexception_input) {
 			if (p_input != input.end()) {
 				input_type = (*p_input)->type;
@@ -2445,19 +2446,20 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			else {
 				input_type = "'$'";
 			}
+
 		}
 		else {
 			input_type = "'$'";
 		}
 
-
-		string action;
-		if (forecast_list[move_table[top_item->item_status]].count(symbol_to_id[input_type])==0) {
+		if (forecast_list[move_table[top_item->item_status]].count(symbol_to_id[input_type]) == 0) {
 			action = forecast_list[move_table[top_item->item_status]][-1];
 		}
 		else {
 			action = forecast_list[move_table[top_item->item_status]][symbol_to_id[input_type]];
 		}
+		
+
 
 #ifdef __PRINT_PARSE_PROCESS
 		if (switchParseProcess) {
@@ -2472,6 +2474,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 #endif
 		if (action == "acc") {
 			resultTree = top_item->node;
+			
 			finished_flag = true;
 		}
 		else if (action[0] == 's') {
@@ -2569,7 +2572,13 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 				break;
 			}
 			else {
-				unexception_input = true;
+				if (!unexception_input) {
+					unexception_input = true;
+				}
+				else {
+					item_node_stack1.pop_back();
+				}
+				
 			}
 
 		}
@@ -2611,44 +2620,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 
 
 
-//void Lalr::gen_middle_code(Env &env, Node* &node_tree, CompileInfo &compileInfo) {
-//
-//	cout << "生成中间代码:" << endl;
-//
-//	set<string> has_calculate_set;
-//	unordered_map<string, Token*> result_map; //这个起到类似上下文的作用
-//	vector<P_NodeValue> stack;
-//	stack.push_back(P_NodeValue(new NodeValue(node_tree, NodeValue::SYN)));
-//
-//	while (stack.size() > 0) {
-//		auto top = stack.back();
-//
-//		//cout<<top->node->get_rule_str()<<endl;
-//		P_SDT_genertor sdt_genertor = SDT_Factory::instance.factory[top->node->get_rule_str()];
-//
-//		if (sdt_genertor != nullptr) {
-//
-//			P_NodeValue p_nodeValue = sdt_genertor->handle(top, result_map, has_calculate_set, env, compileInfo);
-//			if (compileInfo.errInfo != "") {
-//				break;
-//			}
-//			if (p_nodeValue != nullptr) {
-//				stack.push_back(p_nodeValue);
-//			}
-//			else {
-//				stack.pop_back();
-//			}
-//		}
-//		else {
-//			break;
-//		}
-//	}
-//	for (auto &e : result_map) {
-//		if (e.second != nullptr) {
-//			delete e.second;
-//		}
-//	}
-//}
+
 
 
 
@@ -2826,7 +2798,7 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 
 void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
 
-	cout << "生成中间代码:" << endl;
+//	cout << "生成中间代码:" << endl;
 
 	//set<string> has_calculate_set;
 	unordered_map<string, P_NodeValue> nodeValueMap;

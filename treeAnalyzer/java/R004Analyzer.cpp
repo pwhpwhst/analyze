@@ -11,7 +11,7 @@ using namespace std;
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-	cout<<s<<endl;
+	//	cout<<s<<endl;
 }
 
 
@@ -287,26 +287,9 @@ void R004_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 };
 
 
-
-//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
+//beg_TypeDeclarationList : TypeDeclaration
 void R004_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_TypeDeclarationList_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
-
-	if (p0 != nullptr) {
-		((ClassListToken *)(p1.get()))->list.push_front(((ClassToken *)(p0.get()))->classEntity);
-	}
-
-
-	nodeValue->context["TypeDeclarationList"] = p1;
-};
-
-
-
-//beg_TypeDeclarationList : TypeDeclaration
-void R004_TypeDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_TypeDeclarationList_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
 
 	ClassListToken* p = new ClassListToken();
