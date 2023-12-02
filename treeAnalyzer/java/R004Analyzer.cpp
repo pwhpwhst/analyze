@@ -4,6 +4,9 @@
 #include "../../symbols/java/ImportToken.h"
 #include "../../symbols/java/ImportListToken.h"
 #include "../../symbols/java/ImportEntity.h"
+#include "../../symbols/java/ModifierToken.h"
+#include "../../symbols/java/ModifierListToken.h"
+#include "../../symbols/java/ModifierEntity.h"
 #include <iostream>
 #include <sstream>
 using namespace std;
@@ -372,6 +375,8 @@ void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index=nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum= nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -381,11 +386,14 @@ void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 void R004_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -401,6 +409,8 @@ void R004_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -411,11 +421,14 @@ void R004_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
 void R004_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -431,6 +444,8 @@ void R004_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -441,11 +456,14 @@ void R004_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
 void R004_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_5Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -461,6 +479,8 @@ void R004_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -471,11 +491,14 @@ void R004_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
 void R004_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_7Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -491,6 +514,8 @@ void R004_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -501,11 +526,14 @@ void R004_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
 void R004_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_9Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -521,6 +549,8 @@ void R004_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -531,11 +561,14 @@ void R004_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
 void R004_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_11Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -551,6 +584,8 @@ void R004_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -561,11 +596,14 @@ void R004_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
 void R004_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_13Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -581,6 +619,8 @@ void R004_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -591,11 +631,14 @@ void R004_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue
 //beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
 void R004_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_15Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -611,6 +654,8 @@ void R004_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
@@ -621,11 +666,14 @@ void R004_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_EnumDeclaration : ModifierList 'enum' Identifier ClassBody
 void R004_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_EnumDeclaration_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
@@ -641,6 +689,8 @@ void R004_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
@@ -651,11 +701,14 @@ void R004_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces ClassBody
 void R004_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_EnumDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["EnumDeclaration"] = P_Token(p);
@@ -671,6 +724,8 @@ void R004_NormalInterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -681,11 +736,14 @@ void R004_NormalInterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeVa
 //beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
 void R004_NormalInterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalInterfaceDeclaration_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -701,6 +759,8 @@ void R004_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -711,11 +771,14 @@ void R004_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeVa
 //beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
 void R004_NormalInterfaceDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalInterfaceDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -731,6 +794,8 @@ void R004_NormalInterfaceDeclaration_4Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -741,11 +806,14 @@ void R004_NormalInterfaceDeclaration_4Analyzer::handle(const P_NodeValue &nodeVa
 //beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
 void R004_NormalInterfaceDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalInterfaceDeclaration_5Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -761,6 +829,8 @@ void R004_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -771,11 +841,14 @@ void R004_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeVa
 //beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
 void R004_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalInterfaceDeclaration_7Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalInterfaceDeclaration"] = P_Token(p);
@@ -799,6 +872,8 @@ void R004_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
@@ -809,11 +884,14 @@ void R004_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeVal
 //beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
 void R004_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_AnnotationTypeDeclaration_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p3->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
@@ -829,6 +907,8 @@ void R004_AnnotationTypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
@@ -839,11 +919,14 @@ void R004_AnnotationTypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeVal
 //beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
 void R004_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_AnnotationTypeDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
+	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
 
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
@@ -926,7 +1009,14 @@ void R004_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 //beg_ModifierList : Modifier ModifierList
 void R004_ModifierList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ModifierList_0Analyzer");
-	//TO DO  R004_ModifierList_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Modifier"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ModifierList"];
+
+	((ModifierListToken *)(p1.get()))->list.push_front(((ModifierToken *)(p0.get()))->modifierEntity);
+
+
+	nodeValue->context["ModifierList"] = p1;
+
 };
 
 
@@ -934,7 +1024,12 @@ void R004_ModifierList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_ModifierList : Modifier
 void R004_ModifierList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ModifierList_1Analyzer");
-	//TO DO  R004_ModifierList_1Analyzer
+
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Modifier"];
+	ModifierListToken *p = new ModifierListToken();
+	p->list.push_front(((ModifierToken *)(p0.get()))->modifierEntity);
+
+	nodeValue->context["ModifierList"] = P_Token(p);
 };
 
 
@@ -1694,7 +1789,15 @@ void R004_StatementEle_80Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_Modifier : 'public'
 void R004_Modifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_0Analyzer");
-	//TO DO  R004_Modifier_0Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+	
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1702,7 +1805,15 @@ void R004_Modifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'protected'
 void R004_Modifier_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_1Analyzer");
-	//TO DO  R004_Modifier_1Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1710,7 +1821,15 @@ void R004_Modifier_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'private'
 void R004_Modifier_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_2Analyzer");
-	//TO DO  R004_Modifier_2Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1718,7 +1837,15 @@ void R004_Modifier_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'abstract'
 void R004_Modifier_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_3Analyzer");
-	//TO DO  R004_Modifier_3Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1726,7 +1853,15 @@ void R004_Modifier_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'static'
 void R004_Modifier_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_4Analyzer");
-	//TO DO  R004_Modifier_4Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1734,7 +1869,15 @@ void R004_Modifier_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'final'
 void R004_Modifier_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_5Analyzer");
-	//TO DO  R004_Modifier_5Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1742,7 +1885,15 @@ void R004_Modifier_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'strictfp'
 void R004_Modifier_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_6Analyzer");
-	//TO DO  R004_Modifier_6Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1750,7 +1901,15 @@ void R004_Modifier_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'default'
 void R004_Modifier_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_7Analyzer");
-	//TO DO  R004_Modifier_7Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1758,7 +1917,15 @@ void R004_Modifier_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'volatile'
 void R004_Modifier_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_8Analyzer");
-	//TO DO  R004_Modifier_8Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1766,7 +1933,15 @@ void R004_Modifier_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'synchronized'
 void R004_Modifier_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_9Analyzer");
-	//TO DO  R004_Modifier_9Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1774,7 +1949,15 @@ void R004_Modifier_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 //beg_Modifier : 'transient'
 void R004_Modifier_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_10Analyzer");
-	//TO DO  R004_Modifier_10Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 
@@ -1782,13 +1965,23 @@ void R004_Modifier_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 //beg_Modifier : 'native'
 void R004_Modifier_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_11Analyzer");
-	//TO DO  R004_Modifier_11Analyzer
+
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = nodeValue->node->child_node_list[0]->content;
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Modifier"] = P_Token(p);
 };
 
 //beg_Modifier : Annotation
 void R004_Modifier_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Modifier_12Analyzer");
-	//TO DO  R004_Modifier_12Analyzer
+
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Annotation"];
+	nodeValue->context["Modifier"] = p0;
 };
 
 
@@ -1827,12 +2020,31 @@ void R004_BlockStatements_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 void R004_Annotation_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Annotation_0Analyzer");
-	//TO DO  R004_Annotation_0Analyzer
+	
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = "Annotation";
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Annotation"] = P_Token(p);
+
 };
+
+
 //beg_Annotation : 'AT' DetailIdentifier
 void R004_Annotation_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Annotation_1Analyzer");
-	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+	
+	ModifierToken *p = new ModifierToken();
+	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
+	modifierEntity->name = "Annotation";
+	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
+	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->modifierEntity = modifierEntity;
+
+	nodeValue->context["Annotation"] = P_Token(p);
 };
 
 

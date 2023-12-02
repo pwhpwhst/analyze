@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 	//3 -Lalr 单个文件测试
 	//4 批量测试
 
-	int mode = 4;
+	int mode = 0;
 
 	if (mode == 0) {
 		Env env;
@@ -61,6 +61,8 @@ int main(int argc, char* argv[]) {
 			cout << importListToken->list[0]->name << endl;
 			cout << importListToken->list[0]->isStatic << endl;
 			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->lineNum << endl;
+			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->index << endl;
 		}
 	}
 	else if (mode == 1) {
@@ -268,8 +270,6 @@ int main(int argc, char* argv[]) {
 						for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
 							cout << "IMPORT_NAME:" << importListToken->list[i1]->name << endl;
 						}
-
-
 
 						if (((ClassListToken *)(env.list[0].get()))->list.size() > 0) {
 							cout << "CLASS_NAME:" << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;

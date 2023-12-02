@@ -10,7 +10,8 @@ class ClassEntity {
 public:  long  id;
 public:  string  name;
 public:  string  package;
-
+public: long index = -1;	//´Ê·¨Á÷Î»ÖÃ
+public: long lineNum = -1;
 
 
 public: ClassEntity();
