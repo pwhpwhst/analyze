@@ -151,7 +151,14 @@ void R004_CompilationUnit_5Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_CompilationUnit : TypeDeclarationList
 void R004_CompilationUnit_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_CompilationUnit_6Analyzer");
-	//TO DO  R004_CompilationUnit_6Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclarationList"];
+
+	if (p0 == nullptr) {
+		p0 = P_Token(new ClassListToken());
+	}
+
+
+	nodeValue->context["CompilationUnit"] = p0;
 };
 
 
