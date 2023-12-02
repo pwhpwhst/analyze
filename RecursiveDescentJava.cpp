@@ -356,7 +356,7 @@ Node* RecursiveDescentJava::createNode(P_Rule &rule) {
 	return p;
 }
 
-Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
+Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 
 	struct ItemNode {
 		Node *node;
@@ -386,7 +386,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol) {
 
 	
 
-	int wordListId = 0;
+	int wordListId = wordListBegId;
 	Node* resultNodePtr = nullptr;
 
 	while (item_node_stack1.size()>0) {

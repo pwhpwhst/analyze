@@ -21,7 +21,7 @@ public: void log(const string& s);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
 private:vector<P_Lex_Word>  total_lex_word_list;
 private:Node* createTerminateNode(P_Lex_Word &p);
-public: Node* slr(Env &env, string rootSymbol);
+public: Node* slr(Env &env, string rootSymbol,int wordListBegId);
 
 public: void findFirstAndLastRules(string symbol, unordered_map<string, int> &map);
 public: int startsWith(const string& s, const string& sub);
