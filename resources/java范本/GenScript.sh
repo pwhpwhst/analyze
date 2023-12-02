@@ -20,26 +20,48 @@ if [[ "${type}" == "1" ]];then
 srcFile=${2}
 ruleFile=${3}
 filePrefix=${4}
+preFilePrefix=${5}
 
+part1End=`cat ${srcFile} -n|grep "${filePrefix}_"|grep "}"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|head -n 1`
 
-part1End=`cat ${srcFile} -n|grep "${filePrefix}_"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|head -n 1`
+if [[ "${part1End}" != "" ]];then
 part1End=`expr ${part1End} - 1`
+else
+part1End=`cat ${srcFile} -n|grep "${preFilePrefix}_"|grep -v case|grep "}"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
+fi
+
+
+
+
 
 
 #cat ${srcFile}|head -n ${part1End}
 
 
 part2Beg=`cat ${srcFile} -n|grep "${filePrefix}_"|grep -v case|grep "}"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
-
+if [[ "${part2Beg}" != "" ]];then
 part2Beg=`expr ${part2Beg} + 1`
-
+else
+part2Beg=`cat ${srcFile} -n|grep "${preFilePrefix}_"|grep -v case|grep "}"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
+part2Beg=`expr ${part2Beg} + 1`
+fi
 
 part2End=`cat ${srcFile} -n|grep "${filePrefix}_"|grep case| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|head -n 1`
+if [[ "${part2End}" != "" ]];then
 part2End=`expr ${part2End} - 1`
+else
+part2End=`cat ${srcFile} -n|grep "${preFilePrefix}_"|grep case| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
+fi
+
 
 
 part3Beg=`cat ${srcFile} -n|grep "${filePrefix}_"|grep case| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
+if [[ "${part3Beg}" != "" ]];then
 part3Beg=`expr ${part3Beg} + 1`
+else
+part3Beg=`cat ${srcFile} -n|grep "${preFilePrefix}_"|grep case| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|tail -n 1`
+part3Beg=`expr ${part3Beg} + 1`
+fi
 
 part3End=`cat ${srcFile}|wc -l`
 
@@ -94,7 +116,12 @@ prefix=${5}
 cd ${baseFolder}
 
 part1End=`cat ${srcFile} -n|grep "//beg_"| awk -F '\t' '{print $1}'|sed -e "s/\s//g"|head -n 1`
+if [[ "${part1End}" != "" ]];then
 part1End=`expr ${part1End} - 1`
+else
+part1End=`cat ${srcFile}|wc -l`
+fi
+
 cat ${srcFile}|head -n ${part1End}
 
 
