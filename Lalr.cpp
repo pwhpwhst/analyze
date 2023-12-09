@@ -2558,7 +2558,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			if (!switchAllowIllegalInput) {
 				#ifdef __PRINT_NOT_SILENT
 								if (switchNotSilent) {
-									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << (*p_input)->content << endl;
+									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_content:" << (*p_input)->content << endl;
 
 									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
 									if (p_input != input.end()) {

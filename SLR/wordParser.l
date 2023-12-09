@@ -80,6 +80,7 @@ NO_ENGLISH_CH {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
 SPACE ([ ])
 SPACE2 ({SPACE}|\n)
 AT_INTERFACE @{SPACE}*interface
+SPOT_STAR \.{SPACE}*\*
 COMMA_RIGHT_BRACE ,{SPACE2}*\}
 COMMA_semicolon ,{SPACE2}*;
 
@@ -353,6 +354,9 @@ COMMA_semicolon ,{SPACE2}*;
   write_word(yytext,"'AT_INTERFACE'");
 }
 
+{SPOT_STAR} {
+  write_word(yytext,"'SPOT_STAR'");
+}
 
 "`" {
   write_word(yytext,"'EXE_QUOTES'");

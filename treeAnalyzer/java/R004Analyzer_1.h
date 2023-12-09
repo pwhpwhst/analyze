@@ -93,7 +93,7 @@ R004_ImportDeclarationList_1Analyzer::~R004_ImportDeclarationList_1Analyzer() {}
 
 
 
-//beg_ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+//beg_ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT_STAR' 'semicolon'
 R004_ImportDeclaration_0Analyzer::R004_ImportDeclaration_0Analyzer() {}
 R004_ImportDeclaration_0Analyzer::~R004_ImportDeclaration_0Analyzer() {}
 
@@ -105,7 +105,7 @@ R004_ImportDeclaration_1Analyzer::~R004_ImportDeclaration_1Analyzer() {}
 
 
 
-//beg_ImportDeclaration : 'import' DetailIdentifier 'SPOT' 'STAR' 'semicolon'
+//beg_ImportDeclaration : 'import' DetailIdentifier 'SPOT_STAR' 'semicolon'
 R004_ImportDeclaration_2Analyzer::R004_ImportDeclaration_2Analyzer() {}
 R004_ImportDeclaration_2Analyzer::~R004_ImportDeclaration_2Analyzer() {}
 
@@ -261,73 +261,73 @@ R004_NormalClassDeclaration_15Analyzer::~R004_NormalClassDeclaration_15Analyzer(
 
 
 
-//beg_EnumDeclaration : 'enum' Identifier ClassBody
+//beg_EnumDeclaration : 'enum' Identifier 'LEFT_BRACE'
 R004_EnumDeclaration_0Analyzer::R004_EnumDeclaration_0Analyzer() {}
 R004_EnumDeclaration_0Analyzer::~R004_EnumDeclaration_0Analyzer() {}
 
 
 
-//beg_EnumDeclaration : ModifierList 'enum' Identifier ClassBody
+//beg_EnumDeclaration : ModifierList 'enum' Identifier 'LEFT_BRACE'
 R004_EnumDeclaration_1Analyzer::R004_EnumDeclaration_1Analyzer() {}
 R004_EnumDeclaration_1Analyzer::~R004_EnumDeclaration_1Analyzer() {}
 
 
 
-//beg_EnumDeclaration : 'enum' Identifier Superinterfaces ClassBody
+//beg_EnumDeclaration : 'enum' Identifier Superinterfaces 'LEFT_BRACE'
 R004_EnumDeclaration_2Analyzer::R004_EnumDeclaration_2Analyzer() {}
 R004_EnumDeclaration_2Analyzer::~R004_EnumDeclaration_2Analyzer() {}
 
 
 
-//beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces ClassBody
+//beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces 'LEFT_BRACE'
 R004_EnumDeclaration_3Analyzer::R004_EnumDeclaration_3Analyzer() {}
 R004_EnumDeclaration_3Analyzer::~R004_EnumDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier ClassBody
+//beg_NormalInterfaceDeclaration : 'interface' Identifier 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_0Analyzer::R004_NormalInterfaceDeclaration_0Analyzer() {}
 R004_NormalInterfaceDeclaration_0Analyzer::~R004_NormalInterfaceDeclaration_0Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_1Analyzer::R004_NormalInterfaceDeclaration_1Analyzer() {}
 R004_NormalInterfaceDeclaration_1Analyzer::~R004_NormalInterfaceDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_2Analyzer::R004_NormalInterfaceDeclaration_2Analyzer() {}
 R004_NormalInterfaceDeclaration_2Analyzer::~R004_NormalInterfaceDeclaration_2Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_3Analyzer::R004_NormalInterfaceDeclaration_3Analyzer() {}
 R004_NormalInterfaceDeclaration_3Analyzer::~R004_NormalInterfaceDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
+//beg_NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_4Analyzer::R004_NormalInterfaceDeclaration_4Analyzer() {}
 R004_NormalInterfaceDeclaration_4Analyzer::~R004_NormalInterfaceDeclaration_4Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_5Analyzer::R004_NormalInterfaceDeclaration_5Analyzer() {}
 R004_NormalInterfaceDeclaration_5Analyzer::~R004_NormalInterfaceDeclaration_5Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_6Analyzer::R004_NormalInterfaceDeclaration_6Analyzer() {}
 R004_NormalInterfaceDeclaration_6Analyzer::~R004_NormalInterfaceDeclaration_6Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
 R004_NormalInterfaceDeclaration_7Analyzer::R004_NormalInterfaceDeclaration_7Analyzer() {}
 R004_NormalInterfaceDeclaration_7Analyzer::~R004_NormalInterfaceDeclaration_7Analyzer() {}
 
@@ -339,25 +339,25 @@ R004_ExtendsInterfaces_0Analyzer::~R004_ExtendsInterfaces_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
+//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier 'LEFT_BRACE'
 R004_AnnotationTypeDeclaration_0Analyzer::R004_AnnotationTypeDeclaration_0Analyzer() {}
 R004_AnnotationTypeDeclaration_0Analyzer::~R004_AnnotationTypeDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
+//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier 'LEFT_BRACE'
 R004_AnnotationTypeDeclaration_1Analyzer::R004_AnnotationTypeDeclaration_1Analyzer() {}
 R004_AnnotationTypeDeclaration_1Analyzer::~R004_AnnotationTypeDeclaration_1Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier 'LEFT_BRACE'
 R004_AnnotationTypeDeclaration_2Analyzer::R004_AnnotationTypeDeclaration_2Analyzer() {}
 R004_AnnotationTypeDeclaration_2Analyzer::~R004_AnnotationTypeDeclaration_2Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier 'LEFT_BRACE'
 R004_AnnotationTypeDeclaration_3Analyzer::R004_AnnotationTypeDeclaration_3Analyzer() {}
 R004_AnnotationTypeDeclaration_3Analyzer::~R004_AnnotationTypeDeclaration_3Analyzer() {}
 

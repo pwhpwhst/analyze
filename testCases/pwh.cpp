@@ -36,7 +36,6 @@ int main(int argc, char* argv[]) {
 		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\controller\\";
 		string fileName = "JavaSyntaxTest.java";
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
-		string rule_file1 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
 
 		string compile_file = path + "\\" + fileName;
 
@@ -72,29 +71,6 @@ int main(int argc, char* argv[]) {
 			className = ((ClassListToken *)(env.list[0].get()))->list[0]->name;
 			wordListIdOfclass = ((ClassListToken *)(env.list[0].get()))->list[0]->index;
 		}
-
-
-		Env env2;
-
-		recursiveDescentJava.init(rule_file1);
-
-		Node*  node_tree2 = recursiveDescentJava.slr(env, "ele_begin", wordListIdOfclass);
-
-		if (node_tree2 == nullptr) {
-			cout << fileName << ":" << "analyze failed at 2nd stage" << endl;
-		}
-		else {
-			cout << fileName << ":" << "analyze successfully" << endl;
-			unordered_map<string, string> imfo_map;
-			recursiveDescentJava.gen_middle_code(env2, node_tree2, imfo_map);
-			Node::releaseNode(node_tree2);
-
-			cout << "statementList size" << endl;
-			cout << ((StatementListToken *)(((ClassListToken *)(env2.list[0].get()))->list[0]->statementList.get()))->list.size() << endl;
-
-		}
-
-		cout << "dsadas" << endl;
 
 	}
 	else if (mode == 1) {
@@ -147,7 +123,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
@@ -166,8 +142,8 @@ int main(int argc, char* argv[]) {
 		lalr.switchAllowIllegalInput = true;
 		PrimarySymbolConverter primarySymbolConverter;
 		set<string> end_symbol_set0;
-		string path = "C:\\Users\\Administrator\\Desktop\\Maven3\\src\\main\\java\\com\\pwhTest\\hadoopTest";
-		string fileName = "HadoopTest.java";
+		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\controller\\";
+		string fileName = "JavaSyntaxTest.java";
 		string compile_file = path + "\\" + fileName;
 
 		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);

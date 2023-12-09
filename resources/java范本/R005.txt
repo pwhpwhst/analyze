@@ -48,8 +48,29 @@ ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
 ClassBodyDeclaration : ClassMemberDeclaration
-ClassMemberDeclaration : InstanceInitializer
-ClassMemberDeclaration : StaticInitializer
+ClassBodyDeclaration : InstanceInitializer
+ClassBodyDeclaration : StaticInitializer
+ClassBodyDeclaration : ConstructorDeclaration
+ConstructorDeclaration : ConstructorDeclarator ClassBody
+ConstructorDeclaration : ModifierList ConstructorDeclarator ClassBody
+ConstructorDeclaration : ConstructorDeclarator Throws ClassBody
+ConstructorDeclaration : ModifierList ConstructorDeclarator Throws ClassBody
+ConstructorDeclarator : Identifier DimExpr
+ConstructorDeclarator : TypeArguments Identifier DimExpr
+DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+DimStatements : DimExpr DimStatements
+DimStatements : NonDim DimStatements
+DimStatements : 0
+NonDim : StatementEle
+NonDim : 'COMMA'
+NonDim : 'semicolon'
+NonDim : 'LEFT_BRACE'
+NonDim : 'LEFT_PARENTHESES'
+NonDim : 'LEFT_ANGLE_BRACKET'
+NonDim : 'RIGHT_BRACE'
+NonDim : 'COMMA_RIGHT_BRACE'
+NonDim : 'RIGHT_PARENTHESES'
+NonDim : 'RIGHT_ANGLE_BRACKET'
 InstanceInitializer : Block
 StaticInitializer : 'static' Block
 ModifierList : Modifier ModifierList
@@ -215,3 +236,8 @@ AnnotationList : Annotation
 Superinterfaces : 'implements' InterfaceTypeList
 InterfaceTypeList : ClassType
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+Throws : 'throws' ExceptionTypeList
+ExceptionTypeList : ExceptionType
+ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+ExceptionType : ClassType
+ExceptionType : TypeVariable
