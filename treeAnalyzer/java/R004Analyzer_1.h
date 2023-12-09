@@ -363,7 +363,7 @@ R004_AnnotationTypeDeclaration_3Analyzer::~R004_AnnotationTypeDeclaration_3Analy
 
 
 
-//beg_ClassBody : 'LEFT_BRACE'
+//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE''
 R004_ClassBody_0Analyzer::R004_ClassBody_0Analyzer() {}
 R004_ClassBody_0Analyzer::~R004_ClassBody_0Analyzer() {}
 
@@ -381,39 +381,75 @@ R004_ClassBodyDeclarationList_1Analyzer::~R004_ClassBodyDeclarationList_1Analyze
 
 
 
-//beg_ClassBodyDeclaration : ClassMemberDeclaration
+//beg_ClassBodyDeclaration : ClassStatementPrefix 'semicolon'
 R004_ClassBodyDeclaration_0Analyzer::R004_ClassBodyDeclaration_0Analyzer() {}
 R004_ClassBodyDeclaration_0Analyzer::~R004_ClassBodyDeclaration_0Analyzer() {}
 
 
 
-//beg_ClassMemberDeclaration : MethodDeclaration
-R004_ClassMemberDeclaration_0Analyzer::R004_ClassMemberDeclaration_0Analyzer() {}
-R004_ClassMemberDeclaration_0Analyzer::~R004_ClassMemberDeclaration_0Analyzer() {}
+//beg_ClassBodyDeclaration : ClassStatementPrefix Block
+R004_ClassBodyDeclaration_1Analyzer::R004_ClassBodyDeclaration_1Analyzer() {}
+R004_ClassBodyDeclaration_1Analyzer::~R004_ClassBodyDeclaration_1Analyzer() {}
 
 
 
-//beg_MethodDeclaration : ModifierList MethodHeader MethodBody
-R004_MethodDeclaration_0Analyzer::R004_MethodDeclaration_0Analyzer() {}
-R004_MethodDeclaration_0Analyzer::~R004_MethodDeclaration_0Analyzer() {}
+//beg_ClassStatementPrefix : NonBraceAndSemicolon ClassStatementPrefix
+R004_ClassStatementPrefix_0Analyzer::R004_ClassStatementPrefix_0Analyzer() {}
+R004_ClassStatementPrefix_0Analyzer::~R004_ClassStatementPrefix_0Analyzer() {}
 
 
 
-//beg_MethodDeclaration : MethodHeader MethodBody
-R004_MethodDeclaration_1Analyzer::R004_MethodDeclaration_1Analyzer() {}
-R004_MethodDeclaration_1Analyzer::~R004_MethodDeclaration_1Analyzer() {}
+//beg_ClassStatementPrefix : 0
+R004_ClassStatementPrefix_1Analyzer::R004_ClassStatementPrefix_1Analyzer() {}
+R004_ClassStatementPrefix_1Analyzer::~R004_ClassStatementPrefix_1Analyzer() {}
 
 
 
-//beg_MethodHeader : 'void' MethodDeclarator
-R004_MethodHeader_0Analyzer::R004_MethodHeader_0Analyzer() {}
-R004_MethodHeader_0Analyzer::~R004_MethodHeader_0Analyzer() {}
+//beg_NonBraceAndSemicolon : StatementEle
+R004_NonBraceAndSemicolon_0Analyzer::R004_NonBraceAndSemicolon_0Analyzer() {}
+R004_NonBraceAndSemicolon_0Analyzer::~R004_NonBraceAndSemicolon_0Analyzer() {}
 
 
 
-//beg_MethodDeclarator : Identifier AnnotationContent
-R004_MethodDeclarator_0Analyzer::R004_MethodDeclarator_0Analyzer() {}
-R004_MethodDeclarator_0Analyzer::~R004_MethodDeclarator_0Analyzer() {}
+//beg_NonBraceAndSemicolon : 'COMMA'
+R004_NonBraceAndSemicolon_1Analyzer::R004_NonBraceAndSemicolon_1Analyzer() {}
+R004_NonBraceAndSemicolon_1Analyzer::~R004_NonBraceAndSemicolon_1Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+R004_NonBraceAndSemicolon_2Analyzer::R004_NonBraceAndSemicolon_2Analyzer() {}
+R004_NonBraceAndSemicolon_2Analyzer::~R004_NonBraceAndSemicolon_2Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+R004_NonBraceAndSemicolon_3Analyzer::R004_NonBraceAndSemicolon_3Analyzer() {}
+R004_NonBraceAndSemicolon_3Analyzer::~R004_NonBraceAndSemicolon_3Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+R004_NonBraceAndSemicolon_4Analyzer::R004_NonBraceAndSemicolon_4Analyzer() {}
+R004_NonBraceAndSemicolon_4Analyzer::~R004_NonBraceAndSemicolon_4Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
+R004_NonBraceAndSemicolon_5Analyzer::R004_NonBraceAndSemicolon_5Analyzer() {}
+R004_NonBraceAndSemicolon_5Analyzer::~R004_NonBraceAndSemicolon_5Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
+R004_NonBraceAndSemicolon_6Analyzer::R004_NonBraceAndSemicolon_6Analyzer() {}
+R004_NonBraceAndSemicolon_6Analyzer::~R004_NonBraceAndSemicolon_6Analyzer() {}
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
+R004_NonBraceAndSemicolon_7Analyzer::R004_NonBraceAndSemicolon_7Analyzer() {}
+R004_NonBraceAndSemicolon_7Analyzer::~R004_NonBraceAndSemicolon_7Analyzer() {}
 
 
 
@@ -1089,9 +1125,81 @@ R004_Block_0Analyzer::~R004_Block_0Analyzer() {}
 
 
 
-//beg_BlockStatements : 0
+//beg_Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+R004_Block_1Analyzer::R004_Block_1Analyzer() {}
+R004_Block_1Analyzer::~R004_Block_1Analyzer() {}
+
+
+
+//beg_BlockStatements : Block BlockStatements
 R004_BlockStatements_0Analyzer::R004_BlockStatements_0Analyzer() {}
 R004_BlockStatements_0Analyzer::~R004_BlockStatements_0Analyzer() {}
+
+
+
+//beg_BlockStatements : NonBrace BlockStatements
+R004_BlockStatements_1Analyzer::R004_BlockStatements_1Analyzer() {}
+R004_BlockStatements_1Analyzer::~R004_BlockStatements_1Analyzer() {}
+
+
+
+//beg_BlockStatements : 0
+R004_BlockStatements_2Analyzer::R004_BlockStatements_2Analyzer() {}
+R004_BlockStatements_2Analyzer::~R004_BlockStatements_2Analyzer() {}
+
+
+
+//beg_NonBrace : StatementEle
+R004_NonBrace_0Analyzer::R004_NonBrace_0Analyzer() {}
+R004_NonBrace_0Analyzer::~R004_NonBrace_0Analyzer() {}
+
+
+
+//beg_NonBrace : 'COMMA'
+R004_NonBrace_1Analyzer::R004_NonBrace_1Analyzer() {}
+R004_NonBrace_1Analyzer::~R004_NonBrace_1Analyzer() {}
+
+
+
+//beg_NonBrace : 'semicolon'
+R004_NonBrace_2Analyzer::R004_NonBrace_2Analyzer() {}
+R004_NonBrace_2Analyzer::~R004_NonBrace_2Analyzer() {}
+
+
+
+//beg_NonBrace : 'LEFT_ANGLE_BRACKET'
+R004_NonBrace_3Analyzer::R004_NonBrace_3Analyzer() {}
+R004_NonBrace_3Analyzer::~R004_NonBrace_3Analyzer() {}
+
+
+
+//beg_NonBrace : 'LEFT_BRACKET'
+R004_NonBrace_4Analyzer::R004_NonBrace_4Analyzer() {}
+R004_NonBrace_4Analyzer::~R004_NonBrace_4Analyzer() {}
+
+
+
+//beg_NonBrace : 'LEFT_PARENTHESES'
+R004_NonBrace_5Analyzer::R004_NonBrace_5Analyzer() {}
+R004_NonBrace_5Analyzer::~R004_NonBrace_5Analyzer() {}
+
+
+
+//beg_NonBrace : 'RIGHT_ANGLE_BRACKET'
+R004_NonBrace_6Analyzer::R004_NonBrace_6Analyzer() {}
+R004_NonBrace_6Analyzer::~R004_NonBrace_6Analyzer() {}
+
+
+
+//beg_NonBrace : 'RIGHT_BRACKET'
+R004_NonBrace_7Analyzer::R004_NonBrace_7Analyzer() {}
+R004_NonBrace_7Analyzer::~R004_NonBrace_7Analyzer() {}
+
+
+
+//beg_NonBrace : 'RIGHT_PARENTHESES'
+R004_NonBrace_8Analyzer::R004_NonBrace_8Analyzer() {}
+R004_NonBrace_8Analyzer::~R004_NonBrace_8Analyzer() {}
 
 
 

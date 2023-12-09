@@ -222,161 +222,179 @@ SDT_Factory::SDT_Factory() {
    { "R004_ClassBodyDeclarationList_0", 206 },
    { "R004_ClassBodyDeclarationList_1", 207 },
    { "R004_ClassBodyDeclaration_0", 208 },
-   { "R004_ClassMemberDeclaration_0", 209 },
-   { "R004_MethodDeclaration_0", 210 },
-   { "R004_MethodDeclaration_1", 211 },
-   { "R004_MethodHeader_0", 212 },
-   { "R004_MethodDeclarator_0", 213 },
-   { "R004_ModifierList_0", 214 },
-   { "R004_ModifierList_1", 215 },
-   { "R004_AnnotationContent_0", 216 },
-   { "R004_AnnotationContentStatements_0", 217 },
-   { "R004_AnnotationContentStatements_1", 218 },
-   { "R004_NonPARENTHESES_0", 219 },
-   { "R004_NonPARENTHESES_1", 220 },
-   { "R004_NonPARENTHESES_2", 221 },
-   { "R004_NonPARENTHESES_3", 222 },
-   { "R004_NonPARENTHESES_4", 223 },
-   { "R004_NonPARENTHESES_5", 224 },
-   { "R004_NonPARENTHESES_6", 225 },
-   { "R004_NonPARENTHESES_7", 226 },
-   { "R004_NonPARENTHESES_8", 227 },
-   { "R004_NonPARENTHESES_9", 228 },
-   { "R004_StatementEle_0", 229 },
-   { "R004_StatementEle_1", 230 },
-   { "R004_StatementEle_2", 231 },
-   { "R004_StatementEle_3", 232 },
-   { "R004_StatementEle_4", 233 },
-   { "R004_StatementEle_5", 234 },
-   { "R004_StatementEle_6", 235 },
-   { "R004_StatementEle_7", 236 },
-   { "R004_StatementEle_8", 237 },
-   { "R004_StatementEle_9", 238 },
-   { "R004_StatementEle_10", 239 },
-   { "R004_StatementEle_11", 240 },
-   { "R004_StatementEle_12", 241 },
-   { "R004_StatementEle_13", 242 },
-   { "R004_StatementEle_14", 243 },
-   { "R004_StatementEle_15", 244 },
-   { "R004_StatementEle_16", 245 },
-   { "R004_StatementEle_17", 246 },
-   { "R004_StatementEle_18", 247 },
-   { "R004_StatementEle_19", 248 },
-   { "R004_StatementEle_20", 249 },
-   { "R004_StatementEle_21", 250 },
-   { "R004_StatementEle_22", 251 },
-   { "R004_StatementEle_23", 252 },
-   { "R004_StatementEle_24", 253 },
-   { "R004_StatementEle_25", 254 },
-   { "R004_StatementEle_26", 255 },
-   { "R004_StatementEle_27", 256 },
-   { "R004_StatementEle_28", 257 },
-   { "R004_StatementEle_29", 258 },
-   { "R004_StatementEle_30", 259 },
-   { "R004_StatementEle_31", 260 },
-   { "R004_StatementEle_32", 261 },
-   { "R004_StatementEle_33", 262 },
-   { "R004_StatementEle_34", 263 },
-   { "R004_StatementEle_35", 264 },
-   { "R004_StatementEle_36", 265 },
-   { "R004_StatementEle_37", 266 },
-   { "R004_StatementEle_38", 267 },
-   { "R004_StatementEle_39", 268 },
-   { "R004_StatementEle_40", 269 },
-   { "R004_StatementEle_41", 270 },
-   { "R004_StatementEle_42", 271 },
-   { "R004_StatementEle_43", 272 },
-   { "R004_StatementEle_44", 273 },
-   { "R004_StatementEle_45", 274 },
-   { "R004_StatementEle_46", 275 },
-   { "R004_StatementEle_47", 276 },
-   { "R004_StatementEle_48", 277 },
-   { "R004_StatementEle_49", 278 },
-   { "R004_StatementEle_50", 279 },
-   { "R004_StatementEle_51", 280 },
-   { "R004_StatementEle_52", 281 },
-   { "R004_StatementEle_53", 282 },
-   { "R004_StatementEle_54", 283 },
-   { "R004_StatementEle_55", 284 },
-   { "R004_StatementEle_56", 285 },
-   { "R004_StatementEle_57", 286 },
-   { "R004_StatementEle_58", 287 },
-   { "R004_StatementEle_59", 288 },
-   { "R004_StatementEle_60", 289 },
-   { "R004_StatementEle_61", 290 },
-   { "R004_StatementEle_62", 291 },
-   { "R004_StatementEle_63", 292 },
-   { "R004_StatementEle_64", 293 },
-   { "R004_StatementEle_65", 294 },
-   { "R004_StatementEle_66", 295 },
-   { "R004_StatementEle_67", 296 },
-   { "R004_StatementEle_68", 297 },
-   { "R004_StatementEle_69", 298 },
-   { "R004_StatementEle_70", 299 },
-   { "R004_StatementEle_71", 300 },
-   { "R004_StatementEle_72", 301 },
-   { "R004_StatementEle_73", 302 },
-   { "R004_StatementEle_74", 303 },
-   { "R004_StatementEle_75", 304 },
-   { "R004_StatementEle_76", 305 },
-   { "R004_StatementEle_77", 306 },
-   { "R004_StatementEle_78", 307 },
-   { "R004_StatementEle_79", 308 },
-   { "R004_StatementEle_80", 309 },
-   { "R004_Modifier_0", 310 },
-   { "R004_Modifier_1", 311 },
-   { "R004_Modifier_2", 312 },
-   { "R004_Modifier_3", 313 },
-   { "R004_Modifier_4", 314 },
-   { "R004_Modifier_5", 315 },
-   { "R004_Modifier_6", 316 },
-   { "R004_Modifier_7", 317 },
-   { "R004_Modifier_8", 318 },
-   { "R004_Modifier_9", 319 },
-   { "R004_Modifier_10", 320 },
-   { "R004_Modifier_11", 321 },
-   { "R004_Modifier_12", 322 },
-   { "R004_MethodBody_0", 323 },
-   { "R004_MethodBody_1", 324 },
-   { "R004_Block_0", 325 },
-   { "R004_BlockStatements_0", 326 },
-   { "R004_Annotation_0", 327 },
-   { "R004_Annotation_1", 328 },
-   { "R004_TypeArguments_0", 329 },
-   { "R004_TypeArgumentList_0", 330 },
-   { "R004_TypeArgumentList_1", 331 },
-   { "R004_NonANGLE_BRACKET_0", 332 },
-   { "R004_NonANGLE_BRACKET_1", 333 },
-   { "R004_NonANGLE_BRACKET_2", 334 },
-   { "R004_NonANGLE_BRACKET_3", 335 },
-   { "R004_NonANGLE_BRACKET_4", 336 },
-   { "R004_NonANGLE_BRACKET_5", 337 },
-   { "R004_NonANGLE_BRACKET_6", 338 },
-   { "R004_NonANGLE_BRACKET_7", 339 },
-   { "R004_NonANGLE_BRACKET_8", 340 },
-   { "R004_UnannPrimitiveType_0", 341 },
-   { "R004_UnannPrimitiveType_1", 342 },
-   { "R004_NumericType_0", 343 },
-   { "R004_NumericType_1", 344 },
-   { "R004_IntegralType_0", 345 },
-   { "R004_IntegralType_1", 346 },
-   { "R004_IntegralType_2", 347 },
-   { "R004_IntegralType_3", 348 },
-   { "R004_IntegralType_4", 349 },
-   { "R004_FloatingPointType_0", 350 },
-   { "R004_FloatingPointType_1", 351 },
-   { "R004_Superclass_0", 352 },
-   { "R004_ClassTypeEle_0", 353 },
-   { "R004_ClassTypeEle_1", 354 },
-   { "R004_ClassTypeEle_2", 355 },
-   { "R004_ClassTypeEle_3", 356 },
-   { "R004_ClassType_0", 357 },
-   { "R004_ClassType_1", 358 },
-   { "R004_AnnotationList_0", 359 },
-   { "R004_AnnotationList_1", 360 },
-   { "R004_Superinterfaces_0", 361 },
-   { "R004_InterfaceTypeList_0", 362 },
-   { "R004_InterfaceTypeList_1", 363 }
+   { "R004_ClassBodyDeclaration_1", 209 },
+   { "R004_ClassStatementPrefix_0", 210 },
+   { "R004_ClassStatementPrefix_1", 211 },
+   { "R004_NonBraceAndSemicolon_0", 212 },
+   { "R004_NonBraceAndSemicolon_1", 213 },
+   { "R004_NonBraceAndSemicolon_2", 214 },
+   { "R004_NonBraceAndSemicolon_3", 215 },
+   { "R004_NonBraceAndSemicolon_4", 216 },
+   { "R004_NonBraceAndSemicolon_5", 217 },
+   { "R004_NonBraceAndSemicolon_6", 218 },
+   { "R004_NonBraceAndSemicolon_7", 219 },
+   { "R004_ModifierList_0", 220 },
+   { "R004_ModifierList_1", 221 },
+   { "R004_AnnotationContent_0", 222 },
+   { "R004_AnnotationContentStatements_0", 223 },
+   { "R004_AnnotationContentStatements_1", 224 },
+   { "R004_NonPARENTHESES_0", 225 },
+   { "R004_NonPARENTHESES_1", 226 },
+   { "R004_NonPARENTHESES_2", 227 },
+   { "R004_NonPARENTHESES_3", 228 },
+   { "R004_NonPARENTHESES_4", 229 },
+   { "R004_NonPARENTHESES_5", 230 },
+   { "R004_NonPARENTHESES_6", 231 },
+   { "R004_NonPARENTHESES_7", 232 },
+   { "R004_NonPARENTHESES_8", 233 },
+   { "R004_NonPARENTHESES_9", 234 },
+   { "R004_StatementEle_0", 235 },
+   { "R004_StatementEle_1", 236 },
+   { "R004_StatementEle_2", 237 },
+   { "R004_StatementEle_3", 238 },
+   { "R004_StatementEle_4", 239 },
+   { "R004_StatementEle_5", 240 },
+   { "R004_StatementEle_6", 241 },
+   { "R004_StatementEle_7", 242 },
+   { "R004_StatementEle_8", 243 },
+   { "R004_StatementEle_9", 244 },
+   { "R004_StatementEle_10", 245 },
+   { "R004_StatementEle_11", 246 },
+   { "R004_StatementEle_12", 247 },
+   { "R004_StatementEle_13", 248 },
+   { "R004_StatementEle_14", 249 },
+   { "R004_StatementEle_15", 250 },
+   { "R004_StatementEle_16", 251 },
+   { "R004_StatementEle_17", 252 },
+   { "R004_StatementEle_18", 253 },
+   { "R004_StatementEle_19", 254 },
+   { "R004_StatementEle_20", 255 },
+   { "R004_StatementEle_21", 256 },
+   { "R004_StatementEle_22", 257 },
+   { "R004_StatementEle_23", 258 },
+   { "R004_StatementEle_24", 259 },
+   { "R004_StatementEle_25", 260 },
+   { "R004_StatementEle_26", 261 },
+   { "R004_StatementEle_27", 262 },
+   { "R004_StatementEle_28", 263 },
+   { "R004_StatementEle_29", 264 },
+   { "R004_StatementEle_30", 265 },
+   { "R004_StatementEle_31", 266 },
+   { "R004_StatementEle_32", 267 },
+   { "R004_StatementEle_33", 268 },
+   { "R004_StatementEle_34", 269 },
+   { "R004_StatementEle_35", 270 },
+   { "R004_StatementEle_36", 271 },
+   { "R004_StatementEle_37", 272 },
+   { "R004_StatementEle_38", 273 },
+   { "R004_StatementEle_39", 274 },
+   { "R004_StatementEle_40", 275 },
+   { "R004_StatementEle_41", 276 },
+   { "R004_StatementEle_42", 277 },
+   { "R004_StatementEle_43", 278 },
+   { "R004_StatementEle_44", 279 },
+   { "R004_StatementEle_45", 280 },
+   { "R004_StatementEle_46", 281 },
+   { "R004_StatementEle_47", 282 },
+   { "R004_StatementEle_48", 283 },
+   { "R004_StatementEle_49", 284 },
+   { "R004_StatementEle_50", 285 },
+   { "R004_StatementEle_51", 286 },
+   { "R004_StatementEle_52", 287 },
+   { "R004_StatementEle_53", 288 },
+   { "R004_StatementEle_54", 289 },
+   { "R004_StatementEle_55", 290 },
+   { "R004_StatementEle_56", 291 },
+   { "R004_StatementEle_57", 292 },
+   { "R004_StatementEle_58", 293 },
+   { "R004_StatementEle_59", 294 },
+   { "R004_StatementEle_60", 295 },
+   { "R004_StatementEle_61", 296 },
+   { "R004_StatementEle_62", 297 },
+   { "R004_StatementEle_63", 298 },
+   { "R004_StatementEle_64", 299 },
+   { "R004_StatementEle_65", 300 },
+   { "R004_StatementEle_66", 301 },
+   { "R004_StatementEle_67", 302 },
+   { "R004_StatementEle_68", 303 },
+   { "R004_StatementEle_69", 304 },
+   { "R004_StatementEle_70", 305 },
+   { "R004_StatementEle_71", 306 },
+   { "R004_StatementEle_72", 307 },
+   { "R004_StatementEle_73", 308 },
+   { "R004_StatementEle_74", 309 },
+   { "R004_StatementEle_75", 310 },
+   { "R004_StatementEle_76", 311 },
+   { "R004_StatementEle_77", 312 },
+   { "R004_StatementEle_78", 313 },
+   { "R004_StatementEle_79", 314 },
+   { "R004_StatementEle_80", 315 },
+   { "R004_Modifier_0", 316 },
+   { "R004_Modifier_1", 317 },
+   { "R004_Modifier_2", 318 },
+   { "R004_Modifier_3", 319 },
+   { "R004_Modifier_4", 320 },
+   { "R004_Modifier_5", 321 },
+   { "R004_Modifier_6", 322 },
+   { "R004_Modifier_7", 323 },
+   { "R004_Modifier_8", 324 },
+   { "R004_Modifier_9", 325 },
+   { "R004_Modifier_10", 326 },
+   { "R004_Modifier_11", 327 },
+   { "R004_Modifier_12", 328 },
+   { "R004_MethodBody_0", 329 },
+   { "R004_MethodBody_1", 330 },
+   { "R004_Block_0", 331 },
+   { "R004_Block_1", 332 },
+   { "R004_BlockStatements_0", 333 },
+   { "R004_BlockStatements_1", 334 },
+   { "R004_BlockStatements_2", 335 },
+   { "R004_NonBrace_0", 336 },
+   { "R004_NonBrace_1", 337 },
+   { "R004_NonBrace_2", 338 },
+   { "R004_NonBrace_3", 339 },
+   { "R004_NonBrace_4", 340 },
+   { "R004_NonBrace_5", 341 },
+   { "R004_NonBrace_6", 342 },
+   { "R004_NonBrace_7", 343 },
+   { "R004_NonBrace_8", 344 },
+   { "R004_Annotation_0", 345 },
+   { "R004_Annotation_1", 346 },
+   { "R004_TypeArguments_0", 347 },
+   { "R004_TypeArgumentList_0", 348 },
+   { "R004_TypeArgumentList_1", 349 },
+   { "R004_NonANGLE_BRACKET_0", 350 },
+   { "R004_NonANGLE_BRACKET_1", 351 },
+   { "R004_NonANGLE_BRACKET_2", 352 },
+   { "R004_NonANGLE_BRACKET_3", 353 },
+   { "R004_NonANGLE_BRACKET_4", 354 },
+   { "R004_NonANGLE_BRACKET_5", 355 },
+   { "R004_NonANGLE_BRACKET_6", 356 },
+   { "R004_NonANGLE_BRACKET_7", 357 },
+   { "R004_NonANGLE_BRACKET_8", 358 },
+   { "R004_UnannPrimitiveType_0", 359 },
+   { "R004_UnannPrimitiveType_1", 360 },
+   { "R004_NumericType_0", 361 },
+   { "R004_NumericType_1", 362 },
+   { "R004_IntegralType_0", 363 },
+   { "R004_IntegralType_1", 364 },
+   { "R004_IntegralType_2", 365 },
+   { "R004_IntegralType_3", 366 },
+   { "R004_IntegralType_4", 367 },
+   { "R004_FloatingPointType_0", 368 },
+   { "R004_FloatingPointType_1", 369 },
+   { "R004_Superclass_0", 370 },
+   { "R004_ClassTypeEle_0", 371 },
+   { "R004_ClassTypeEle_1", 372 },
+   { "R004_ClassTypeEle_2", 373 },
+   { "R004_ClassTypeEle_3", 374 },
+   { "R004_ClassType_0", 375 },
+   { "R004_ClassType_1", 376 },
+   { "R004_AnnotationList_0", 377 },
+   { "R004_AnnotationList_1", 378 },
+   { "R004_Superinterfaces_0", 379 },
+   { "R004_InterfaceTypeList_0", 380 },
+   { "R004_InterfaceTypeList_1", 381 },
 	};
 }
 
@@ -599,161 +617,179 @@ P_SDT_genertor SDT_Factory::getSDT_genertor(const string &key) {
 	case 206: factory["R004_ClassBodyDeclarationList_0"] = P_SDT_genertor(new R004_ClassBodyDeclarationList_0Analyzer()); break;
 	case 207: factory["R004_ClassBodyDeclarationList_1"] = P_SDT_genertor(new R004_ClassBodyDeclarationList_1Analyzer()); break;
 	case 208: factory["R004_ClassBodyDeclaration_0"] = P_SDT_genertor(new R004_ClassBodyDeclaration_0Analyzer()); break;
-	case 209: factory["R004_ClassMemberDeclaration_0"] = P_SDT_genertor(new R004_ClassMemberDeclaration_0Analyzer()); break;
-	case 210: factory["R004_MethodDeclaration_0"] = P_SDT_genertor(new R004_MethodDeclaration_0Analyzer()); break;
-	case 211: factory["R004_MethodDeclaration_1"] = P_SDT_genertor(new R004_MethodDeclaration_1Analyzer()); break;
-	case 212: factory["R004_MethodHeader_0"] = P_SDT_genertor(new R004_MethodHeader_0Analyzer()); break;
-	case 213: factory["R004_MethodDeclarator_0"] = P_SDT_genertor(new R004_MethodDeclarator_0Analyzer()); break;
-	case 214: factory["R004_ModifierList_0"] = P_SDT_genertor(new R004_ModifierList_0Analyzer()); break;
-	case 215: factory["R004_ModifierList_1"] = P_SDT_genertor(new R004_ModifierList_1Analyzer()); break;
-	case 216: factory["R004_AnnotationContent_0"] = P_SDT_genertor(new R004_AnnotationContent_0Analyzer()); break;
-	case 217: factory["R004_AnnotationContentStatements_0"] = P_SDT_genertor(new R004_AnnotationContentStatements_0Analyzer()); break;
-	case 218: factory["R004_AnnotationContentStatements_1"] = P_SDT_genertor(new R004_AnnotationContentStatements_1Analyzer()); break;
-	case 219: factory["R004_NonPARENTHESES_0"] = P_SDT_genertor(new R004_NonPARENTHESES_0Analyzer()); break;
-	case 220: factory["R004_NonPARENTHESES_1"] = P_SDT_genertor(new R004_NonPARENTHESES_1Analyzer()); break;
-	case 221: factory["R004_NonPARENTHESES_2"] = P_SDT_genertor(new R004_NonPARENTHESES_2Analyzer()); break;
-	case 222: factory["R004_NonPARENTHESES_3"] = P_SDT_genertor(new R004_NonPARENTHESES_3Analyzer()); break;
-	case 223: factory["R004_NonPARENTHESES_4"] = P_SDT_genertor(new R004_NonPARENTHESES_4Analyzer()); break;
-	case 224: factory["R004_NonPARENTHESES_5"] = P_SDT_genertor(new R004_NonPARENTHESES_5Analyzer()); break;
-	case 225: factory["R004_NonPARENTHESES_6"] = P_SDT_genertor(new R004_NonPARENTHESES_6Analyzer()); break;
-	case 226: factory["R004_NonPARENTHESES_7"] = P_SDT_genertor(new R004_NonPARENTHESES_7Analyzer()); break;
-	case 227: factory["R004_NonPARENTHESES_8"] = P_SDT_genertor(new R004_NonPARENTHESES_8Analyzer()); break;
-	case 228: factory["R004_NonPARENTHESES_9"] = P_SDT_genertor(new R004_NonPARENTHESES_9Analyzer()); break;
-	case 229: factory["R004_StatementEle_0"] = P_SDT_genertor(new R004_StatementEle_0Analyzer()); break;
-	case 230: factory["R004_StatementEle_1"] = P_SDT_genertor(new R004_StatementEle_1Analyzer()); break;
-	case 231: factory["R004_StatementEle_2"] = P_SDT_genertor(new R004_StatementEle_2Analyzer()); break;
-	case 232: factory["R004_StatementEle_3"] = P_SDT_genertor(new R004_StatementEle_3Analyzer()); break;
-	case 233: factory["R004_StatementEle_4"] = P_SDT_genertor(new R004_StatementEle_4Analyzer()); break;
-	case 234: factory["R004_StatementEle_5"] = P_SDT_genertor(new R004_StatementEle_5Analyzer()); break;
-	case 235: factory["R004_StatementEle_6"] = P_SDT_genertor(new R004_StatementEle_6Analyzer()); break;
-	case 236: factory["R004_StatementEle_7"] = P_SDT_genertor(new R004_StatementEle_7Analyzer()); break;
-	case 237: factory["R004_StatementEle_8"] = P_SDT_genertor(new R004_StatementEle_8Analyzer()); break;
-	case 238: factory["R004_StatementEle_9"] = P_SDT_genertor(new R004_StatementEle_9Analyzer()); break;
-	case 239: factory["R004_StatementEle_10"] = P_SDT_genertor(new R004_StatementEle_10Analyzer()); break;
-	case 240: factory["R004_StatementEle_11"] = P_SDT_genertor(new R004_StatementEle_11Analyzer()); break;
-	case 241: factory["R004_StatementEle_12"] = P_SDT_genertor(new R004_StatementEle_12Analyzer()); break;
-	case 242: factory["R004_StatementEle_13"] = P_SDT_genertor(new R004_StatementEle_13Analyzer()); break;
-	case 243: factory["R004_StatementEle_14"] = P_SDT_genertor(new R004_StatementEle_14Analyzer()); break;
-	case 244: factory["R004_StatementEle_15"] = P_SDT_genertor(new R004_StatementEle_15Analyzer()); break;
-	case 245: factory["R004_StatementEle_16"] = P_SDT_genertor(new R004_StatementEle_16Analyzer()); break;
-	case 246: factory["R004_StatementEle_17"] = P_SDT_genertor(new R004_StatementEle_17Analyzer()); break;
-	case 247: factory["R004_StatementEle_18"] = P_SDT_genertor(new R004_StatementEle_18Analyzer()); break;
-	case 248: factory["R004_StatementEle_19"] = P_SDT_genertor(new R004_StatementEle_19Analyzer()); break;
-	case 249: factory["R004_StatementEle_20"] = P_SDT_genertor(new R004_StatementEle_20Analyzer()); break;
-	case 250: factory["R004_StatementEle_21"] = P_SDT_genertor(new R004_StatementEle_21Analyzer()); break;
-	case 251: factory["R004_StatementEle_22"] = P_SDT_genertor(new R004_StatementEle_22Analyzer()); break;
-	case 252: factory["R004_StatementEle_23"] = P_SDT_genertor(new R004_StatementEle_23Analyzer()); break;
-	case 253: factory["R004_StatementEle_24"] = P_SDT_genertor(new R004_StatementEle_24Analyzer()); break;
-	case 254: factory["R004_StatementEle_25"] = P_SDT_genertor(new R004_StatementEle_25Analyzer()); break;
-	case 255: factory["R004_StatementEle_26"] = P_SDT_genertor(new R004_StatementEle_26Analyzer()); break;
-	case 256: factory["R004_StatementEle_27"] = P_SDT_genertor(new R004_StatementEle_27Analyzer()); break;
-	case 257: factory["R004_StatementEle_28"] = P_SDT_genertor(new R004_StatementEle_28Analyzer()); break;
-	case 258: factory["R004_StatementEle_29"] = P_SDT_genertor(new R004_StatementEle_29Analyzer()); break;
-	case 259: factory["R004_StatementEle_30"] = P_SDT_genertor(new R004_StatementEle_30Analyzer()); break;
-	case 260: factory["R004_StatementEle_31"] = P_SDT_genertor(new R004_StatementEle_31Analyzer()); break;
-	case 261: factory["R004_StatementEle_32"] = P_SDT_genertor(new R004_StatementEle_32Analyzer()); break;
-	case 262: factory["R004_StatementEle_33"] = P_SDT_genertor(new R004_StatementEle_33Analyzer()); break;
-	case 263: factory["R004_StatementEle_34"] = P_SDT_genertor(new R004_StatementEle_34Analyzer()); break;
-	case 264: factory["R004_StatementEle_35"] = P_SDT_genertor(new R004_StatementEle_35Analyzer()); break;
-	case 265: factory["R004_StatementEle_36"] = P_SDT_genertor(new R004_StatementEle_36Analyzer()); break;
-	case 266: factory["R004_StatementEle_37"] = P_SDT_genertor(new R004_StatementEle_37Analyzer()); break;
-	case 267: factory["R004_StatementEle_38"] = P_SDT_genertor(new R004_StatementEle_38Analyzer()); break;
-	case 268: factory["R004_StatementEle_39"] = P_SDT_genertor(new R004_StatementEle_39Analyzer()); break;
-	case 269: factory["R004_StatementEle_40"] = P_SDT_genertor(new R004_StatementEle_40Analyzer()); break;
-	case 270: factory["R004_StatementEle_41"] = P_SDT_genertor(new R004_StatementEle_41Analyzer()); break;
-	case 271: factory["R004_StatementEle_42"] = P_SDT_genertor(new R004_StatementEle_42Analyzer()); break;
-	case 272: factory["R004_StatementEle_43"] = P_SDT_genertor(new R004_StatementEle_43Analyzer()); break;
-	case 273: factory["R004_StatementEle_44"] = P_SDT_genertor(new R004_StatementEle_44Analyzer()); break;
-	case 274: factory["R004_StatementEle_45"] = P_SDT_genertor(new R004_StatementEle_45Analyzer()); break;
-	case 275: factory["R004_StatementEle_46"] = P_SDT_genertor(new R004_StatementEle_46Analyzer()); break;
-	case 276: factory["R004_StatementEle_47"] = P_SDT_genertor(new R004_StatementEle_47Analyzer()); break;
-	case 277: factory["R004_StatementEle_48"] = P_SDT_genertor(new R004_StatementEle_48Analyzer()); break;
-	case 278: factory["R004_StatementEle_49"] = P_SDT_genertor(new R004_StatementEle_49Analyzer()); break;
-	case 279: factory["R004_StatementEle_50"] = P_SDT_genertor(new R004_StatementEle_50Analyzer()); break;
-	case 280: factory["R004_StatementEle_51"] = P_SDT_genertor(new R004_StatementEle_51Analyzer()); break;
-	case 281: factory["R004_StatementEle_52"] = P_SDT_genertor(new R004_StatementEle_52Analyzer()); break;
-	case 282: factory["R004_StatementEle_53"] = P_SDT_genertor(new R004_StatementEle_53Analyzer()); break;
-	case 283: factory["R004_StatementEle_54"] = P_SDT_genertor(new R004_StatementEle_54Analyzer()); break;
-	case 284: factory["R004_StatementEle_55"] = P_SDT_genertor(new R004_StatementEle_55Analyzer()); break;
-	case 285: factory["R004_StatementEle_56"] = P_SDT_genertor(new R004_StatementEle_56Analyzer()); break;
-	case 286: factory["R004_StatementEle_57"] = P_SDT_genertor(new R004_StatementEle_57Analyzer()); break;
-	case 287: factory["R004_StatementEle_58"] = P_SDT_genertor(new R004_StatementEle_58Analyzer()); break;
-	case 288: factory["R004_StatementEle_59"] = P_SDT_genertor(new R004_StatementEle_59Analyzer()); break;
-	case 289: factory["R004_StatementEle_60"] = P_SDT_genertor(new R004_StatementEle_60Analyzer()); break;
-	case 290: factory["R004_StatementEle_61"] = P_SDT_genertor(new R004_StatementEle_61Analyzer()); break;
-	case 291: factory["R004_StatementEle_62"] = P_SDT_genertor(new R004_StatementEle_62Analyzer()); break;
-	case 292: factory["R004_StatementEle_63"] = P_SDT_genertor(new R004_StatementEle_63Analyzer()); break;
-	case 293: factory["R004_StatementEle_64"] = P_SDT_genertor(new R004_StatementEle_64Analyzer()); break;
-	case 294: factory["R004_StatementEle_65"] = P_SDT_genertor(new R004_StatementEle_65Analyzer()); break;
-	case 295: factory["R004_StatementEle_66"] = P_SDT_genertor(new R004_StatementEle_66Analyzer()); break;
-	case 296: factory["R004_StatementEle_67"] = P_SDT_genertor(new R004_StatementEle_67Analyzer()); break;
-	case 297: factory["R004_StatementEle_68"] = P_SDT_genertor(new R004_StatementEle_68Analyzer()); break;
-	case 298: factory["R004_StatementEle_69"] = P_SDT_genertor(new R004_StatementEle_69Analyzer()); break;
-	case 299: factory["R004_StatementEle_70"] = P_SDT_genertor(new R004_StatementEle_70Analyzer()); break;
-	case 300: factory["R004_StatementEle_71"] = P_SDT_genertor(new R004_StatementEle_71Analyzer()); break;
-	case 301: factory["R004_StatementEle_72"] = P_SDT_genertor(new R004_StatementEle_72Analyzer()); break;
-	case 302: factory["R004_StatementEle_73"] = P_SDT_genertor(new R004_StatementEle_73Analyzer()); break;
-	case 303: factory["R004_StatementEle_74"] = P_SDT_genertor(new R004_StatementEle_74Analyzer()); break;
-	case 304: factory["R004_StatementEle_75"] = P_SDT_genertor(new R004_StatementEle_75Analyzer()); break;
-	case 305: factory["R004_StatementEle_76"] = P_SDT_genertor(new R004_StatementEle_76Analyzer()); break;
-	case 306: factory["R004_StatementEle_77"] = P_SDT_genertor(new R004_StatementEle_77Analyzer()); break;
-	case 307: factory["R004_StatementEle_78"] = P_SDT_genertor(new R004_StatementEle_78Analyzer()); break;
-	case 308: factory["R004_StatementEle_79"] = P_SDT_genertor(new R004_StatementEle_79Analyzer()); break;
-	case 309: factory["R004_StatementEle_80"] = P_SDT_genertor(new R004_StatementEle_80Analyzer()); break;
-	case 310: factory["R004_Modifier_0"] = P_SDT_genertor(new R004_Modifier_0Analyzer()); break;
-	case 311: factory["R004_Modifier_1"] = P_SDT_genertor(new R004_Modifier_1Analyzer()); break;
-	case 312: factory["R004_Modifier_2"] = P_SDT_genertor(new R004_Modifier_2Analyzer()); break;
-	case 313: factory["R004_Modifier_3"] = P_SDT_genertor(new R004_Modifier_3Analyzer()); break;
-	case 314: factory["R004_Modifier_4"] = P_SDT_genertor(new R004_Modifier_4Analyzer()); break;
-	case 315: factory["R004_Modifier_5"] = P_SDT_genertor(new R004_Modifier_5Analyzer()); break;
-	case 316: factory["R004_Modifier_6"] = P_SDT_genertor(new R004_Modifier_6Analyzer()); break;
-	case 317: factory["R004_Modifier_7"] = P_SDT_genertor(new R004_Modifier_7Analyzer()); break;
-	case 318: factory["R004_Modifier_8"] = P_SDT_genertor(new R004_Modifier_8Analyzer()); break;
-	case 319: factory["R004_Modifier_9"] = P_SDT_genertor(new R004_Modifier_9Analyzer()); break;
-	case 320: factory["R004_Modifier_10"] = P_SDT_genertor(new R004_Modifier_10Analyzer()); break;
-	case 321: factory["R004_Modifier_11"] = P_SDT_genertor(new R004_Modifier_11Analyzer()); break;
-	case 322: factory["R004_Modifier_12"] = P_SDT_genertor(new R004_Modifier_12Analyzer()); break;
-	case 323: factory["R004_MethodBody_0"] = P_SDT_genertor(new R004_MethodBody_0Analyzer()); break;
-	case 324: factory["R004_MethodBody_1"] = P_SDT_genertor(new R004_MethodBody_1Analyzer()); break;
-	case 325: factory["R004_Block_0"] = P_SDT_genertor(new R004_Block_0Analyzer()); break;
-	case 326: factory["R004_BlockStatements_0"] = P_SDT_genertor(new R004_BlockStatements_0Analyzer()); break;
-	case 327: factory["R004_Annotation_0"] = P_SDT_genertor(new R004_Annotation_0Analyzer()); break;
-	case 328: factory["R004_Annotation_1"] = P_SDT_genertor(new R004_Annotation_1Analyzer()); break;
-	case 329: factory["R004_TypeArguments_0"] = P_SDT_genertor(new R004_TypeArguments_0Analyzer()); break;
-	case 330: factory["R004_TypeArgumentList_0"] = P_SDT_genertor(new R004_TypeArgumentList_0Analyzer()); break;
-	case 331: factory["R004_TypeArgumentList_1"] = P_SDT_genertor(new R004_TypeArgumentList_1Analyzer()); break;
-	case 332: factory["R004_NonANGLE_BRACKET_0"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_0Analyzer()); break;
-	case 333: factory["R004_NonANGLE_BRACKET_1"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_1Analyzer()); break;
-	case 334: factory["R004_NonANGLE_BRACKET_2"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_2Analyzer()); break;
-	case 335: factory["R004_NonANGLE_BRACKET_3"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_3Analyzer()); break;
-	case 336: factory["R004_NonANGLE_BRACKET_4"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_4Analyzer()); break;
-	case 337: factory["R004_NonANGLE_BRACKET_5"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_5Analyzer()); break;
-	case 338: factory["R004_NonANGLE_BRACKET_6"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_6Analyzer()); break;
-	case 339: factory["R004_NonANGLE_BRACKET_7"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_7Analyzer()); break;
-	case 340: factory["R004_NonANGLE_BRACKET_8"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_8Analyzer()); break;
-	case 341: factory["R004_UnannPrimitiveType_0"] = P_SDT_genertor(new R004_UnannPrimitiveType_0Analyzer()); break;
-	case 342: factory["R004_UnannPrimitiveType_1"] = P_SDT_genertor(new R004_UnannPrimitiveType_1Analyzer()); break;
-	case 343: factory["R004_NumericType_0"] = P_SDT_genertor(new R004_NumericType_0Analyzer()); break;
-	case 344: factory["R004_NumericType_1"] = P_SDT_genertor(new R004_NumericType_1Analyzer()); break;
-	case 345: factory["R004_IntegralType_0"] = P_SDT_genertor(new R004_IntegralType_0Analyzer()); break;
-	case 346: factory["R004_IntegralType_1"] = P_SDT_genertor(new R004_IntegralType_1Analyzer()); break;
-	case 347: factory["R004_IntegralType_2"] = P_SDT_genertor(new R004_IntegralType_2Analyzer()); break;
-	case 348: factory["R004_IntegralType_3"] = P_SDT_genertor(new R004_IntegralType_3Analyzer()); break;
-	case 349: factory["R004_IntegralType_4"] = P_SDT_genertor(new R004_IntegralType_4Analyzer()); break;
-	case 350: factory["R004_FloatingPointType_0"] = P_SDT_genertor(new R004_FloatingPointType_0Analyzer()); break;
-	case 351: factory["R004_FloatingPointType_1"] = P_SDT_genertor(new R004_FloatingPointType_1Analyzer()); break;
-	case 352: factory["R004_Superclass_0"] = P_SDT_genertor(new R004_Superclass_0Analyzer()); break;
-	case 353: factory["R004_ClassTypeEle_0"] = P_SDT_genertor(new R004_ClassTypeEle_0Analyzer()); break;
-	case 354: factory["R004_ClassTypeEle_1"] = P_SDT_genertor(new R004_ClassTypeEle_1Analyzer()); break;
-	case 355: factory["R004_ClassTypeEle_2"] = P_SDT_genertor(new R004_ClassTypeEle_2Analyzer()); break;
-	case 356: factory["R004_ClassTypeEle_3"] = P_SDT_genertor(new R004_ClassTypeEle_3Analyzer()); break;
-	case 357: factory["R004_ClassType_0"] = P_SDT_genertor(new R004_ClassType_0Analyzer()); break;
-	case 358: factory["R004_ClassType_1"] = P_SDT_genertor(new R004_ClassType_1Analyzer()); break;
-	case 359: factory["R004_AnnotationList_0"] = P_SDT_genertor(new R004_AnnotationList_0Analyzer()); break;
-	case 360: factory["R004_AnnotationList_1"] = P_SDT_genertor(new R004_AnnotationList_1Analyzer()); break;
-	case 361: factory["R004_Superinterfaces_0"] = P_SDT_genertor(new R004_Superinterfaces_0Analyzer()); break;
-	case 362: factory["R004_InterfaceTypeList_0"] = P_SDT_genertor(new R004_InterfaceTypeList_0Analyzer()); break;
-	case 363: factory["R004_InterfaceTypeList_1"] = P_SDT_genertor(new R004_InterfaceTypeList_1Analyzer()); break;
+	case 209: factory["R004_ClassBodyDeclaration_1"] = P_SDT_genertor(new R004_ClassBodyDeclaration_1Analyzer()); break;
+	case 210: factory["R004_ClassStatementPrefix_0"] = P_SDT_genertor(new R004_ClassStatementPrefix_0Analyzer()); break;
+	case 211: factory["R004_ClassStatementPrefix_1"] = P_SDT_genertor(new R004_ClassStatementPrefix_1Analyzer()); break;
+	case 212: factory["R004_NonBraceAndSemicolon_0"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_0Analyzer()); break;
+	case 213: factory["R004_NonBraceAndSemicolon_1"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_1Analyzer()); break;
+	case 214: factory["R004_NonBraceAndSemicolon_2"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_2Analyzer()); break;
+	case 215: factory["R004_NonBraceAndSemicolon_3"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_3Analyzer()); break;
+	case 216: factory["R004_NonBraceAndSemicolon_4"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_4Analyzer()); break;
+	case 217: factory["R004_NonBraceAndSemicolon_5"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_5Analyzer()); break;
+	case 218: factory["R004_NonBraceAndSemicolon_6"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_6Analyzer()); break;
+	case 219: factory["R004_NonBraceAndSemicolon_7"] = P_SDT_genertor(new R004_NonBraceAndSemicolon_7Analyzer()); break;
+	case 220: factory["R004_ModifierList_0"] = P_SDT_genertor(new R004_ModifierList_0Analyzer()); break;
+	case 221: factory["R004_ModifierList_1"] = P_SDT_genertor(new R004_ModifierList_1Analyzer()); break;
+	case 222: factory["R004_AnnotationContent_0"] = P_SDT_genertor(new R004_AnnotationContent_0Analyzer()); break;
+	case 223: factory["R004_AnnotationContentStatements_0"] = P_SDT_genertor(new R004_AnnotationContentStatements_0Analyzer()); break;
+	case 224: factory["R004_AnnotationContentStatements_1"] = P_SDT_genertor(new R004_AnnotationContentStatements_1Analyzer()); break;
+	case 225: factory["R004_NonPARENTHESES_0"] = P_SDT_genertor(new R004_NonPARENTHESES_0Analyzer()); break;
+	case 226: factory["R004_NonPARENTHESES_1"] = P_SDT_genertor(new R004_NonPARENTHESES_1Analyzer()); break;
+	case 227: factory["R004_NonPARENTHESES_2"] = P_SDT_genertor(new R004_NonPARENTHESES_2Analyzer()); break;
+	case 228: factory["R004_NonPARENTHESES_3"] = P_SDT_genertor(new R004_NonPARENTHESES_3Analyzer()); break;
+	case 229: factory["R004_NonPARENTHESES_4"] = P_SDT_genertor(new R004_NonPARENTHESES_4Analyzer()); break;
+	case 230: factory["R004_NonPARENTHESES_5"] = P_SDT_genertor(new R004_NonPARENTHESES_5Analyzer()); break;
+	case 231: factory["R004_NonPARENTHESES_6"] = P_SDT_genertor(new R004_NonPARENTHESES_6Analyzer()); break;
+	case 232: factory["R004_NonPARENTHESES_7"] = P_SDT_genertor(new R004_NonPARENTHESES_7Analyzer()); break;
+	case 233: factory["R004_NonPARENTHESES_8"] = P_SDT_genertor(new R004_NonPARENTHESES_8Analyzer()); break;
+	case 234: factory["R004_NonPARENTHESES_9"] = P_SDT_genertor(new R004_NonPARENTHESES_9Analyzer()); break;
+	case 235: factory["R004_StatementEle_0"] = P_SDT_genertor(new R004_StatementEle_0Analyzer()); break;
+	case 236: factory["R004_StatementEle_1"] = P_SDT_genertor(new R004_StatementEle_1Analyzer()); break;
+	case 237: factory["R004_StatementEle_2"] = P_SDT_genertor(new R004_StatementEle_2Analyzer()); break;
+	case 238: factory["R004_StatementEle_3"] = P_SDT_genertor(new R004_StatementEle_3Analyzer()); break;
+	case 239: factory["R004_StatementEle_4"] = P_SDT_genertor(new R004_StatementEle_4Analyzer()); break;
+	case 240: factory["R004_StatementEle_5"] = P_SDT_genertor(new R004_StatementEle_5Analyzer()); break;
+	case 241: factory["R004_StatementEle_6"] = P_SDT_genertor(new R004_StatementEle_6Analyzer()); break;
+	case 242: factory["R004_StatementEle_7"] = P_SDT_genertor(new R004_StatementEle_7Analyzer()); break;
+	case 243: factory["R004_StatementEle_8"] = P_SDT_genertor(new R004_StatementEle_8Analyzer()); break;
+	case 244: factory["R004_StatementEle_9"] = P_SDT_genertor(new R004_StatementEle_9Analyzer()); break;
+	case 245: factory["R004_StatementEle_10"] = P_SDT_genertor(new R004_StatementEle_10Analyzer()); break;
+	case 246: factory["R004_StatementEle_11"] = P_SDT_genertor(new R004_StatementEle_11Analyzer()); break;
+	case 247: factory["R004_StatementEle_12"] = P_SDT_genertor(new R004_StatementEle_12Analyzer()); break;
+	case 248: factory["R004_StatementEle_13"] = P_SDT_genertor(new R004_StatementEle_13Analyzer()); break;
+	case 249: factory["R004_StatementEle_14"] = P_SDT_genertor(new R004_StatementEle_14Analyzer()); break;
+	case 250: factory["R004_StatementEle_15"] = P_SDT_genertor(new R004_StatementEle_15Analyzer()); break;
+	case 251: factory["R004_StatementEle_16"] = P_SDT_genertor(new R004_StatementEle_16Analyzer()); break;
+	case 252: factory["R004_StatementEle_17"] = P_SDT_genertor(new R004_StatementEle_17Analyzer()); break;
+	case 253: factory["R004_StatementEle_18"] = P_SDT_genertor(new R004_StatementEle_18Analyzer()); break;
+	case 254: factory["R004_StatementEle_19"] = P_SDT_genertor(new R004_StatementEle_19Analyzer()); break;
+	case 255: factory["R004_StatementEle_20"] = P_SDT_genertor(new R004_StatementEle_20Analyzer()); break;
+	case 256: factory["R004_StatementEle_21"] = P_SDT_genertor(new R004_StatementEle_21Analyzer()); break;
+	case 257: factory["R004_StatementEle_22"] = P_SDT_genertor(new R004_StatementEle_22Analyzer()); break;
+	case 258: factory["R004_StatementEle_23"] = P_SDT_genertor(new R004_StatementEle_23Analyzer()); break;
+	case 259: factory["R004_StatementEle_24"] = P_SDT_genertor(new R004_StatementEle_24Analyzer()); break;
+	case 260: factory["R004_StatementEle_25"] = P_SDT_genertor(new R004_StatementEle_25Analyzer()); break;
+	case 261: factory["R004_StatementEle_26"] = P_SDT_genertor(new R004_StatementEle_26Analyzer()); break;
+	case 262: factory["R004_StatementEle_27"] = P_SDT_genertor(new R004_StatementEle_27Analyzer()); break;
+	case 263: factory["R004_StatementEle_28"] = P_SDT_genertor(new R004_StatementEle_28Analyzer()); break;
+	case 264: factory["R004_StatementEle_29"] = P_SDT_genertor(new R004_StatementEle_29Analyzer()); break;
+	case 265: factory["R004_StatementEle_30"] = P_SDT_genertor(new R004_StatementEle_30Analyzer()); break;
+	case 266: factory["R004_StatementEle_31"] = P_SDT_genertor(new R004_StatementEle_31Analyzer()); break;
+	case 267: factory["R004_StatementEle_32"] = P_SDT_genertor(new R004_StatementEle_32Analyzer()); break;
+	case 268: factory["R004_StatementEle_33"] = P_SDT_genertor(new R004_StatementEle_33Analyzer()); break;
+	case 269: factory["R004_StatementEle_34"] = P_SDT_genertor(new R004_StatementEle_34Analyzer()); break;
+	case 270: factory["R004_StatementEle_35"] = P_SDT_genertor(new R004_StatementEle_35Analyzer()); break;
+	case 271: factory["R004_StatementEle_36"] = P_SDT_genertor(new R004_StatementEle_36Analyzer()); break;
+	case 272: factory["R004_StatementEle_37"] = P_SDT_genertor(new R004_StatementEle_37Analyzer()); break;
+	case 273: factory["R004_StatementEle_38"] = P_SDT_genertor(new R004_StatementEle_38Analyzer()); break;
+	case 274: factory["R004_StatementEle_39"] = P_SDT_genertor(new R004_StatementEle_39Analyzer()); break;
+	case 275: factory["R004_StatementEle_40"] = P_SDT_genertor(new R004_StatementEle_40Analyzer()); break;
+	case 276: factory["R004_StatementEle_41"] = P_SDT_genertor(new R004_StatementEle_41Analyzer()); break;
+	case 277: factory["R004_StatementEle_42"] = P_SDT_genertor(new R004_StatementEle_42Analyzer()); break;
+	case 278: factory["R004_StatementEle_43"] = P_SDT_genertor(new R004_StatementEle_43Analyzer()); break;
+	case 279: factory["R004_StatementEle_44"] = P_SDT_genertor(new R004_StatementEle_44Analyzer()); break;
+	case 280: factory["R004_StatementEle_45"] = P_SDT_genertor(new R004_StatementEle_45Analyzer()); break;
+	case 281: factory["R004_StatementEle_46"] = P_SDT_genertor(new R004_StatementEle_46Analyzer()); break;
+	case 282: factory["R004_StatementEle_47"] = P_SDT_genertor(new R004_StatementEle_47Analyzer()); break;
+	case 283: factory["R004_StatementEle_48"] = P_SDT_genertor(new R004_StatementEle_48Analyzer()); break;
+	case 284: factory["R004_StatementEle_49"] = P_SDT_genertor(new R004_StatementEle_49Analyzer()); break;
+	case 285: factory["R004_StatementEle_50"] = P_SDT_genertor(new R004_StatementEle_50Analyzer()); break;
+	case 286: factory["R004_StatementEle_51"] = P_SDT_genertor(new R004_StatementEle_51Analyzer()); break;
+	case 287: factory["R004_StatementEle_52"] = P_SDT_genertor(new R004_StatementEle_52Analyzer()); break;
+	case 288: factory["R004_StatementEle_53"] = P_SDT_genertor(new R004_StatementEle_53Analyzer()); break;
+	case 289: factory["R004_StatementEle_54"] = P_SDT_genertor(new R004_StatementEle_54Analyzer()); break;
+	case 290: factory["R004_StatementEle_55"] = P_SDT_genertor(new R004_StatementEle_55Analyzer()); break;
+	case 291: factory["R004_StatementEle_56"] = P_SDT_genertor(new R004_StatementEle_56Analyzer()); break;
+	case 292: factory["R004_StatementEle_57"] = P_SDT_genertor(new R004_StatementEle_57Analyzer()); break;
+	case 293: factory["R004_StatementEle_58"] = P_SDT_genertor(new R004_StatementEle_58Analyzer()); break;
+	case 294: factory["R004_StatementEle_59"] = P_SDT_genertor(new R004_StatementEle_59Analyzer()); break;
+	case 295: factory["R004_StatementEle_60"] = P_SDT_genertor(new R004_StatementEle_60Analyzer()); break;
+	case 296: factory["R004_StatementEle_61"] = P_SDT_genertor(new R004_StatementEle_61Analyzer()); break;
+	case 297: factory["R004_StatementEle_62"] = P_SDT_genertor(new R004_StatementEle_62Analyzer()); break;
+	case 298: factory["R004_StatementEle_63"] = P_SDT_genertor(new R004_StatementEle_63Analyzer()); break;
+	case 299: factory["R004_StatementEle_64"] = P_SDT_genertor(new R004_StatementEle_64Analyzer()); break;
+	case 300: factory["R004_StatementEle_65"] = P_SDT_genertor(new R004_StatementEle_65Analyzer()); break;
+	case 301: factory["R004_StatementEle_66"] = P_SDT_genertor(new R004_StatementEle_66Analyzer()); break;
+	case 302: factory["R004_StatementEle_67"] = P_SDT_genertor(new R004_StatementEle_67Analyzer()); break;
+	case 303: factory["R004_StatementEle_68"] = P_SDT_genertor(new R004_StatementEle_68Analyzer()); break;
+	case 304: factory["R004_StatementEle_69"] = P_SDT_genertor(new R004_StatementEle_69Analyzer()); break;
+	case 305: factory["R004_StatementEle_70"] = P_SDT_genertor(new R004_StatementEle_70Analyzer()); break;
+	case 306: factory["R004_StatementEle_71"] = P_SDT_genertor(new R004_StatementEle_71Analyzer()); break;
+	case 307: factory["R004_StatementEle_72"] = P_SDT_genertor(new R004_StatementEle_72Analyzer()); break;
+	case 308: factory["R004_StatementEle_73"] = P_SDT_genertor(new R004_StatementEle_73Analyzer()); break;
+	case 309: factory["R004_StatementEle_74"] = P_SDT_genertor(new R004_StatementEle_74Analyzer()); break;
+	case 310: factory["R004_StatementEle_75"] = P_SDT_genertor(new R004_StatementEle_75Analyzer()); break;
+	case 311: factory["R004_StatementEle_76"] = P_SDT_genertor(new R004_StatementEle_76Analyzer()); break;
+	case 312: factory["R004_StatementEle_77"] = P_SDT_genertor(new R004_StatementEle_77Analyzer()); break;
+	case 313: factory["R004_StatementEle_78"] = P_SDT_genertor(new R004_StatementEle_78Analyzer()); break;
+	case 314: factory["R004_StatementEle_79"] = P_SDT_genertor(new R004_StatementEle_79Analyzer()); break;
+	case 315: factory["R004_StatementEle_80"] = P_SDT_genertor(new R004_StatementEle_80Analyzer()); break;
+	case 316: factory["R004_Modifier_0"] = P_SDT_genertor(new R004_Modifier_0Analyzer()); break;
+	case 317: factory["R004_Modifier_1"] = P_SDT_genertor(new R004_Modifier_1Analyzer()); break;
+	case 318: factory["R004_Modifier_2"] = P_SDT_genertor(new R004_Modifier_2Analyzer()); break;
+	case 319: factory["R004_Modifier_3"] = P_SDT_genertor(new R004_Modifier_3Analyzer()); break;
+	case 320: factory["R004_Modifier_4"] = P_SDT_genertor(new R004_Modifier_4Analyzer()); break;
+	case 321: factory["R004_Modifier_5"] = P_SDT_genertor(new R004_Modifier_5Analyzer()); break;
+	case 322: factory["R004_Modifier_6"] = P_SDT_genertor(new R004_Modifier_6Analyzer()); break;
+	case 323: factory["R004_Modifier_7"] = P_SDT_genertor(new R004_Modifier_7Analyzer()); break;
+	case 324: factory["R004_Modifier_8"] = P_SDT_genertor(new R004_Modifier_8Analyzer()); break;
+	case 325: factory["R004_Modifier_9"] = P_SDT_genertor(new R004_Modifier_9Analyzer()); break;
+	case 326: factory["R004_Modifier_10"] = P_SDT_genertor(new R004_Modifier_10Analyzer()); break;
+	case 327: factory["R004_Modifier_11"] = P_SDT_genertor(new R004_Modifier_11Analyzer()); break;
+	case 328: factory["R004_Modifier_12"] = P_SDT_genertor(new R004_Modifier_12Analyzer()); break;
+	case 329: factory["R004_MethodBody_0"] = P_SDT_genertor(new R004_MethodBody_0Analyzer()); break;
+	case 330: factory["R004_MethodBody_1"] = P_SDT_genertor(new R004_MethodBody_1Analyzer()); break;
+	case 331: factory["R004_Block_0"] = P_SDT_genertor(new R004_Block_0Analyzer()); break;
+	case 332: factory["R004_Block_1"] = P_SDT_genertor(new R004_Block_1Analyzer()); break;
+	case 333: factory["R004_BlockStatements_0"] = P_SDT_genertor(new R004_BlockStatements_0Analyzer()); break;
+	case 334: factory["R004_BlockStatements_1"] = P_SDT_genertor(new R004_BlockStatements_1Analyzer()); break;
+	case 335: factory["R004_BlockStatements_2"] = P_SDT_genertor(new R004_BlockStatements_2Analyzer()); break;
+	case 336: factory["R004_NonBrace_0"] = P_SDT_genertor(new R004_NonBrace_0Analyzer()); break;
+	case 337: factory["R004_NonBrace_1"] = P_SDT_genertor(new R004_NonBrace_1Analyzer()); break;
+	case 338: factory["R004_NonBrace_2"] = P_SDT_genertor(new R004_NonBrace_2Analyzer()); break;
+	case 339: factory["R004_NonBrace_3"] = P_SDT_genertor(new R004_NonBrace_3Analyzer()); break;
+	case 340: factory["R004_NonBrace_4"] = P_SDT_genertor(new R004_NonBrace_4Analyzer()); break;
+	case 341: factory["R004_NonBrace_5"] = P_SDT_genertor(new R004_NonBrace_5Analyzer()); break;
+	case 342: factory["R004_NonBrace_6"] = P_SDT_genertor(new R004_NonBrace_6Analyzer()); break;
+	case 343: factory["R004_NonBrace_7"] = P_SDT_genertor(new R004_NonBrace_7Analyzer()); break;
+	case 344: factory["R004_NonBrace_8"] = P_SDT_genertor(new R004_NonBrace_8Analyzer()); break;
+	case 345: factory["R004_Annotation_0"] = P_SDT_genertor(new R004_Annotation_0Analyzer()); break;
+	case 346: factory["R004_Annotation_1"] = P_SDT_genertor(new R004_Annotation_1Analyzer()); break;
+	case 347: factory["R004_TypeArguments_0"] = P_SDT_genertor(new R004_TypeArguments_0Analyzer()); break;
+	case 348: factory["R004_TypeArgumentList_0"] = P_SDT_genertor(new R004_TypeArgumentList_0Analyzer()); break;
+	case 349: factory["R004_TypeArgumentList_1"] = P_SDT_genertor(new R004_TypeArgumentList_1Analyzer()); break;
+	case 350: factory["R004_NonANGLE_BRACKET_0"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_0Analyzer()); break;
+	case 351: factory["R004_NonANGLE_BRACKET_1"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_1Analyzer()); break;
+	case 352: factory["R004_NonANGLE_BRACKET_2"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_2Analyzer()); break;
+	case 353: factory["R004_NonANGLE_BRACKET_3"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_3Analyzer()); break;
+	case 354: factory["R004_NonANGLE_BRACKET_4"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_4Analyzer()); break;
+	case 355: factory["R004_NonANGLE_BRACKET_5"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_5Analyzer()); break;
+	case 356: factory["R004_NonANGLE_BRACKET_6"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_6Analyzer()); break;
+	case 357: factory["R004_NonANGLE_BRACKET_7"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_7Analyzer()); break;
+	case 358: factory["R004_NonANGLE_BRACKET_8"] = P_SDT_genertor(new R004_NonANGLE_BRACKET_8Analyzer()); break;
+	case 359: factory["R004_UnannPrimitiveType_0"] = P_SDT_genertor(new R004_UnannPrimitiveType_0Analyzer()); break;
+	case 360: factory["R004_UnannPrimitiveType_1"] = P_SDT_genertor(new R004_UnannPrimitiveType_1Analyzer()); break;
+	case 361: factory["R004_NumericType_0"] = P_SDT_genertor(new R004_NumericType_0Analyzer()); break;
+	case 362: factory["R004_NumericType_1"] = P_SDT_genertor(new R004_NumericType_1Analyzer()); break;
+	case 363: factory["R004_IntegralType_0"] = P_SDT_genertor(new R004_IntegralType_0Analyzer()); break;
+	case 364: factory["R004_IntegralType_1"] = P_SDT_genertor(new R004_IntegralType_1Analyzer()); break;
+	case 365: factory["R004_IntegralType_2"] = P_SDT_genertor(new R004_IntegralType_2Analyzer()); break;
+	case 366: factory["R004_IntegralType_3"] = P_SDT_genertor(new R004_IntegralType_3Analyzer()); break;
+	case 367: factory["R004_IntegralType_4"] = P_SDT_genertor(new R004_IntegralType_4Analyzer()); break;
+	case 368: factory["R004_FloatingPointType_0"] = P_SDT_genertor(new R004_FloatingPointType_0Analyzer()); break;
+	case 369: factory["R004_FloatingPointType_1"] = P_SDT_genertor(new R004_FloatingPointType_1Analyzer()); break;
+	case 370: factory["R004_Superclass_0"] = P_SDT_genertor(new R004_Superclass_0Analyzer()); break;
+	case 371: factory["R004_ClassTypeEle_0"] = P_SDT_genertor(new R004_ClassTypeEle_0Analyzer()); break;
+	case 372: factory["R004_ClassTypeEle_1"] = P_SDT_genertor(new R004_ClassTypeEle_1Analyzer()); break;
+	case 373: factory["R004_ClassTypeEle_2"] = P_SDT_genertor(new R004_ClassTypeEle_2Analyzer()); break;
+	case 374: factory["R004_ClassTypeEle_3"] = P_SDT_genertor(new R004_ClassTypeEle_3Analyzer()); break;
+	case 375: factory["R004_ClassType_0"] = P_SDT_genertor(new R004_ClassType_0Analyzer()); break;
+	case 376: factory["R004_ClassType_1"] = P_SDT_genertor(new R004_ClassType_1Analyzer()); break;
+	case 377: factory["R004_AnnotationList_0"] = P_SDT_genertor(new R004_AnnotationList_0Analyzer()); break;
+	case 378: factory["R004_AnnotationList_1"] = P_SDT_genertor(new R004_AnnotationList_1Analyzer()); break;
+	case 379: factory["R004_Superinterfaces_0"] = P_SDT_genertor(new R004_Superinterfaces_0Analyzer()); break;
+	case 380: factory["R004_InterfaceTypeList_0"] = P_SDT_genertor(new R004_InterfaceTypeList_0Analyzer()); break;
+	case 381: factory["R004_InterfaceTypeList_1"] = P_SDT_genertor(new R004_InterfaceTypeList_1Analyzer()); break;
 	default:
 		if (key.find("R003_") == 0) {
 			vector <string> string_list;

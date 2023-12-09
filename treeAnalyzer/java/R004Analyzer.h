@@ -552,7 +552,7 @@ public: virtual ~R004_AnnotationTypeDeclaration_3Analyzer();
 
 
 
-//beg_ClassBody : 'LEFT_BRACE'
+//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 class R004_ClassBody_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_ClassBody_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -579,7 +579,7 @@ public: virtual ~R004_ClassBodyDeclarationList_1Analyzer();
 
 
 
-//beg_ClassBodyDeclaration : ClassMemberDeclaration
+//beg_ClassBodyDeclaration : ClassStatementPrefix 'semicolon'
 class R004_ClassBodyDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_ClassBodyDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -588,47 +588,101 @@ public: virtual ~R004_ClassBodyDeclaration_0Analyzer();
 
 
 
-//beg_ClassMemberDeclaration : MethodDeclaration
-class R004_ClassMemberDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
-public: R004_ClassMemberDeclaration_0Analyzer();
+//beg_ClassBodyDeclaration : ClassStatementPrefix Block
+class R004_ClassBodyDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_ClassBodyDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_ClassMemberDeclaration_0Analyzer();
+public: virtual ~R004_ClassBodyDeclaration_1Analyzer();
 };
 
 
 
-//beg_MethodDeclaration : ModifierList MethodHeader MethodBody
-class R004_MethodDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
-public: R004_MethodDeclaration_0Analyzer();
+//beg_ClassStatementPrefix : NonBraceAndSemicolon ClassStatementPrefix
+class R004_ClassStatementPrefix_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_ClassStatementPrefix_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_MethodDeclaration_0Analyzer();
+public: virtual ~R004_ClassStatementPrefix_0Analyzer();
 };
 
 
 
-//beg_MethodDeclaration : MethodHeader MethodBody
-class R004_MethodDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
-public: R004_MethodDeclaration_1Analyzer();
+//beg_ClassStatementPrefix : 0
+class R004_ClassStatementPrefix_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_ClassStatementPrefix_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_MethodDeclaration_1Analyzer();
+public: virtual ~R004_ClassStatementPrefix_1Analyzer();
 };
 
 
 
-//beg_MethodHeader : 'void' MethodDeclarator
-class R004_MethodHeader_0Analyzer :virtual public Non_Terminate_genertor {
-public: R004_MethodHeader_0Analyzer();
+//beg_NonBraceAndSemicolon : StatementEle
+class R004_NonBraceAndSemicolon_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_MethodHeader_0Analyzer();
+public: virtual ~R004_NonBraceAndSemicolon_0Analyzer();
 };
 
 
 
-//beg_MethodDeclarator : Identifier AnnotationContent
-class R004_MethodDeclarator_0Analyzer :virtual public Non_Terminate_genertor {
-public: R004_MethodDeclarator_0Analyzer();
+//beg_NonBraceAndSemicolon : 'COMMA'
+class R004_NonBraceAndSemicolon_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_MethodDeclarator_0Analyzer();
+public: virtual ~R004_NonBraceAndSemicolon_1Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+class R004_NonBraceAndSemicolon_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_2Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+class R004_NonBraceAndSemicolon_3Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_3Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_3Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+class R004_NonBraceAndSemicolon_4Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_4Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_4Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
+class R004_NonBraceAndSemicolon_5Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_5Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
+class R004_NonBraceAndSemicolon_6Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_6Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_6Analyzer();
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
+class R004_NonBraceAndSemicolon_7Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBraceAndSemicolon_7Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBraceAndSemicolon_7Analyzer();
 };
 
 
@@ -1641,11 +1695,119 @@ public: virtual ~R004_Block_0Analyzer();
 
 
 
-//beg_BlockStatements : 0
+//beg_Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+class R004_Block_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_Block_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_Block_1Analyzer();
+};
+
+
+
+//beg_BlockStatements : Block BlockStatements
 class R004_BlockStatements_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_BlockStatements_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_BlockStatements_0Analyzer();
+};
+
+
+
+//beg_BlockStatements : NonBrace BlockStatements
+class R004_BlockStatements_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_BlockStatements_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_BlockStatements_1Analyzer();
+};
+
+
+
+//beg_BlockStatements : 0
+class R004_BlockStatements_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_BlockStatements_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_BlockStatements_2Analyzer();
+};
+
+
+
+//beg_NonBrace : StatementEle
+class R004_NonBrace_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_0Analyzer();
+};
+
+
+
+//beg_NonBrace : 'COMMA'
+class R004_NonBrace_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_1Analyzer();
+};
+
+
+
+//beg_NonBrace : 'semicolon'
+class R004_NonBrace_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_2Analyzer();
+};
+
+
+
+//beg_NonBrace : 'LEFT_ANGLE_BRACKET'
+class R004_NonBrace_3Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_3Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_3Analyzer();
+};
+
+
+
+//beg_NonBrace : 'LEFT_BRACKET'
+class R004_NonBrace_4Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_4Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_4Analyzer();
+};
+
+
+
+//beg_NonBrace : 'LEFT_PARENTHESES'
+class R004_NonBrace_5Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_5Analyzer();
+};
+
+
+
+//beg_NonBrace : 'RIGHT_ANGLE_BRACKET'
+class R004_NonBrace_6Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_6Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_6Analyzer();
+};
+
+
+
+//beg_NonBrace : 'RIGHT_BRACKET'
+class R004_NonBrace_7Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_7Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_7Analyzer();
+};
+
+
+
+//beg_NonBrace : 'RIGHT_PARENTHESES'
+class R004_NonBrace_8Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonBrace_8Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonBrace_8Analyzer();
 };
 
 

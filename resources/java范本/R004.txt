@@ -58,15 +58,21 @@ AnnotationTypeDeclaration : 'AT' 'interface' Identifier 'LEFT_BRACE'
 AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier 'LEFT_BRACE'
 AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier 'LEFT_BRACE'
 AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier 'LEFT_BRACE'
-ClassBody : 'LEFT_BRACE'
+ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
-ClassBodyDeclaration : ClassMemberDeclaration
-ClassMemberDeclaration : MethodDeclaration
-MethodDeclaration : ModifierList MethodHeader MethodBody
-MethodDeclaration : MethodHeader MethodBody
-MethodHeader : 'void' MethodDeclarator
-MethodDeclarator : Identifier AnnotationContent
+ClassBodyDeclaration : ClassStatementPrefix 'semicolon'
+ClassBodyDeclaration : ClassStatementPrefix Block
+ClassStatementPrefix : NonBraceAndSemicolon ClassStatementPrefix
+ClassStatementPrefix : 0
+NonBraceAndSemicolon : StatementEle
+NonBraceAndSemicolon : 'COMMA'
+NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+NonBraceAndSemicolon : 'LEFT_BRACKET'
+NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
+NonBraceAndSemicolon : 'RIGHT_BRACKET'
+NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
 ModifierList : Modifier ModifierList
 ModifierList : Modifier
 AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
@@ -181,7 +187,19 @@ Modifier : Annotation
 MethodBody : Block
 MethodBody : 'semicolon'
 Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
 BlockStatements : 0
+NonBrace : StatementEle
+NonBrace : 'COMMA'
+NonBrace : 'semicolon'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'RIGHT_PARENTHESES'
 Annotation : 'AT' DetailIdentifier AnnotationContent
 Annotation : 'AT' DetailIdentifier
 TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'

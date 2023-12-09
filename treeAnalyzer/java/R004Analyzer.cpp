@@ -7,6 +7,10 @@
 #include "../../symbols/java/ModifierToken.h"
 #include "../../symbols/java/ModifierListToken.h"
 #include "../../symbols/java/ModifierEntity.h"
+#include "../../symbols/java/StatementToken.h"
+#include "../../symbols/java/StatementListToken.h"
+#include "../../symbols/java/StatementEntity.h"
+
 #include <iostream>
 #include <sstream>
 using namespace std;
@@ -14,7 +18,7 @@ using namespace std;
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-	//	cout<<s<<endl;
+		cout<<s<<endl;
 }
 
 
@@ -378,13 +382,17 @@ void R004_InterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, E
 void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NormalClassDeclaration_0Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassBody"];
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
-	classEntity->index=nodeValue->node->child_node_list[0]->index;
-	classEntity->lineNum= nodeValue->node->child_node_list[0]->lineNum;
+	classEntity->index = nodeValue->node->child_node_list[0]->index;
+	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
+
+	classEntity->statementList = p2;
+
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
 };
@@ -395,12 +403,15 @@ void R004_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 	logR004("R004_NormalClassDeclaration_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ModifierList"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["ClassBody"];
+
 
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
+	classEntity->statementList = p3;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);
@@ -941,10 +952,11 @@ void R004_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeVal
 
 
 
-//beg_ClassBody : 'LEFT_BRACE'
+//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE''
 void R004_ClassBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ClassBody_0Analyzer");
-	//TO DO  R004_ClassBody_0Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+	nodeValue->context["ClassBody"] = p1;
 };
 
 
@@ -952,7 +964,22 @@ void R004_ClassBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 //beg_ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 void R004_ClassBodyDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ClassBodyDeclarationList_0Analyzer");
-	//TO DO  R004_ClassBodyDeclarationList_0Analyzer
+
+
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassBodyDeclaration"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
+
+	if (p1==nullptr) {
+		StatementListToken *p = new StatementListToken();
+		p1 = P_Token(p);
+	}
+
+	((StatementListToken *)(p1.get()))->list.push_front(((StatementToken *)(p0.get()))->statementEntity);
+
+
+	nodeValue->context["ClassBodyDeclarationList"] = p1;
+
+	
 };
 
 
@@ -965,50 +992,140 @@ void R004_ClassBodyDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValu
 
 
 
-//beg_ClassBodyDeclaration : ClassMemberDeclaration
+//beg_ClassBodyDeclaration : ClassStatementPrefix 'semicolon'
 void R004_ClassBodyDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ClassBodyDeclaration_0Analyzer");
-	//TO DO  R004_ClassBodyDeclaration_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassStatementPrefix"];
+
+	if (p0 == nullptr) {
+		StatementToken *p = new StatementToken();
+		StatementEntity *statementEntity = new StatementEntity();
+		statementEntity->begLineNum = nodeValue->node->child_node_list[1]->lineNum;
+		statementEntity->begIndex = nodeValue->node->child_node_list[1]->index;
+		p->statementEntity = P_StatementEntity(statementEntity);
+		p0 = P_Token(p);
+	}
+
+	((StatementToken*)(p0.get()))->statementEntity->endLineNum = nodeValue->node->child_node_list[1]->lineNum;
+	((StatementToken*)(p0.get()))->statementEntity->endIndex = nodeValue->node->child_node_list[1]->index;
+
+	nodeValue->context["ClassBodyDeclaration"] = p0;
 };
 
 
 
-//beg_ClassMemberDeclaration : MethodDeclaration
-void R004_ClassMemberDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_ClassMemberDeclaration_0Analyzer");
-	//TO DO  R004_ClassMemberDeclaration_0Analyzer
+//beg_ClassBodyDeclaration : ClassStatementPrefix Block
+void R004_ClassBodyDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassBodyDeclaration_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassStatementPrefix"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Block"];
+
+	if (p0 == nullptr) {
+		StatementToken *p = new StatementToken();
+		StatementEntity *statementEntity = new StatementEntity();
+		//statementEntity->begLineNum = nodeValue->node->child_node_list[1]->lineNum;
+		//statementEntity->begIndex = nodeValue->node->child_node_list[1]->index;
+		p->statementEntity = P_StatementEntity(statementEntity);
+		p0 = P_Token(p);
+	}
+
+	((StatementToken*)(p0.get()))->statementEntity->endLineNum = ((StatementToken *)p1.get())->statementEntity->endLineNum;
+	((StatementToken*)(p0.get()))->statementEntity->endIndex = ((StatementToken *)p1.get())->statementEntity->endIndex;
+
+	nodeValue->context["ClassBodyDeclaration"] = p0;
+
 };
 
 
 
-//beg_MethodDeclaration : ModifierList MethodHeader MethodBody
-void R004_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_MethodDeclaration_0Analyzer");
-	//TO DO  R004_MethodDeclaration_0Analyzer
+//beg_ClassStatementPrefix : NonBraceAndSemicolon ClassStatementPrefix
+void R004_ClassStatementPrefix_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassStatementPrefix_0Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassStatementPrefix"];
+
+	if (p1==nullptr) {
+		StatementToken *p = new StatementToken();
+		StatementEntity *statementEntity = new StatementEntity();
+		p->statementEntity = P_StatementEntity(statementEntity);
+		p1 = P_Token(p);
+	}
+
+	((StatementToken*)(p1.get()))->statementEntity->begLineNum =nodeValue->node->child_node_list[0]->lineNum;
+	((StatementToken*)(p1.get()))->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+
+	nodeValue->context["ClassStatementPrefix"] = p1;
 };
 
 
 
-//beg_MethodDeclaration : MethodHeader MethodBody
-void R004_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_MethodDeclaration_1Analyzer");
-	//TO DO  R004_MethodDeclaration_1Analyzer
+//beg_ClassStatementPrefix : 0
+void R004_ClassStatementPrefix_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_ClassStatementPrefix_1Analyzer");
+	//TO DO  R004_ClassStatementPrefix_1Analyzer
 };
 
 
 
-//beg_MethodHeader : 'void' MethodDeclarator
-void R004_MethodHeader_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_MethodHeader_0Analyzer");
-	//TO DO  R004_MethodHeader_0Analyzer
+//beg_NonBraceAndSemicolon : StatementEle
+void R004_NonBraceAndSemicolon_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_0Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_0Analyzer
 };
 
 
 
-//beg_MethodDeclarator : Identifier AnnotationContent
-void R004_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_MethodDeclarator_0Analyzer");
-	//TO DO  R004_MethodDeclarator_0Analyzer
+//beg_NonBraceAndSemicolon : 'COMMA'
+void R004_NonBraceAndSemicolon_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_1Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_1Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+void R004_NonBraceAndSemicolon_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_2Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_2Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+void R004_NonBraceAndSemicolon_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_3Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_3Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+void R004_NonBraceAndSemicolon_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_4Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_4Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
+void R004_NonBraceAndSemicolon_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_5Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_5Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
+void R004_NonBraceAndSemicolon_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_6Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_6Analyzer
+};
+
+
+
+//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
+void R004_NonBraceAndSemicolon_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBraceAndSemicolon_7Analyzer");
+	//TO DO  R004_NonBraceAndSemicolon_7Analyzer
 };
 
 
@@ -1803,7 +1920,7 @@ void R004_Modifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 	modifierEntity->index = nodeValue->node->child_node_list[0]->index;
 	modifierEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->modifierEntity = modifierEntity;
-	
+
 	nodeValue->context["Modifier"] = P_Token(p);
 };
 
@@ -2011,12 +2128,42 @@ void R004_MethodBody_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 //beg_Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
 void R004_Block_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Block_0Analyzer");
-	//TO DO  R004_Block_0Analyzer
+
+
+	StatementToken *p = new StatementToken();
+	StatementEntity *statementEntity = new StatementEntity();
+
+	statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	statementEntity->endIndex= nodeValue->node->child_node_list[2]->index;
+	statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity = P_StatementEntity(statementEntity);
+
+	nodeValue->context["Block"] = P_Token(p);
+
+
 };
 
 
 
-//beg_BlockStatements : 0
+//beg_Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+void R004_Block_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_Block_1Analyzer");
+	StatementToken *p = new StatementToken();
+	StatementEntity *statementEntity = new StatementEntity();
+
+	statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
+	statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity = P_StatementEntity(statementEntity);
+
+	nodeValue->context["Block"] = P_Token(p);
+};
+
+
+
+//beg_BlockStatements : Block BlockStatements
 void R004_BlockStatements_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_BlockStatements_0Analyzer");
 	//TO DO  R004_BlockStatements_0Analyzer
@@ -2024,10 +2171,98 @@ void R004_BlockStatements_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 
 
+//beg_BlockStatements : NonBrace BlockStatements
+void R004_BlockStatements_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_BlockStatements_1Analyzer");
+	//TO DO  R004_BlockStatements_1Analyzer
+};
+
+
+
+//beg_BlockStatements : 0
+void R004_BlockStatements_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_BlockStatements_2Analyzer");
+	//TO DO  R004_BlockStatements_2Analyzer
+};
+
+
+
+//beg_NonBrace : StatementEle
+void R004_NonBrace_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_0Analyzer");
+	//TO DO  R004_NonBrace_0Analyzer
+};
+
+
+
+//beg_NonBrace : 'COMMA'
+void R004_NonBrace_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_1Analyzer");
+	//TO DO  R004_NonBrace_1Analyzer
+};
+
+
+
+//beg_NonBrace : 'semicolon'
+void R004_NonBrace_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_2Analyzer");
+	//TO DO  R004_NonBrace_2Analyzer
+};
+
+
+
+//beg_NonBrace : 'LEFT_ANGLE_BRACKET'
+void R004_NonBrace_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_3Analyzer");
+	//TO DO  R004_NonBrace_3Analyzer
+};
+
+
+
+//beg_NonBrace : 'LEFT_BRACKET'
+void R004_NonBrace_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_4Analyzer");
+	//TO DO  R004_NonBrace_4Analyzer
+};
+
+
+
+//beg_NonBrace : 'LEFT_PARENTHESES'
+void R004_NonBrace_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_5Analyzer");
+	//TO DO  R004_NonBrace_5Analyzer
+};
+
+
+
+//beg_NonBrace : 'RIGHT_ANGLE_BRACKET'
+void R004_NonBrace_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_6Analyzer");
+	//TO DO  R004_NonBrace_6Analyzer
+};
+
+
+
+//beg_NonBrace : 'RIGHT_BRACKET'
+void R004_NonBrace_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_7Analyzer");
+	//TO DO  R004_NonBrace_7Analyzer
+};
+
+
+
+//beg_NonBrace : 'RIGHT_PARENTHESES'
+void R004_NonBrace_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonBrace_8Analyzer");
+	//TO DO  R004_NonBrace_8Analyzer
+};
+
+
+
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 void R004_Annotation_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Annotation_0Analyzer");
-	
+
 	ModifierToken *p = new ModifierToken();
 	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
 	modifierEntity->name = "Annotation";
@@ -2043,7 +2278,7 @@ void R004_Annotation_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 //beg_Annotation : 'AT' DetailIdentifier
 void R004_Annotation_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_Annotation_1Analyzer");
-	
+
 	ModifierToken *p = new ModifierToken();
 	P_ModifierEntity modifierEntity = P_ModifierEntity(new ModifierEntity);
 	modifierEntity->name = "Annotation";
