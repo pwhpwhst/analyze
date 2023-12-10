@@ -67,17 +67,14 @@ ClassStatementPrefix : NonBraceAndSemicolon ClassStatementPrefix
 ClassStatementPrefix : 0
 NonBraceAndSemicolon : StatementEle
 NonBraceAndSemicolon : 'COMMA'
-NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
-NonBraceAndSemicolon : 'LEFT_BRACKET'
-NonBraceAndSemicolon : 'LEFT_PARENTHESES'
-NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
-NonBraceAndSemicolon : 'RIGHT_BRACKET'
-NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
+NonBraceAndSemicolon : AnnotationContent
+NonBraceAndSemicolon : DimExpr
+NonBraceAndSemicolon : TypeArguments
 ModifierList : Modifier ModifierList
 ModifierList : Modifier
 AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
 AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
-AnnotationContentStatements : NonPARENTHESES
+AnnotationContentStatements : 0
 NonPARENTHESES : StatementEle
 NonPARENTHESES : 'COMMA'
 NonPARENTHESES : 'semicolon'
@@ -237,3 +234,17 @@ AnnotationList : Annotation
 Superinterfaces : 'implements' InterfaceTypeList
 InterfaceTypeList : ClassType
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+DimStatements : DimExpr DimStatements
+DimStatements : NonDim DimStatements
+DimStatements : 0
+NonDim : StatementEle
+NonDim : 'COMMA'
+NonDim : 'semicolon'
+NonDim : 'LEFT_BRACE'
+NonDim : 'LEFT_PARENTHESES'
+NonDim : 'LEFT_ANGLE_BRACKET'
+NonDim : 'RIGHT_BRACE'
+NonDim : 'COMMA_RIGHT_BRACE'
+NonDim : 'RIGHT_PARENTHESES'
+NonDim : 'RIGHT_ANGLE_BRACKET'

@@ -363,7 +363,7 @@ R004_AnnotationTypeDeclaration_3Analyzer::~R004_AnnotationTypeDeclaration_3Analy
 
 
 
-//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE''
+//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 R004_ClassBody_0Analyzer::R004_ClassBody_0Analyzer() {}
 R004_ClassBody_0Analyzer::~R004_ClassBody_0Analyzer() {}
 
@@ -417,39 +417,21 @@ R004_NonBraceAndSemicolon_1Analyzer::~R004_NonBraceAndSemicolon_1Analyzer() {}
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+//beg_NonBraceAndSemicolon : AnnotationContent
 R004_NonBraceAndSemicolon_2Analyzer::R004_NonBraceAndSemicolon_2Analyzer() {}
 R004_NonBraceAndSemicolon_2Analyzer::~R004_NonBraceAndSemicolon_2Analyzer() {}
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+//beg_NonBraceAndSemicolon : DimExpr
 R004_NonBraceAndSemicolon_3Analyzer::R004_NonBraceAndSemicolon_3Analyzer() {}
 R004_NonBraceAndSemicolon_3Analyzer::~R004_NonBraceAndSemicolon_3Analyzer() {}
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+//beg_NonBraceAndSemicolon : TypeArguments
 R004_NonBraceAndSemicolon_4Analyzer::R004_NonBraceAndSemicolon_4Analyzer() {}
 R004_NonBraceAndSemicolon_4Analyzer::~R004_NonBraceAndSemicolon_4Analyzer() {}
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
-R004_NonBraceAndSemicolon_5Analyzer::R004_NonBraceAndSemicolon_5Analyzer() {}
-R004_NonBraceAndSemicolon_5Analyzer::~R004_NonBraceAndSemicolon_5Analyzer() {}
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
-R004_NonBraceAndSemicolon_6Analyzer::R004_NonBraceAndSemicolon_6Analyzer() {}
-R004_NonBraceAndSemicolon_6Analyzer::~R004_NonBraceAndSemicolon_6Analyzer() {}
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
-R004_NonBraceAndSemicolon_7Analyzer::R004_NonBraceAndSemicolon_7Analyzer() {}
-R004_NonBraceAndSemicolon_7Analyzer::~R004_NonBraceAndSemicolon_7Analyzer() {}
 
 
 
@@ -477,7 +459,7 @@ R004_AnnotationContentStatements_0Analyzer::~R004_AnnotationContentStatements_0A
 
 
 
-//beg_AnnotationContentStatements : NonPARENTHESES
+//beg_AnnotationContentStatements : 0
 R004_AnnotationContentStatements_1Analyzer::R004_AnnotationContentStatements_1Analyzer() {}
 R004_AnnotationContentStatements_1Analyzer::~R004_AnnotationContentStatements_1Analyzer() {}
 
@@ -1422,3 +1404,87 @@ R004_InterfaceTypeList_0Analyzer::~R004_InterfaceTypeList_0Analyzer() {}
 //beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 R004_InterfaceTypeList_1Analyzer::R004_InterfaceTypeList_1Analyzer() {}
 R004_InterfaceTypeList_1Analyzer::~R004_InterfaceTypeList_1Analyzer() {}
+
+
+
+//beg_DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+R004_DimExpr_0Analyzer::R004_DimExpr_0Analyzer() {}
+R004_DimExpr_0Analyzer::~R004_DimExpr_0Analyzer() {}
+
+
+
+//beg_DimStatements : DimExpr DimStatements
+R004_DimStatements_0Analyzer::R004_DimStatements_0Analyzer() {}
+R004_DimStatements_0Analyzer::~R004_DimStatements_0Analyzer() {}
+
+
+
+//beg_DimStatements : NonDim DimStatements
+R004_DimStatements_1Analyzer::R004_DimStatements_1Analyzer() {}
+R004_DimStatements_1Analyzer::~R004_DimStatements_1Analyzer() {}
+
+
+
+//beg_DimStatements : 0
+R004_DimStatements_2Analyzer::R004_DimStatements_2Analyzer() {}
+R004_DimStatements_2Analyzer::~R004_DimStatements_2Analyzer() {}
+
+
+
+//beg_NonDim : StatementEle
+R004_NonDim_0Analyzer::R004_NonDim_0Analyzer() {}
+R004_NonDim_0Analyzer::~R004_NonDim_0Analyzer() {}
+
+
+
+//beg_NonDim : 'COMMA'
+R004_NonDim_1Analyzer::R004_NonDim_1Analyzer() {}
+R004_NonDim_1Analyzer::~R004_NonDim_1Analyzer() {}
+
+
+
+//beg_NonDim : 'semicolon'
+R004_NonDim_2Analyzer::R004_NonDim_2Analyzer() {}
+R004_NonDim_2Analyzer::~R004_NonDim_2Analyzer() {}
+
+
+
+//beg_NonDim : 'LEFT_BRACE'
+R004_NonDim_3Analyzer::R004_NonDim_3Analyzer() {}
+R004_NonDim_3Analyzer::~R004_NonDim_3Analyzer() {}
+
+
+
+//beg_NonDim : 'LEFT_PARENTHESES'
+R004_NonDim_4Analyzer::R004_NonDim_4Analyzer() {}
+R004_NonDim_4Analyzer::~R004_NonDim_4Analyzer() {}
+
+
+
+//beg_NonDim : 'LEFT_ANGLE_BRACKET'
+R004_NonDim_5Analyzer::R004_NonDim_5Analyzer() {}
+R004_NonDim_5Analyzer::~R004_NonDim_5Analyzer() {}
+
+
+
+//beg_NonDim : 'RIGHT_BRACE'
+R004_NonDim_6Analyzer::R004_NonDim_6Analyzer() {}
+R004_NonDim_6Analyzer::~R004_NonDim_6Analyzer() {}
+
+
+
+//beg_NonDim : 'COMMA_RIGHT_BRACE'
+R004_NonDim_7Analyzer::R004_NonDim_7Analyzer() {}
+R004_NonDim_7Analyzer::~R004_NonDim_7Analyzer() {}
+
+
+
+//beg_NonDim : 'RIGHT_PARENTHESES'
+R004_NonDim_8Analyzer::R004_NonDim_8Analyzer() {}
+R004_NonDim_8Analyzer::~R004_NonDim_8Analyzer() {}
+
+
+
+//beg_NonDim : 'RIGHT_ANGLE_BRACKET'
+R004_NonDim_9Analyzer::R004_NonDim_9Analyzer() {}
+R004_NonDim_9Analyzer::~R004_NonDim_9Analyzer() {}

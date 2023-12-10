@@ -18,7 +18,7 @@ using namespace std;
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-		cout<<s<<endl;
+//	cout << s << endl;
 }
 
 
@@ -387,6 +387,7 @@ void R004_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -409,6 +410,7 @@ void R004_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	classEntity->statementList = p3;
@@ -427,6 +429,7 @@ void R004_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -445,6 +448,7 @@ void R004_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -462,6 +466,7 @@ void R004_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -480,6 +485,7 @@ void R004_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -497,6 +503,7 @@ void R004_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -515,6 +522,7 @@ void R004_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -532,6 +540,7 @@ void R004_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -550,6 +559,7 @@ void R004_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue,
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -567,6 +577,7 @@ void R004_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -585,6 +596,7 @@ void R004_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -602,6 +614,7 @@ void R004_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -620,6 +633,7 @@ void R004_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -637,6 +651,7 @@ void R004_NormalClassDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -655,6 +670,7 @@ void R004_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalClassDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -672,6 +688,7 @@ void R004_EnumDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "EnumDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -690,6 +707,7 @@ void R004_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "EnumDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -707,6 +725,7 @@ void R004_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "EnumDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -725,6 +744,7 @@ void R004_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "EnumDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -742,6 +762,7 @@ void R004_NormalInterfaceDeclaration_0Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -760,6 +781,7 @@ void R004_NormalInterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -777,6 +799,7 @@ void R004_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -795,6 +818,7 @@ void R004_NormalInterfaceDeclaration_3Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -812,6 +836,7 @@ void R004_NormalInterfaceDeclaration_4Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -830,6 +855,7 @@ void R004_NormalInterfaceDeclaration_5Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -847,6 +873,7 @@ void R004_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -865,6 +892,7 @@ void R004_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeVa
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "NormalInterfaceDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -890,6 +918,7 @@ void R004_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "AnnotationTypeDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -908,6 +937,7 @@ void R004_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p3->content;
+	classEntity->type = "AnnotationTypeDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -925,6 +955,7 @@ void R004_AnnotationTypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p1->content;
+	classEntity->type = "AnnotationTypeDeclaration";
 	classEntity->index = nodeValue->node->child_node_list[0]->index;
 	classEntity->lineNum = nodeValue->node->child_node_list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -943,6 +974,7 @@ void R004_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeVal
 	ClassToken *p = new ClassToken();
 	P_ClassEntity classEntity = P_ClassEntity(new ClassEntity);
 	classEntity->name = p2->content;
+	classEntity->type = "AnnotationTypeDeclaration";
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	p->classEntity = classEntity;
@@ -952,11 +984,12 @@ void R004_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeVal
 
 
 
-//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE''
+//beg_ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 void R004_ClassBody_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ClassBody_0Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 	nodeValue->context["ClassBody"] = p1;
+
 };
 
 
@@ -969,7 +1002,7 @@ void R004_ClassBodyDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValu
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassBodyDeclaration"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassBodyDeclarationList"];
 
-	if (p1==nullptr) {
+	if (p1 == nullptr) {
 		StatementListToken *p = new StatementListToken();
 		p1 = P_Token(p);
 	}
@@ -979,7 +1012,7 @@ void R004_ClassBodyDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValu
 
 	nodeValue->context["ClassBodyDeclarationList"] = p1;
 
-	
+
 };
 
 
@@ -1023,8 +1056,8 @@ void R004_ClassBodyDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, E
 	if (p0 == nullptr) {
 		StatementToken *p = new StatementToken();
 		StatementEntity *statementEntity = new StatementEntity();
-		//statementEntity->begLineNum = nodeValue->node->child_node_list[1]->lineNum;
-		//statementEntity->begIndex = nodeValue->node->child_node_list[1]->index;
+		statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+		statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
 		p->statementEntity = P_StatementEntity(statementEntity);
 		p0 = P_Token(p);
 	}
@@ -1043,14 +1076,14 @@ void R004_ClassStatementPrefix_0Analyzer::handle(const P_NodeValue &nodeValue, E
 	logR004("R004_ClassStatementPrefix_0Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassStatementPrefix"];
 
-	if (p1==nullptr) {
+	if (p1 == nullptr) {
 		StatementToken *p = new StatementToken();
 		StatementEntity *statementEntity = new StatementEntity();
 		p->statementEntity = P_StatementEntity(statementEntity);
 		p1 = P_Token(p);
 	}
 
-	((StatementToken*)(p1.get()))->statementEntity->begLineNum =nodeValue->node->child_node_list[0]->lineNum;
+	((StatementToken*)(p1.get()))->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
 	((StatementToken*)(p1.get()))->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
 
 	nodeValue->context["ClassStatementPrefix"] = p1;
@@ -1069,7 +1102,8 @@ void R004_ClassStatementPrefix_1Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_NonBraceAndSemicolon : StatementEle
 void R004_NonBraceAndSemicolon_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NonBraceAndSemicolon_0Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["StatementEle"];
+	nodeValue->context["NonBraceAndSemicolon"] = p0;
 };
 
 
@@ -1077,55 +1111,41 @@ void R004_NonBraceAndSemicolon_0Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_NonBraceAndSemicolon : 'COMMA'
 void R004_NonBraceAndSemicolon_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NonBraceAndSemicolon_1Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_1Analyzer
+		StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum= nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["NonBraceAndSemicolon"] = P_Token(p);
 };
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+//beg_NonBraceAndSemicolon : AnnotationContent
 void R004_NonBraceAndSemicolon_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NonBraceAndSemicolon_2Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_2Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["AnnotationContent"];
+	nodeValue->context["NonBraceAndSemicolon"] = p0;
+
 };
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+//beg_NonBraceAndSemicolon : DimExpr
 void R004_NonBraceAndSemicolon_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NonBraceAndSemicolon_3Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_3Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["DimExpr"];
+	nodeValue->context["NonBraceAndSemicolon"] = p0;
 };
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+//beg_NonBraceAndSemicolon : TypeArguments
 void R004_NonBraceAndSemicolon_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_NonBraceAndSemicolon_4Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_4Analyzer
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
-void R004_NonBraceAndSemicolon_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_NonBraceAndSemicolon_5Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_5Analyzer
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
-void R004_NonBraceAndSemicolon_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_NonBraceAndSemicolon_6Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_6Analyzer
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
-void R004_NonBraceAndSemicolon_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR004("R004_NonBraceAndSemicolon_7Analyzer");
-	//TO DO  R004_NonBraceAndSemicolon_7Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
+	nodeValue->context["NonBraceAndSemicolon"] = p0;
 };
 
 
@@ -1133,14 +1153,7 @@ void R004_NonBraceAndSemicolon_7Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_ModifierList : Modifier ModifierList
 void R004_ModifierList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_ModifierList_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Modifier"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ModifierList"];
-
-	((ModifierListToken *)(p1.get()))->list.push_front(((ModifierToken *)(p0.get()))->modifierEntity);
-
-
-	nodeValue->context["ModifierList"] = p1;
-
+	//TO DO  R004_ModifierList_0Analyzer
 };
 
 
@@ -1161,7 +1174,13 @@ void R004_ModifierList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
 void R004_AnnotationContent_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_AnnotationContent_0Analyzer");
-	//TO DO  R004_AnnotationContent_0Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["AnnotationContent"] = P_Token(p);
 };
 
 
@@ -1174,7 +1193,7 @@ void R004_AnnotationContentStatements_0Analyzer::handle(const P_NodeValue &nodeV
 
 
 
-//beg_AnnotationContentStatements : NonPARENTHESES
+//beg_AnnotationContentStatements : 0
 void R004_AnnotationContentStatements_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_AnnotationContentStatements_1Analyzer");
 	//TO DO  R004_AnnotationContentStatements_1Analyzer
@@ -1265,7 +1284,13 @@ void R004_NonPARENTHESES_9Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 //beg_StatementEle : 'IDENTIFIER'
 void R004_StatementEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_0Analyzer");
-	//TO DO  R004_StatementEle_0Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1273,7 +1298,13 @@ void R004_StatementEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'AND'
 void R004_StatementEle_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_1Analyzer");
-	//TO DO  R004_StatementEle_1Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1281,7 +1312,13 @@ void R004_StatementEle_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'AND_EQUAL'
 void R004_StatementEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_2Analyzer");
-	//TO DO  R004_StatementEle_2Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1289,7 +1326,13 @@ void R004_StatementEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'AT'
 void R004_StatementEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_3Analyzer");
-	//TO DO  R004_StatementEle_3Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1297,7 +1340,13 @@ void R004_StatementEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'AT_INTERFACE'
 void R004_StatementEle_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_4Analyzer");
-	//TO DO  R004_StatementEle_4Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1305,7 +1354,13 @@ void R004_StatementEle_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'BIT_AND'
 void R004_StatementEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_5Analyzer");
-	//TO DO  R004_StatementEle_5Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1313,7 +1368,13 @@ void R004_StatementEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'BIT_OR'
 void R004_StatementEle_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_6Analyzer");
-	//TO DO  R004_StatementEle_6Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1321,7 +1382,13 @@ void R004_StatementEle_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'BooleanLiteral'
 void R004_StatementEle_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_7Analyzer");
-	//TO DO  R004_StatementEle_7Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1329,7 +1396,13 @@ void R004_StatementEle_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'CARET'
 void R004_StatementEle_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_8Analyzer");
-	//TO DO  R004_StatementEle_8Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1337,7 +1410,13 @@ void R004_StatementEle_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'COLON'
 void R004_StatementEle_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_9Analyzer");
-	//TO DO  R004_StatementEle_9Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1345,7 +1424,13 @@ void R004_StatementEle_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_StatementEle : 'CharacterLiteral'
 void R004_StatementEle_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_10Analyzer");
-	//TO DO  R004_StatementEle_10Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1353,7 +1438,13 @@ void R004_StatementEle_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'DB_EQUAL'
 void R004_StatementEle_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_11Analyzer");
-	//TO DO  R004_StatementEle_11Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1361,7 +1452,13 @@ void R004_StatementEle_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'DIVIDE_EQUAL'
 void R004_StatementEle_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_12Analyzer");
-	//TO DO  R004_StatementEle_12Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1369,7 +1466,13 @@ void R004_StatementEle_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'EQUAL'
 void R004_StatementEle_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_13Analyzer");
-	//TO DO  R004_StatementEle_13Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1377,7 +1480,13 @@ void R004_StatementEle_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'FloatingPointLiteral'
 void R004_StatementEle_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_14Analyzer");
-	//TO DO  R004_StatementEle_14Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1385,7 +1494,13 @@ void R004_StatementEle_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'GT_EQUAL'
 void R004_StatementEle_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_15Analyzer");
-	//TO DO  R004_StatementEle_15Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1393,7 +1508,13 @@ void R004_StatementEle_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'IntegerLiteral'
 void R004_StatementEle_16Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_16Analyzer");
-	//TO DO  R004_StatementEle_16Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1401,7 +1522,13 @@ void R004_StatementEle_16Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'LAMBDA_TO'
 void R004_StatementEle_17Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_17Analyzer");
-	//TO DO  R004_StatementEle_17Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1409,7 +1536,13 @@ void R004_StatementEle_17Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'LEFT_SHIFT'
 void R004_StatementEle_18Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_18Analyzer");
-	//TO DO  R004_StatementEle_18Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1417,7 +1550,13 @@ void R004_StatementEle_18Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'LEFT_SHIFT_EQUAL'
 void R004_StatementEle_19Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_19Analyzer");
-	//TO DO  R004_StatementEle_19Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1425,7 +1564,13 @@ void R004_StatementEle_19Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'LT_EQUAL'
 void R004_StatementEle_20Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_20Analyzer");
-	//TO DO  R004_StatementEle_20Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1433,7 +1578,13 @@ void R004_StatementEle_20Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'MULTI_EQUAL'
 void R004_StatementEle_21Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_21Analyzer");
-	//TO DO  R004_StatementEle_21Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1441,7 +1592,13 @@ void R004_StatementEle_21Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'NOT_EQUAL'
 void R004_StatementEle_22Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_22Analyzer");
-	//TO DO  R004_StatementEle_22Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1449,7 +1606,13 @@ void R004_StatementEle_22Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'OR'
 void R004_StatementEle_23Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_23Analyzer");
-	//TO DO  R004_StatementEle_23Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1457,7 +1620,13 @@ void R004_StatementEle_23Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'OR_EQUAL'
 void R004_StatementEle_24Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_24Analyzer");
-	//TO DO  R004_StatementEle_24Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1465,7 +1634,13 @@ void R004_StatementEle_24Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'PLUS'
 void R004_StatementEle_25Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_25Analyzer");
-	//TO DO  R004_StatementEle_25Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1473,7 +1648,13 @@ void R004_StatementEle_25Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'PLUS_EQUAL'
 void R004_StatementEle_26Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_26Analyzer");
-	//TO DO  R004_StatementEle_26Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1481,7 +1662,13 @@ void R004_StatementEle_26Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'PRECENTAGE'
 void R004_StatementEle_27Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_27Analyzer");
-	//TO DO  R004_StatementEle_27Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1489,7 +1676,13 @@ void R004_StatementEle_27Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'PRECENTAGE_EQUAL'
 void R004_StatementEle_28Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_28Analyzer");
-	//TO DO  R004_StatementEle_28Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1497,7 +1690,13 @@ void R004_StatementEle_28Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'PackageOrTypeNameId'
 void R004_StatementEle_29Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_29Analyzer");
-	//TO DO  R004_StatementEle_29Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1505,7 +1704,13 @@ void R004_StatementEle_29Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'QUESTION'
 void R004_StatementEle_30Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_30Analyzer");
-	//TO DO  R004_StatementEle_30Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1513,7 +1718,13 @@ void R004_StatementEle_30Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'RIGHT_SHIFT'
 void R004_StatementEle_31Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_31Analyzer");
-	//TO DO  R004_StatementEle_31Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1521,7 +1732,13 @@ void R004_StatementEle_31Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'RIGHT_SHIFT2'
 void R004_StatementEle_32Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_32Analyzer");
-	//TO DO  R004_StatementEle_32Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1529,7 +1746,13 @@ void R004_StatementEle_32Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'RIGHT_SHIFT2_EQUAL'
 void R004_StatementEle_33Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_33Analyzer");
-	//TO DO  R004_StatementEle_33Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1537,7 +1760,13 @@ void R004_StatementEle_33Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'RIGHT_SHIFT_EQUAL'
 void R004_StatementEle_34Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_34Analyzer");
-	//TO DO  R004_StatementEle_34Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1545,7 +1774,13 @@ void R004_StatementEle_34Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'RIGTH_BRACKET'
 void R004_StatementEle_35Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_35Analyzer");
-	//TO DO  R004_StatementEle_35Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1553,7 +1788,13 @@ void R004_StatementEle_35Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'SLASH'
 void R004_StatementEle_36Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_36Analyzer");
-	//TO DO  R004_StatementEle_36Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1561,7 +1802,13 @@ void R004_StatementEle_36Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'SPOT'
 void R004_StatementEle_37Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_37Analyzer");
-	//TO DO  R004_StatementEle_37Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1569,7 +1816,13 @@ void R004_StatementEle_37Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'STAR'
 void R004_StatementEle_38Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_38Analyzer");
-	//TO DO  R004_StatementEle_38Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1577,7 +1830,13 @@ void R004_StatementEle_38Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'SUBTRACT'
 void R004_StatementEle_39Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_39Analyzer");
-	//TO DO  R004_StatementEle_39Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1585,7 +1844,13 @@ void R004_StatementEle_39Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'SUBTRACT_EQUAL'
 void R004_StatementEle_40Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_40Analyzer");
-	//TO DO  R004_StatementEle_40Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1593,7 +1858,13 @@ void R004_StatementEle_40Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'SURPRISE'
 void R004_StatementEle_41Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_41Analyzer");
-	//TO DO  R004_StatementEle_41Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1601,7 +1872,13 @@ void R004_StatementEle_41Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'StringLiteral'
 void R004_StatementEle_42Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_42Analyzer");
-	//TO DO  R004_StatementEle_42Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1609,7 +1886,13 @@ void R004_StatementEle_42Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'THREE_SPOT'
 void R004_StatementEle_43Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_43Analyzer");
-	//TO DO  R004_StatementEle_43Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1617,7 +1900,13 @@ void R004_StatementEle_43Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'TILDE'
 void R004_StatementEle_44Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_44Analyzer");
-	//TO DO  R004_StatementEle_44Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1625,7 +1914,13 @@ void R004_StatementEle_44Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'TWO_COLON'
 void R004_StatementEle_45Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_45Analyzer");
-	//TO DO  R004_StatementEle_45Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1633,7 +1928,13 @@ void R004_StatementEle_45Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'TWO_PLUS'
 void R004_StatementEle_46Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_46Analyzer");
-	//TO DO  R004_StatementEle_46Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1641,7 +1942,13 @@ void R004_StatementEle_46Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'TWO_SUBTRACT'
 void R004_StatementEle_47Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_47Analyzer");
-	//TO DO  R004_StatementEle_47Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1649,7 +1956,13 @@ void R004_StatementEle_47Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'TypeNameId'
 void R004_StatementEle_48Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_48Analyzer");
-	//TO DO  R004_StatementEle_48Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1657,7 +1970,13 @@ void R004_StatementEle_48Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'XOR_EQUAL'
 void R004_StatementEle_49Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_49Analyzer");
-	//TO DO  R004_StatementEle_49Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1665,7 +1984,13 @@ void R004_StatementEle_49Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'abstract'
 void R004_StatementEle_50Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_50Analyzer");
-	//TO DO  R004_StatementEle_50Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1673,7 +1998,13 @@ void R004_StatementEle_50Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'boolean'
 void R004_StatementEle_51Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_51Analyzer");
-	//TO DO  R004_StatementEle_51Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1681,7 +2012,13 @@ void R004_StatementEle_51Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'byte'
 void R004_StatementEle_52Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_52Analyzer");
-	//TO DO  R004_StatementEle_52Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1689,7 +2026,13 @@ void R004_StatementEle_52Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'char'
 void R004_StatementEle_53Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_53Analyzer");
-	//TO DO  R004_StatementEle_53Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1697,7 +2040,13 @@ void R004_StatementEle_53Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'class'
 void R004_StatementEle_54Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_54Analyzer");
-	//TO DO  R004_StatementEle_54Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1705,7 +2054,13 @@ void R004_StatementEle_54Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'default'
 void R004_StatementEle_55Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_55Analyzer");
-	//TO DO  R004_StatementEle_55Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1713,7 +2068,13 @@ void R004_StatementEle_55Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'double'
 void R004_StatementEle_56Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_56Analyzer");
-	//TO DO  R004_StatementEle_56Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1721,7 +2082,13 @@ void R004_StatementEle_56Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'enum'
 void R004_StatementEle_57Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_57Analyzer");
-	//TO DO  R004_StatementEle_57Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1729,7 +2096,13 @@ void R004_StatementEle_57Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'extends'
 void R004_StatementEle_58Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_58Analyzer");
-	//TO DO  R004_StatementEle_58Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1737,7 +2110,13 @@ void R004_StatementEle_58Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'final'
 void R004_StatementEle_59Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_59Analyzer");
-	//TO DO  R004_StatementEle_59Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1745,7 +2124,13 @@ void R004_StatementEle_59Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'float'
 void R004_StatementEle_60Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_60Analyzer");
-	//TO DO  R004_StatementEle_60Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1753,7 +2138,13 @@ void R004_StatementEle_60Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'implements'
 void R004_StatementEle_61Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_61Analyzer");
-	//TO DO  R004_StatementEle_61Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1761,7 +2152,13 @@ void R004_StatementEle_61Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'instanceof'
 void R004_StatementEle_62Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_62Analyzer");
-	//TO DO  R004_StatementEle_62Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1769,7 +2166,13 @@ void R004_StatementEle_62Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'int'
 void R004_StatementEle_63Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_63Analyzer");
-	//TO DO  R004_StatementEle_63Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1777,7 +2180,13 @@ void R004_StatementEle_63Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'interface'
 void R004_StatementEle_64Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_64Analyzer");
-	//TO DO  R004_StatementEle_64Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1785,7 +2194,13 @@ void R004_StatementEle_64Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'long'
 void R004_StatementEle_65Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_65Analyzer");
-	//TO DO  R004_StatementEle_65Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1793,7 +2208,13 @@ void R004_StatementEle_65Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'native'
 void R004_StatementEle_66Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_66Analyzer");
-	//TO DO  R004_StatementEle_66Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1801,7 +2222,13 @@ void R004_StatementEle_66Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'new'
 void R004_StatementEle_67Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_67Analyzer");
-	//TO DO  R004_StatementEle_67Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1809,7 +2236,13 @@ void R004_StatementEle_67Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'null'
 void R004_StatementEle_68Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_68Analyzer");
-	//TO DO  R004_StatementEle_68Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1817,7 +2250,13 @@ void R004_StatementEle_68Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'private'
 void R004_StatementEle_69Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_69Analyzer");
-	//TO DO  R004_StatementEle_69Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1825,7 +2264,13 @@ void R004_StatementEle_69Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'protected'
 void R004_StatementEle_70Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_70Analyzer");
-	//TO DO  R004_StatementEle_70Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1833,7 +2278,13 @@ void R004_StatementEle_70Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'public'
 void R004_StatementEle_71Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_71Analyzer");
-	//TO DO  R004_StatementEle_71Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1841,7 +2292,13 @@ void R004_StatementEle_71Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'short'
 void R004_StatementEle_72Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_72Analyzer");
-	//TO DO  R004_StatementEle_72Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1849,7 +2306,13 @@ void R004_StatementEle_72Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'static'
 void R004_StatementEle_73Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_73Analyzer");
-	//TO DO  R004_StatementEle_73Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1857,7 +2320,13 @@ void R004_StatementEle_73Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'super'
 void R004_StatementEle_74Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_74Analyzer");
-	//TO DO  R004_StatementEle_74Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1865,7 +2334,13 @@ void R004_StatementEle_74Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'synchronized'
 void R004_StatementEle_75Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_75Analyzer");
-	//TO DO  R004_StatementEle_75Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1873,7 +2348,13 @@ void R004_StatementEle_75Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'this'
 void R004_StatementEle_76Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_76Analyzer");
-	//TO DO  R004_StatementEle_76Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1881,7 +2362,13 @@ void R004_StatementEle_76Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'throws'
 void R004_StatementEle_77Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_77Analyzer");
-	//TO DO  R004_StatementEle_77Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1889,7 +2376,13 @@ void R004_StatementEle_77Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'transient'
 void R004_StatementEle_78Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_78Analyzer");
-	//TO DO  R004_StatementEle_78Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1897,7 +2390,13 @@ void R004_StatementEle_78Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'void'
 void R004_StatementEle_79Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_79Analyzer");
-	//TO DO  R004_StatementEle_79Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
 
 
@@ -1905,8 +2404,20 @@ void R004_StatementEle_79Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_StatementEle : 'volatile'
 void R004_StatementEle_80Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_80Analyzer");
-	//TO DO  R004_StatementEle_80Analyzer
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	nodeValue->context["StatementEle"] = P_Token(p);
 };
+
+
+
+
+
+
 
 
 
@@ -2135,7 +2646,7 @@ void R004_Block_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unorde
 
 	statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
 	statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
-	statementEntity->endIndex= nodeValue->node->child_node_list[2]->index;
+	statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
 	statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
@@ -2567,6 +3078,124 @@ void R004_InterfaceTypeList_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 void R004_InterfaceTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_InterfaceTypeList_1Analyzer");
 	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+};
+
+
+
+//beg_DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+void R004_DimExpr_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_DimExpr_0Analyzer");
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["DimExpr"] = P_Token(p);
+};
+
+
+
+//beg_DimStatements : DimExpr DimStatements
+void R004_DimStatements_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_DimStatements_0Analyzer");
+	//TO DO  R004_DimStatements_0Analyzer
+};
+
+
+
+//beg_DimStatements : NonDim DimStatements
+void R004_DimStatements_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_DimStatements_1Analyzer");
+	//TO DO  R004_DimStatements_1Analyzer
+};
+
+
+
+//beg_DimStatements : 0
+void R004_DimStatements_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_DimStatements_2Analyzer");
+	//TO DO  R004_DimStatements_2Analyzer
+};
+
+
+
+//beg_NonDim : StatementEle
+void R004_NonDim_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_0Analyzer");
+	//TO DO  R004_NonDim_0Analyzer
+};
+
+
+
+//beg_NonDim : 'COMMA'
+void R004_NonDim_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_1Analyzer");
+	//TO DO  R004_NonDim_1Analyzer
+};
+
+
+
+//beg_NonDim : 'semicolon'
+void R004_NonDim_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_2Analyzer");
+	//TO DO  R004_NonDim_2Analyzer
+};
+
+
+
+//beg_NonDim : 'LEFT_BRACE'
+void R004_NonDim_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_3Analyzer");
+	//TO DO  R004_NonDim_3Analyzer
+};
+
+
+
+//beg_NonDim : 'LEFT_PARENTHESES'
+void R004_NonDim_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_4Analyzer");
+	//TO DO  R004_NonDim_4Analyzer
+};
+
+
+
+//beg_NonDim : 'LEFT_ANGLE_BRACKET'
+void R004_NonDim_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_5Analyzer");
+	//TO DO  R004_NonDim_5Analyzer
+};
+
+
+
+//beg_NonDim : 'RIGHT_BRACE'
+void R004_NonDim_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_6Analyzer");
+	//TO DO  R004_NonDim_6Analyzer
+};
+
+
+
+//beg_NonDim : 'COMMA_RIGHT_BRACE'
+void R004_NonDim_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_7Analyzer");
+	//TO DO  R004_NonDim_7Analyzer
+};
+
+
+
+//beg_NonDim : 'RIGHT_PARENTHESES'
+void R004_NonDim_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_8Analyzer");
+	//TO DO  R004_NonDim_8Analyzer
+};
+
+
+
+//beg_NonDim : 'RIGHT_ANGLE_BRACKET'
+void R004_NonDim_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonDim_9Analyzer");
+	//TO DO  R004_NonDim_9Analyzer
 };
 
 

@@ -633,7 +633,7 @@ public: virtual ~R004_NonBraceAndSemicolon_1Analyzer();
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_ANGLE_BRACKET'
+//beg_NonBraceAndSemicolon : AnnotationContent
 class R004_NonBraceAndSemicolon_2Analyzer :virtual public Non_Terminate_genertor {
 public: R004_NonBraceAndSemicolon_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -642,7 +642,7 @@ public: virtual ~R004_NonBraceAndSemicolon_2Analyzer();
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_BRACKET'
+//beg_NonBraceAndSemicolon : DimExpr
 class R004_NonBraceAndSemicolon_3Analyzer :virtual public Non_Terminate_genertor {
 public: R004_NonBraceAndSemicolon_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -651,38 +651,11 @@ public: virtual ~R004_NonBraceAndSemicolon_3Analyzer();
 
 
 
-//beg_NonBraceAndSemicolon : 'LEFT_PARENTHESES'
+//beg_NonBraceAndSemicolon : TypeArguments
 class R004_NonBraceAndSemicolon_4Analyzer :virtual public Non_Terminate_genertor {
 public: R004_NonBraceAndSemicolon_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_NonBraceAndSemicolon_4Analyzer();
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_ANGLE_BRACKET'
-class R004_NonBraceAndSemicolon_5Analyzer :virtual public Non_Terminate_genertor {
-public: R004_NonBraceAndSemicolon_5Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_NonBraceAndSemicolon_5Analyzer();
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_BRACKET'
-class R004_NonBraceAndSemicolon_6Analyzer :virtual public Non_Terminate_genertor {
-public: R004_NonBraceAndSemicolon_6Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_NonBraceAndSemicolon_6Analyzer();
-};
-
-
-
-//beg_NonBraceAndSemicolon : 'RIGHT_PARENTHESES'
-class R004_NonBraceAndSemicolon_7Analyzer :virtual public Non_Terminate_genertor {
-public: R004_NonBraceAndSemicolon_7Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R004_NonBraceAndSemicolon_7Analyzer();
 };
 
 
@@ -723,7 +696,7 @@ public: virtual ~R004_AnnotationContentStatements_0Analyzer();
 
 
 
-//beg_AnnotationContentStatements : NonPARENTHESES
+//beg_AnnotationContentStatements : 0
 class R004_AnnotationContentStatements_1Analyzer :virtual public Non_Terminate_genertor {
 public: R004_AnnotationContentStatements_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2141,4 +2114,130 @@ class R004_InterfaceTypeList_1Analyzer :virtual public Non_Terminate_genertor {
 public: R004_InterfaceTypeList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_InterfaceTypeList_1Analyzer();
+};
+
+
+
+//beg_DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+class R004_DimExpr_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_DimExpr_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_DimExpr_0Analyzer();
+};
+
+
+
+//beg_DimStatements : DimExpr DimStatements
+class R004_DimStatements_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_DimStatements_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_DimStatements_0Analyzer();
+};
+
+
+
+//beg_DimStatements : NonDim DimStatements
+class R004_DimStatements_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_DimStatements_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_DimStatements_1Analyzer();
+};
+
+
+
+//beg_DimStatements : 0
+class R004_DimStatements_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_DimStatements_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_DimStatements_2Analyzer();
+};
+
+
+
+//beg_NonDim : StatementEle
+class R004_NonDim_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_0Analyzer();
+};
+
+
+
+//beg_NonDim : 'COMMA'
+class R004_NonDim_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_1Analyzer();
+};
+
+
+
+//beg_NonDim : 'semicolon'
+class R004_NonDim_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_2Analyzer();
+};
+
+
+
+//beg_NonDim : 'LEFT_BRACE'
+class R004_NonDim_3Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_3Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_3Analyzer();
+};
+
+
+
+//beg_NonDim : 'LEFT_PARENTHESES'
+class R004_NonDim_4Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_4Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_4Analyzer();
+};
+
+
+
+//beg_NonDim : 'LEFT_ANGLE_BRACKET'
+class R004_NonDim_5Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_5Analyzer();
+};
+
+
+
+//beg_NonDim : 'RIGHT_BRACE'
+class R004_NonDim_6Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_6Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_6Analyzer();
+};
+
+
+
+//beg_NonDim : 'COMMA_RIGHT_BRACE'
+class R004_NonDim_7Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_7Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_7Analyzer();
+};
+
+
+
+//beg_NonDim : 'RIGHT_PARENTHESES'
+class R004_NonDim_8Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_8Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_8Analyzer();
+};
+
+
+
+//beg_NonDim : 'RIGHT_ANGLE_BRACKET'
+class R004_NonDim_9Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonDim_9Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonDim_9Analyzer();
 };

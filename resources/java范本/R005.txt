@@ -1,93 +1,55 @@
-ele_begin : TypeDeclarationList
-Identifier : 'IDENTIFIER'
-DetailIdentifier : Identifier 'SPOT' DetailIdentifier
-DetailIdentifier : Identifier
-TypeDeclarationList : TypeDeclaration
-TypeDeclaration : ClassDeclaration
-TypeDeclaration : InterfaceDeclaration
-TypeDeclaration : 'semicolon'
-ClassDeclaration : NormalClassDeclaration
-ClassDeclaration : EnumDeclaration
-InterfaceDeclaration : NormalInterfaceDeclaration
-InterfaceDeclaration : AnnotationTypeDeclaration
-NormalClassDeclaration : 'class' Identifier ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
-NormalClassDeclaration : 'class' Identifier Superclass ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
-NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
-EnumDeclaration : 'enum' Identifier ClassBody
-EnumDeclaration : ModifierList 'enum' Identifier ClassBody
-EnumDeclaration : 'enum' Identifier Superinterfaces ClassBody
-EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces ClassBody
-NormalInterfaceDeclaration : 'interface' Identifier ClassBody
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
-NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
-NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
-NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
-ExtendsInterfaces : 'extends' InterfaceTypeList
-AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
-AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
-AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
-AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
-ClassBody : 'LEFT_BRACE' 'RIGHT_BRACE'
-ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
-ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
-ClassBodyDeclarationList : 0
-ClassBodyDeclaration : ClassMemberDeclaration
+ele_begin : ClassBodyDeclaration
 ClassBodyDeclaration : InstanceInitializer
 ClassBodyDeclaration : StaticInitializer
 ClassBodyDeclaration : ConstructorDeclaration
-ConstructorDeclaration : ConstructorDeclarator ClassBody
-ConstructorDeclaration : ModifierList ConstructorDeclarator ClassBody
-ConstructorDeclaration : ConstructorDeclarator Throws ClassBody
-ConstructorDeclaration : ModifierList ConstructorDeclarator Throws ClassBody
-ConstructorDeclarator : Identifier DimExpr
-ConstructorDeclarator : TypeArguments Identifier DimExpr
-DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
-DimStatements : DimExpr DimStatements
-DimStatements : NonDim DimStatements
-DimStatements : 0
-NonDim : StatementEle
-NonDim : 'COMMA'
-NonDim : 'semicolon'
-NonDim : 'LEFT_BRACE'
-NonDim : 'LEFT_PARENTHESES'
-NonDim : 'LEFT_ANGLE_BRACKET'
-NonDim : 'RIGHT_BRACE'
-NonDim : 'COMMA_RIGHT_BRACE'
-NonDim : 'RIGHT_PARENTHESES'
-NonDim : 'RIGHT_ANGLE_BRACKET'
+ClassBodyDeclaration : ClassMemberDeclaration
+ClassMemberDeclaration : FieldDeclaration
+ClassMemberDeclaration : MethodDeclaration
+ClassMemberDeclaration : ClassDeclaration
+ClassMemberDeclaration : InterfaceDeclaration
+ClassMemberDeclaration : 'semicolon'
+ClassDeclaration : NormalClassDeclaration
+ClassDeclaration : EnumDeclaration
+FieldDeclaration : UnannType VariableDeclaratorId 'COMMA'
+FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'COMMA'
+FieldDeclaration : UnannType VariableDeclaratorId 'EQUAL'
+FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'EQUAL'
+FieldDeclaration : UnannType VariableDeclaratorId 'semicolon'
+FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'semicolon'
+MethodDeclaration : MethodHeader MethodBody
+MethodDeclaration : ModifierList MethodHeader MethodBody
+MethodBody : Block
+MethodBody : 'semicolon'
+MethodHeader : UnannType MethodDeclarator Throws
+MethodHeader : UnannType MethodDeclarator
+MethodHeader : TypeArguments UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments UnannType MethodDeclarator
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList UnannType MethodDeclarator
+MethodHeader : 'void' MethodDeclarator Throws
+MethodHeader : 'void' MethodDeclarator
+MethodHeader : TypeArguments 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments 'void' MethodDeclarator
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator Throws
+MethodHeader : TypeArguments AnnotationList 'void' MethodDeclarator
+MethodDeclarator : Identifier AnnotationContent
+MethodDeclarator : Identifier AnnotationContent DimExpr
 InstanceInitializer : Block
 StaticInitializer : 'static' Block
-ModifierList : Modifier ModifierList
-ModifierList : Modifier
-AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
-AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
-AnnotationContentStatements : NonPARENTHESES
-NonPARENTHESES : StatementEle
-NonPARENTHESES : 'COMMA'
-NonPARENTHESES : 'semicolon'
-NonPARENTHESES : 'LEFT_BRACE'
-NonPARENTHESES : 'LEFT_BRACKET'
-NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
-NonPARENTHESES : 'RIGHT_BRACE'
-NonPARENTHESES : 'COMMA_RIGHT_BRACE'
-NonPARENTHESES : 'RIGHT_BRACKET'
-NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
+BlockStatements : 0
+NonBrace : StatementEle
+NonBrace : 'COMMA'
+NonBrace : 'semicolon'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'RIGHT_PARENTHESES'
 StatementEle : 'IDENTIFIER'
 StatementEle : 'AND'
 StatementEle : 'AND_EQUAL'
@@ -98,7 +60,6 @@ StatementEle : 'BIT_OR'
 StatementEle : 'BooleanLiteral'
 StatementEle : 'CARET'
 StatementEle : 'COLON'
--- StatementEle : 'COMMA'  12
 StatementEle : 'CharacterLiteral'
 StatementEle : 'DB_EQUAL'
 StatementEle : 'DIVIDE_EQUAL'
@@ -161,7 +122,6 @@ StatementEle : 'null'
 StatementEle : 'private'
 StatementEle : 'protected'
 StatementEle : 'public'
--- StatementEle : 'semicolon'  13
 StatementEle : 'short'
 StatementEle : 'static'
 StatementEle : 'super'
@@ -171,6 +131,12 @@ StatementEle : 'throws'
 StatementEle : 'transient'
 StatementEle : 'void'
 StatementEle : 'volatile'
+ConstructorDeclaration : ConstructorDeclarator Block
+ConstructorDeclaration : ModifierList ConstructorDeclarator Block
+ConstructorDeclaration : ConstructorDeclarator Throws Block
+ConstructorDeclaration : ModifierList ConstructorDeclarator Throws Block
+ModifierList : Modifier ModifierList
+ModifierList : Modifier
 Modifier : 'public'
 Modifier : 'protected'
 Modifier : 'private'
@@ -184,14 +150,33 @@ Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'native'
 Modifier : Annotation
-MethodBody : Block
-MethodBody : 'semicolon'
-Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
-BlockStatements : Block BlockStatements
-BlockStatements : NonBrace BlockStatements
-BlockStatements : 0
 Annotation : 'AT' DetailIdentifier AnnotationContent
 Annotation : 'AT' DetailIdentifier
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : 0
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+Throws : 'throws' ExceptionTypeList
+ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+ExceptionTypeList : ExceptionType
+ExceptionType : ClassType
+ClassType : ClassTypeNode 'SPOT' ClassType
+ClassType : ClassTypeNode
+ClassTypeNode : Identifier
+ClassTypeNode : AnnotationList Identifier
+ClassTypeNode : Identifier TypeArguments
+ClassTypeNode : AnnotationList Identifier TypeArguments
+AnnotationList : Annotation AnnotationList
+AnnotationList : Annotation
 TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
 TypeArgumentList : 0
@@ -204,15 +189,6 @@ NonANGLE_BRACKET : UnannPrimitiveType
 NonANGLE_BRACKET : 'SPOT'
 NonANGLE_BRACKET : 'LEFT_BRACKET'
 NonANGLE_BRACKET : 'RIGHT_BRACKET'
-NonBrace : StatementEle
-NonBrace : 'COMMA'
-NonBrace : 'semicolon'
-NonBrace : 'LEFT_ANGLE_BRACKET'
-NonBrace : 'LEFT_BRACKET'
-NonBrace : 'LEFT_PARENTHESES'
-NonBrace : 'RIGHT_ANGLE_BRACKET'
-NonBrace : 'RIGHT_BRACKET'
-NonBrace : 'RIGHT_PARENTHESES'
 UnannPrimitiveType : NumericType
 UnannPrimitiveType : 'boolean'
 NumericType : IntegralType
@@ -224,20 +200,69 @@ IntegralType : 'long'
 IntegralType : 'char'
 FloatingPointType : 'float'
 FloatingPointType : 'double'
+VariableDeclaratorId : Identifier DimExpr
+VariableDeclaratorId : Identifier
+UnannType : UnannPrimitiveType
+UnannType : UnannClassType
+UnannType : UnannArrayType
+-- UnannClassOrInterfaceType : UnannClassType
+UnannClassType : UnannClassTypeNode 'SPOT' AnnotationList UnannClassType
+UnannClassType : UnannClassTypeNode 'SPOT' UnannClassType
+UnannClassType : UnannClassTypeNode
+UnannClassTypeNode : Identifier
+UnannClassTypeNode : Identifier TypeArguments
+UnannArrayType : UnannPrimitiveType DimExpr
+UnannArrayType : UnannClassType DimExpr
+DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
+DimStatements : DimExpr DimStatements
+DimStatements : NonDim DimStatements
+DimStatements : 0
+NonDim : StatementEle
+NonDim : 'COMMA'
+NonDim : 'semicolon'
+NonDim : 'LEFT_BRACE'
+NonDim : 'LEFT_PARENTHESES'
+NonDim : 'LEFT_ANGLE_BRACKET'
+NonDim : 'RIGHT_BRACE'
+NonDim : 'COMMA_RIGHT_BRACE'
+NonDim : 'RIGHT_PARENTHESES'
+NonDim : 'RIGHT_ANGLE_BRACKET'
+NormalClassDeclaration : 'class' Identifier Block
+NormalClassDeclaration : ModifierList 'class' Identifier Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
+NormalClassDeclaration : 'class' Identifier Superclass Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+NormalClassDeclaration : 'class' Identifier Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+EnumDeclaration : 'enum' Identifier Block
+EnumDeclaration : ModifierList 'enum' Identifier Block
+EnumDeclaration : 'enum' Identifier Superinterfaces Block
+EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces Block
 Superclass : 'extends' ClassType
-ClassTypeEle : Identifier
-ClassTypeEle : AnnotationList Identifier
-ClassTypeEle : Identifier TypeArguments
-ClassTypeEle : AnnotationList Identifier TypeArguments
-ClassType : ClassTypeEle
-ClassType : ClassTypeEle 'SPOT' ClassType
-AnnotationList : Annotation AnnotationList
-AnnotationList : Annotation
 Superinterfaces : 'implements' InterfaceTypeList
 InterfaceTypeList : ClassType
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
-Throws : 'throws' ExceptionTypeList
-ExceptionTypeList : ExceptionType
-ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
-ExceptionType : ClassType
-ExceptionType : TypeVariable
+InterfaceDeclaration : NormalInterfaceDeclaration
+InterfaceDeclaration : AnnotationTypeDeclaration
+NormalInterfaceDeclaration : 'interface' Identifier 'LEFT_BRACE'
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'LEFT_BRACE'
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'LEFT_BRACE'
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'LEFT_BRACE'
+NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
+ExtendsInterfaces : 'extends' InterfaceTypeList
+AnnotationTypeDeclaration : 'AT' 'interface' Identifier 'LEFT_BRACE'
+AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier 'LEFT_BRACE'
+AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier 'LEFT_BRACE'
+AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier 'LEFT_BRACE'

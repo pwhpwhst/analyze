@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 	//3 -Lalr 单个文件测试
 	//4 批量测试
 
-	int mode = 0;
+	int mode = 2;
 
 	if (mode == 0) {
 		Env env;
@@ -59,17 +59,29 @@ int main(int argc, char* argv[]) {
 			unordered_map<string, string> imfo_map;
 			recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
 			Node::releaseNode(node_tree);
-			//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+
+			cout <<"packageName:"<< ((ClassListToken *)(env.list[0].get()))->packageName << endl;
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
-			cout << importListToken->list[0]->name << endl;
-			cout << importListToken->list[0]->isStatic << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->lineNum << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->index << endl;
-			
-			className = ((ClassListToken *)(env.list[0].get()))->list[0]->name;
-			wordListIdOfclass = ((ClassListToken *)(env.list[0].get()))->list[0]->index;
+
+			for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
+				cout << "import["<< i1 << "]:" << importListToken->list[i1]->name << endl;
+				cout << importListToken->list[i1]->isStatic << endl;
+			}
+
+
+
+
+			cout <<"className:"<< ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+			cout << "classType:" << ((ClassListToken *)(env.list[0].get()))->list[0]->type << endl;
+
+			StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+
+
+			//NormalClassDeclaration
+
+			for (int i1 = 0; i1 < p->list.size(); i1++) {
+				cout << "statement["<<i1<<"]:"<<p->list[i1]->begIndex<<","<< p->list[i1]->endIndex << endl;
+			}
 		}
 
 	}
@@ -123,7 +135,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
