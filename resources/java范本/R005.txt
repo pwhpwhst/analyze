@@ -10,12 +10,19 @@ ClassMemberDeclaration : InterfaceDeclaration
 ClassMemberDeclaration : 'semicolon'
 ClassDeclaration : NormalClassDeclaration
 ClassDeclaration : EnumDeclaration
-FieldDeclaration : UnannType VariableDeclaratorId 'COMMA'
-FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'COMMA'
-FieldDeclaration : UnannType VariableDeclaratorId 'EQUAL'
-FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'EQUAL'
-FieldDeclaration : UnannType VariableDeclaratorId 'semicolon'
-FieldDeclaration : ModifierList UnannType VariableDeclaratorId 'semicolon'
+FieldDeclaration : UnannType VariableDeclaratorList 'semicolon'
+FieldDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
+VariableDeclaratorList : VariableDeclarator 'COMMA' VariableDeclaratorList
+VariableDeclaratorList : VariableDeclarator
+VariableDeclarator : VariableDeclaratorId
+VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
+VariableInitializer : Block ClassStatementPrefix
+VariableInitializer : NonBraceAndSemicolonAndCOMMA VariableInitializer
+VariableInitializer : 0
+NonBraceAndSemicolonAndCOMMA : StatementEle
+NonBraceAndSemicolonAndCOMMA : AnnotationContent
+NonBraceAndSemicolonAndCOMMA : DimExpr
+NonBraceAndSemicolonAndCOMMA : TypeArguments
 MethodDeclaration : MethodHeader MethodBody
 MethodDeclaration : ModifierList MethodHeader MethodBody
 MethodBody : Block
