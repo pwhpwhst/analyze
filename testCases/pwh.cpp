@@ -29,12 +29,12 @@ int main(int argc, char* argv[]) {
 	//3 -Lalr 单个文件测试
 	//4 批量测试
 
-	int mode = 2;
+	int mode =  0;
 
 	if (mode == 0) {
 		Env env;
-		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\controller\\";
-		string fileName = "JavaSyntaxTest.java";
+		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
+		string fileName = "JavaAnnotation.java";
 		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 
 		string compile_file = path + "\\" + fileName;
@@ -63,25 +63,27 @@ int main(int argc, char* argv[]) {
 			cout <<"packageName:"<< ((ClassListToken *)(env.list[0].get()))->packageName << endl;
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
 
-			for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
-				cout << "import["<< i1 << "]:" << importListToken->list[i1]->name << endl;
-				cout << importListToken->list[i1]->isStatic << endl;
+			if (importListToken!=nullptr) {
+				for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
+					cout << "import[" << i1 << "]:" << importListToken->list[i1]->name << endl;
+					cout << importListToken->list[i1]->isStatic << endl;
+				}
 			}
-
-
 
 
 			cout <<"className:"<< ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
-			cout << "classType:" << ((ClassListToken *)(env.list[0].get()))->list[0]->type << endl;
+			string classType=((ClassListToken *)(env.list[0].get()))->list[0]->type;
+			cout << classType << endl;
+			if ("NormalClassDeclaration"== classType|| "EnumDeclaration" == classType 
+				|| "NormalInterfaceDeclaration" == classType || "AnnotationTypeDeclaration" == classType) {
+				StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+				//NormalClassDeclaration
 
-			StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
-
-
-			//NormalClassDeclaration
-
-			for (int i1 = 0; i1 < p->list.size(); i1++) {
-				cout << "statement["<<i1<<"]:"<<p->list[i1]->begIndex<<","<< p->list[i1]->endIndex << endl;
+				for (int i1 = 0; i1 < p->list.size(); i1++) {
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+				}
 			}
+
 		}
 
 	}
@@ -135,7 +137,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
@@ -154,7 +156,7 @@ int main(int argc, char* argv[]) {
 		lalr.switchAllowIllegalInput = true;
 		PrimarySymbolConverter primarySymbolConverter;
 		set<string> end_symbol_set0;
-		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\controller\\";
+		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
 		string fileName = "JavaSyntaxTest.java";
 		string compile_file = path + "\\" + fileName;
 
@@ -162,21 +164,41 @@ int main(int argc, char* argv[]) {
 
 		Node*  node_tree = lalr.slr(env);
 
+		string className;
+		int wordListIdOfclass;
 
 		if (node_tree == nullptr) {
 			cout << fileName << ":" << "analyze failed" << endl;
 		}
 		else {
-			cout << fileName << ":" << "analyze successfully" << endl;
+
 			unordered_map<string, string> imfo_map;
 			lalr.gen_middle_code(env, node_tree, imfo_map);
 			Node::releaseNode(node_tree);
-			//cout << ((ClassToken *)(env.list[0].get()))->list[0]->name << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
+
+			cout << "packageName:" << ((ClassListToken *)(env.list[0].get()))->packageName << endl;
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
-			cout << importListToken->list[0]->name << endl;
-			cout << importListToken->list[0]->isStatic << endl;
-			cout << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+
+			for (int i1 = 0; i1 < importListToken->list.size(); i1++) {
+				cout << "import[" << i1 << "]:" << importListToken->list[i1]->name << endl;
+				cout << importListToken->list[i1]->isStatic << endl;
+			}
+
+
+
+
+			cout << "className:" << ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
+			string classType = ((ClassListToken *)(env.list[0].get()))->list[0]->type;
+			cout << classType << endl;
+			if ("NormalClassDeclaration" == classType) {
+				StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+				//NormalClassDeclaration
+
+				for (int i1 = 0; i1 < p->list.size(); i1++) {
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+				}
+			}
+
 		}
 	}
 	else if (mode == 4) {

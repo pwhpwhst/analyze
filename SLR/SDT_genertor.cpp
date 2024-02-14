@@ -8,13 +8,13 @@ SDT_genertor::SDT_genertor() {}
 
 SDT_genertor::~SDT_genertor() {}
 
- string SDT_genertor::child(const P_NodeValue &nodeValue, int index, int value_type) {
+string SDT_genertor::child(const P_NodeValue &nodeValue, int index, int value_type) {
 	os.str("");
 	os << nodeValue->node->child_node_list[index] << "_" << value_type;
 	return os.str();
 }
 
- string SDT_genertor::own(const P_NodeValue &nodeValue, int value_type) {
+string SDT_genertor::own(const P_NodeValue &nodeValue, int value_type) {
 	os.str("");
 	os << nodeValue->node << "_" << value_type;
 	return os.str();

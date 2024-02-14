@@ -2427,6 +2427,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	Node* resultTree = nullptr;
 	bool finished_flag = false;
 	bool unexception_input = false;
+	int wordListId = 0;
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
@@ -2482,13 +2483,14 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			Node *node = new Node();
 			node->symbol = (*p_input)->type;
 			node->content = (*p_input)->content;
-			node->index = (*p_input)->index;
+			node->index = wordListId;
 			node->lineNum = (*p_input)->lineNum;
 			node->parent = nullptr;
 			node->offset = 0;
 			item_node_stack1.back()->node = node;
 			item_node_stack1.back()->item_status = atoi(action.substr(1).c_str());
 			++p_input;
+			++wordListId;
 		}
 		else if (action[0] == 'r') {
 			P_Rule best_rule = ruleList[atoi(action.substr(1).c_str())];

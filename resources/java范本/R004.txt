@@ -41,23 +41,23 @@ NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
-EnumDeclaration : 'enum' Identifier 'LEFT_BRACE'
-EnumDeclaration : ModifierList 'enum' Identifier 'LEFT_BRACE'
-EnumDeclaration : 'enum' Identifier Superinterfaces 'LEFT_BRACE'
-EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces 'LEFT_BRACE'
-NormalInterfaceDeclaration : 'interface' Identifier 'LEFT_BRACE'
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'LEFT_BRACE'
-NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'LEFT_BRACE'
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'LEFT_BRACE'
-NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
-NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
-NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
+EnumDeclaration : 'enum' Identifier EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier EnumBody
+EnumDeclaration : 'enum' Identifier Superinterfaces EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces EnumBody
+NormalInterfaceDeclaration : 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
+NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
 ExtendsInterfaces : 'extends' InterfaceTypeList
-AnnotationTypeDeclaration : 'AT' 'interface' Identifier 'LEFT_BRACE'
-AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier 'LEFT_BRACE'
-AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier 'LEFT_BRACE'
-AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier 'LEFT_BRACE'
+AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
+AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
+AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
+AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
 ClassBody : 'LEFT_BRACE' ClassBodyDeclarationList 'RIGHT_BRACE'
 ClassBodyDeclarationList : ClassBodyDeclaration ClassBodyDeclarationList
 ClassBodyDeclarationList : 0
@@ -248,3 +248,17 @@ NonDim : 'RIGHT_BRACE'
 NonDim : 'COMMA_RIGHT_BRACE'
 NonDim : 'RIGHT_PARENTHESES'
 NonDim : 'RIGHT_ANGLE_BRACKET'
+EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumConstantList : EnumConstantEle 'COMMA' EnumConstantList
+EnumConstantList : EnumConstantEle
+EnumConstantEle : StatementEle
+EnumConstantEle : AnnotationContent
+EnumConstantEle : Block
+EnumBodyDeclarations : 'semicolon' ClassBodyDeclarationList

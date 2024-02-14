@@ -29,7 +29,7 @@ string RecursiveDescentJava::replaceAll(string str, string sub, string replaceme
 }
 
 void RecursiveDescentJava::log(const string& s) {
-			  cout<<s<<endl;
+//			  cout<<s<<endl;
 }
 
 int RecursiveDescentJava::startsWith(const string& s, const string& sub) {
@@ -103,6 +103,7 @@ void RecursiveDescentJava::init_total_lex_word_list(string compile_file, Primary
 			}
 		}
 	}
+	//cout << "dasdfd" << endl;
 }
 
 Node* RecursiveDescentJava::createTerminateNode(P_Lex_Word &p) {
@@ -373,7 +374,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 	typedef std::shared_ptr<ItemNode> P_ItemNode;
 	vector<P_ItemNode> item_node_stack1;
 	item_node_stack1.push_back(P_ItemNode(new ItemNode()));
-//	log("压入：" + rootSymbol);
+	log("压入：" + rootSymbol);
 	transferMap.clear();
 	findFirstAndLastRules(rootSymbol, transferMap);
 
@@ -409,8 +410,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 			else {
 				Node* parentNode = item_node_stack1.back()->node->parent;
 				while (item_node_stack1.back()->node != parentNode) {
-//					log("弹出1：" + item_node_stack1.back()->node->symbol);
-//					cout << "wordListId=" << wordListId << endl;
+					log("弹出1：" + item_node_stack1.back()->node->symbol);
+					log("wordListId=" + wordListId);
 					Node::releaseNode(item_node_stack1.back()->node);
 					item_node_stack1.pop_back();
 				}
@@ -434,8 +435,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 				resultNodePtr= top_item->node;
 			}
 
-//				log("弹出2：" + item_node_stack1.back()->node->symbol);
-//				cout << "wordListId=" << wordListId << endl;
+				log("弹出2：" + item_node_stack1.back()->node->symbol);
+				log("wordListId=" + wordListId);
 				item_node_stack1.pop_back();
 
 		}
@@ -466,8 +467,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 				}
 				else {
 					for (int i1 = ruleList[top_item->node->ruleId]->symbols.size() - 1; i1 >= 0; i1--) {
-//						log("压入：" + ruleList[top_item->node->ruleId]->symbols[i1]);
-//						cout << "wordListId=" << wordListId << endl;
+						log("压入：" + ruleList[top_item->node->ruleId]->symbols[i1]);
+						log("wordListId=" + wordListId);
 						item_node_stack1.push_back(P_ItemNode(new ItemNode()));
 						item_node_stack1.back()->node = new Node();
 						item_node_stack1.back()->node->symbol = ruleList[top_item->node->ruleId]->symbols[i1];

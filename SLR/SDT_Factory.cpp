@@ -406,6 +406,20 @@ SDT_Factory::SDT_Factory() {
    { "R004_NonDim_7", 390 },
    { "R004_NonDim_8", 391 },
    { "R004_NonDim_9", 392 },
+   { "R004_EnumBody_0", 393 },
+   { "R004_EnumBody_1", 394 },
+   { "R004_EnumBody_2", 395 },
+   { "R004_EnumBody_3", 396 },
+   { "R004_EnumBody_4", 397 },
+   { "R004_EnumBody_5", 398 },
+   { "R004_EnumBody_6", 399 },
+   { "R004_EnumBody_7", 400 },
+   { "R004_EnumConstantList_0", 401 },
+   { "R004_EnumConstantList_1", 402 },
+   { "R004_EnumConstantEle_0", 403 },
+   { "R004_EnumConstantEle_1", 404 },
+   { "R004_EnumConstantEle_2", 405 },
+   { "R004_EnumBodyDeclarations_0", 406 },
 	};
 }
 
@@ -812,6 +826,20 @@ P_SDT_genertor SDT_Factory::getSDT_genertor(const string &key) {
 	case 390: factory["R004_NonDim_7"] = P_SDT_genertor(new R004_NonDim_7Analyzer()); break;
 	case 391: factory["R004_NonDim_8"] = P_SDT_genertor(new R004_NonDim_8Analyzer()); break;
 	case 392: factory["R004_NonDim_9"] = P_SDT_genertor(new R004_NonDim_9Analyzer()); break;
+	case 393: factory["R004_EnumBody_0"] = P_SDT_genertor(new R004_EnumBody_0Analyzer()); break;
+	case 394: factory["R004_EnumBody_1"] = P_SDT_genertor(new R004_EnumBody_1Analyzer()); break;
+	case 395: factory["R004_EnumBody_2"] = P_SDT_genertor(new R004_EnumBody_2Analyzer()); break;
+	case 396: factory["R004_EnumBody_3"] = P_SDT_genertor(new R004_EnumBody_3Analyzer()); break;
+	case 397: factory["R004_EnumBody_4"] = P_SDT_genertor(new R004_EnumBody_4Analyzer()); break;
+	case 398: factory["R004_EnumBody_5"] = P_SDT_genertor(new R004_EnumBody_5Analyzer()); break;
+	case 399: factory["R004_EnumBody_6"] = P_SDT_genertor(new R004_EnumBody_6Analyzer()); break;
+	case 400: factory["R004_EnumBody_7"] = P_SDT_genertor(new R004_EnumBody_7Analyzer()); break;
+	case 401: factory["R004_EnumConstantList_0"] = P_SDT_genertor(new R004_EnumConstantList_0Analyzer()); break;
+	case 402: factory["R004_EnumConstantList_1"] = P_SDT_genertor(new R004_EnumConstantList_1Analyzer()); break;
+	case 403: factory["R004_EnumConstantEle_0"] = P_SDT_genertor(new R004_EnumConstantEle_0Analyzer()); break;
+	case 404: factory["R004_EnumConstantEle_1"] = P_SDT_genertor(new R004_EnumConstantEle_1Analyzer()); break;
+	case 405: factory["R004_EnumConstantEle_2"] = P_SDT_genertor(new R004_EnumConstantEle_2Analyzer()); break;
+	case 406: factory["R004_EnumBodyDeclarations_0"] = P_SDT_genertor(new R004_EnumBodyDeclarations_0Analyzer()); break;
 	default:
 		if (key.find("R003_") == 0) {
 			vector <string> string_list;

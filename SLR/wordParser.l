@@ -31,7 +31,7 @@ void write_word(char *yytext,char *symbol_name){
 				
 			}else{
 				new_lex_word[i1].type=NULL;
-				new_lex_word[i1].content=NULL;			
+				new_lex_word[i1].content=NULL;
 			}
 		}
 		free(lex_word);

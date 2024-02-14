@@ -261,73 +261,73 @@ R004_NormalClassDeclaration_15Analyzer::~R004_NormalClassDeclaration_15Analyzer(
 
 
 
-//beg_EnumDeclaration : 'enum' Identifier 'LEFT_BRACE'
+//beg_EnumDeclaration : 'enum' Identifier EnumBody
 R004_EnumDeclaration_0Analyzer::R004_EnumDeclaration_0Analyzer() {}
 R004_EnumDeclaration_0Analyzer::~R004_EnumDeclaration_0Analyzer() {}
 
 
 
-//beg_EnumDeclaration : ModifierList 'enum' Identifier 'LEFT_BRACE'
+//beg_EnumDeclaration : ModifierList 'enum' Identifier EnumBody
 R004_EnumDeclaration_1Analyzer::R004_EnumDeclaration_1Analyzer() {}
 R004_EnumDeclaration_1Analyzer::~R004_EnumDeclaration_1Analyzer() {}
 
 
 
-//beg_EnumDeclaration : 'enum' Identifier Superinterfaces 'LEFT_BRACE'
+//beg_EnumDeclaration : 'enum' Identifier Superinterfaces EnumBody
 R004_EnumDeclaration_2Analyzer::R004_EnumDeclaration_2Analyzer() {}
 R004_EnumDeclaration_2Analyzer::~R004_EnumDeclaration_2Analyzer() {}
 
 
 
-//beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces 'LEFT_BRACE'
+//beg_EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces EnumBody
 R004_EnumDeclaration_3Analyzer::R004_EnumDeclaration_3Analyzer() {}
 R004_EnumDeclaration_3Analyzer::~R004_EnumDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : 'interface' Identifier ClassBody
 R004_NormalInterfaceDeclaration_0Analyzer::R004_NormalInterfaceDeclaration_0Analyzer() {}
 R004_NormalInterfaceDeclaration_0Analyzer::~R004_NormalInterfaceDeclaration_0Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
 R004_NormalInterfaceDeclaration_1Analyzer::R004_NormalInterfaceDeclaration_1Analyzer() {}
 R004_NormalInterfaceDeclaration_1Analyzer::~R004_NormalInterfaceDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
 R004_NormalInterfaceDeclaration_2Analyzer::R004_NormalInterfaceDeclaration_2Analyzer() {}
 R004_NormalInterfaceDeclaration_2Analyzer::~R004_NormalInterfaceDeclaration_2Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ClassBody
 R004_NormalInterfaceDeclaration_3Analyzer::R004_NormalInterfaceDeclaration_3Analyzer() {}
 R004_NormalInterfaceDeclaration_3Analyzer::~R004_NormalInterfaceDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces ClassBody
 R004_NormalInterfaceDeclaration_4Analyzer::R004_NormalInterfaceDeclaration_4Analyzer() {}
 R004_NormalInterfaceDeclaration_4Analyzer::~R004_NormalInterfaceDeclaration_4Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces ClassBody
 R004_NormalInterfaceDeclaration_5Analyzer::R004_NormalInterfaceDeclaration_5Analyzer() {}
 R004_NormalInterfaceDeclaration_5Analyzer::~R004_NormalInterfaceDeclaration_5Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
 R004_NormalInterfaceDeclaration_6Analyzer::R004_NormalInterfaceDeclaration_6Analyzer() {}
 R004_NormalInterfaceDeclaration_6Analyzer::~R004_NormalInterfaceDeclaration_6Analyzer() {}
 
 
 
-//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces 'LEFT_BRACE'
+//beg_NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces ClassBody
 R004_NormalInterfaceDeclaration_7Analyzer::R004_NormalInterfaceDeclaration_7Analyzer() {}
 R004_NormalInterfaceDeclaration_7Analyzer::~R004_NormalInterfaceDeclaration_7Analyzer() {}
 
@@ -339,25 +339,25 @@ R004_ExtendsInterfaces_0Analyzer::~R004_ExtendsInterfaces_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier 'LEFT_BRACE'
+//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier ClassBody
 R004_AnnotationTypeDeclaration_0Analyzer::R004_AnnotationTypeDeclaration_0Analyzer() {}
 R004_AnnotationTypeDeclaration_0Analyzer::~R004_AnnotationTypeDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier 'LEFT_BRACE'
+//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier ClassBody
 R004_AnnotationTypeDeclaration_1Analyzer::R004_AnnotationTypeDeclaration_1Analyzer() {}
 R004_AnnotationTypeDeclaration_1Analyzer::~R004_AnnotationTypeDeclaration_1Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier 'LEFT_BRACE'
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier ClassBody
 R004_AnnotationTypeDeclaration_2Analyzer::R004_AnnotationTypeDeclaration_2Analyzer() {}
 R004_AnnotationTypeDeclaration_2Analyzer::~R004_AnnotationTypeDeclaration_2Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier 'LEFT_BRACE'
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier ClassBody
 R004_AnnotationTypeDeclaration_3Analyzer::R004_AnnotationTypeDeclaration_3Analyzer() {}
 R004_AnnotationTypeDeclaration_3Analyzer::~R004_AnnotationTypeDeclaration_3Analyzer() {}
 
@@ -1488,3 +1488,87 @@ R004_NonDim_8Analyzer::~R004_NonDim_8Analyzer() {}
 //beg_NonDim : 'RIGHT_ANGLE_BRACKET'
 R004_NonDim_9Analyzer::R004_NonDim_9Analyzer() {}
 R004_NonDim_9Analyzer::~R004_NonDim_9Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+R004_EnumBody_0Analyzer::R004_EnumBody_0Analyzer() {}
+R004_EnumBody_0Analyzer::~R004_EnumBody_0Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
+R004_EnumBody_1Analyzer::R004_EnumBody_1Analyzer() {}
+R004_EnumBody_1Analyzer::~R004_EnumBody_1Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+R004_EnumBody_2Analyzer::R004_EnumBody_2Analyzer() {}
+R004_EnumBody_2Analyzer::~R004_EnumBody_2Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+R004_EnumBody_3Analyzer::R004_EnumBody_3Analyzer() {}
+R004_EnumBody_3Analyzer::~R004_EnumBody_3Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' EnumBodyDeclarations 'RIGHT_BRACE'
+R004_EnumBody_4Analyzer::R004_EnumBody_4Analyzer() {}
+R004_EnumBody_4Analyzer::~R004_EnumBody_4Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList EnumBodyDeclarations 'RIGHT_BRACE'
+R004_EnumBody_5Analyzer::R004_EnumBody_5Analyzer() {}
+R004_EnumBody_5Analyzer::~R004_EnumBody_5Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+R004_EnumBody_6Analyzer::R004_EnumBody_6Analyzer() {}
+R004_EnumBody_6Analyzer::~R004_EnumBody_6Analyzer() {}
+
+
+
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+R004_EnumBody_7Analyzer::R004_EnumBody_7Analyzer() {}
+R004_EnumBody_7Analyzer::~R004_EnumBody_7Analyzer() {}
+
+
+
+//beg_EnumConstantList : EnumConstantEle 'COMMA' EnumConstantList
+R004_EnumConstantList_0Analyzer::R004_EnumConstantList_0Analyzer() {}
+R004_EnumConstantList_0Analyzer::~R004_EnumConstantList_0Analyzer() {}
+
+
+
+//beg_EnumConstantList : EnumConstantEle
+R004_EnumConstantList_1Analyzer::R004_EnumConstantList_1Analyzer() {}
+R004_EnumConstantList_1Analyzer::~R004_EnumConstantList_1Analyzer() {}
+
+
+
+//beg_EnumConstantEle : StatementEle
+R004_EnumConstantEle_0Analyzer::R004_EnumConstantEle_0Analyzer() {}
+R004_EnumConstantEle_0Analyzer::~R004_EnumConstantEle_0Analyzer() {}
+
+
+
+//beg_EnumConstantEle : AnnotationContent
+R004_EnumConstantEle_1Analyzer::R004_EnumConstantEle_1Analyzer() {}
+R004_EnumConstantEle_1Analyzer::~R004_EnumConstantEle_1Analyzer() {}
+
+
+
+//beg_EnumConstantEle : Block
+R004_EnumConstantEle_2Analyzer::R004_EnumConstantEle_2Analyzer() {}
+R004_EnumConstantEle_2Analyzer::~R004_EnumConstantEle_2Analyzer() {}
+
+
+
+//beg_EnumBodyDeclarations : 'semicolon' ClassBodyDeclarationList
+R004_EnumBodyDeclarations_0Analyzer::R004_EnumBodyDeclarations_0Analyzer() {}
+R004_EnumBodyDeclarations_0Analyzer::~R004_EnumBodyDeclarations_0Analyzer() {}
