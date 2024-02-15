@@ -18,7 +18,7 @@ using namespace std;
 #include "R004Analyzer_1.h"
 
 void logR004(const string& s) {
-		cout << s << endl;
+//		cout << s << endl;
 }
 
 
@@ -1063,6 +1063,7 @@ void R004_ClassBodyDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, E
 
 	((StatementToken*)(p0.get()))->statementEntity->endLineNum = nodeValue->node->child_node_list[1]->lineNum;
 	((StatementToken*)(p0.get()))->statementEntity->endIndex = nodeValue->node->child_node_list[1]->index;
+	((StatementToken*)(p0.get()))->statementEntity->endWith = "semicolon";
 
 	nodeValue->context["ClassBodyDeclaration"] = p0;
 };
@@ -1086,6 +1087,7 @@ void R004_ClassBodyDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, E
 
 	((StatementToken*)(p0.get()))->statementEntity->endLineNum = ((StatementToken *)p1.get())->statementEntity->endLineNum;
 	((StatementToken*)(p0.get()))->statementEntity->endIndex = ((StatementToken *)p1.get())->statementEntity->endIndex;
+	((StatementToken*)(p0.get()))->statementEntity->endWith = "Block";
 
 	nodeValue->context["ClassBodyDeclaration"] = p0;
 

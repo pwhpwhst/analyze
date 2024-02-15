@@ -9,6 +9,7 @@
 #include "../symbols/PrimarySymbolConverter.h"
 #include "../RecursiveDescentJava.h"
 #include "../symbols/java/ClassListToken.h"
+#include "../symbols/java/StatementToken.h"
 #include "../symbols/java/StatementListToken.h"
 #include <iostream>
 #include <fstream>
@@ -34,31 +35,39 @@ int main(int argc, char* argv[]) {
 	if (mode == 0) {
 		Env env;
 		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
-		string fileName = "JavaAnnotation.java";
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
+		string fileName = "JavaSyntaxTest.java";
+		string rule_file4 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
+
+		string rule_file5 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
+
 
 		string compile_file = path + "\\" + fileName;
 
 		set<string> end_symbol_set0;
 
-		RecursiveDescentJava recursiveDescentJava;
+		RecursiveDescentJava recursiveDescentJava4;
 		PrimarySymbolConverter primarySymbolConverter;
-		recursiveDescentJava.init(rule_file0);
-		recursiveDescentJava.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
+		recursiveDescentJava4.init(rule_file4);
+		recursiveDescentJava4.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
-		Node*  node_tree = recursiveDescentJava.slr(env, "ele_begin",0);
+
+		RecursiveDescentJava recursiveDescentJava5;
+		recursiveDescentJava5.logSwitch = false;
+		recursiveDescentJava5.init(rule_file5);
+
+		Node*  node_tree4 = recursiveDescentJava4.slr(env, "ele_begin",0);
 
 		string className;
 		int wordListIdOfclass;
 
-		if (node_tree == nullptr) {
+		if (node_tree4 == nullptr) {
 			cout << fileName << ":" << "analyze failed" << endl;
 		}
 		else {
 			
 			unordered_map<string, string> imfo_map;
-			recursiveDescentJava.gen_middle_code(env, node_tree, imfo_map);
-			Node::releaseNode(node_tree);
+			recursiveDescentJava4.gen_middle_code(env, node_tree4, imfo_map);
+			Node::releaseNode(node_tree4);
 
 			cout <<"packageName:"<< ((ClassListToken *)(env.list[0].get()))->packageName << endl;
 			ImportListToken* importListToken = (ImportListToken *)((ClassListToken *)(env.list[0].get()))->importList.get();
@@ -74,13 +83,88 @@ int main(int argc, char* argv[]) {
 			cout <<"className:"<< ((ClassListToken *)(env.list[0].get()))->list[0]->name << endl;
 			string classType=((ClassListToken *)(env.list[0].get()))->list[0]->type;
 			cout << classType << endl;
+
 			if ("NormalClassDeclaration"== classType|| "EnumDeclaration" == classType 
 				|| "NormalInterfaceDeclaration" == classType || "AnnotationTypeDeclaration" == classType) {
 				StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 				//NormalClassDeclaration
-
+				
 				for (int i1 = 0; i1 < p->list.size(); i1++) {
-					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+
+					if (p->list[i1]->endWith!="useless") {
+						
+						
+
+						bool isProcessed = false;
+						int retryNum = 3;
+						string statementType = "";
+						
+						while (!isProcessed && retryNum>0) {
+							retryNum--;
+							Env env2;
+							recursiveDescentJava5.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+							Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
+
+							if (node_tree5 != nullptr) {
+
+								recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
+								 statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
+								
+
+
+								if (statementType == "FieldDeclarationFake") {
+									for (int i2 = i1; i2 < p->list.size(); i2++) {
+										if(p->list[i2]->endWith!="semicolon") {
+											p->list[i2]->endWith = "useless";
+										}
+										else {
+											p->list[i2]->endWith = "useless";
+											p->list[i1]->endWith = "semicolon";
+											p->list[i1]->endIndex = p->list[i2]->endIndex;
+											break;
+										}
+									}
+									Node::releaseNode(node_tree5);
+									statementType = "";
+									continue;
+								}
+
+
+
+
+
+								Node::releaseNode(node_tree5);
+							}
+								isProcessed = true;
+								if (statementType != "") {
+
+									cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+									cout << "statementType:" << statementType << endl;
+
+									if (statementType == "FieldDeclaration") {
+										for (const string &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->nameList) {
+											cout << e << endl;
+										}
+									}
+
+
+									if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
+										string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
+										cout << "name:" << name << endl;
+									}
+								}
+						}
+
+						if (statementType == "") {
+							cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+						}
+
+
+
+
+					}
+
+
 				}
 			}
 
@@ -145,7 +229,7 @@ int main(int argc, char* argv[]) {
 	else if (mode == 3) {
 
 		Env env;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
 		Lalr lalr;
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;

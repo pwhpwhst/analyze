@@ -29,7 +29,9 @@ string RecursiveDescentJava::replaceAll(string str, string sub, string replaceme
 }
 
 void RecursiveDescentJava::log(const string& s) {
-//			  cout<<s<<endl;
+	if (logSwitch) {
+		cout << s << endl;
+	}
 }
 
 int RecursiveDescentJava::startsWith(const string& s, const string& sub) {
@@ -46,6 +48,9 @@ int RecursiveDescentJava::endsWith(const string& s, const string& sub) {
 	}
 	return s.rfind(sub) == (s.length() - sub.length()) ? 1 : 0;
 }
+
+
+
 
 
 void RecursiveDescentJava::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet) {
@@ -105,6 +110,57 @@ void RecursiveDescentJava::init_total_lex_word_list(string compile_file, Primary
 	}
 	//cout << "dasdfd" << endl;
 }
+
+
+
+void RecursiveDescentJava::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int begIndex, int endIndex) {
+	total_lex_word_list.clear();
+
+	//定义上下文
+	log("定义上下文");
+
+	//生成输入
+	log("生成输入");
+
+	vector<P_Lex_Word>  _total_lex_word_list;
+	vector <string> behaves;
+	_total_lex_word_list.clear();
+	word_parser(compile_file, _total_lex_word_list);
+	int index = 0;
+	for (P_Lex_Word &e : _total_lex_word_list) {
+		auto p = P_Lex_Word(new Lex_Word());
+		primarySymbolConverter.convert(*e, *p);
+		if (p->type != "0") {
+			if (endIndex == -1) {
+				if (p->index >= begIndex) {
+					total_lex_word_list.push_back(p);
+				}
+			}
+			else {
+				if (index >= begIndex && index <= endIndex) {
+					total_lex_word_list.push_back(p);
+				}
+				index++;
+			}
+
+		}
+	}
+
+
+
+#ifdef __PRINT_LEX_WORD_LIST
+	for (const auto &e : total_lex_word_list) {
+		cout << "type=" << e->type << endl;
+		cout << "content=" << e->content << endl;
+		cout << endl;
+	}
+#endif
+	//人手添加总结符号
+	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	total_lex_word_list.back()->type = "'end'";
+}
+
+
 
 Node* RecursiveDescentJava::createTerminateNode(P_Lex_Word &p) {
 	Node *node = new Node();
@@ -409,17 +465,22 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 			}
 			else {
 				Node* parentNode = item_node_stack1.back()->node->parent;
-				while (item_node_stack1.back()->node != parentNode) {
+				while (item_node_stack1.size()>0&& item_node_stack1.back()->node != parentNode) {
 					log("弹出1：" + item_node_stack1.back()->node->symbol);
-					log("wordListId=" + wordListId);
+					log("wordListId=" + std::to_string(wordListId));
 					Node::releaseNode(item_node_stack1.back()->node);
 					item_node_stack1.pop_back();
+
 				}
-				item_node_stack1.back()->status = FAIL;
-				if (item_node_stack1.back()->node->child_node_list.size()>0) {
-					wordListId=item_node_stack1.back()->node->child_node_list[0]->index;
+				if (item_node_stack1.size()>0) {
+					item_node_stack1.back()->status = FAIL;
+					if (item_node_stack1.back()->node->child_node_list.size() > 0) {
+						wordListId = item_node_stack1.back()->node->child_node_list[0]->index;
+					}
 				}
-				
+				else {
+					resultNodePtr = nullptr;
+				}
 			}
 
 		}
@@ -436,7 +497,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 			}
 
 				log("弹出2：" + item_node_stack1.back()->node->symbol);
-				log("wordListId=" + wordListId);
+				log("wordListId=" + std::to_string(wordListId));
 				item_node_stack1.pop_back();
 
 		}
@@ -468,7 +529,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 				else {
 					for (int i1 = ruleList[top_item->node->ruleId]->symbols.size() - 1; i1 >= 0; i1--) {
 						log("压入：" + ruleList[top_item->node->ruleId]->symbols[i1]);
-						log("wordListId=" + wordListId);
+						log("wordListId=" + std::to_string(wordListId));
 						item_node_stack1.push_back(P_ItemNode(new ItemNode()));
 						item_node_stack1.back()->node = new Node();
 						item_node_stack1.back()->node->symbol = ruleList[top_item->node->ruleId]->symbols[i1];
