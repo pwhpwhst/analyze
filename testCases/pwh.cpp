@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
 		string rule_file4 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 
 		string rule_file5 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
+		string rule_file6 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R006.txt";
 
 
 		string compile_file = path + "\\" + fileName;
@@ -54,6 +55,10 @@ int main(int argc, char* argv[]) {
 		RecursiveDescentJava recursiveDescentJava5;
 		recursiveDescentJava5.logSwitch = false;
 		recursiveDescentJava5.init(rule_file5);
+
+		RecursiveDescentJava recursiveDescentJava6;
+		recursiveDescentJava6.logSwitch = false;
+		recursiveDescentJava6.init(rule_file6);
 
 		Node*  node_tree4 = recursiveDescentJava4.slr(env, "ele_begin",0);
 
@@ -142,9 +147,64 @@ int main(int argc, char* argv[]) {
 									cout << "statementType:" << statementType << endl;
 
 									if (statementType == "FieldDeclaration") {
-										for (const string &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->nameList) {
-											cout << e << endl;
+										for (auto  &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
+											cout << e->name << endl;
+											cout << e->unannType << endl;
 										}
+
+									}
+
+
+									if (statementType == "MethodDeclaration") {
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+										((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+										((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+
+										int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+										int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+										Env env3;
+										recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+										Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+										recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+										for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+											cout << e->name << endl;
+											cout << e->unannType << endl;
+										}
+											
+									}
+
+									if (statementType == "ConstructorDeclaration") {
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+
+										((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+										((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+										int paramBeg =((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+										int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+										Env env3;
+										recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+										Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+										recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+										for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+											cout << e->name << endl;
+											cout << e->unannType << endl;
+										}
+
+										Node::releaseNode(node_tree6);
 									}
 
 
@@ -221,7 +281,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R006.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}

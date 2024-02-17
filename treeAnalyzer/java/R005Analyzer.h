@@ -1425,7 +1425,7 @@ public: virtual ~R005_NonANGLE_BRACKET_8Analyzer();
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 class R005_Dims_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_Dims_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1434,7 +1434,7 @@ public: virtual ~R005_Dims_0Analyzer();
 
 
 
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 class R005_Dims_1Analyzer :virtual public Non_Terminate_genertor {
 public: R005_Dims_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1443,7 +1443,7 @@ public: virtual ~R005_Dims_1Analyzer();
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 class R005_Dims_2Analyzer :virtual public Non_Terminate_genertor {
 public: R005_Dims_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1452,7 +1452,7 @@ public: virtual ~R005_Dims_2Analyzer();
 
 
 
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
 class R005_Dims_3Analyzer :virtual public Non_Terminate_genertor {
 public: R005_Dims_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1650,7 +1650,7 @@ public: virtual ~R005_VariableDeclaratorList_1Analyzer();
 
 
 
-//beg_VariableDeclarator : VariableDeclaratorId
+//beg_VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
 class R005_VariableDeclarator_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableDeclarator_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1659,7 +1659,7 @@ public: virtual ~R005_VariableDeclarator_0Analyzer();
 
 
 
-//beg_VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
+//beg_VariableDeclarator : VariableDeclaratorId
 class R005_VariableDeclarator_1Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableDeclarator_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1668,7 +1668,7 @@ public: virtual ~R005_VariableDeclarator_1Analyzer();
 
 
 
-//beg_VariableInitializer : VariableInitializerEle
+//beg_VariableInitializer : VariableInitializerEle VariableInitializer
 class R005_VariableInitializer_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableInitializer_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1677,7 +1677,7 @@ public: virtual ~R005_VariableInitializer_0Analyzer();
 
 
 
-//beg_VariableInitializer : VariableInitializerEle VariableInitializer
+//beg_VariableInitializer : VariableInitializerEle
 class R005_VariableInitializer_1Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableInitializer_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1722,7 +1722,7 @@ public: virtual ~R005_VariableInitializerEle_3Analyzer();
 
 
 
-//beg_VariableDeclaratorId : Identifier
+//beg_VariableDeclaratorId : Identifier Dims
 class R005_VariableDeclaratorId_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableDeclaratorId_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1731,7 +1731,7 @@ public: virtual ~R005_VariableDeclaratorId_0Analyzer();
 
 
 
-//beg_VariableDeclaratorId : Identifier Dims
+//beg_VariableDeclaratorId : Identifier
 class R005_VariableDeclaratorId_1Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableDeclaratorId_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2384,4 +2384,22 @@ class R005_AnnotationTypeDeclaration_3Analyzer :virtual public Non_Terminate_gen
 public: R005_AnnotationTypeDeclaration_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R005_AnnotationTypeDeclaration_3Analyzer();
+};
+
+
+
+//beg_AnnotationList : Annotation AnnotationList
+class R005_AnnotationList_0Analyzer :virtual public Non_Terminate_genertor {
+public: R005_AnnotationList_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R005_AnnotationList_0Analyzer();
+};
+
+
+
+//beg_AnnotationList : Annotation
+class R005_AnnotationList_1Analyzer :virtual public Non_Terminate_genertor {
+public: R005_AnnotationList_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R005_AnnotationList_1Analyzer();
 };

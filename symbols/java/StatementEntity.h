@@ -2,6 +2,7 @@
 #include <memory>
 #include <string>
 #include <deque>
+#include "FieldToken.h"
 using namespace std;
 
 
@@ -14,9 +15,11 @@ public: long begLineNum = -1;	//´Ê·¨Á÷Î»ÖÃ
 public: long endIndex = -1;
 public: long endLineNum = -1;
 public: string type;
+public: string resultType;
 public: string name;
 public: string endWith;
-public:  deque<string> nameList;
+public:  deque<P_FieldToken> fieldList;
+
 
 public: StatementEntity();
 public: virtual ~StatementEntity();

@@ -10,6 +10,10 @@
 #include "../../symbols/java/StatementToken.h"
 #include "../../symbols/java/StatementListToken.h"
 #include "../../symbols/java/StatementEntity.h"
+#include "../../symbols/java/DimListToken.h"
+#include "../../symbols/java/FieldToken.h"
+#include "../../symbols/java/UnannTypeToken.h"
+
 
 #include <iostream>
 #include <sstream>
@@ -18,7 +22,7 @@ using namespace std;
 #include "R005Analyzer_1.h"
 
 void logR005(const string& s) {
-	//			cout << s << endl;
+	//				cout << s << endl;
 }
 
 
@@ -96,13 +100,11 @@ void R005_ClassBodyDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_ClassBodyDeclaration : ConstructorDeclaration
 void R005_ClassBodyDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ClassBodyDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ConstructorDeclaration"];
 
-	StatementToken *p = new StatementToken();
-	StatementEntity *statementEntity = new StatementEntity();
-	statementEntity->type = "ConstructorDeclaration";
-	p->statementEntity = P_StatementEntity(statementEntity);
+	((StatementToken*)(p0.get()))->statementEntity->type = "ConstructorDeclaration";
 
-	nodeValue->context["ClassBodyDeclaration"] = P_Token(p);
+	nodeValue->context["ClassBodyDeclaration"] = p0;
 };
 
 
@@ -132,12 +134,8 @@ void R005_ClassMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_ClassMemberDeclaration : MethodDeclaration
 void R005_ClassMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ClassMemberDeclaration_2Analyzer");
-	StatementToken *p = new StatementToken();
-	StatementEntity *statementEntity = new StatementEntity();
-	statementEntity->type = "MethodDeclaration";
-	p->statementEntity = P_StatementEntity(statementEntity);
-
-	nodeValue->context["ClassMemberDeclaration"] = P_Token(p);
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodDeclaration"];
+	nodeValue->context["ClassMemberDeclaration"] = p0;
 };
 
 
@@ -169,10 +167,20 @@ void R005_ClassMemberDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_FieldDeclaration : UnannType VariableDeclaratorList 'semicolon'
 void R005_FieldDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_FieldDeclaration_0Analyzer");
-
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["VariableDeclaratorList"];
 
 	((StatementToken *)(p1.get()))->statementEntity->type = "FieldDeclaration";
+
+	for (auto &e : ((StatementToken *)(p1.get()))->statementEntity->fieldList) {
+		e->isPrimitiveType = ((UnannTypeToken *)(p0.get()))->isPrimitive;
+		e->dimNum += ((UnannTypeToken *)(p0.get()))->dimNum;
+	}
+
+	for (auto &e : ((StatementToken *)(p1.get()))->statementEntity->fieldList) {
+		((UnannTypeToken *)(p0.get()))->dimNum = e->dimNum;
+		e->unannType = ((UnannTypeToken *)(p0.get()))->getText();
+	}
 
 	nodeValue->context["FieldDeclaration"] = p1;
 };
@@ -182,9 +190,23 @@ void R005_FieldDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 //beg_FieldDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
 void R005_FieldDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_FieldDeclaration_1Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["VariableDeclaratorList"];
 
+
+
 	((StatementToken *)(p2.get()))->statementEntity->type = "FieldDeclaration";
+
+	for (auto &e : ((StatementToken *)(p2.get()))->statementEntity->fieldList) {
+		e->isPrimitiveType = ((UnannTypeToken *)(p1.get()))->isPrimitive;
+		e->dimNum += ((UnannTypeToken *)(p1.get()))->dimNum;
+	}
+
+	for (auto &e : ((StatementToken *)(p2.get()))->statementEntity->fieldList) {
+		((UnannTypeToken *)(p1.get()))->dimNum = e->dimNum;
+		e->unannType = ((UnannTypeToken *)(p1.get()))->getText();
+	}
+
 
 	nodeValue->context["FieldDeclaration"] = p2;
 };
@@ -1153,7 +1175,19 @@ void R005_DetailIdentifier_1Analyzer::handle(const P_NodeValue &nodeValue, Env &
 //beg_AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
 void R005_AnnotationContent_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_AnnotationContent_0Analyzer");
-	//TO DO  R005_AnnotationContent_0Analyzer
+
+	StatementToken *p = new StatementToken();
+	StatementEntity *statementEntity = new StatementEntity();
+
+	statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
+	statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity = P_StatementEntity(statementEntity);
+
+
+	nodeValue->context["AnnotationContent"] = P_Token(p);
+
 };
 
 
@@ -1358,66 +1392,94 @@ void R005_NonANGLE_BRACKET_8Analyzer::handle(const P_NodeValue &nodeValue, Env &
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 void R005_Dims_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_Dims_0Analyzer");
-	//TO DO  R005_Dims_0Analyzer
-};
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Dims"];
+	((DimListToken *)(p2.get()))->num = ((DimListToken *)(p2.get()))->num + 1;
 
+	nodeValue->context["Dims"] = p2;
 
-
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
-void R005_Dims_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_Dims_1Analyzer");
-	//TO DO  R005_Dims_1Analyzer
-};
-
-
-
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
-void R005_Dims_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_Dims_2Analyzer");
-	//TO DO  R005_Dims_2Analyzer
 };
 
 
 
 //beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+void R005_Dims_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_Dims_1Analyzer");
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Dims"];
+	((DimListToken *)(p3.get()))->num = ((DimListToken *)(p3.get()))->num + 1;
+
+	nodeValue->context["Dims"] = p3;
+};
+
+
+
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+void R005_Dims_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_Dims_2Analyzer");
+	DimListToken *p = new DimListToken();
+	p->num = 1;
+	nodeValue->context["Dims"] = P_Token(p);
+
+};
+
+
+
+//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
 void R005_Dims_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_Dims_3Analyzer");
-	//TO DO  R005_Dims_3Analyzer
-};
-
-
-
-//beg_UnannType : UnannPrimitiveType
-void R005_UnannType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_UnannType_0Analyzer");
-	//TO DO  R005_UnannType_0Analyzer
-};
-
-
-
-//beg_UnannType : UnannClassOrInterfaceType
-void R005_UnannType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_UnannType_1Analyzer");
-	//TO DO  R005_UnannType_1Analyzer
+	DimListToken *p = new DimListToken();
+	p->num = 1;
+	nodeValue->context["Dims"] = P_Token(p);
 };
 
 
 
 //beg_UnannType : UnannArrayType
+void R005_UnannType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_UnannType_0Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannArrayType"];
+	nodeValue->context["UnannType"] = p0;
+};
+
+
+
+//beg_UnannType : UnannPrimitiveType
+void R005_UnannType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_UnannType_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannPrimitiveType"];
+	nodeValue->context["UnannType"] = p0;
+
+};
+
+
+
+//beg_UnannType : UnannClassOrInterfaceType
 void R005_UnannType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannType_2Analyzer");
-	//TO DO  R005_UnannType_2Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+	nodeValue->context["UnannType"] = p0;
 };
+
+
+
+
 
 
 
 //beg_UnannPrimitiveType : 'boolean'
 void R005_UnannPrimitiveType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_0Analyzer");
-	//TO DO  R005_UnannPrimitiveType_0Analyzer
+
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("boolean");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
+
+
 };
 
 
@@ -1425,7 +1487,12 @@ void R005_UnannPrimitiveType_0Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'byte'
 void R005_UnannPrimitiveType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_1Analyzer");
-	//TO DO  R005_UnannPrimitiveType_1Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("byte");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1433,7 +1500,12 @@ void R005_UnannPrimitiveType_1Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'short'
 void R005_UnannPrimitiveType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_2Analyzer");
-	//TO DO  R005_UnannPrimitiveType_2Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("short");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1441,7 +1513,12 @@ void R005_UnannPrimitiveType_2Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'int'
 void R005_UnannPrimitiveType_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_3Analyzer");
-	//TO DO  R005_UnannPrimitiveType_3Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("int");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1449,7 +1526,12 @@ void R005_UnannPrimitiveType_3Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'long'
 void R005_UnannPrimitiveType_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_4Analyzer");
-	//TO DO  R005_UnannPrimitiveType_4Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("long");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1457,7 +1539,12 @@ void R005_UnannPrimitiveType_4Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'char'
 void R005_UnannPrimitiveType_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_5Analyzer");
-	//TO DO  R005_UnannPrimitiveType_5Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("char");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1465,7 +1552,12 @@ void R005_UnannPrimitiveType_5Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'float'
 void R005_UnannPrimitiveType_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_6Analyzer");
-	//TO DO  R005_UnannPrimitiveType_6Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("float");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1473,7 +1565,12 @@ void R005_UnannPrimitiveType_6Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannPrimitiveType : 'double'
 void R005_UnannPrimitiveType_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannPrimitiveType_7Analyzer");
-	//TO DO  R005_UnannPrimitiveType_7Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front("double");
+	p->isPrimitive = true;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannPrimitiveType"] = P_Token(p);
 };
 
 
@@ -1481,7 +1578,15 @@ void R005_UnannPrimitiveType_7Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_UnannClassOrInterfaceType : Identifier
 void R005_UnannClassOrInterfaceType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_0Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+
+
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front(p0->content);
+	p->isPrimitive = false;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
 };
 
 
@@ -1489,7 +1594,15 @@ void R005_UnannClassOrInterfaceType_0Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannClassOrInterfaceType : Identifier TypeArguments
 void R005_UnannClassOrInterfaceType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_1Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+
+
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front(p0->content);
+	p->isPrimitive = false;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
 };
 
 
@@ -1497,7 +1610,13 @@ void R005_UnannClassOrInterfaceType_1Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
 void R005_UnannClassOrInterfaceType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_2Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_2Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+
+	((UnannTypeToken *)(p2.get()))->nameList.push_front(p0->content);
+
+	nodeValue->context["UnannClassOrInterfaceType"] = p2;
+
 };
 
 
@@ -1505,7 +1624,12 @@ void R005_UnannClassOrInterfaceType_2Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
 void R005_UnannClassOrInterfaceType_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_3Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_3Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+
+	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
+
+	nodeValue->context["UnannClassOrInterfaceType"] = p3;
 };
 
 
@@ -1513,7 +1637,12 @@ void R005_UnannClassOrInterfaceType_3Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
 void R005_UnannClassOrInterfaceType_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_4Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_4Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+
+	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
+
+	nodeValue->context["UnannClassOrInterfaceType"] = p3;
 };
 
 
@@ -1521,7 +1650,12 @@ void R005_UnannClassOrInterfaceType_4Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
 void R005_UnannClassOrInterfaceType_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannClassOrInterfaceType_5Analyzer");
-	//TO DO  R005_UnannClassOrInterfaceType_5Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+
+	((UnannTypeToken *)(p4.get()))->nameList.push_front(p0->content);
+
+	nodeValue->context["UnannClassOrInterfaceType"] = p4;
 };
 
 
@@ -1529,7 +1663,12 @@ void R005_UnannClassOrInterfaceType_5Analyzer::handle(const P_NodeValue &nodeVal
 //beg_UnannArrayType : UnannPrimitiveType Dims
 void R005_UnannArrayType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannArrayType_0Analyzer");
-	//TO DO  R005_UnannArrayType_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannPrimitiveType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+
+	((UnannTypeToken *)(p1.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
+
+	nodeValue->context["UnannArrayType"] = p0;
 };
 
 
@@ -1537,7 +1676,12 @@ void R005_UnannArrayType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 //beg_UnannArrayType : UnannClassOrInterfaceType Dims
 void R005_UnannArrayType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_UnannArrayType_1Analyzer");
-	//TO DO  R005_UnannArrayType_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+
+	((UnannTypeToken *)(p1.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
+
+	nodeValue->context["UnannArrayType"] = p0;
 };
 
 
@@ -1548,7 +1692,12 @@ void R005_VariableDeclaratorList_0Analyzer::handle(const P_NodeValue &nodeValue,
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["VariableDeclarator"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["VariableDeclaratorList"];
 
-	((StatementToken *)(p2.get()))->statementEntity->nameList.push_front(((Token *)(p0.get()))->content);
+	FieldToken *fieldP = new FieldToken();
+	fieldP->name = ((DimListToken *)(p0.get()))->name;
+	fieldP->dimNum = ((DimListToken *)(p0.get()))->num;
+	((StatementToken *)(p2.get()))->statementEntity->fieldList.push_front(P_FieldToken(fieldP));
+
+
 
 	nodeValue->context["VariableDeclaratorList"] = p2;
 };
@@ -1564,13 +1713,16 @@ void R005_VariableDeclaratorList_1Analyzer::handle(const P_NodeValue &nodeValue,
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "VariableDeclaratorList";
-	statementEntity->nameList.push_front(((Token *)(p0.get()))->content);
+
+	FieldToken *fieldP = new FieldToken();
+	fieldP->name = ((DimListToken *)(p0.get()))->name;
+	fieldP->dimNum = ((DimListToken *)(p0.get()))->num;
+	statementEntity->fieldList.push_front(P_FieldToken(fieldP));
+
+
 	p->statementEntity = P_StatementEntity(statementEntity);
 
-
 	nodeValue->context["VariableDeclaratorList"] = P_Token(p);
-
-
 };
 
 
@@ -1654,7 +1806,10 @@ void R005_VariableDeclaratorId_0Analyzer::handle(const P_NodeValue &nodeValue, E
 	logR005("R005_VariableDeclaratorId_0Analyzer");
 
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
-	nodeValue->context["VariableDeclaratorId"] = p0;
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+	((DimListToken *)(p1.get()))->name = p0->content;
+
+	nodeValue->context["VariableDeclaratorId"] = p1;
 };
 
 
@@ -1663,9 +1818,13 @@ void R005_VariableDeclaratorId_1Analyzer::handle(const P_NodeValue &nodeValue, E
 	logR005("R005_VariableDeclaratorId_1Analyzer");
 
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
-	nodeValue->context["VariableDeclaratorId"] = p0;
+
+	DimListToken *p = new DimListToken();
+	p->num = 0;
+	p->name = p0->content;
 
 
+	nodeValue->context["VariableDeclaratorId"] = P_Token(p);
 
 };
 
@@ -1674,7 +1833,9 @@ void R005_VariableDeclaratorId_1Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_MethodDeclaration : MethodHeader Block
 void R005_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_0Analyzer");
-	//TO DO  R005_MethodDeclaration_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodHeader"];
+	((StatementToken *)(p0.get()))->statementEntity->type = "MethodDeclaration";
+	nodeValue->context["MethodDeclaration"] = p0;
 };
 
 
@@ -1682,7 +1843,9 @@ void R005_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : MethodHeader 'semicolon'
 void R005_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_1Analyzer");
-	//TO DO  R005_MethodDeclaration_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["MethodHeader"];
+	((StatementToken *)(p0.get()))->statementEntity->type = "MethodDeclaration";
+	nodeValue->context["MethodDeclaration"] = p0;
 };
 
 
@@ -1690,7 +1853,9 @@ void R005_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList MethodHeader Block
 void R005_MethodDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_2Analyzer");
-	//TO DO  R005_MethodDeclaration_2Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodHeader"];
+	((StatementToken *)(p1.get()))->statementEntity->type = "MethodDeclaration";
+	nodeValue->context["MethodDeclaration"] = p1;
 };
 
 
@@ -1698,7 +1863,9 @@ void R005_MethodDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList MethodHeader 'semicolon'
 void R005_MethodDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_3Analyzer");
-	//TO DO  R005_MethodDeclaration_3Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodHeader"];
+	((StatementToken *)(p1.get()))->statementEntity->type = "MethodDeclaration";
+	nodeValue->context["MethodDeclaration"] = p1;
 };
 
 
@@ -1706,7 +1873,14 @@ void R005_MethodDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator
 void R005_MethodDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_4Analyzer");
-	//TO DO  R005_MethodDeclaration_4Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+
+	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
+	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+
+	nodeValue->context["MethodDeclaration"] = p1;
+
 };
 
 
@@ -1714,7 +1888,16 @@ void R005_MethodDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator
 void R005_MethodDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_5Analyzer");
-	//TO DO  R005_MethodDeclaration_5Analyzer
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+
+
+	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
+	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+
+
+	nodeValue->context["MethodDeclaration"] = p3;
+
 };
 
 
@@ -1722,7 +1905,18 @@ void R005_MethodDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator Throws
 void R005_MethodDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_6Analyzer");
-	//TO DO  R005_MethodDeclaration_6Analyzer
+
+
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
+
+
+	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
+	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+
+
+	nodeValue->context["MethodDeclaration"] = p2;
+
 };
 
 
@@ -1730,7 +1924,15 @@ void R005_MethodDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator Throws
 void R005_MethodDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_7Analyzer");
-	//TO DO  R005_MethodDeclaration_7Analyzer
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
+
+
+	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
+	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+
+
+	nodeValue->context["MethodDeclaration"] = p3;
 };
 
 
@@ -1738,7 +1940,14 @@ void R005_MethodDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodHeader : Result MethodDeclarator
 void R005_MethodHeader_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodHeader_0Analyzer");
-	//TO DO  R005_MethodHeader_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Result"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+
+	((StatementToken *)(p1.get()))->statementEntity->type = "MethodHeader";
+	((StatementToken *)(p1.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+
+	nodeValue->context["MethodHeader"] = p1;
+
 };
 
 
@@ -1746,7 +1955,13 @@ void R005_MethodHeader_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_MethodHeader : Result MethodDeclarator Throws
 void R005_MethodHeader_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodHeader_1Analyzer");
-	//TO DO  R005_MethodHeader_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Result"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["MethodDeclarator"];
+
+	((StatementToken *)(p1.get()))->statementEntity->type = "MethodHeader";
+	((StatementToken *)(p1.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+
+	nodeValue->context["MethodHeader"] = p1;
 };
 
 
@@ -1754,7 +1969,9 @@ void R005_MethodHeader_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_Result : UnannType
 void R005_Result_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_Result_0Analyzer");
-	//TO DO  R005_Result_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	nodeValue->context["Result"] = p0;
+
 };
 
 
@@ -1762,7 +1979,11 @@ void R005_Result_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unord
 //beg_Result : 'void'
 void R005_Result_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_Result_1Analyzer");
-	//TO DO  R005_Result_1Analyzer
+	UnannTypeToken *p = new UnannTypeToken();
+	p->isPrimitive = true;
+	p->nameList.push_front("void");
+	p->dimNum = 0;
+	nodeValue->context["Result"] = P_Token(p);
 };
 
 
@@ -1770,7 +1991,13 @@ void R005_Result_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unord
 //beg_MethodDeclarator : Identifier AnnotationContent
 void R005_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclarator_0Analyzer");
-	//TO DO  R005_MethodDeclarator_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p1.get()))->statementEntity->name = p0->content;
+	nodeValue->context["MethodDeclarator"] = p1;
+
 };
 
 
@@ -1778,7 +2005,12 @@ void R005_MethodDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 //beg_MethodDeclarator : Identifier AnnotationContent Dims
 void R005_MethodDeclarator_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclarator_1Analyzer");
-	//TO DO  R005_MethodDeclarator_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p1.get()))->statementEntity->name = p0->content;
+	nodeValue->context["MethodDeclarator"] = p1;
 };
 
 
@@ -1826,7 +2058,9 @@ void R005_ExceptionType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_ConstructorDeclaration : ConstructorDeclarator Block
 void R005_ConstructorDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclaration_0Analyzer");
-	//TO DO  R005_ConstructorDeclaration_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ConstructorDeclarator"];
+	nodeValue->context["ConstructorDeclaration"] = p0;
+
 };
 
 
@@ -1834,7 +2068,8 @@ void R005_ConstructorDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_ConstructorDeclaration : ModifierList ConstructorDeclarator Block
 void R005_ConstructorDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclaration_1Analyzer");
-	//TO DO  R005_ConstructorDeclaration_1Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ConstructorDeclarator"];
+	nodeValue->context["ConstructorDeclaration"] = p1;
 };
 
 
@@ -1842,7 +2077,8 @@ void R005_ConstructorDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_ConstructorDeclaration : ConstructorDeclarator Throws Block
 void R005_ConstructorDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclaration_2Analyzer");
-	//TO DO  R005_ConstructorDeclaration_2Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ConstructorDeclarator"];
+	nodeValue->context["ConstructorDeclaration"] = p0;
 };
 
 
@@ -1850,7 +2086,8 @@ void R005_ConstructorDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_ConstructorDeclaration : ModifierList ConstructorDeclarator Throws Block
 void R005_ConstructorDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclaration_3Analyzer");
-	//TO DO  R005_ConstructorDeclaration_3Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ConstructorDeclarator"];
+	nodeValue->context["ConstructorDeclaration"] = p1;
 };
 
 
@@ -1858,7 +2095,13 @@ void R005_ConstructorDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue,
 //beg_ConstructorDeclarator : Identifier AnnotationContent
 void R005_ConstructorDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclarator_0Analyzer");
-	//TO DO  R005_ConstructorDeclarator_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["AnnotationContent"];
+
+	((StatementToken *)(p1.get()))->statementEntity->name = p0->content;
+
+	nodeValue->context["ConstructorDeclarator"] = p1;
+
 };
 
 
@@ -1866,7 +2109,12 @@ void R005_ConstructorDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, 
 //beg_ConstructorDeclarator : TypeArguments Identifier AnnotationContent
 void R005_ConstructorDeclarator_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclarator_1Analyzer");
-	//TO DO  R005_ConstructorDeclarator_1Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+
+	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
+
+	nodeValue->context["ConstructorDeclarator"] = p2;
 };
 
 
@@ -2577,6 +2825,22 @@ void R005_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeVal
 
 
 	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
+};
+
+
+
+//beg_AnnotationList : Annotation AnnotationList
+void R005_AnnotationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_AnnotationList_0Analyzer");
+	//TO DO  R005_AnnotationList_0Analyzer
+};
+
+
+
+//beg_AnnotationList : Annotation
+void R005_AnnotationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_AnnotationList_1Analyzer");
+	//TO DO  R005_AnnotationList_1Analyzer
 };
 
 

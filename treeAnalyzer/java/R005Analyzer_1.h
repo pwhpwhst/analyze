@@ -945,25 +945,25 @@ R005_NonANGLE_BRACKET_8Analyzer::~R005_NonANGLE_BRACKET_8Analyzer() {}
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 R005_Dims_0Analyzer::R005_Dims_0Analyzer() {}
 R005_Dims_0Analyzer::~R005_Dims_0Analyzer() {}
 
 
 
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 R005_Dims_1Analyzer::R005_Dims_1Analyzer() {}
 R005_Dims_1Analyzer::~R005_Dims_1Analyzer() {}
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 R005_Dims_2Analyzer::R005_Dims_2Analyzer() {}
 R005_Dims_2Analyzer::~R005_Dims_2Analyzer() {}
 
 
 
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
 R005_Dims_3Analyzer::R005_Dims_3Analyzer() {}
 R005_Dims_3Analyzer::~R005_Dims_3Analyzer() {}
 
@@ -1095,25 +1095,25 @@ R005_VariableDeclaratorList_1Analyzer::~R005_VariableDeclaratorList_1Analyzer() 
 
 
 
-//beg_VariableDeclarator : VariableDeclaratorId
+//beg_VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
 R005_VariableDeclarator_0Analyzer::R005_VariableDeclarator_0Analyzer() {}
 R005_VariableDeclarator_0Analyzer::~R005_VariableDeclarator_0Analyzer() {}
 
 
 
-//beg_VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
+//beg_VariableDeclarator : VariableDeclaratorId
 R005_VariableDeclarator_1Analyzer::R005_VariableDeclarator_1Analyzer() {}
 R005_VariableDeclarator_1Analyzer::~R005_VariableDeclarator_1Analyzer() {}
 
 
 
-//beg_VariableInitializer : VariableInitializerEle
+//beg_VariableInitializer : VariableInitializerEle VariableInitializer
 R005_VariableInitializer_0Analyzer::R005_VariableInitializer_0Analyzer() {}
 R005_VariableInitializer_0Analyzer::~R005_VariableInitializer_0Analyzer() {}
 
 
 
-//beg_VariableInitializer : VariableInitializerEle VariableInitializer
+//beg_VariableInitializer : VariableInitializerEle
 R005_VariableInitializer_1Analyzer::R005_VariableInitializer_1Analyzer() {}
 R005_VariableInitializer_1Analyzer::~R005_VariableInitializer_1Analyzer() {}
 
@@ -1143,13 +1143,13 @@ R005_VariableInitializerEle_3Analyzer::~R005_VariableInitializerEle_3Analyzer() 
 
 
 
-//beg_VariableDeclaratorId : Identifier
+//beg_VariableDeclaratorId : Identifier Dims
 R005_VariableDeclaratorId_0Analyzer::R005_VariableDeclaratorId_0Analyzer() {}
 R005_VariableDeclaratorId_0Analyzer::~R005_VariableDeclaratorId_0Analyzer() {}
 
 
 
-//beg_VariableDeclaratorId : Identifier Dims
+//beg_VariableDeclaratorId : Identifier
 R005_VariableDeclaratorId_1Analyzer::R005_VariableDeclaratorId_1Analyzer() {}
 R005_VariableDeclaratorId_1Analyzer::~R005_VariableDeclaratorId_1Analyzer() {}
 
@@ -1584,3 +1584,15 @@ R005_AnnotationTypeDeclaration_2Analyzer::~R005_AnnotationTypeDeclaration_2Analy
 //beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 R005_AnnotationTypeDeclaration_3Analyzer::R005_AnnotationTypeDeclaration_3Analyzer() {}
 R005_AnnotationTypeDeclaration_3Analyzer::~R005_AnnotationTypeDeclaration_3Analyzer() {}
+
+
+
+//beg_AnnotationList : Annotation AnnotationList
+R005_AnnotationList_0Analyzer::R005_AnnotationList_0Analyzer() {}
+R005_AnnotationList_0Analyzer::~R005_AnnotationList_0Analyzer() {}
+
+
+
+//beg_AnnotationList : Annotation
+R005_AnnotationList_1Analyzer::R005_AnnotationList_1Analyzer() {}
+R005_AnnotationList_1Analyzer::~R005_AnnotationList_1Analyzer() {}

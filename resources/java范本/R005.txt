@@ -155,13 +155,13 @@ NonANGLE_BRACKET : UnannPrimitiveType
 NonANGLE_BRACKET : 'SPOT'
 NonANGLE_BRACKET : 'LEFT_BRACKET'
 NonANGLE_BRACKET : 'RIGHT_BRACKET'
-Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
 Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+UnannType : UnannArrayType
 UnannType : UnannPrimitiveType
 UnannType : UnannClassOrInterfaceType
-UnannType : UnannArrayType
 UnannPrimitiveType : 'boolean'
 UnannPrimitiveType : 'byte'
 UnannPrimitiveType : 'short'
@@ -262,3 +262,5 @@ AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
 AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
 AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
+AnnotationList : Annotation AnnotationList
+AnnotationList : Annotation
