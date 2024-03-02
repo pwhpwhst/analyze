@@ -1,0 +1,129 @@
+ele_begin : EnumFirstStatement
+EnumFirstStatement : EnumConstantList 'COMMA'
+EnumFirstStatement : EnumConstantList
+EnumConstantList : EnumConstant 'COMMA' EnumConstantList
+EnumConstantList : EnumConstant
+EnumConstant : Identifier
+EnumConstant : AnnotationList Identifier
+EnumConstant : Identifier AnnotationContent
+EnumConstant : AnnotationList Identifier AnnotationContent
+EnumConstant : Identifier Block
+EnumConstant : AnnotationList Identifier Block
+EnumConstant : Identifier AnnotationContent Block
+EnumConstant : AnnotationList Identifier AnnotationContent Block
+AnnotationList : Annotation AnnotationList
+AnnotationList : Annotation
+DetailIdentifier : Identifier 'SPOT' DetailIdentifier
+DetailIdentifier : Identifier
+Annotation : 'AT' DetailIdentifier AnnotationContent
+Annotation : 'AT' DetailIdentifier
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : 0
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+NonPARENTHESES : 'EQUAL'
+StatementEle : Identifier
+StatementEle : 'AND'
+StatementEle : 'AND_EQUAL'
+StatementEle : 'AT'
+StatementEle : 'AT_INTERFACE'
+StatementEle : 'BIT_AND'
+StatementEle : 'BIT_OR'
+StatementEle : 'BooleanLiteral'
+StatementEle : 'CARET'
+StatementEle : 'COLON'
+StatementEle : 'CharacterLiteral'
+StatementEle : 'DB_EQUAL'
+StatementEle : 'DIVIDE_EQUAL'
+StatementEle : 'FloatingPointLiteral'
+StatementEle : 'GT_EQUAL'
+StatementEle : 'IntegerLiteral'
+StatementEle : 'LAMBDA_TO'
+StatementEle : 'LEFT_SHIFT'
+StatementEle : 'LEFT_SHIFT_EQUAL'
+StatementEle : 'LT_EQUAL'
+StatementEle : 'MULTI_EQUAL'
+StatementEle : 'NOT_EQUAL'
+StatementEle : 'OR'
+StatementEle : 'OR_EQUAL'
+StatementEle : 'PLUS'
+StatementEle : 'PLUS_EQUAL'
+StatementEle : 'PRECENTAGE'
+StatementEle : 'PRECENTAGE_EQUAL'
+StatementEle : 'PackageOrTypeNameId'
+StatementEle : 'QUESTION'
+StatementEle : 'RIGHT_SHIFT'
+StatementEle : 'RIGHT_SHIFT2'
+StatementEle : 'RIGHT_SHIFT2_EQUAL'
+StatementEle : 'RIGHT_SHIFT_EQUAL'
+StatementEle : 'RIGTH_BRACKET'
+StatementEle : 'SLASH'
+StatementEle : 'SPOT'
+StatementEle : 'STAR'
+StatementEle : 'SUBTRACT'
+StatementEle : 'SUBTRACT_EQUAL'
+StatementEle : 'SURPRISE'
+StatementEle : 'StringLiteral'
+StatementEle : 'THREE_SPOT'
+StatementEle : 'TILDE'
+StatementEle : 'TWO_COLON'
+StatementEle : 'TWO_PLUS'
+StatementEle : 'TWO_SUBTRACT'
+StatementEle : 'TypeNameId'
+StatementEle : 'XOR_EQUAL'
+StatementEle : 'abstract'
+StatementEle : 'boolean'
+StatementEle : 'byte'
+StatementEle : 'char'
+StatementEle : 'class'
+StatementEle : 'default'
+StatementEle : 'double'
+StatementEle : 'enum'
+StatementEle : 'extends'
+StatementEle : 'final'
+StatementEle : 'float'
+StatementEle : 'implements'
+StatementEle : 'instanceof'
+StatementEle : 'int'
+StatementEle : 'interface'
+StatementEle : 'long'
+StatementEle : 'native'
+StatementEle : 'new'
+StatementEle : 'null'
+StatementEle : 'private'
+StatementEle : 'protected'
+StatementEle : 'public'
+StatementEle : 'short'
+StatementEle : 'static'
+StatementEle : 'super'
+StatementEle : 'synchronized'
+StatementEle : 'this'
+StatementEle : 'throws'
+StatementEle : 'transient'
+StatementEle : 'void'
+StatementEle : 'volatile'
+Identifier : 'IDENTIFIER'
+Block : 'LEFT_BRACE' BlockStatements 'RIGHT_BRACE'
+Block : 'LEFT_BRACE' BlockStatements 'COMMA_RIGHT_BRACE'
+BlockStatements : Block BlockStatements
+BlockStatements : NonBrace BlockStatements
+BlockStatements : 0
+NonBrace : StatementEle
+NonBrace : 'COMMA'
+NonBrace : 'semicolon'
+NonBrace : 'LEFT_ANGLE_BRACKET'
+NonBrace : 'LEFT_BRACKET'
+NonBrace : 'LEFT_PARENTHESES'
+NonBrace : 'RIGHT_ANGLE_BRACKET'
+NonBrace : 'RIGHT_BRACKET'
+NonBrace : 'RIGHT_PARENTHESES'
+NonBrace : 'EQUAL'

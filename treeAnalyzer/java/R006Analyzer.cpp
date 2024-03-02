@@ -74,7 +74,8 @@ void R006_ParameterListWithParentheses_1Analyzer::handle(const P_NodeValue &node
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "Empty";
-	nodeValue->context["FormalParameterList"] = P_Token(p);
+	p->statementEntity = P_StatementEntity(statementEntity);
+	nodeValue->context["ParameterListWithParentheses"] = P_Token(p);
 };
 
 

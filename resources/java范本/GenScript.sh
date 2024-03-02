@@ -74,7 +74,71 @@ begIndex=${2}
 endIndex=${3}
 srcFile=${4}
 
+
 cat ${srcFile}|head -n ${endIndex}|tail -n `expr ${endIndex} + 1 - ${begIndex}`
+
+elif [[ "${type}" == "printPart2" ]];then
+
+filePrefix=${2}
+
+echo "#include <vector>"
+echo "#include <sstream>"
+echo "#include <iostream>"
+echo "#include \"SDT_${filePrefix}_Factory.h\""
+echo "#include<boost/algorithm/string.hpp>"
+echo "#include \"../treeAnalyzer/java/${filePrefix}Analyzer.h\""
+echo "using namespace std;"
+echo "using namespace boost;"
+echo ""
+echo ""
+echo ""
+echo "SDT_${filePrefix}_Factory SDT_${filePrefix}_Factory::instance;"
+echo "SDT_${filePrefix}_Factory::SDT_${filePrefix}_Factory() {"
+echo "	control_Param = {"
+
+elif [[ "${type}" == "printPart3" ]];then
+filePrefix=${2}
+
+echo "	};"
+echo "}"
+echo ""
+echo "P_SDT_genertor SDT_${filePrefix}_Factory::getSDT_genertor(const string &key) {"
+echo "	if (factory.count(key) > 0) {"
+echo "		return factory[key];"
+echo "	}"
+echo ""
+echo ""
+echo "	int caseValue = control_Param.count(key) > 0 ? control_Param[key] : -1;"
+echo ""
+echo ""
+echo "	switch (caseValue) {"
+
+
+elif [[ "${type}" == "printPart4" ]];then
+filePrefix=${2}
+
+echo "	default:"
+echo ""
+echo "		if (key.find(\"${filePrefix}_\") == 0) {"
+echo "			vector <string> string_list;"
+echo "			split(string_list, key, is_any_of(\"_\"));"
+echo "			if (string_list[1] == \"0\" || string_list[1].find(\"'\") == 0) {"
+echo "				factory[key] = P_SDT_genertor(new ${filePrefix}_DefaultAnalyzer());"
+echo "			}"
+echo "		}"
+echo ""
+echo "	}"
+echo ""
+echo ""
+echo ""
+echo "	return factory[key];"
+echo "}"
+echo "SDT_${filePrefix}_Factory::~SDT_${filePrefix}_Factory() {}"
+
+
+
+
+
 
 
 elif [[ "${type}" == "readFile" ]];then

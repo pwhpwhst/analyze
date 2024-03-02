@@ -6,6 +6,9 @@
 #include "SDT_R004_Factory.h"
 #include "SDT_R005_Factory.h"
 #include "SDT_R006_Factory.h"
+#include "SDT_R007_Factory.h"
+#include "SDT_R008_Factory.h"
+#include "SDT_R009_Factory.h"
 using namespace std;
 using namespace boost;
 
@@ -28,6 +31,15 @@ P_SDT_genertor SDT_Factory::getSDT_genertor(const string &key) {
 	}
 	else if (key.find("R006_") == 0) {
 		return SDT_R006_Factory::instance.getSDT_genertor(key);
+	}
+	else if (key.find("R007_") == 0) {
+		return SDT_R007_Factory::instance.getSDT_genertor(key);
+	}
+	else if (key.find("R008_") == 0) {
+		return SDT_R008_Factory::instance.getSDT_genertor(key);
+	}
+	else if (key.find("R009_") == 0) {
+		return SDT_R009_Factory::instance.getSDT_genertor(key);
 	}
 
 }

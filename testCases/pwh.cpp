@@ -22,6 +22,504 @@ int pwh::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env
 }
 
 
+
+void analyzeNormalClassDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+	unordered_map<string, string> &imfo_map,
+	string &compile_file,
+	RecursiveDescentJava &recursiveDescentJava5,
+	RecursiveDescentJava &recursiveDescentJava6) {
+	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+
+	for (int i1 = 1; i1 < p->list.size(); i1++) {
+
+		if (p->list[i1]->endWith != "useless") {
+
+			bool isProcessed = false;
+			int retryNum = 3;
+			string statementType = "";
+
+			while (!isProcessed && retryNum > 0) {
+				retryNum--;
+				Env env2;
+				recursiveDescentJava5.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
+
+				if (node_tree5 != nullptr) {
+
+					recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
+					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
+
+					if (statementType == "FieldDeclarationFake") {
+						for (int i2 = i1; i2 < p->list.size(); i2++) {
+							if (p->list[i2]->endWith != "semicolon") {
+								p->list[i2]->endWith = "useless";
+							}
+							else {
+								p->list[i2]->endWith = "useless";
+								p->list[i1]->endWith = "semicolon";
+								p->list[i1]->endIndex = p->list[i2]->endIndex;
+								break;
+							}
+						}
+						Node::releaseNode(node_tree5);
+						statementType = "";
+						continue;
+					}
+
+					Node::releaseNode(node_tree5);
+				}
+				isProcessed = true;
+				if (statementType != "") {
+
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+					cout << "statementType:" << statementType << endl;
+
+					if (statementType == "FieldDeclaration") {
+						for (auto &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+
+					if (statementType == "MethodDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+						for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+					if (statementType == "ConstructorDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+						if (((StatementToken *)(env3.list[0].get()))->statementEntity->type != "Empty") {
+							for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+								cout << e->name << endl;
+								cout << e->unannType << endl;
+							}
+						}
+
+
+						Node::releaseNode(node_tree6);
+					}
+
+
+					if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
+						string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
+						cout << "name:" << name << endl;
+					}
+				}
+			}
+
+			if (statementType == "") {
+				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+			}
+		}
+	}
+}
+
+
+
+void analyzeEnumDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+	unordered_map<string, string> &imfo_map,
+	string &compile_file, 
+	RecursiveDescentJava &recursiveDescentJava5,
+	RecursiveDescentJava &recursiveDescentJava6,
+	RecursiveDescentJava &recursiveDescentJava7 ){
+	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+	Env env3;
+	recursiveDescentJava7.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[0]->begIndex, p->list[0]->endIndex);
+	Node*  node_tree7 = recursiveDescentJava7.slr(env3, "ele_begin", 0);
+
+	recursiveDescentJava7.gen_middle_code(env3, node_tree7, imfo_map);
+	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+		cout << e->name << endl;
+	}
+	Node::releaseNode(node_tree7);
+
+
+	for (int i1 = 1; i1 < p->list.size(); i1++) {
+
+		if (p->list[i1]->endWith != "useless") {
+
+			bool isProcessed = false;
+			int retryNum = 3;
+			string statementType = "";
+
+			while (!isProcessed && retryNum > 0) {
+				retryNum--;
+				Env env2;
+				recursiveDescentJava5.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
+
+				if (node_tree5 != nullptr) {
+
+					recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
+					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
+
+
+
+					if (statementType == "FieldDeclarationFake") {
+						for (int i2 = i1; i2 < p->list.size(); i2++) {
+							if (p->list[i2]->endWith != "semicolon") {
+								p->list[i2]->endWith = "useless";
+							}
+							else {
+								p->list[i2]->endWith = "useless";
+								p->list[i1]->endWith = "semicolon";
+								p->list[i1]->endIndex = p->list[i2]->endIndex;
+								break;
+							}
+						}
+						Node::releaseNode(node_tree5);
+						statementType = "";
+						continue;
+					}
+
+					Node::releaseNode(node_tree5);
+				}
+				isProcessed = true;
+				if (statementType != "") {
+
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+					cout << "statementType:" << statementType << endl;
+
+					if (statementType == "FieldDeclaration") {
+						for (auto &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+					if (statementType == "MethodDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+						for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+					if (statementType == "ConstructorDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+						if (((StatementToken *)(env3.list[0].get()))->statementEntity->type != "Empty") {
+							for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+								cout << e->name << endl;
+								cout << e->unannType << endl;
+							}
+						}
+
+
+						Node::releaseNode(node_tree6);
+					}
+
+
+					if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
+						string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
+						cout << "name:" << name << endl;
+					}
+				}
+			}
+
+			if (statementType == "") {
+				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+			}
+		}
+	}
+}
+
+
+
+void analyzeNormalInterfaceDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+	unordered_map<string, string> &imfo_map,
+	string &compile_file,
+	RecursiveDescentJava &recursiveDescentJava8,
+	RecursiveDescentJava &recursiveDescentJava6) {
+	
+	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+	Env env3;
+
+	for (int i1 = 0; i1 < p->list.size(); i1++) {
+
+		if (p->list[i1]->endWith != "useless") {
+			bool isProcessed = false;
+			int retryNum = 3;
+			string statementType = "";
+
+			while (!isProcessed && retryNum > 0) {
+				retryNum--;
+				Env env2;
+				recursiveDescentJava8.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree8 = recursiveDescentJava8.slr(env2, "ele_begin", 0);
+				if (node_tree8 != nullptr) {
+
+					recursiveDescentJava8.gen_middle_code(env2, node_tree8, imfo_map);
+					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
+
+
+
+					if (statementType == "ConstantDeclarationFake") {
+						for (int i2 = i1; i2 < p->list.size(); i2++) {
+							if (p->list[i2]->endWith != "semicolon") {
+								p->list[i2]->endWith = "useless";
+							}
+							else {
+								p->list[i2]->endWith = "useless";
+								p->list[i1]->endWith = "semicolon";
+								p->list[i1]->endIndex = p->list[i2]->endIndex;
+								break;
+							}
+						}
+						Node::releaseNode(node_tree8);
+						statementType = "";
+						continue;
+					}
+
+					Node::releaseNode(node_tree8);
+				}
+				isProcessed = true;
+				if (statementType != "") {
+
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+					cout << "statementType:" << statementType << endl;
+
+					if (statementType == "ConstantDeclaration") {
+						for (auto &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+					if (statementType == "InterfaceMethodDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+						for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+
+
+
+					if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
+						string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
+						cout << "name:" << name << endl;
+					}
+				}
+			}
+
+			if (statementType == "") {
+				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+			}
+
+		}
+	
+	}
+
+
+}
+
+
+void analyzeAnnotationTypeDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+	unordered_map<string, string> &imfo_map,
+	string &compile_file,
+	RecursiveDescentJava &recursiveDescentJava9,
+	RecursiveDescentJava &recursiveDescentJava6) {
+
+	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
+	Env env3;
+
+
+	for (int i1 = 0; i1 < p->list.size(); i1++) {
+
+		if (p->list[i1]->endWith != "useless") {
+			bool isProcessed = false;
+			int retryNum = 3;
+			string statementType = "";
+
+			while (!isProcessed && retryNum > 0) {
+				
+				retryNum--;
+				Env env2;
+				recursiveDescentJava9.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree9 = recursiveDescentJava9.slr(env2, "ele_begin", 0);
+
+				if (node_tree9 != nullptr) {
+					recursiveDescentJava9.gen_middle_code(env2, node_tree9, imfo_map);
+					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
+
+					if (statementType == "ConstantDeclarationFake") {
+						for (int i2 = i1; i2 < p->list.size(); i2++) {
+							if (p->list[i2]->endWith != "semicolon") {
+								p->list[i2]->endWith = "useless";
+							}
+							else {
+								p->list[i2]->endWith = "useless";
+								p->list[i1]->endWith = "semicolon";
+								p->list[i1]->endIndex = p->list[i2]->endIndex;
+								break;
+							}
+						}
+						Node::releaseNode(node_tree9);
+						statementType = "";
+						continue;
+					}
+					Node::releaseNode(node_tree9);
+				}
+				
+
+
+
+				isProcessed = true;
+				if (statementType != "") {
+
+					cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+					cout << "statementType:" << statementType << endl;
+
+					if (statementType == "ConstantDeclaration") {
+						for (auto &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+					if (statementType == "AnnotationTypeElementDeclaration") {
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+
+						((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
+						((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
+
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
+						cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+
+						int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
+						int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
+						Env env3;
+						recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
+						Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+						recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+
+
+						for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
+							cout << e->name << endl;
+							cout << e->unannType << endl;
+						}
+
+					}
+
+
+
+
+					if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
+						string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
+						cout << "name:" << name << endl;
+					}
+				}
+			}
+
+			if (statementType == "") {
+				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+			}
+
+		}
+
+	}
+
+
+}
+
+
+
+
 int main(int argc, char* argv[]) {
 
 	//0 -µÝ¹éÏÂ½µ·¨ µ¥¸öÎÄ¼þ²âÊÔ
@@ -35,12 +533,13 @@ int main(int argc, char* argv[]) {
 	if (mode == 0) {
 		Env env;
 		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
-		string fileName = "JavaSyntaxTest.java";
+		string fileName = "JavaAnnotation.java";
 		string rule_file4 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
-
 		string rule_file5 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
 		string rule_file6 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R006.txt";
-
+		string rule_file7 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R007.txt";
+		string rule_file8 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R008.txt";
+		string rule_file9 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
 
 		string compile_file = path + "\\" + fileName;
 
@@ -59,6 +558,19 @@ int main(int argc, char* argv[]) {
 		RecursiveDescentJava recursiveDescentJava6;
 		recursiveDescentJava6.logSwitch = false;
 		recursiveDescentJava6.init(rule_file6);
+
+		RecursiveDescentJava recursiveDescentJava7;
+		recursiveDescentJava7.logSwitch = false;
+		recursiveDescentJava7.init(rule_file7);
+
+
+		RecursiveDescentJava recursiveDescentJava8;
+		recursiveDescentJava8.logSwitch = false;
+		recursiveDescentJava8.init(rule_file8);
+
+		RecursiveDescentJava recursiveDescentJava9;
+		recursiveDescentJava9.logSwitch = false;
+		recursiveDescentJava9.init(rule_file9);
 
 		Node*  node_tree4 = recursiveDescentJava4.slr(env, "ele_begin",0);
 
@@ -89,143 +601,25 @@ int main(int argc, char* argv[]) {
 			string classType=((ClassListToken *)(env.list[0].get()))->list[0]->type;
 			cout << classType << endl;
 
-			if ("NormalClassDeclaration"== classType|| "EnumDeclaration" == classType 
-				|| "NormalInterfaceDeclaration" == classType || "AnnotationTypeDeclaration" == classType) {
-				StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
-				//NormalClassDeclaration
-				
-				for (int i1 = 0; i1 < p->list.size(); i1++) {
-
-					if (p->list[i1]->endWith!="useless") {
-						
-						
-
-						bool isProcessed = false;
-						int retryNum = 3;
-						string statementType = "";
-						
-						while (!isProcessed && retryNum>0) {
-							retryNum--;
-							Env env2;
-							recursiveDescentJava5.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-							Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
-
-							if (node_tree5 != nullptr) {
-
-								recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
-								 statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
-								
+			//|| "EnumDeclaration" == classType
+			//	|| "NormalInterfaceDeclaration" == classType || "AnnotationTypeDeclaration" == classType
 
 
-								if (statementType == "FieldDeclarationFake") {
-									for (int i2 = i1; i2 < p->list.size(); i2++) {
-										if(p->list[i2]->endWith!="semicolon") {
-											p->list[i2]->endWith = "useless";
-										}
-										else {
-											p->list[i2]->endWith = "useless";
-											p->list[i1]->endWith = "semicolon";
-											p->list[i1]->endIndex = p->list[i2]->endIndex;
-											break;
-										}
-									}
-									Node::releaseNode(node_tree5);
-									statementType = "";
-									continue;
-								}
-
-
-
-
-
-								Node::releaseNode(node_tree5);
-							}
-								isProcessed = true;
-								if (statementType != "") {
-
-									cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
-									cout << "statementType:" << statementType << endl;
-
-									if (statementType == "FieldDeclaration") {
-										for (auto  &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
-											cout << e->name << endl;
-											cout << e->unannType << endl;
-										}
-
-									}
-
-
-									if (statementType == "MethodDeclaration") {
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->resultType << endl;
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
-
-										((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
-										((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
-
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
-
-										int paramBeg = ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
-										int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
-										Env env3;
-										recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
-										Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
-
-										recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
-
-
-										for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
-											cout << e->name << endl;
-											cout << e->unannType << endl;
-										}
-											
-									}
-
-									if (statementType == "ConstructorDeclaration") {
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
-
-
-										((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
-										((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
-
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
-										cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
-										int paramBeg =((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex;
-										int paramEnd = ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex;
-										Env env3;
-										recursiveDescentJava6.init_total_lex_word_list(compile_file, primarySymbolConverter, paramBeg, paramEnd);
-										Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
-
-										recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
-
-
-										for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
-											cout << e->name << endl;
-											cout << e->unannType << endl;
-										}
-
-										Node::releaseNode(node_tree6);
-									}
-
-
-									if (statementType == "NormalClassDeclaration" || statementType == "EnumDeclaration" || statementType == "NormalInterfaceDeclaration" || statementType == "AnnotationTypeDeclaration") {
-										string &name = ((StatementToken *)(env2.list[0].get()))->statementEntity->name;
-										cout << "name:" << name << endl;
-									}
-								}
-						}
-
-						if (statementType == "") {
-							cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
-						}
-
-
-
-
-					}
-
-
-				}
+			if ("NormalClassDeclaration"== classType) {
+				analyzeNormalClassDeclaration(env, primarySymbolConverter,imfo_map,compile_file,
+					recursiveDescentJava5,recursiveDescentJava6);
+			}
+			else if ("EnumDeclaration" == classType) {
+				analyzeEnumDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+					recursiveDescentJava5,recursiveDescentJava6,recursiveDescentJava7);
+			}
+			else if ("NormalInterfaceDeclaration" == classType) {
+				analyzeNormalInterfaceDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+					recursiveDescentJava8, recursiveDescentJava6);
+			}
+			else if ("AnnotationTypeDeclaration" == classType) {
+				analyzeAnnotationTypeDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+					recursiveDescentJava9, recursiveDescentJava6);
 			}
 
 		}
@@ -281,7 +675,7 @@ int main(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R006.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
