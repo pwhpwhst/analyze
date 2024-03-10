@@ -17,18 +17,15 @@
 using namespace std;
 pwh::pwh() {}
 pwh::~pwh() {}
-int pwh::test1(string i_rule_file,string i_testCaseFolder,string i_test_file,Env &env) {
-	return 0;
-}
 
 
 
-void analyzeNormalClassDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+
+void analyzeNormalClassDeclaration(StatementListToken *p, PrimarySymbolConverter &primarySymbolConverter,
 	unordered_map<string, string> &imfo_map,
 	string &compile_file,
 	RecursiveDescentJava &recursiveDescentJava5,
 	RecursiveDescentJava &recursiveDescentJava6) {
-	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 
 	for (int i1 = 1; i1 < p->list.size(); i1++) {
 
@@ -154,13 +151,12 @@ void analyzeNormalClassDeclaration(Env &env, PrimarySymbolConverter &primarySymb
 
 
 
-void analyzeEnumDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+void analyzeEnumDeclaration(StatementListToken *p, PrimarySymbolConverter &primarySymbolConverter,
 	unordered_map<string, string> &imfo_map,
 	string &compile_file, 
 	RecursiveDescentJava &recursiveDescentJava5,
 	RecursiveDescentJava &recursiveDescentJava6,
 	RecursiveDescentJava &recursiveDescentJava7 ){
-	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 	Env env3;
 	recursiveDescentJava7.init_total_lex_word_list(compile_file, primarySymbolConverter, p->list[0]->begIndex, p->list[0]->endIndex);
 	Node*  node_tree7 = recursiveDescentJava7.slr(env3, "ele_begin", 0);
@@ -297,13 +293,12 @@ void analyzeEnumDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConve
 
 
 
-void analyzeNormalInterfaceDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+void analyzeNormalInterfaceDeclaration(StatementListToken *p, PrimarySymbolConverter &primarySymbolConverter,
 	unordered_map<string, string> &imfo_map,
 	string &compile_file,
 	RecursiveDescentJava &recursiveDescentJava8,
 	RecursiveDescentJava &recursiveDescentJava6) {
 	
-	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 	Env env3;
 
 	for (int i1 = 0; i1 < p->list.size(); i1++) {
@@ -406,13 +401,12 @@ void analyzeNormalInterfaceDeclaration(Env &env, PrimarySymbolConverter &primary
 }
 
 
-void analyzeAnnotationTypeDeclaration(Env &env, PrimarySymbolConverter &primarySymbolConverter,
+void analyzeAnnotationTypeDeclaration(StatementListToken *p, PrimarySymbolConverter &primarySymbolConverter,
 	unordered_map<string, string> &imfo_map,
 	string &compile_file,
 	RecursiveDescentJava &recursiveDescentJava9,
 	RecursiveDescentJava &recursiveDescentJava6) {
 
-	StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 	Env env3;
 
 
@@ -520,7 +514,7 @@ void analyzeAnnotationTypeDeclaration(Env &env, PrimarySymbolConverter &primaryS
 
 
 
-int main(int argc, char* argv[]) {
+int main1(int argc, char* argv[]) {
 
 	//0 -递归下降法 单个文件测试
 	//1 -递归下降法 批量测试测试
@@ -601,24 +595,23 @@ int main(int argc, char* argv[]) {
 			string classType=((ClassListToken *)(env.list[0].get()))->list[0]->type;
 			cout << classType << endl;
 
-			//|| "EnumDeclaration" == classType
-			//	|| "NormalInterfaceDeclaration" == classType || "AnnotationTypeDeclaration" == classType
 
+			StatementListToken* p = (StatementListToken*)((ClassListToken *)(env.list[0].get()))->list[0]->statementList.get();
 
 			if ("NormalClassDeclaration"== classType) {
-				analyzeNormalClassDeclaration(env, primarySymbolConverter,imfo_map,compile_file,
+				analyzeNormalClassDeclaration(p, primarySymbolConverter,imfo_map,compile_file,
 					recursiveDescentJava5,recursiveDescentJava6);
 			}
 			else if ("EnumDeclaration" == classType) {
-				analyzeEnumDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+				analyzeEnumDeclaration(p, primarySymbolConverter, imfo_map, compile_file,
 					recursiveDescentJava5,recursiveDescentJava6,recursiveDescentJava7);
 			}
 			else if ("NormalInterfaceDeclaration" == classType) {
-				analyzeNormalInterfaceDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+				analyzeNormalInterfaceDeclaration(p, primarySymbolConverter, imfo_map, compile_file,
 					recursiveDescentJava8, recursiveDescentJava6);
 			}
 			else if ("AnnotationTypeDeclaration" == classType) {
-				analyzeAnnotationTypeDeclaration(env, primarySymbolConverter, imfo_map, compile_file,
+				analyzeAnnotationTypeDeclaration(p, primarySymbolConverter, imfo_map, compile_file,
 					recursiveDescentJava9, recursiveDescentJava6);
 			}
 

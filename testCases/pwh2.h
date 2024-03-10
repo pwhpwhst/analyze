@@ -11,10 +11,8 @@
 #include <boost/algorithm/string.hpp>
 #include "../symbols/Env.h"
 using namespace std;
-class R001Tests {
+class pwh2 {
 
-public :
-	R001Tests();
-	~R001Tests();
-	int test1(string i_rule_file, string i_testCaseFolder, string i_test_file, Env &env);
+public:	pwh2();
+public:	~pwh2();
 };
