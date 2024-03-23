@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-FieldDeclaration::FieldDeclaration(string type, string name) {
+FieldDeclaration::FieldDeclaration(string &type, string &name) {
 	this->type = type;
 	this->name = name;
 }

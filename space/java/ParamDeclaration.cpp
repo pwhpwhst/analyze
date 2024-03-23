@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-ParamDeclaration::ParamDeclaration(string type, string name) {
+ParamDeclaration::ParamDeclaration(string &type, string &name) {
 	this->type = type;
 	this->name = name;
 }

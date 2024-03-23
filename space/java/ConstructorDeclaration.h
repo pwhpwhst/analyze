@@ -13,7 +13,7 @@ public: string name;
 public: deque<ParamDeclaration> paramList;
 
 public: ConstructorDeclaration();
-public: ConstructorDeclaration(string name);
+public: ConstructorDeclaration(string &name);
 public: virtual ~ConstructorDeclaration();
 
 };

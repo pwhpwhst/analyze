@@ -14,7 +14,7 @@ public: string name;
 public: deque<ParamDeclaration> paramList;
 
 public: MethodDeclaration();
-public: MethodDeclaration(string type, string name);
+public: MethodDeclaration(string &type, string &name);
 public: virtual ~MethodDeclaration();
 
 };

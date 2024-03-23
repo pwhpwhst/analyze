@@ -8,7 +8,7 @@ using namespace std;
 MethodDeclaration::MethodDeclaration() {
 }
 
-MethodDeclaration::MethodDeclaration(string type, string name) {
+MethodDeclaration::MethodDeclaration(string &type, string &name) {
 	this->type = type;
 	this->name = name;
 }

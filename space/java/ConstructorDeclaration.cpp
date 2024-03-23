@@ -8,7 +8,7 @@ using namespace std;
 ConstructorDeclaration::ConstructorDeclaration() {
 }
 
-ConstructorDeclaration::ConstructorDeclaration(string name) {
+ConstructorDeclaration::ConstructorDeclaration(string &name) {
 	this->name = name;
 }
 

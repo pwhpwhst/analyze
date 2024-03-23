@@ -11,7 +11,7 @@ public: string type;
 public: string name;
 
 public: FieldDeclaration();
-public: FieldDeclaration(string type, string name);
+public: FieldDeclaration(string &type, string &name);
 public: virtual ~FieldDeclaration();
 
 };

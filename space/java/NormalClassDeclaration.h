@@ -10,12 +10,10 @@ using namespace std;
 class NormalClassDeclaration : public Space {
 
 public: string name;
-public: string package;
-public: deque<ImportEntity> importList;
-//public: deque<Space> spaceList;
+
 
 public: NormalClassDeclaration();
-public: NormalClassDeclaration(string name);
+public: NormalClassDeclaration(string &name);
 public: virtual ~NormalClassDeclaration();
 
 };

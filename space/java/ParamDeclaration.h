@@ -11,7 +11,7 @@ public: string type;
 public: string name;
 
 public: ParamDeclaration();
-public: ParamDeclaration(string type, string name);
+public: ParamDeclaration(string &type, string &name);
 public: virtual ~ParamDeclaration();
 
 };

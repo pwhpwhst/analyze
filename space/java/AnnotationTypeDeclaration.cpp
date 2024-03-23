@@ -8,7 +8,7 @@ using namespace std;
 AnnotationTypeDeclaration::AnnotationTypeDeclaration() {
 }
 
-AnnotationTypeDeclaration::AnnotationTypeDeclaration(string name) {
+AnnotationTypeDeclaration::AnnotationTypeDeclaration(string &name) {
 	this->name = name;
 }
 

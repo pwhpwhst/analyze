@@ -15,7 +15,7 @@ public: deque<ImportEntity> importList;
 //public: deque<Space> spaceList;
 
 public: NormalInterfaceDeclaration();
-public: NormalInterfaceDeclaration(string name);
+public: NormalInterfaceDeclaration(string &name);
 public: virtual ~NormalInterfaceDeclaration();
 
 };

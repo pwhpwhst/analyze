@@ -10,6 +10,7 @@ class EnumConstant : public Space {
 public: string name;
 
 public: EnumConstant();
+public: EnumConstant(string &name);
 public: virtual ~EnumConstant();
 
 };

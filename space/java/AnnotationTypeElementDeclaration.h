@@ -11,6 +11,7 @@ public: string type;
 public: string name;
 
 public: AnnotationTypeElementDeclaration();
+public: AnnotationTypeElementDeclaration(string &type, string &name);
 public: virtual ~AnnotationTypeElementDeclaration();
 
 };

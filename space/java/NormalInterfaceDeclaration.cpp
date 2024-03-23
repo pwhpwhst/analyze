@@ -8,7 +8,7 @@ using namespace std;
 NormalInterfaceDeclaration::NormalInterfaceDeclaration() {
 }
 
-NormalInterfaceDeclaration::NormalInterfaceDeclaration(string name) {
+NormalInterfaceDeclaration::NormalInterfaceDeclaration(string &name) {
 	this->name = name;
 }
 

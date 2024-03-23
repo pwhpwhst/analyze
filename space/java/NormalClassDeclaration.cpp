@@ -8,7 +8,7 @@ using namespace std;
 NormalClassDeclaration::NormalClassDeclaration() {
 }
 
-NormalClassDeclaration::NormalClassDeclaration(string name) {
+NormalClassDeclaration::NormalClassDeclaration(string &name) {
 	this->name = name;
 }
 

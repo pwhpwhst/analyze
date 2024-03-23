@@ -15,6 +15,7 @@ public: deque<ParamDeclaration> paramList;
 //public: deque<Space> spaceList;
 
 public: InterfaceMethodDeclaration();
+public: InterfaceMethodDeclaration(string &type, string &name);
 public: virtual ~InterfaceMethodDeclaration();
 
 };

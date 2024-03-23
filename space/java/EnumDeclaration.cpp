@@ -8,7 +8,7 @@ using namespace std;
 EnumDeclaration::EnumDeclaration() {
 }
 
-EnumDeclaration::EnumDeclaration(string name) {
+EnumDeclaration::EnumDeclaration(string &name) {
 	this->name = name;
 }
 
