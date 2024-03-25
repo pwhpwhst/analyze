@@ -172,7 +172,7 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 
 	string resultType = ((StatementToken *)(env.list[0].get()))->statementEntity->resultType;
 	string name = ((StatementToken *)(env.list[0].get()))->statementEntity->name;
-
+	cout << "MethodDeclaration:name" << name << endl;
 	((StatementToken *)(env.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
 	((StatementToken *)(env.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
 
@@ -183,6 +183,10 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 	Env env3;
 	recursiveDescentJava6.init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
 	Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+
+	if (node_tree6 == nullptr) {
+		cout << "Fail to parse parameters" << endl;
+	}
 
 	recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
 
@@ -1039,8 +1043,42 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 void main(int argc, char* argv[]) {
 
-	string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
-	string fileName = "JavaAnnotation.java";
+//. / jakarta / annotation / Generated.java O
+//. / jakarta / annotation / ManagedBean.java O
+//. / jakarta / annotation / PostConstruct.java O
+//. / jakarta / annotation / PreDestroy.java O
+//. / jakarta / annotation / Priority.java O
+//. / jakarta / annotation / Resource.java O
+//. / jakarta / annotation / Resources.java O
+//. / jakarta / annotation / security / DeclareRoles.java O
+//. / jakarta / annotation / security / DenyAll.java O
+//. / jakarta / annotation / security / PermitAll.java O
+//. / jakarta / annotation / security / RolesAllowed.java O
+//. / jakarta / annotation / security / RunAs.java O
+//. / jakarta / annotation / sql / DataSourceDefinition.java O
+//. / jakarta / annotation / sql / DataSourceDefinitions.java O
+//. / jakarta / ejb / EJB.java O
+//. / jakarta / ejb / EJBs.java O
+//. / jakarta / el / ArrayELResolver.java
+//. / jakarta / el / BeanELResolver.java
+//. / jakarta / el / BeanNameELResolver.java
+//. / jakarta / el / BeanNameResolver.java
+//. / jakarta / el / CompositeELResolver.java
+//. / jakarta / el / ELClass.java
+//. / jakarta / el / ELContext.java ???
+//. / jakarta / el / ELContextEvent.java
+//. / jakarta / el / ELContextListener.java
+//. / jakarta / el / ELException.java
+//. / jakarta / el / ELManager.java
+
+	string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\";
+	string fileName = "ELManager.java";
+
+
+	//string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
+	//string fileName = "JavaSyntaxTest.java";
+
+
 
 	string compile_file = path + "\\" + fileName;
 

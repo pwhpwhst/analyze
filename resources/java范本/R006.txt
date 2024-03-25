@@ -144,11 +144,11 @@ UnannPrimitiveType : 'long'
 UnannPrimitiveType : 'char'
 UnannPrimitiveType : 'float'
 UnannPrimitiveType : 'double'
-UnannClassOrInterfaceType : Identifier
-UnannClassOrInterfaceType : Identifier TypeArguments
-UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
-UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
-UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
 UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
+UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
+UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
+UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
+UnannClassOrInterfaceType : Identifier TypeArguments
+UnannClassOrInterfaceType : Identifier
 UnannArrayType : UnannPrimitiveType Dims
 UnannArrayType : UnannClassOrInterfaceType Dims

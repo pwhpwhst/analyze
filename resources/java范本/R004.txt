@@ -25,22 +25,22 @@ ClassDeclaration : NormalClassDeclaration
 ClassDeclaration : EnumDeclaration
 InterfaceDeclaration : NormalInterfaceDeclaration
 InterfaceDeclaration : AnnotationTypeDeclaration
-NormalClassDeclaration : 'class' Identifier ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
-NormalClassDeclaration : 'class' Identifier Superclass ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
-NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
-NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
+NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
+NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
+NormalClassDeclaration : 'class' Identifier Superclass ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
+NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
+NormalClassDeclaration : 'class' Identifier ClassBody
 EnumDeclaration : 'enum' Identifier EnumBody
 EnumDeclaration : ModifierList 'enum' Identifier EnumBody
 EnumDeclaration : 'enum' Identifier Superinterfaces EnumBody
@@ -209,6 +209,7 @@ NonANGLE_BRACKET : UnannPrimitiveType
 NonANGLE_BRACKET : 'SPOT'
 NonANGLE_BRACKET : 'LEFT_BRACKET'
 NonANGLE_BRACKET : 'RIGHT_BRACKET'
+NonANGLE_BRACKET : TypeArguments
 UnannPrimitiveType : NumericType
 UnannPrimitiveType : 'boolean'
 NumericType : IntegralType
@@ -221,12 +222,12 @@ IntegralType : 'char'
 FloatingPointType : 'float'
 FloatingPointType : 'double'
 Superclass : 'extends' ClassType
-ClassTypeEle : Identifier
-ClassTypeEle : AnnotationList Identifier
-ClassTypeEle : Identifier TypeArguments
 ClassTypeEle : AnnotationList Identifier TypeArguments
-ClassType : ClassTypeEle
+ClassTypeEle : Identifier TypeArguments
+ClassTypeEle : AnnotationList Identifier
+ClassTypeEle : Identifier
 ClassType : ClassTypeEle 'SPOT' ClassType
+ClassType : ClassTypeEle
 AnnotationList : Annotation AnnotationList
 AnnotationList : Annotation
 Superinterfaces : 'implements' InterfaceTypeList

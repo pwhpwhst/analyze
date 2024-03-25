@@ -22,7 +22,7 @@ using namespace std;
 #include "R006Analyzer_1.h"
 
 void logR006(const string& s) {
-//					cout << s << endl;
+//	cout << s << endl;
 }
 
 
@@ -1408,41 +1408,46 @@ void R006_UnannPrimitiveType_7Analyzer::handle(const P_NodeValue &nodeValue, Env
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
 void R006_UnannClassOrInterfaceType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannClassOrInterfaceType_0Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
 
+	((UnannTypeToken *)(p4.get()))->nameList.push_front(p0->content);
 
-	UnannTypeToken *p = new UnannTypeToken();
-	p->nameList.push_front(p0->content);
-	p->isPrimitive = false;
-	p->dimNum = 0;
-
-	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
+	nodeValue->context["UnannClassOrInterfaceType"] = p4;
 };
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments
+//beg_UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
 void R006_UnannClassOrInterfaceType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannClassOrInterfaceType_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
 
+	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
 
-	UnannTypeToken *p = new UnannTypeToken();
-	p->nameList.push_front(p0->content);
-	p->isPrimitive = false;
-	p->dimNum = 0;
-
-	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
+	nodeValue->context["UnannClassOrInterfaceType"] = p3;
 };
 
 
-
-//beg_UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
 void R006_UnannClassOrInterfaceType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannClassOrInterfaceType_2Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+
+	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
+
+	nodeValue->context["UnannClassOrInterfaceType"] = p3;
+};
+
+
+//beg_UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
+void R006_UnannClassOrInterfaceType_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_UnannClassOrInterfaceType_3Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
 
@@ -1454,42 +1459,36 @@ void R006_UnannClassOrInterfaceType_2Analyzer::handle(const P_NodeValue &nodeVal
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
-void R006_UnannClassOrInterfaceType_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_UnannClassOrInterfaceType_3Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
-
-	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
-
-	nodeValue->context["UnannClassOrInterfaceType"] = p3;
-};
-
-
-
-//beg_UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments
 void R006_UnannClassOrInterfaceType_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannClassOrInterfaceType_4Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
 
-	((UnannTypeToken *)(p3.get()))->nameList.push_front(p0->content);
 
-	nodeValue->context["UnannClassOrInterfaceType"] = p3;
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front(p0->content);
+	p->isPrimitive = false;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
 };
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier
 void R006_UnannClassOrInterfaceType_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannClassOrInterfaceType_5Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
 
-	((UnannTypeToken *)(p4.get()))->nameList.push_front(p0->content);
 
-	nodeValue->context["UnannClassOrInterfaceType"] = p4;
+	UnannTypeToken *p = new UnannTypeToken();
+	p->nameList.push_front(p0->content);
+	p->isPrimitive = false;
+	p->dimNum = 0;
+
+	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
 };
+
 
 
 

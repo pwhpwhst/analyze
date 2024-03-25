@@ -522,7 +522,7 @@ int main1(int argc, char* argv[]) {
 	//3 -Lalr 单个文件测试
 	//4 批量测试
 
-	int mode =  0;
+	int mode =  2;
 
 	if (mode == 0) {
 		Env env;
@@ -668,7 +668,7 @@ int main1(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R009.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
