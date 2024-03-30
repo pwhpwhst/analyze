@@ -668,7 +668,7 @@ int main1(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
+		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
@@ -744,7 +744,7 @@ int main1(int argc, char* argv[]) {
 		//string srceListFile = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\pwh_local_0.txt";
 
 		if (method == "RecursiveDescent") {
-			string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+			string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R009.txt";
 
 			string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java";
 			RecursiveDescentJava recursiveDescentJava;

@@ -22,7 +22,7 @@ using namespace std;
 #include "R006Analyzer_1.h"
 
 void logR006(const string& s) {
-//	cout << s << endl;
+	//	cout << s << endl;
 }
 
 
@@ -82,7 +82,7 @@ void R006_ParameterListWithParentheses_1Analyzer::handle(const P_NodeValue &node
 //beg_FormalParameterList : Parameter 'COMMA' FormalParameterList
 void R006_FormalParameterList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_FormalParameterList_0Analyzer");
-	
+
 
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Parameter"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["FormalParameterList"];
@@ -1175,7 +1175,11 @@ void R006_StatementEle_72Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 void R006_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_TypeArguments_0Analyzer");
 	//TO DO  R006_TypeArguments_0Analyzer
@@ -1183,7 +1187,79 @@ void R006_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 
 
 
-//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+void R006_TypeArguments_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArguments_1Analyzer");
+	//TO DO  R006_TypeArguments_1Analyzer
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+void R006_TypeArguments_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArguments_2Analyzer");
+	//TO DO  R006_TypeArguments_2Analyzer
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+void R006_TypeArguments_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArguments_3Analyzer");
+	//TO DO  R006_TypeArguments_3Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+void R006_TypeArgumentListL2_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL2_0Analyzer");
+	//TO DO  R006_TypeArgumentListL2_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+void R006_TypeArgumentListL2_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL2_1Analyzer");
+	//TO DO  R006_TypeArgumentListL2_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+void R006_TypeArgumentListL2_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL2_2Analyzer");
+	//TO DO  R006_TypeArgumentListL2_2Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+void R006_TypeArgumentListL1_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL1_0Analyzer");
+	//TO DO  R006_TypeArgumentListL1_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+void R006_TypeArgumentListL1_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL1_1Analyzer");
+	//TO DO  R006_TypeArgumentListL1_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+void R006_TypeArgumentListL1_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentListL1_2Analyzer");
+	//TO DO  R006_TypeArgumentListL1_2Analyzer
+};
+
+
+
+//beg_TypeArgumentList : TypeArguments TypeArgumentList
 void R006_TypeArgumentList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_TypeArgumentList_0Analyzer");
 	//TO DO  R006_TypeArgumentList_0Analyzer
@@ -1191,10 +1267,18 @@ void R006_TypeArgumentList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 
 
 
-//beg_TypeArgumentList : 0
+//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
 void R006_TypeArgumentList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_TypeArgumentList_1Analyzer");
 	//TO DO  R006_TypeArgumentList_1Analyzer
+};
+
+
+
+//beg_TypeArgumentList : 0
+void R006_TypeArgumentList_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_TypeArgumentList_2Analyzer");
+	//TO DO  R006_TypeArgumentList_2Analyzer
 };
 
 
@@ -1268,6 +1352,14 @@ void R006_NonANGLE_BRACKET_8Analyzer::handle(const P_NodeValue &nodeValue, Env &
 	logR006("R006_NonANGLE_BRACKET_8Analyzer");
 	//TO DO  R006_NonANGLE_BRACKET_8Analyzer
 };
+
+//beg_NonANGLE_BRACKET : TypeArguments
+void R006_NonANGLE_BRACKET_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_NonANGLE_BRACKET_9Analyzer");
+	//TO DO  R006_NonANGLE_BRACKET_9Analyzer
+};
+
+
 
 //beg_UnannType : UnannArrayType
 void R006_UnannType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {

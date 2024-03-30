@@ -1330,6 +1330,14 @@ void R004_NonPARENTHESES_9Analyzer::handle(const P_NodeValue &nodeValue, Env &en
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+void R004_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_NonPARENTHESES_10Analyzer");
+	//TO DO  R004_NonPARENTHESES_10Analyzer
+};
+
+
+
 //beg_StatementEle : 'IDENTIFIER'
 void R004_StatementEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_StatementEle_0Analyzer");
@@ -2858,10 +2866,13 @@ void R004_Annotation_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 void R004_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_TypeArguments_0Analyzer");
-
 	StatementToken *p = new StatementToken();
 	p->statementEntity = P_StatementEntity(new StatementEntity);
 	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
@@ -2869,15 +2880,106 @@ void R004_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
 	p->statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
 	nodeValue->context["TypeArguments"] = P_Token(p);
-
 };
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+void R004_TypeArguments_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArguments_1Analyzer");
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+void R004_TypeArguments_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArguments_2Analyzer");
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+void R004_TypeArguments_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArguments_3Analyzer");
+	StatementToken *p = new StatementToken();
+	p->statementEntity = P_StatementEntity(new StatementEntity);
+	p->statementEntity->begLineNum = nodeValue->node->child_node_list[0]->lineNum;
+	p->statementEntity->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->statementEntity->endLineNum = nodeValue->node->child_node_list[2]->lineNum;
+	p->statementEntity->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
+};
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+void R004_TypeArgumentListL2_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL2_0Analyzer");
+	//TO DO  R004_TypeArgumentListL2_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+void R004_TypeArgumentListL2_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL2_1Analyzer");
+	//TO DO  R004_TypeArgumentListL2_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+void R004_TypeArgumentListL2_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL2_2Analyzer");
+	//TO DO  R004_TypeArgumentListL2_2Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+void R004_TypeArgumentListL1_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL1_0Analyzer");
+	//TO DO  R004_TypeArgumentListL1_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+void R004_TypeArgumentListL1_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL1_1Analyzer");
+	//TO DO  R004_TypeArgumentListL1_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+void R004_TypeArgumentListL1_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeArgumentListL1_2Analyzer");
+	//TO DO  R004_TypeArgumentListL1_2Analyzer
+};
+
+
 
 
 
 //beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
 void R004_TypeArgumentList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_TypeArgumentList_0Analyzer");
-	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+	//TO DO  R004_TypeArgumentList_1Analyzer
 };
 
 
@@ -2885,7 +2987,7 @@ void R004_TypeArgumentList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 //beg_TypeArgumentList : 0
 void R004_TypeArgumentList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_TypeArgumentList_1Analyzer");
-	//TO DO  ${prefix}_${presentSymbol}_${subIndex}Analyzer
+	//TO DO  R004_TypeArgumentList_2Analyzer
 };
 
 

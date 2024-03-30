@@ -1298,10 +1298,82 @@ void R005_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 void R005_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_0Analyzer");
 	//TO DO  R005_TypeArguments_0Analyzer
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+void R005_TypeArguments_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArguments_1Analyzer");
+	//TO DO  R005_TypeArguments_1Analyzer
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+void R005_TypeArguments_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArguments_2Analyzer");
+	//TO DO  R005_TypeArguments_2Analyzer
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+void R005_TypeArguments_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArguments_3Analyzer");
+	//TO DO  R005_TypeArguments_3Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+void R005_TypeArgumentListL2_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL2_0Analyzer");
+	//TO DO  R005_TypeArgumentListL2_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+void R005_TypeArgumentListL2_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL2_1Analyzer");
+	//TO DO  R005_TypeArgumentListL2_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+void R005_TypeArgumentListL2_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL2_2Analyzer");
+	//TO DO  R005_TypeArgumentListL2_2Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+void R005_TypeArgumentListL1_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL1_0Analyzer");
+	//TO DO  R005_TypeArgumentListL1_0Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+void R005_TypeArgumentListL1_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL1_1Analyzer");
+	//TO DO  R005_TypeArgumentListL1_1Analyzer
+};
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+void R005_TypeArgumentListL1_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_TypeArgumentListL1_2Analyzer");
+	//TO DO  R005_TypeArgumentListL1_2Analyzer
 };
 
 
@@ -1808,6 +1880,38 @@ void R005_VariableInitializerEle_3Analyzer::handle(const P_NodeValue &nodeValue,
 
 
 
+//beg_VariableInitializerEle : DimExpr
+void R005_VariableInitializerEle_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_VariableInitializerEle_4Analyzer");
+	//TO DO  R005_VariableInitializerEle_4Analyzer
+};
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+void R005_VariableInitializerEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_VariableInitializerEle_5Analyzer");
+	//TO DO  R005_VariableInitializerEle_5Analyzer
+};
+
+
+
+//beg_DimExpr : AnnotationList 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
+void R005_DimExpr_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_DimExpr_0Analyzer");
+	//TO DO  R005_DimExpr_0Analyzer
+};
+
+
+
+//beg_DimExpr : 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
+void R005_DimExpr_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_DimExpr_1Analyzer");
+	//TO DO  R005_DimExpr_1Analyzer
+};
+
+
+
 //beg_VariableDeclaratorId : Identifier Dims
 void R005_VariableDeclaratorId_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_VariableDeclaratorId_0Analyzer");
@@ -2188,19 +2292,22 @@ void R005_Throws_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unord
 
 
 
-//beg_ExceptionTypeList : ExceptionType
+//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 void R005_ExceptionTypeList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ExceptionTypeList_0Analyzer");
+	//TO DO  R005_ExceptionTypeList_1Analyzer
+};
+
+
+
+//beg_ExceptionTypeList : ExceptionType
+void R005_ExceptionTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR005("R005_ExceptionTypeList_1Analyzer");
 	//TO DO  R005_ExceptionTypeList_0Analyzer
 };
 
 
 
-//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
-void R005_ExceptionTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_ExceptionTypeList_1Analyzer");
-	//TO DO  R005_ExceptionTypeList_1Analyzer
-};
 
 
 

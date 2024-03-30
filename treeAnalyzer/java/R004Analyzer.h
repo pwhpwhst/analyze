@@ -795,6 +795,15 @@ public: virtual ~R004_NonPARENTHESES_9Analyzer();
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+class R004_NonPARENTHESES_10Analyzer :virtual public Non_Terminate_genertor {
+public: R004_NonPARENTHESES_10Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_NonPARENTHESES_10Analyzer();
+};
+
+
+
 //beg_StatementEle : 'IDENTIFIER'
 class R004_StatementEle_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_StatementEle_0Analyzer();
@@ -1803,11 +1812,92 @@ public: virtual ~R004_Annotation_1Analyzer();
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 class R004_TypeArguments_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_TypeArguments_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_TypeArguments_0Analyzer();
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+class R004_TypeArguments_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArguments_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArguments_1Analyzer();
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+class R004_TypeArguments_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArguments_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArguments_2Analyzer();
+};
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+class R004_TypeArguments_3Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArguments_3Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArguments_3Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+class R004_TypeArgumentListL2_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL2_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL2_0Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+class R004_TypeArgumentListL2_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL2_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL2_1Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+class R004_TypeArgumentListL2_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL2_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL2_2Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+class R004_TypeArgumentListL1_0Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL1_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL1_0Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+class R004_TypeArgumentListL1_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL1_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL1_1Analyzer();
+};
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+class R004_TypeArgumentListL1_2Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeArgumentListL1_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeArgumentListL1_2Analyzer();
 };
 
 

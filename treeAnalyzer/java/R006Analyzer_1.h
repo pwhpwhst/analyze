@@ -741,21 +741,81 @@ R006_StatementEle_72Analyzer::~R006_StatementEle_72Analyzer() {}
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 R006_TypeArguments_0Analyzer::R006_TypeArguments_0Analyzer() {}
 R006_TypeArguments_0Analyzer::~R006_TypeArguments_0Analyzer() {}
 
 
 
-//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+R006_TypeArguments_1Analyzer::R006_TypeArguments_1Analyzer() {}
+R006_TypeArguments_1Analyzer::~R006_TypeArguments_1Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+R006_TypeArguments_2Analyzer::R006_TypeArguments_2Analyzer() {}
+R006_TypeArguments_2Analyzer::~R006_TypeArguments_2Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+R006_TypeArguments_3Analyzer::R006_TypeArguments_3Analyzer() {}
+R006_TypeArguments_3Analyzer::~R006_TypeArguments_3Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+R006_TypeArgumentListL2_0Analyzer::R006_TypeArgumentListL2_0Analyzer() {}
+R006_TypeArgumentListL2_0Analyzer::~R006_TypeArgumentListL2_0Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+R006_TypeArgumentListL2_1Analyzer::R006_TypeArgumentListL2_1Analyzer() {}
+R006_TypeArgumentListL2_1Analyzer::~R006_TypeArgumentListL2_1Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+R006_TypeArgumentListL2_2Analyzer::R006_TypeArgumentListL2_2Analyzer() {}
+R006_TypeArgumentListL2_2Analyzer::~R006_TypeArgumentListL2_2Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+R006_TypeArgumentListL1_0Analyzer::R006_TypeArgumentListL1_0Analyzer() {}
+R006_TypeArgumentListL1_0Analyzer::~R006_TypeArgumentListL1_0Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+R006_TypeArgumentListL1_1Analyzer::R006_TypeArgumentListL1_1Analyzer() {}
+R006_TypeArgumentListL1_1Analyzer::~R006_TypeArgumentListL1_1Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+R006_TypeArgumentListL1_2Analyzer::R006_TypeArgumentListL1_2Analyzer() {}
+R006_TypeArgumentListL1_2Analyzer::~R006_TypeArgumentListL1_2Analyzer() {}
+
+
+
+//beg_TypeArgumentList : TypeArguments TypeArgumentList
 R006_TypeArgumentList_0Analyzer::R006_TypeArgumentList_0Analyzer() {}
 R006_TypeArgumentList_0Analyzer::~R006_TypeArgumentList_0Analyzer() {}
 
 
 
-//beg_TypeArgumentList : 0
+//beg_TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
 R006_TypeArgumentList_1Analyzer::R006_TypeArgumentList_1Analyzer() {}
 R006_TypeArgumentList_1Analyzer::~R006_TypeArgumentList_1Analyzer() {}
+
+
+
+//beg_TypeArgumentList : 0
+R006_TypeArgumentList_2Analyzer::R006_TypeArgumentList_2Analyzer() {}
+R006_TypeArgumentList_2Analyzer::~R006_TypeArgumentList_2Analyzer() {}
 
 
 
@@ -810,6 +870,12 @@ R006_NonANGLE_BRACKET_7Analyzer::~R006_NonANGLE_BRACKET_7Analyzer() {}
 //beg_NonANGLE_BRACKET : 'RIGHT_BRACKET'
 R006_NonANGLE_BRACKET_8Analyzer::R006_NonANGLE_BRACKET_8Analyzer() {}
 R006_NonANGLE_BRACKET_8Analyzer::~R006_NonANGLE_BRACKET_8Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : TypeArguments
+R006_NonANGLE_BRACKET_9Analyzer::R006_NonANGLE_BRACKET_9Analyzer() {}
+R006_NonANGLE_BRACKET_9Analyzer::~R006_NonANGLE_BRACKET_9Analyzer() {}
 
 
 
@@ -879,37 +945,37 @@ R006_UnannPrimitiveType_7Analyzer::~R006_UnannPrimitiveType_7Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
 R006_UnannClassOrInterfaceType_0Analyzer::R006_UnannClassOrInterfaceType_0Analyzer() {}
 R006_UnannClassOrInterfaceType_0Analyzer::~R006_UnannClassOrInterfaceType_0Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments
+//beg_UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
 R006_UnannClassOrInterfaceType_1Analyzer::R006_UnannClassOrInterfaceType_1Analyzer() {}
 R006_UnannClassOrInterfaceType_1Analyzer::~R006_UnannClassOrInterfaceType_1Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
 R006_UnannClassOrInterfaceType_2Analyzer::R006_UnannClassOrInterfaceType_2Analyzer() {}
 R006_UnannClassOrInterfaceType_2Analyzer::~R006_UnannClassOrInterfaceType_2Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
 R006_UnannClassOrInterfaceType_3Analyzer::R006_UnannClassOrInterfaceType_3Analyzer() {}
 R006_UnannClassOrInterfaceType_3Analyzer::~R006_UnannClassOrInterfaceType_3Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier 'SPOT' AnnotationList UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier TypeArguments
 R006_UnannClassOrInterfaceType_4Analyzer::R006_UnannClassOrInterfaceType_4Analyzer() {}
 R006_UnannClassOrInterfaceType_4Analyzer::~R006_UnannClassOrInterfaceType_4Analyzer() {}
 
 
 
-//beg_UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' AnnotationList UnannClassOrInterfaceType
+//beg_UnannClassOrInterfaceType : Identifier
 R006_UnannClassOrInterfaceType_5Analyzer::R006_UnannClassOrInterfaceType_5Analyzer() {}
 R006_UnannClassOrInterfaceType_5Analyzer::~R006_UnannClassOrInterfaceType_5Analyzer() {}
 

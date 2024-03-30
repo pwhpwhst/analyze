@@ -1041,9 +1041,63 @@ R009_NonPARENTHESES_10Analyzer::~R009_NonPARENTHESES_10Analyzer() {}
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 R009_TypeArguments_0Analyzer::R009_TypeArguments_0Analyzer() {}
 R009_TypeArguments_0Analyzer::~R009_TypeArguments_0Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
+R009_TypeArguments_1Analyzer::R009_TypeArguments_1Analyzer() {}
+R009_TypeArguments_1Analyzer::~R009_TypeArguments_1Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+R009_TypeArguments_2Analyzer::R009_TypeArguments_2Analyzer() {}
+R009_TypeArguments_2Analyzer::~R009_TypeArguments_2Analyzer() {}
+
+
+
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+R009_TypeArguments_3Analyzer::R009_TypeArguments_3Analyzer() {}
+R009_TypeArguments_3Analyzer::~R009_TypeArguments_3Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : TypeArguments TypeArgumentListL2
+R009_TypeArgumentListL2_0Analyzer::R009_TypeArgumentListL2_0Analyzer() {}
+R009_TypeArgumentListL2_0Analyzer::~R009_TypeArgumentListL2_0Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+R009_TypeArgumentListL2_1Analyzer::R009_TypeArgumentListL2_1Analyzer() {}
+R009_TypeArgumentListL2_1Analyzer::~R009_TypeArgumentListL2_1Analyzer() {}
+
+
+
+//beg_TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+R009_TypeArgumentListL2_2Analyzer::R009_TypeArgumentListL2_2Analyzer() {}
+R009_TypeArgumentListL2_2Analyzer::~R009_TypeArgumentListL2_2Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : TypeArguments TypeArgumentListL1
+R009_TypeArgumentListL1_0Analyzer::R009_TypeArgumentListL1_0Analyzer() {}
+R009_TypeArgumentListL1_0Analyzer::~R009_TypeArgumentListL1_0Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+R009_TypeArgumentListL1_1Analyzer::R009_TypeArgumentListL1_1Analyzer() {}
+R009_TypeArgumentListL1_1Analyzer::~R009_TypeArgumentListL1_1Analyzer() {}
+
+
+
+//beg_TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+R009_TypeArgumentListL1_2Analyzer::R009_TypeArgumentListL1_2Analyzer() {}
+R009_TypeArgumentListL1_2Analyzer::~R009_TypeArgumentListL1_2Analyzer() {}
 
 
 
@@ -1110,6 +1164,12 @@ R009_NonANGLE_BRACKET_7Analyzer::~R009_NonANGLE_BRACKET_7Analyzer() {}
 //beg_NonANGLE_BRACKET : 'RIGHT_BRACKET'
 R009_NonANGLE_BRACKET_8Analyzer::R009_NonANGLE_BRACKET_8Analyzer() {}
 R009_NonANGLE_BRACKET_8Analyzer::~R009_NonANGLE_BRACKET_8Analyzer() {}
+
+
+
+//beg_NonANGLE_BRACKET : TypeArguments
+R009_NonANGLE_BRACKET_9Analyzer::R009_NonANGLE_BRACKET_9Analyzer() {}
+R009_NonANGLE_BRACKET_9Analyzer::~R009_NonANGLE_BRACKET_9Analyzer() {}
 
 
 
@@ -1467,6 +1527,18 @@ R009_VariableInitializerEle_3Analyzer::~R009_VariableInitializerEle_3Analyzer() 
 
 
 
+//beg_VariableInitializerEle : DimExpr
+R009_VariableInitializerEle_4Analyzer::R009_VariableInitializerEle_4Analyzer() {}
+R009_VariableInitializerEle_4Analyzer::~R009_VariableInitializerEle_4Analyzer() {}
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+R009_VariableInitializerEle_5Analyzer::R009_VariableInitializerEle_5Analyzer() {}
+R009_VariableInitializerEle_5Analyzer::~R009_VariableInitializerEle_5Analyzer() {}
+
+
+
 //beg_VariableDeclaratorId : Identifier Dims
 R009_VariableDeclaratorId_0Analyzer::R009_VariableDeclaratorId_0Analyzer() {}
 R009_VariableDeclaratorId_0Analyzer::~R009_VariableDeclaratorId_0Analyzer() {}
@@ -1488,3 +1560,15 @@ R009_AnnotationList_0Analyzer::~R009_AnnotationList_0Analyzer() {}
 //beg_AnnotationList : Annotation
 R009_AnnotationList_1Analyzer::R009_AnnotationList_1Analyzer() {}
 R009_AnnotationList_1Analyzer::~R009_AnnotationList_1Analyzer() {}
+
+
+
+//beg_DimExpr : AnnotationList 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
+R009_DimExpr_0Analyzer::R009_DimExpr_0Analyzer() {}
+R009_DimExpr_0Analyzer::~R009_DimExpr_0Analyzer() {}
+
+
+
+//beg_DimExpr : 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
+R009_DimExpr_1Analyzer::R009_DimExpr_1Analyzer() {}
+R009_DimExpr_1Analyzer::~R009_DimExpr_1Analyzer() {}
