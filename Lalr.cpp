@@ -11,7 +11,9 @@
 
 #include "Lalr.h"
 #include"symbols\PrimarySymbolConverter.h"
+#include "Util/Util.h"
 #include <algorithm>
+#include <string>
 #include "MD5.h"
 #include "dao/TFileMD5Dao.h"
 #include "dao/TItemDao.h"
@@ -57,10 +59,12 @@ string Lalr::replaceAll(string str, string sub, string replacement) {
 
 
 void Lalr::log(const string& s) {
-	//		  cout<<s<<endl;
+	Util::log(s);
 }
 
-
+std::string pointerToString(void* ptr) {
+	return std::to_string(reinterpret_cast<uintptr_t>(ptr));
+}
 
 int Lalr::calculate_f_terminate(string symbol, string rule_file) {
 	ruleList.clear();
@@ -81,7 +85,6 @@ int Lalr::calculate_f_terminate(string symbol, string rule_file) {
 	unordered_map<string, string> temp_forecast_map;
 	paresOrders(rule_file, orders, temp_forecast_map);
 	for (const auto &e : orders) {
-		//		cout<<e<<endl;
 		ruleList.push_back(P_Rule(new Rule(e)));
 	}
 
@@ -595,9 +598,9 @@ void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter 
 
 #ifdef __PRINT_LEX_WORD_LIST
 	for (const auto &e : total_lex_word_list) {
-		cout << "type=" << e->type << endl;
-		cout << "content=" << e->content << endl;
-		cout << endl;
+		Util::log("type="+ e->type);
+		Util::log("content=" + e->content);
+		Util::log("");
 	}
 #endif
 	//人手添加总结符号
@@ -643,9 +646,9 @@ void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter 
 
 #ifdef __PRINT_LEX_WORD_LIST
 	for (const auto &e : total_lex_word_list) {
-		cout << "type=" << e->type << endl;
-		cout << "content=" << e->content << endl;
-		cout << endl;
+		Util::log("type=" + e->type);
+		Util::log("content=" + e->content);
+		Util::log("");
 	}
 #endif
 	//人手添加总结符号
@@ -776,19 +779,20 @@ void Lalr::calculate_f_first(unordered_map<string, set<string>> &f_first, const 
 		}
 	}
 
-
+	
 #ifdef __PRINT_F_FIRST
-	cout << "f_first" << endl;
+	Util::log("f_first");
 	for (const auto result : f_first) {
-		cout << result.first << ":" << endl;
+		Util::log(result.first + ":");
+		ostringstream tempOS;
 		for (auto it = result.second.begin(); it != result.second.end(); ++it) {
-			cout << *it << ",";
+			tempOS << *it << ",";
 		}
-		cout << endl;
+		Util::log(tempOS.str());
 	}
 	for (const auto &e : non_terminator) {
 		if (f_first.find(e) == f_first.end()) {
-			cout << "不存在:" << e << endl;
+			Util::log("不存在:" + e);
 		}
 	}
 #endif
@@ -885,7 +889,7 @@ void Lalr::calculate_f_terminate_inline(string symbol, const vector<P_Rule> &rul
 		}
 	}
 	for (const auto &e : symbol_temp_set) {
-		cout << e << endl;
+		Util::log(e);
 	}
 
 }
@@ -1060,13 +1064,14 @@ void Lalr::calculate_f_follow(unordered_map<string, set<string>> &f_follow, unor
 
 
 #ifdef __PRINT_F_FOLLOW
-	cout << "f_follow" << endl;
+	Util::log("f_follow");
 	for (const auto result : f_follow) {
-		cout << result.first << ":" << endl;
+		Util::log(result.first + ":");
+		ostringstream tempOS;
 		for (auto it = result.second.begin(); it != result.second.end(); ++it) {
-			cout << *it << ",";
+			tempOS << *it << ",";
 		}
-		cout << endl;
+		Util::log(tempOS.str());
 	}
 #endif
 
@@ -1087,53 +1092,55 @@ void Lalr::printGraph(set<int> &itemSet) {
 void Lalr::printGraph(vector<vector<P_Item>> &items_list,
 	unordered_map<int, unordered_map<string, int>> &convert_map,set<int> &itemSet,bool printAll) {
 	if (printAll) {
-		cout << "打印转移状态图的点" << endl;
+		Util::log("打印转移状态图的点");
 
 		for (int i1 = 0; i1 < items_list.size(); i1++) {
-			cout << i1 << ":" << endl;
+			Util::log(i1 + ":");
+			ostringstream tempOS;
 			for (auto e : items_list[i1]) {
-				cout << e->rule->rule_name;
-				cout << " :";
+				tempOS << e->rule->rule_name;
+				tempOS << " :";
 				for (auto e2 : e->rule->symbols) {
-					cout << " " << e2;
+					tempOS << " " << e2;
 				}
-				cout << " " << e->status << " ###";
+				tempOS << " " << e->status << " ###";
 
 				for (auto e2 : e->end_for_symbol) {
-					cout << " " << e2;
+					tempOS << " " << e2;
 				}
-				cout << endl;
+				Util::log(tempOS.str());
 			}
 		}
 
-		cout << "打印转移状态图的弧" << endl;
-
+		Util::log("打印转移状态图的弧");
 
 		for (const auto result : convert_map) {
-			cout << result.first << ":" << endl;
+			Util::log(result.first + ":");
+			ostringstream tempOS;
 			for (auto it = result.second.begin(); it != result.second.end(); ++it) {
-				cout << it->first << ":" << it->second << endl;
+				tempOS << it->first << ":" << it->second << endl;
 			}
-			cout << endl;
+			Util::log(tempOS.str());
 		}
 	}
 	else {
-		cout << "打印转移状态图的点" << endl;
+		Util::log("打印转移状态图的点");
 		for (int i1 = 0; i1 < items_list.size(); i1++) {
 			if (itemSet.count(i1) > 0) {
-				cout << i1 << ":" << endl;
+				Util::log(i1 + ":");
+				ostringstream tempOS;
 				for (auto e : items_list[i1]) {
-					cout << e->rule->rule_name;
-					cout << " :";
+					tempOS << e->rule->rule_name;
+					tempOS << " :";
 					for (auto e2 : e->rule->symbols) {
-						cout << " " << e2;
+						tempOS << " " << e2;
 					}
-					cout << " " << e->status << " ###";
+					tempOS << " " << e->status << " ###";
 
 					for (auto e2 : e->end_for_symbol) {
-						cout << " " << e2;
+						tempOS << " " << e2;
 					}
-					cout << endl;
+					Util::log(tempOS.str());
 				}
 			}
 		}
@@ -1143,7 +1150,7 @@ void Lalr::printGraph(vector<vector<P_Item>> &items_list,
 
 
 void Lalr::printStack(Node* &node_tree) {
-	cout << "深度优先遍历:" << endl;
+	Util::log("深度优先遍历:");
 	vector<Node*> item_node_stack2;
 	item_node_stack2.push_back(node_tree);
 	set<Node*> node_set;
@@ -1155,13 +1162,13 @@ void Lalr::printStack(Node* &node_tree) {
 		}
 		else {
 			node_set.insert(present_node);
-			cout << present_node << ":" << endl;
-			cout << "symbol=" << present_node->symbol << endl;
-			cout << "content=" << present_node->content << endl;
-			cout << "offset=" << present_node->offset << endl;
-			cout << "parent=" << present_node->parent << endl;
-			cout << "child_node_list=" << &(present_node->child_node_list) << endl;
-			cout << endl;
+			Util::log(pointerToString(present_node) +":");
+			Util::log("symbol=" + present_node->symbol);
+			Util::log("content=" + present_node->content);
+			Util::log("offset=" + present_node->offset);
+			Util::log("parent=" + pointerToString(present_node->parent));
+			Util::log("child_node_list=" + pointerToString(&(present_node->child_node_list)));
+			Util::log("");
 			item_node_stack2.pop_back();
 			if (present_node->parent != nullptr) {
 				if ((present_node->offset + 1) < present_node->parent->child_node_list.size()) {
@@ -1206,7 +1213,7 @@ bool Lalr::shouldBeIgnore(const set<string> &ignore_symbol_set, Node *node, int 
 //Ig_TypeParameterList
 void Lalr::printStackTree(Node* &node_tree, string ignore_file_path) {
 
-	cout << "打印语法树:" << endl;
+	Util::log("打印语法树:");
 
 	vector <string> string_list;
 	set<string> ignore_symbol_set;
@@ -1414,10 +1421,11 @@ void Lalr::printStackTree(Node* &node_tree, string ignore_file_path) {
 
 
 	for (const auto &e : output) {
+		ostringstream tempOS;
 		for (const auto &e1 : e) {
-			cout << e1;
+			tempOS << e1;
 		}
-		cout << endl;
+		Util::log(tempOS.str());
 	}
 
 }
@@ -1523,17 +1531,17 @@ void Lalr::parse_all_symbol(set<string> &terminator, set<string> &non_terminator
 	}
 
 #ifdef __PRINT_SYMBOL
-	cout << "终端符号：" << endl;
+	Util::log("终端符号：");
 	for (const auto &e : terminator) {
-		cout << e << endl;
+		Util::log(e);
 	}
-	cout << endl;
+	Util::log(e);
 
-	cout << "非终端符号：" << endl;
+	Util::log("非终端符号：");
 	for (const auto &e : non_terminator) {
-		cout << e << endl;
+		Util::log(e);
 	}
-	cout << endl;
+	Util::log(e);
 #endif
 }
 
@@ -2084,16 +2092,19 @@ void Lalr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 
 
 		if (_items_set.size() > 0) {
-			cout << "存在自由rule:" << endl;
+			Util::log("存在自由rule:");
 			int i1 = 0;
+			
 			for (const auto &e : _items_set) {
-				cout << i1 << ":" << endl;
-				cout << e->rule->rule_name;
-				cout << " :";
+				Util::log(i1 + ":");
+				ostringstream tempOS;
+				tempOS << e->rule->rule_name;
+				tempOS << " :";
 				for (auto e2 : e->rule->symbols) {
-					cout << " " << e2;
+					tempOS << " " << e2;
 				}
-				cout << " " << e->status << endl;
+				tempOS << " " << e->status;
+				Util::log(tempOS.str());
 				i1++;
 			}
 			throw;
@@ -2136,7 +2147,7 @@ void Lalr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 				checkSet.insert(e2->end_for_symbol.begin(), e2->end_for_symbol.end());
 				checkSet.erase("'$'");
 				if (checkSet.size() < (num1 + num2)) {
-					cout << "item" << i1 <<":"<< e2->rule->index << "存在规约-规约冲突" << endl;
+					Util::log(string("item" + i1) + ":" + (e2->rule->index + "存在规约-规约冲突"));
 					for(const auto &e3:e2->end_for_symbol) {
 						if (e3=="'$'") {
 							continue;
@@ -2149,7 +2160,7 @@ void Lalr::get_items_list_and_convert_map(vector<vector<P_Item>> &items_list,
 								break;
 							}
 							if (e4->end_for_symbol.count(e3)>0) {
-								cout << e3<<","<< e4->rule->index << endl;
+								Util::log((e3 + ",") + std::to_string(e4->rule->index));
 							}
 						}
 					}
@@ -2179,7 +2190,7 @@ bool Lalr::detect_ambigulous(const vector<P_Rule> &ruleList, const vector<vector
 			if (e2.second.find(",") != string::npos) {
 
 				flag = true;
-				cout << "存在二义性:" << i1 << "," << ordered_symbols[e2.first] << ":" << e2.second << endl;
+				Util::log(string("存在二义性:" + i1) + "," + (ordered_symbols[e2.first] + ":" + e2.second));
 				item_set.insert(i1);
 				vector <string> string_list;
 				split(string_list, e2.second, is_any_of(","));
@@ -2196,29 +2207,32 @@ bool Lalr::detect_ambigulous(const vector<P_Rule> &ruleList, const vector<vector
 		}
 	}
 	if (flag) {
-		cout << "打印转移状态图的点" << endl;
+		Util::log("打印转移状态图的点");
 		for (const int &i1 : item_set) {
-			cout << i1 << ":" << endl;
+			Util::log(i1 + ":");
 			for (auto e : items_list[i1]) {
-				cout << e->rule->rule_name;
-				cout << " :";
+				ostringstream tempOS;
+				tempOS << e->rule->rule_name;
+				tempOS << " :";
 				for (auto e2 : e->rule->symbols) {
-					cout << " " << e2;
+					tempOS << " " << e2;
 				}
-				cout << " " << e->status << endl;
+				tempOS << " " << e->status;
+				Util::log(tempOS.str());
 			}
 		}
 
-		cout << "打印文法:" << endl;
+		Util::log("打印文法:");
 		for (const int &i1 : rule_set) {
 			auto &rule = ruleList[i1];
-			cout << i1 << ":" << endl;
-			cout << rule->rule_name;
-			cout << " :";
+			Util::log(i1 + ":");
+			ostringstream tempOS;
+			tempOS << rule->rule_name;
+			tempOS << " :";
 			for (auto e2 : rule->symbols) {
-				cout << " " << e2;
+				tempOS << " " << e2;
 			}
-			cout << endl;
+			Util::log(tempOS.str());
 		}
 
 	}
@@ -2338,13 +2352,13 @@ void Lalr::calculate_forecast_list(const vector<vector<P_Item>> &items_list, con
 #ifdef __PRINT_FORECAST
 
 	for (int i1 = 0; i1 < move_table.size(); i1++) {
-		cout << i1 << ":" << endl;
+		Util::log(i1 + ":");
 		for (const auto &e : forecast_list[move_table[i1]]) {
 			if (e.first == -1) {
-				cout << "any" << ":" << e.second << endl;
+				Util::log("any" + ":"+ e.second);
 			}
 			else {
-				cout << ordered_symbols[e.first] << ":" << e.second << endl;
+				Util::log(ordered_symbols[e.first] + ":" + e.second);
 			}
 			
 		}
@@ -2431,7 +2445,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
-		cout << "打印过程" << endl;
+		Util::log("打印过程");
 	}
 #endif
 	while (!finished_flag) {
@@ -2470,7 +2484,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 				top_symbol = top_item->node->symbol;
 				top_status = top_item->item_status;
 			}
-			cout << top_status << "," << top_symbol << "," << action << endl;
+			Util::log(top_status + "," + top_symbol + "," + action);
 		}
 #endif
 		if (action == "acc") {
@@ -2560,11 +2574,11 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			if (!switchAllowIllegalInput) {
 				#ifdef __PRINT_NOT_SILENT
 								if (switchNotSilent) {
-									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_content:" << (*p_input)->content << endl;
 
-									cout << "遇到意外输入:" << "item_status:" << top_item->item_status << ",input_type:" << input_type << endl;
+									Util::log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_content:" + (*p_input)->content);
+									Util::log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_type:" + input_type);
 									if (p_input != input.end()) {
-										cout << "line:" << (*p_input)->lineNum << ",col:" << (*p_input)->colNum << endl;
+										Util::log(string("line:" + (*p_input)->lineNum) + string(",col:" + (*p_input)->colNum));
 									}
 								}
 
@@ -2586,12 +2600,13 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		}
 #ifdef __PRINT_PARSE_PROCESS
 		if (switchParseProcess) {
+			ostringstream teamOS;
 			for (auto &e : item_node_stack1) {
 				if (e->node != nullptr) {
-					cout << e->node->symbol << ",";
+					teamOS << e->node->symbol << ",";
 				}
 			}
-			cout << endl;
+			Util::log(teamOS.str());
 		}
 #endif
 
@@ -2690,7 +2705,6 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 			}
 			left = rule_str1;
 			orders.push_back(left);
-			//cout<<"left="<<rule_str1<<endl;
 			rule_str2 = trim_right_copy(rule_str2);
 			rule_str2 = trim_left_copy(rule_str2);
 
@@ -2713,7 +2727,6 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 					order_map[left] = right;
 					left = "";
 					right = "";
-					//cout<<"right="<<os.str()<<endl;
 					os.str("");
 				}
 				else {
@@ -2760,7 +2773,6 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 					order_map[left] = right;
 					left = "";
 					right = "";
-					//cout<<"right="<<os.str()<<endl;
 					os.str("");
 				}
 				else {
@@ -2800,8 +2812,8 @@ void Lalr::paresOrders(const string& rule_file, vector<string>& orders, unordere
 
 void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
 
-//	cout << "生成中间代码:" << endl;
-
+//	Util::log("生成中间代码:");
+	
 	//set<string> has_calculate_set;
 	unordered_map<string, P_NodeValue> nodeValueMap;
 
@@ -2814,7 +2826,7 @@ void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, str
 		string  sdtKey = ruleFileName + "_" + top->node->symbol + "_" + std::to_string(ruleIdToSubId[top->node->ruleId]);
 		P_SDT_genertor sdt_genertor = SDT_Factory::instance.getSDT_genertor(sdtKey);
 		if (sdt_genertor == nullptr) {
-			cout << sdtKey << "未定义";
+			Util::log(sdtKey+ "未定义");
 			throw;
 		}
 
@@ -2824,7 +2836,7 @@ void Lalr::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, str
 		sdt_genertor->handle(top, stack, env, nodeValueMap);
 	}
 	catch (...) {
-		cout << "catch (...)" << endl;
+		Util::log("catch (...)");
 	}
 
 

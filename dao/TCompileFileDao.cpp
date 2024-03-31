@@ -88,7 +88,7 @@ void TCompileFileDao::queryList( unordered_map<string,string> &transfer_map,vect
 			sql_os << "order by file_name";
 		}
 
-		//cout << sql_os.str() << endl;
+		//Util::log(sql_os.str()); 
 
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);

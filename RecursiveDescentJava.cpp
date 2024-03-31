@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include"SLR\NodeValue.h"
+#include "Util/Util.h"
 #include<iostream>
 #include <fstream>
 #include <sstream>
@@ -30,7 +31,7 @@ string RecursiveDescentJava::replaceAll(string str, string sub, string replaceme
 
 void RecursiveDescentJava::log(const string& s) {
 	if (logSwitch) {
-		cout << s << endl;
+		Util::log(s);
 	}
 }
 
@@ -108,7 +109,6 @@ void RecursiveDescentJava::init_total_lex_word_list(string compile_file, Primary
 			}
 		}
 	}
-	//cout << "dasdfd" << endl;
 }
 
 
@@ -150,9 +150,9 @@ void RecursiveDescentJava::init_total_lex_word_list(string compile_file, Primary
 
 #ifdef __PRINT_LEX_WORD_LIST
 	for (const auto &e : total_lex_word_list) {
-		cout << "type=" << e->type << endl;
-		cout << "content=" << e->content << endl;
-		cout << endl;
+		Util::log("type=" + e->type);
+		Util::log("content=" + e->content);
+		Util::log("");
 	}
 #endif
 	//人手添加总结符号
@@ -247,7 +247,6 @@ void RecursiveDescentJava::paresOrders(const string& rule_file, vector<string>& 
 			}
 			left = rule_str1;
 			orders.push_back(left);
-			//cout<<"left="<<rule_str1<<endl;
 			rule_str2 = trim_right_copy(rule_str2);
 			rule_str2 = trim_left_copy(rule_str2);
 
@@ -270,7 +269,6 @@ void RecursiveDescentJava::paresOrders(const string& rule_file, vector<string>& 
 					order_map[left] = right;
 					left = "";
 					right = "";
-					//cout<<"right="<<os.str()<<endl;
 					os.str("");
 				}
 				else {
@@ -317,7 +315,6 @@ void RecursiveDescentJava::paresOrders(const string& rule_file, vector<string>& 
 					order_map[left] = right;
 					left = "";
 					right = "";
-					//cout<<"right="<<os.str()<<endl;
 					os.str("");
 				}
 				else {
@@ -548,8 +545,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 		}
 	}
 
-//	cout << "wordListId()=" << wordListId << endl;
-//	cout << "total_lex_word_list.size()=" << total_lex_word_list.size() << endl;
+	//Util::log("wordListId()=" + wordListId);
+	//Util::log("total_lex_word_list.size()=" + total_lex_word_list.size());
 
 	
 		
@@ -562,7 +559,7 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 
 void RecursiveDescentJava::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map) {
 
-	//cout << "生成中间代码:" << endl;
+	//Util::log("生成中间代码:");
 
 	//set<string> has_calculate_set;
 	unordered_map<string, P_NodeValue> nodeValueMap;
@@ -576,7 +573,7 @@ void RecursiveDescentJava::gen_middle_code(Env &env, Node* &node_tree, unordered
 		string  sdtKey = ruleFileName + "_" + top->node->symbol + "_" + std::to_string(ruleIdToSubId[top->node->ruleId]);
 		P_SDT_genertor sdt_genertor = SDT_Factory::instance.getSDT_genertor(sdtKey);
 		if (sdt_genertor == nullptr) {
-			cout << sdtKey << "未定义";
+			Util::log(sdtKey + "未定义");
 			throw;
 		}
 
@@ -584,7 +581,7 @@ void RecursiveDescentJava::gen_middle_code(Env &env, Node* &node_tree, unordered
 			sdt_genertor->handle(top, stack, env, nodeValueMap);
 		}
 		catch (...) {
-			cout << "catch (...)" << endl;
+			Util::log("catch (...)");
 		}
 
 

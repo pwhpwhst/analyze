@@ -1,4 +1,5 @@
 #include "R008Analyzer.h"
+#include "../../Util/Util.h"
 #include "../../symbols/java/ClassListToken.h"
 #include "../../symbols/java/ClassToken.h"
 #include "../../symbols/java/ImportToken.h"
@@ -22,7 +23,7 @@ using namespace std;
 #include "R008Analyzer_1.h"
 
 void logR008(const string& s) {
-	//						cout << s << endl;
+	//	Util::log(s);
 }
 
 

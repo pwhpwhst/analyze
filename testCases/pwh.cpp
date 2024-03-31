@@ -521,6 +521,7 @@ int main1(int argc, char* argv[]) {
 	//2 -Lalr文法适配性检测
 	//3 -Lalr 单个文件测试
 	//4 批量测试
+	Util::cleanLog();
 
 	int mode =  2;
 

@@ -1,6 +1,7 @@
 
 #include "R003Analyzer.h"
 #include "../../symbols/java/ClassListToken.h"
+#include "../../Util/Util.h"
 #include<iostream>
 #include <sstream>
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 #include "R003Analyzer_1.h"
 
 void logR003(const string& s) {
-		cout<<s<<endl;
+	Util::log(s);
 }
 
 

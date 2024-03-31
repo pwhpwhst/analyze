@@ -1,23 +1,25 @@
-#include "Util.h"
-using namespace std;
 #include <vector>
 #include<io.h>
 #include<unordered_map>
 #include<boost/algorithm/string.hpp>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include "../dao/TCompileFileDao.h"
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
-
+#include "Util.h"
 
 Util::Util() {
+	
+
 }
 
 Util::~Util() {
 }
 
+string Util::logFile = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\log\\log.txt";
 
 void Util::listFiles(const string dir, vector<string>& files)
 {
@@ -114,4 +116,24 @@ string Util::replaceAll(string str, string sub, string replacement) {
 string Util::genUUID() {
 	boost::uuids::uuid newId = boost::uuids::random_generator()();
 	return Util::replaceAll(boost::uuids::to_string(newId), "-", "");
+}
+
+void Util::log(const string &s) {
+	cout<< s << endl;
+
+	if (logSwitch) {
+		std::ofstream outfile;
+		outfile.open(logFile, std::ios::app);
+		outfile << s << std::endl;
+		outfile.close();
+	}
+}
+
+void Util::cleanLog() {
+	if (logSwitch) {
+		std::ofstream outfile;
+		outfile.open(logFile);
+		outfile << "" << std::endl;
+		outfile.close();
+	}
 }

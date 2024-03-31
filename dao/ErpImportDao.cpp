@@ -1,5 +1,6 @@
 #include "ErpImportDao.h"
 #include "../Entity/ErpImportEntity.h"
+#include "../Util/Util.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
@@ -51,7 +52,7 @@ void ErpImportDao::insertList(vector<P_ErpImportEntity> &list) {
 				sql_os << ",";
 			}
 		}
-		cout << sql_os.str() << endl;
+		Util::log(sql_os.str()); 
 		res = mysql_query(&conn, sql_os.str().data());
 		mysql_close(&conn);
 	}

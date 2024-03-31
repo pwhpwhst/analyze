@@ -168,10 +168,7 @@ void fillWithStatementConstantDeclaration(P_Context &context, Env &env) {
 
 
 void fillWithStatementFieldDeclaration(P_Context &context, Env &env) {
-	//for (auto &e : ((StatementToken *)(env2.list[0].get()))->statementEntity->fieldList) {
-//	cout << e->name << endl;
-//	cout << e->unannType << endl;
-//}
+
 	for (auto &e : ((StatementToken *)(env.list[0].get()))->statementEntity->fieldList) {
 		context->root->spaceList.push_back(new FieldDeclaration(e->unannType, e->name));
 	}
@@ -183,7 +180,7 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 
 	string resultType = ((StatementToken *)(env.list[0].get()))->statementEntity->resultType;
 	string name = ((StatementToken *)(env.list[0].get()))->statementEntity->name;
-	cout << "MethodDeclaration:name" << name << endl;
+	Util::log("MethodDeclaration:name:"+name);
 	((StatementToken *)(env.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
 	((StatementToken *)(env.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
 
@@ -196,7 +193,7 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 	Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
 
 	if (node_tree6 == nullptr) {
-		cout << "Fail to parse parameters" << endl;
+		Util::log("Fail to parse parameters");
 	}
 
 	recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
@@ -258,14 +255,14 @@ void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, State
 	PrimarySymbolConverter &primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
-	//cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->name << endl;
+	//Util::log(((StatementToken *)(env2.list[0].get()))->statementEntity->name);
 	string name = ((StatementToken *)(env.list[0].get()))->statementEntity->name;
 
 	((StatementToken *)(env.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
 	((StatementToken *)(env.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
 
-	//cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex << endl;
-	//cout << ((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex << endl;
+	//Util::log(""+((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex);
+	//Util::log(""+((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex);
 	int paramBeg = ((StatementToken *)(env.list[0].get()))->statementEntity->begIndex;
 	int paramEnd = ((StatementToken *)(env.list[0].get()))->statementEntity->endIndex;
 	Env env3;
@@ -276,8 +273,8 @@ void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, State
 
 	ConstructorDeclaration* constructorDeclaration = new ConstructorDeclaration(name);
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
-		//cout << e->name << endl;
-		//cout << e->unannType << endl;
+		Util::log(e->name);
+		Util::log(e->unannType);
 		constructorDeclaration->paramList.push_back(ParamDeclaration(e->unannType, e->name));
 	}
 	context->root->spaceList.push_back(constructorDeclaration);
@@ -538,7 +535,8 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 			}
 
 			if (statementType == "") {
-				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+
+				Util::log(string("statement[" + i1) + string("]:" + p->list[i1]->begIndex) + string("," + p->list[i1]->endIndex));
 			}
 		}
 	}
@@ -671,7 +669,7 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 			}
 
 			if (statementType == "") {
-				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+				Util::log(string("statement[" + i1) + string("]:" + p->list[i1]->begIndex) + string("," + p->list[i1]->endIndex));
 			}
 		}
 	}
@@ -828,7 +826,8 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 			}
 
 			if (statementType == "") {
-				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+				Util::log(string("statement[" + i1) + string("]:" + p->list[i1]->begIndex) + string("," + p->list[i1]->endIndex));
+
 			}
 		}
 	}
@@ -973,7 +972,8 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 			}
 
 			if (statementType == "") {
-				cout << "statement[" << i1 << "]:" << p->list[i1]->begIndex << "," << p->list[i1]->endIndex << endl;
+				Util::log(string("statement[" + i1) + string("]:" + p->list[i1]->begIndex) + string("," + p->list[i1]->endIndex));
+
 			}
 		}
 	}
@@ -998,7 +998,7 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 		int wordListIdOfclass;
 
 		if (node_tree4 == nullptr) {
-			cout << context->compile_file << ":" << "analyze failed" << endl;
+			Util::log(context->compile_file + ":" + "analyze failed");
 		}
 		else {
 
@@ -1053,42 +1053,43 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 
 void main(int argc, char* argv[]) {
+	Util::cleanLog();
 
 	string files[] = { 
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\ManagedBean.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PostConstruct.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PreDestroy.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Priority.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resource.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resources.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DeclareRoles.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DenyAll.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\PermitAll.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RolesAllowed.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RunAs.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinition.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinitions.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJB.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJBs.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ArrayELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\CompositeELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELClass.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextEvent.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextListener.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELManager.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELProcessor.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\EvaluationListener.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\Expression.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ExpressionFactory.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\FunctionMapper.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ImportHandler.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\LambdaExpression.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ListELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MapELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodExpression.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodInfo.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodNotFoundException.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodReference.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\PropertyNotFoundException.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\PropertyNotWritableException.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ResourceBundleELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\StandardELContext.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\StaticFieldELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\TypeConverter.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\Util.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ValueExpression.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ValueReference.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\VariableMapper.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\Authenticator.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\InternetAddress.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimeMessage.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimePart.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimePartDataSource.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\PasswordAuthentication.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\Session.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContext.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContexts.java",
 	};
 
 	for (const string &e: files) {
-		cout << e << endl;
+		Util::log(e);
 		vector <string> strs;
 		split(strs, e, is_any_of("\\"));
 		string fileName = strs.back();
@@ -1122,14 +1123,12 @@ void main(int argc, char* argv[]) {
 
 		while (contextDeque.size() > 0) {
 			P_Context presentContext=contextDeque.back();
-			cout << "process type=" << presentContext->type << endl;
-
+			Util::log("process type=" + presentContext->type);
 			processContext(presentContext, contextDeque);
 			contextDeque.pop_back();
 		}
 
-		cout << "asdas" << endl;
-
+		Util::log("asdas");
 
 	}
 

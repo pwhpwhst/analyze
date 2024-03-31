@@ -46,7 +46,7 @@ void TForecastDao::insertList(vector<unordered_map<string, string>> &list) {
 				sql_os << ",";
 			}
 		}
-		//cout << sql_os.str() << endl;
+		//Util::log(sql_os.str()); 
 		res = mysql_query(&conn, sql_os.str().data());
 		mysql_close(&conn);
 	}

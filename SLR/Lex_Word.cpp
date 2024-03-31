@@ -1,6 +1,7 @@
 #include<vector>
 #include<iostream>
 #include "Lex_Word.h"
+#include  "../Util/Util.h"
 using namespace std;
 
 extern "C"
@@ -9,7 +10,7 @@ extern "C"
 };
 
 Lex_Word::Lex_Word(){
-//	cout << "create Lex_Word" << endl;
+	//Util::log("create Lex_Word");
 }
 
 
