@@ -1298,6 +1298,14 @@ void R005_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+void R005_NonPARENTHESES_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+   logR005("R005_NonPARENTHESES_11Analyzer");
+   //TO DO  R005_NonPARENTHESES_11Analyzer
+};
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 void R005_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_0Analyzer");

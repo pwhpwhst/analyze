@@ -108,7 +108,7 @@ int Lalr::calculate_f_terminate(string symbol, string rule_file) {
 }
 
 
-string replaceAll(string str, string sub, string replacement) {
+string replaceAll(string str, const string &sub, const string &replacement) {
 	int pos;
 	pos = str.find(sub);
 	while (pos != -1) {

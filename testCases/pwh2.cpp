@@ -42,10 +42,21 @@
 
 
 using namespace std;
+using namespace boost;
 pwh2::pwh2() {}
 pwh2::~pwh2() {}
 
+string replaceAll(string str, string sub, string replacement) {
+	int pos;
+	pos = str.find(sub);
+	while (pos != -1) {
+		// str.length()求字符的长度，注意str必须是string类型
+		str.replace(pos, string(sub).length(), replacement);
+		pos = str.find(sub);
+	}
 
+	return str;
+}
 
 
 
@@ -1043,81 +1054,85 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 void main(int argc, char* argv[]) {
 
-	//jakarta\el\Expression.java
-	//	jakarta\el\ExpressionFactory.java
-	//	jakarta\el\FunctionMapper.java
-	//	jakarta\el\ImportHandler.java
-	//	jakarta\el\LambdaExpression.java
-	//	jakarta\el\ListELResolver.java
-	//	jakarta\el\MapELResolver.java
-	//	jakarta\el\MethodExpression.java
-	//	jakarta\el\MethodInfo.java
-	//	jakarta\el\MethodNotFoundException.java
-	//	jakarta\el\MethodReference.java
-	//	jakarta\el\PropertyNotFoundException.java
-	//	jakarta\el\PropertyNotWritableException.java
-	//	jakarta\el\ResourceBundleELResolver.java
-	//	jakarta\el\StandardELContext.java
-	//	jakarta\el\StaticFieldELResolver.java
-	//	jakarta\el\TypeConverter.java
-	//	jakarta\el\Util.java
-	//	jakarta\el\ValueExpression.java
-	//	jakarta\el\ValueReference.java
-	//	jakarta\el\VariableMapper.java
-	//	jakarta\mail\Authenticator.java
-	//	jakarta\mail\internet\InternetAddress.java
-	//	jakarta\mail\internet\MimeMessage.java
-	//	jakarta\mail\internet\MimePart.java
-	//	jakarta\mail\internet\MimePartDataSource.java
-	//	jakarta\mail\PasswordAuthentication.java
-	//	jakarta\mail\Session.java
-	//	jakarta\persistence\PersistenceContext.java
-	//	jakarta\persistence\PersistenceContexts.java
-	//	jakarta\persistence\PersistenceContextType.java
-	//	jakarta\persistence\PersistenceProperty.java
-	//	jakarta\persistence\PersistenceUnit.java
-	//	jakarta\persistence\PersistenceUnits.java
-	//	jakarta\persistence\SynchronizationType.java
-	//	jakarta\security\auth\message\AuthException.java
-	//	jakarta\security\auth\message\AuthStatus.java
-	//	jakarta\security\auth\message\callback\CallerPrincipalCallback.java
-	//	jakarta\security\auth\message\callback\CertStoreCallback.java
-	//	jakarta\security\auth\message\callback\GroupPrincipalCallback.java
+	string files[] = { 
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\ManagedBean.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PostConstruct.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PreDestroy.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Priority.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resource.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resources.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DeclareRoles.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DenyAll.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\PermitAll.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RolesAllowed.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RunAs.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinition.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinitions.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJB.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJBs.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ArrayELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\CompositeELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELClass.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContext.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextEvent.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextListener.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELException.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELManager.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELProcessor.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELResolver.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\EvaluationListener.java",
+	};
+
+	for (const string &e: files) {
+		cout << e << endl;
+		vector <string> strs;
+		split(strs, e, is_any_of("\\"));
+		string fileName = strs.back();
+		string path = replaceAll(e, fileName, "");
+
+
+		//string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\";
+		//string fileName = "Expression.java";
+
+
+		//string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
+		//string fileName = "JavaSyntaxTest.java";
 
 
 
-	string path = "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\";
-	string fileName = "ExpressionFactory.java";
+		string compile_file = path + "\\" + fileName;
 
+		P_Context context = P_Context(new Context());
 
-	//string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
-	//string fileName = "JavaSyntaxTest.java";
-
-
-
-	string compile_file = path + "\\" + fileName;
-
-	P_Context context = P_Context(new Context());
-	
-	context->compile_file = compile_file;
-	context->beginIndex = -1;
-	context->endIndex = -1;
-	context->type = "CompilationUnit";
-	context->parent = nullptr;
+		context->compile_file = compile_file;
+		context->beginIndex = -1;
+		context->endIndex = -1;
+		context->type = "CompilationUnit";
+		context->parent = nullptr;
 
 
 
-	deque<P_Context>  contextDeque;
+		deque<P_Context>  contextDeque;
 
-	contextDeque.push_front(context);
+		contextDeque.push_front(context);
 
-	while (contextDeque.size() > 0) {
-		P_Context presentContext=contextDeque.back();
-		cout << "process type=" << presentContext->type << endl;
-		
-		processContext(presentContext, contextDeque);
-		contextDeque.pop_back();
+		while (contextDeque.size() > 0) {
+			P_Context presentContext=contextDeque.back();
+			cout << "process type=" << presentContext->type << endl;
+
+			processContext(presentContext, contextDeque);
+			contextDeque.pop_back();
+		}
+
+		cout << "asdas" << endl;
+
+
 	}
 
-	cout << "asdas" << endl;
+
+
 }

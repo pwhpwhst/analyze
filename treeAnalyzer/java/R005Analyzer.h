@@ -1317,6 +1317,15 @@ public: virtual ~R005_NonPARENTHESES_10Analyzer();
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+class R005_NonPARENTHESES_11Analyzer :virtual public Non_Terminate_genertor {
+public: R005_NonPARENTHESES_11Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R005_NonPARENTHESES_11Analyzer();
+};
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 class R005_TypeArguments_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_TypeArguments_0Analyzer();
@@ -2109,7 +2118,7 @@ public: virtual ~R005_Throws_0Analyzer();
 
 
 
-//beg_ExceptionTypeList : ExceptionType
+//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 class R005_ExceptionTypeList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R005_ExceptionTypeList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2118,7 +2127,7 @@ public: virtual ~R005_ExceptionTypeList_0Analyzer();
 
 
 
-//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+//beg_ExceptionTypeList : ExceptionType
 class R005_ExceptionTypeList_1Analyzer :virtual public Non_Terminate_genertor {
 public: R005_ExceptionTypeList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);

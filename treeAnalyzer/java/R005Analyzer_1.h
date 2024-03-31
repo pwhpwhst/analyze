@@ -873,6 +873,12 @@ R005_NonPARENTHESES_10Analyzer::~R005_NonPARENTHESES_10Analyzer() {}
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+R005_NonPARENTHESES_11Analyzer::R005_NonPARENTHESES_11Analyzer() {}
+R005_NonPARENTHESES_11Analyzer::~R005_NonPARENTHESES_11Analyzer() {}
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 R005_TypeArguments_0Analyzer::R005_TypeArguments_0Analyzer() {}
 R005_TypeArguments_0Analyzer::~R005_TypeArguments_0Analyzer() {}
@@ -1401,13 +1407,13 @@ R005_Throws_0Analyzer::~R005_Throws_0Analyzer() {}
 
 
 
-//beg_ExceptionTypeList : ExceptionType
+//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 R005_ExceptionTypeList_0Analyzer::R005_ExceptionTypeList_0Analyzer() {}
 R005_ExceptionTypeList_0Analyzer::~R005_ExceptionTypeList_0Analyzer() {}
 
 
 
-//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+//beg_ExceptionTypeList : ExceptionType
 R005_ExceptionTypeList_1Analyzer::R005_ExceptionTypeList_1Analyzer() {}
 R005_ExceptionTypeList_1Analyzer::~R005_ExceptionTypeList_1Analyzer() {}
 

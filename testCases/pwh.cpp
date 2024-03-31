@@ -524,6 +524,8 @@ int main1(int argc, char* argv[]) {
 
 	int mode =  2;
 
+
+	
 	if (mode == 0) {
 		Env env;
 		string path = "C:\\Users\\Administrator\\Desktop\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\";
@@ -668,9 +670,13 @@ int main1(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+//		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+		string rule_file0 = argv[1];
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
+		}
+		else {
+			cout << "done" << endl;
 		}
 	}
 	else if (mode == 3) {
@@ -857,6 +863,6 @@ int main1(int argc, char* argv[]) {
 
 
 	}
-
+	
 }
 

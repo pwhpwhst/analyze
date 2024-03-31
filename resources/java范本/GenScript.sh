@@ -199,6 +199,12 @@ prefix=${5}
 cat ${srcFile}|wc -l
 cat ${srcFile} -n |grep "//beg_"
 
+elif [[ "${type}" == "replaceFile" ]];then
+
+oriFile=${2}
+newFile=${3}
+rm -rf ${oriFile}
+mv ${newFile} ${oriFile}
 
 fi
 
