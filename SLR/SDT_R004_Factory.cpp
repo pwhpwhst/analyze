@@ -281,10 +281,12 @@ SDT_R004_Factory::SDT_R004_Factory() {
    { "R004_EnumBody_7", 266 },
    { "R004_EnumConstantList_0", 267 },
    { "R004_EnumConstantList_1", 268 },
-   { "R004_EnumConstantEle_0", 269 },
-   { "R004_EnumConstantEle_1", 270 },
-   { "R004_EnumConstantEle_2", 271 },
-   { "R004_EnumBodyDeclarations_0", 272 },
+   { "R004_EnumConstantEleList_0", 269 },
+   { "R004_EnumConstantEleList_1", 270 },
+   { "R004_EnumConstantEle_0", 271 },
+   { "R004_EnumConstantEle_1", 272 },
+   { "R004_EnumConstantEle_2", 273 },
+   { "R004_EnumBodyDeclarations_0", 274 },
 	};
 }
 
@@ -567,10 +569,12 @@ P_SDT_genertor SDT_R004_Factory::getSDT_genertor(const string &key) {
 	case 266: factory["R004_EnumBody_7"] = P_SDT_genertor(new R004_EnumBody_7Analyzer()); break;
 	case 267: factory["R004_EnumConstantList_0"] = P_SDT_genertor(new R004_EnumConstantList_0Analyzer()); break;
 	case 268: factory["R004_EnumConstantList_1"] = P_SDT_genertor(new R004_EnumConstantList_1Analyzer()); break;
-	case 269: factory["R004_EnumConstantEle_0"] = P_SDT_genertor(new R004_EnumConstantEle_0Analyzer()); break;
-	case 270: factory["R004_EnumConstantEle_1"] = P_SDT_genertor(new R004_EnumConstantEle_1Analyzer()); break;
-	case 271: factory["R004_EnumConstantEle_2"] = P_SDT_genertor(new R004_EnumConstantEle_2Analyzer()); break;
-	case 272: factory["R004_EnumBodyDeclarations_0"] = P_SDT_genertor(new R004_EnumBodyDeclarations_0Analyzer()); break;
+	case 269: factory["R004_EnumConstantEleList_0"] = P_SDT_genertor(new R004_EnumConstantEleList_0Analyzer()); break;
+	case 270: factory["R004_EnumConstantEleList_1"] = P_SDT_genertor(new R004_EnumConstantEleList_1Analyzer()); break;
+	case 271: factory["R004_EnumConstantEle_0"] = P_SDT_genertor(new R004_EnumConstantEle_0Analyzer()); break;
+	case 272: factory["R004_EnumConstantEle_1"] = P_SDT_genertor(new R004_EnumConstantEle_1Analyzer()); break;
+	case 273: factory["R004_EnumConstantEle_2"] = P_SDT_genertor(new R004_EnumConstantEle_2Analyzer()); break;
+	case 274: factory["R004_EnumBodyDeclarations_0"] = P_SDT_genertor(new R004_EnumBodyDeclarations_0Analyzer()); break;
 	default:
 
 		if (key.find("R004_") == 0) {

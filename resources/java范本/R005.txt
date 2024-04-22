@@ -244,7 +244,7 @@ ConstructorDeclarator : Identifier AnnotationContent
 ConstructorDeclarator : TypeArguments Identifier AnnotationContent
 ClassDeclaration : NormalClassDeclaration
 ClassDeclaration : EnumDeclaration
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
 NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
@@ -252,7 +252,7 @@ NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinte
 NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
 NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
 NormalClassDeclaration : 'class' Identifier Superinterfaces Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
 NormalClassDeclaration : 'class' Identifier Superclass Block

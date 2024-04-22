@@ -2421,7 +2421,7 @@ void R005_ClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &
 };
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 void R005_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalClassDeclaration_0Analyzer");
 
@@ -2567,7 +2567,7 @@ void R005_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue,
 };
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 void R005_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalClassDeclaration_8Analyzer");
 

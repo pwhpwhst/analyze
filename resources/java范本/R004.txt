@@ -25,7 +25,7 @@ ClassDeclaration : NormalClassDeclaration
 ClassDeclaration : EnumDeclaration
 InterfaceDeclaration : NormalInterfaceDeclaration
 InterfaceDeclaration : AnnotationTypeDeclaration
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces ClassBody
 NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces ClassBody
@@ -33,7 +33,7 @@ NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinte
 NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces ClassBody
 NormalClassDeclaration : 'class' Identifier Superinterfaces ClassBody
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier Superclass ClassBody
 NormalClassDeclaration : 'class' Identifier Superclass ClassBody
@@ -41,10 +41,10 @@ NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments ClassBody
 NormalClassDeclaration : 'class' Identifier TypeArguments ClassBody
 NormalClassDeclaration : ModifierList 'class' Identifier ClassBody
 NormalClassDeclaration : 'class' Identifier ClassBody
-EnumDeclaration : 'enum' Identifier EnumBody
-EnumDeclaration : ModifierList 'enum' Identifier EnumBody
-EnumDeclaration : 'enum' Identifier Superinterfaces EnumBody
 EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces EnumBody
+EnumDeclaration : 'enum' Identifier Superinterfaces EnumBody
+EnumDeclaration : ModifierList 'enum' Identifier EnumBody
+EnumDeclaration : 'enum' Identifier EnumBody
 NormalInterfaceDeclaration : 'interface' Identifier ClassBody
 NormalInterfaceDeclaration : ModifierList 'interface' Identifier ClassBody
 NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ClassBody
@@ -241,8 +241,8 @@ ClassType : ClassTypeEle
 AnnotationList : Annotation AnnotationList
 AnnotationList : Annotation
 Superinterfaces : 'implements' InterfaceTypeList
-InterfaceTypeList : ClassType
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+InterfaceTypeList : ClassType
 DimExpr : 'LEFT_BRACKET' DimStatements 'RIGHT_BRACKET'
 DimStatements : DimExpr DimStatements
 DimStatements : NonDim DimStatements
@@ -257,16 +257,18 @@ NonDim : 'RIGHT_BRACE'
 NonDim : 'COMMA_RIGHT_BRACE'
 NonDim : 'RIGHT_PARENTHESES'
 NonDim : 'RIGHT_ANGLE_BRACKET'
-EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumBodyDeclarations 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList EnumBodyDeclarations 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
-EnumConstantList : EnumConstantEle 'COMMA' EnumConstantList
-EnumConstantList : EnumConstantEle
+EnumBody : 'LEFT_BRACE' 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumBodyDeclarations 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
+EnumConstantList : EnumConstantEleList 'COMMA' EnumConstantList
+EnumConstantList : EnumConstantEleList
+EnumConstantEleList : EnumConstantEle EnumConstantEleList
+EnumConstantEleList : EnumConstantEle
 EnumConstantEle : StatementEle
 EnumConstantEle : AnnotationContent
 EnumConstantEle : Block

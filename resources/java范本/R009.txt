@@ -12,22 +12,22 @@ EnumDeclaration : 'enum' Identifier Block
 EnumDeclaration : ModifierList 'enum' Identifier Block
 EnumDeclaration : 'enum' Identifier Superinterfaces Block
 EnumDeclaration : ModifierList 'enum' Identifier Superinterfaces Block
-NormalClassDeclaration : 'class' Identifier Block
-NormalClassDeclaration : ModifierList 'class' Identifier Block
-NormalClassDeclaration : 'class' Identifier TypeArguments Block
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
-NormalClassDeclaration : 'class' Identifier Superclass Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
-NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
-NormalClassDeclaration : 'class' Identifier Superinterfaces Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
-NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
-NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
-NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
-NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
+NormalClassDeclaration : 'class' Identifier Superinterfaces Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
+NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
+NormalClassDeclaration : 'class' Identifier Superclass Block
+NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
+NormalClassDeclaration : 'class' Identifier TypeArguments Block
+NormalClassDeclaration : ModifierList 'class' Identifier Block
+NormalClassDeclaration : 'class' Identifier Block
 Superclass : 'extends' ClassType
 Superinterfaces : 'implements' InterfaceTypeList
 NormalInterfaceDeclaration : 'interface' Identifier Block
@@ -195,8 +195,8 @@ NonANGLE_BRACKET : 'LEFT_BRACKET'
 NonANGLE_BRACKET : 'RIGHT_BRACKET'
 NonANGLE_BRACKET : TypeArguments
 ExtendsInterfaces : 'extends' InterfaceTypeList
-InterfaceTypeList : ClassType
 InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+InterfaceTypeList : ClassType
 ClassTypeEle : Identifier
 ClassTypeEle : AnnotationList Identifier
 ClassTypeEle : Identifier TypeArguments
