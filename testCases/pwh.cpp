@@ -18,7 +18,12 @@ using namespace std;
 pwh::pwh() {}
 pwh::~pwh() {}
 
-
+int startsWith(const string& s, const string& sub) {
+	if (sub.length() > s.length()) {
+		return 0;
+	}
+	return s.find(sub) == 0 ? 1 : 0;
+}
 
 
 void analyzeNormalClassDeclaration(StatementListToken *p, PrimarySymbolConverter &primarySymbolConverter,
@@ -765,7 +770,7 @@ int main1(int argc, char* argv[]) {
 			string fileStr;
 			while (getline(input_file, fileStr)) {
 				Env env;
-				if (recursiveDescentJava.startsWith(fileStr, "#") == 0) {
+				if (startsWith(fileStr, "#") == 0) {
 					string compile_file = path + "\\" + fileStr;
 					recursiveDescentJava.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <boost/algorithm/string.hpp>
 #include "../symbols/Env.h"
+#include "../Parser.h"
 using namespace std;
 class pwh2 {
 
@@ -30,36 +31,48 @@ struct Context {
 
 typedef std::shared_ptr<Context> P_Context;
 
+
+ Parser *parser4;
+ Parser *parser5;
+ Parser *parser6;
+ Parser *parser7;
+ Parser *parser8;
+ Parser *parser9;
+
+void initParsers();
+
+void deleteParsers();
+
 void processContext(P_Context &context, deque<P_Context> &contextDeque);
 
-void processCompilationUnit(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processCompilationUnit(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
 
-void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processNormalClassDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
 
-void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processNormalInterfaceDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
@@ -67,23 +80,23 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 
 
 
-void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processEnumDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
 
-void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processAnnotationTypeMemberDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
@@ -92,14 +105,14 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 void fillWithStatementFieldDeclaration(P_Context &context, Env &env);
 void fillWithStatementConstantDeclaration(P_Context &context, Env &env);
-void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter);
-void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter);
-void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter);
 
-void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter);
 void fillWithClassTypeNormalClassDeclaration(P_Context &context, long &basegLineNum, long &baseIndex,Env &env, P_Context &childContext);
 void fillWithClassTypeEnumDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);

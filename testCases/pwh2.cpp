@@ -44,7 +44,52 @@
 using namespace std;
 using namespace boost;
 pwh2::pwh2() {}
+
 pwh2::~pwh2() {}
+
+
+void initParsers() {
+	string rule_file4 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
+	string rule_file5 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
+	string rule_file6 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R006.txt";
+	string rule_file7 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R007.txt";
+	string rule_file8 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R008.txt";
+	string rule_file9 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
+
+	parser4 = new RecursiveDescentJava();
+	parser4->logSwitch = false;
+	parser4->init(rule_file4);
+
+	parser5 = new RecursiveDescentJava();
+	parser5->logSwitch = false;
+	parser5->init(rule_file5);
+
+	parser6 = new RecursiveDescentJava();
+	parser6->logSwitch = false;
+	parser6->init(rule_file6);
+
+	parser7 = new RecursiveDescentJava();
+	parser7->logSwitch = false;
+	parser7->init(rule_file7);
+
+
+	parser8 = new RecursiveDescentJava();
+	parser8->logSwitch = false;
+	parser8->init(rule_file8);
+
+	parser9 = new RecursiveDescentJava();
+	parser9->logSwitch = false;
+	parser9->init(rule_file9);
+}
+
+void deleteParsers() {
+	delete parser4;
+	delete parser5;
+	delete parser6;
+	delete parser7;
+	delete parser8;
+	delete parser9;
+}
 
 string replaceAll(string str, string sub, string replacement) {
 	int pos;
@@ -62,95 +107,66 @@ string replaceAll(string str, string sub, string replacement) {
 
 void processContext(P_Context &context, deque<P_Context> &contextDeque) {
 
-	string rule_file4 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
-	string rule_file5 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R005.txt";
-	string rule_file6 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R006.txt";
-	string rule_file7 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R007.txt";
-	string rule_file8 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R008.txt";
-	string rule_file9 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
 
 	PrimarySymbolConverter primarySymbolConverter;
 
-	RecursiveDescentJava recursiveDescentJava4;
-	recursiveDescentJava4.logSwitch = false;
-	recursiveDescentJava4.init(rule_file4);
 
-	RecursiveDescentJava recursiveDescentJava5;
-	recursiveDescentJava5.logSwitch = false;
-	recursiveDescentJava5.init(rule_file5);
-
-	RecursiveDescentJava recursiveDescentJava6;
-	recursiveDescentJava6.logSwitch = false;
-	recursiveDescentJava6.init(rule_file6);
-
-	RecursiveDescentJava recursiveDescentJava7;
-	recursiveDescentJava7.logSwitch = false;
-	recursiveDescentJava7.init(rule_file7);
-
-
-	RecursiveDescentJava recursiveDescentJava8;
-	recursiveDescentJava8.logSwitch = false;
-	recursiveDescentJava8.init(rule_file8);
-
-	RecursiveDescentJava recursiveDescentJava9;
-	recursiveDescentJava9.logSwitch = false;
-	recursiveDescentJava9.init(rule_file9);
 
 	set<string> end_symbol_set0;
 
 
 	if (context->type == "CompilationUnit") {
-		processCompilationUnit(recursiveDescentJava4,
-			recursiveDescentJava5,
-			recursiveDescentJava6,
-			recursiveDescentJava7,
-			recursiveDescentJava8,
-			recursiveDescentJava9,
+		processCompilationUnit(parser4,
+			parser5,
+			parser6,
+			parser7,
+			parser8,
+			parser9,
 			primarySymbolConverter,
 			context, contextDeque,
 			end_symbol_set0);
 
 	}
 	else if (context->type == "NormalClassDeclaration") {
-		processNormalClassDeclaration(recursiveDescentJava4,
-			recursiveDescentJava5,
-			recursiveDescentJava6,
-			recursiveDescentJava7,
-			recursiveDescentJava8,
-			recursiveDescentJava9,
+		processNormalClassDeclaration(parser4,
+			parser5,
+			parser6,
+			parser7,
+			parser8,
+			parser9,
 			primarySymbolConverter,
 			context, contextDeque,
 			end_symbol_set0);
 	}
 	else if (context->type == "EnumDeclaration") {
-		 processEnumDeclaration(recursiveDescentJava4,
-			 recursiveDescentJava5,
-			 recursiveDescentJava6,
-			 recursiveDescentJava7,
-			 recursiveDescentJava8,
-			 recursiveDescentJava9,
+		 processEnumDeclaration(parser4,
+			 parser5,
+			 parser6,
+			 parser7,
+			 parser8,
+			 parser9,
 			 primarySymbolConverter,
 			 context, contextDeque,
 			 end_symbol_set0);
 	}
 	else if (context->type == "NormalInterfaceDeclaration") {
-		processNormalInterfaceDeclaration(recursiveDescentJava4,
-			recursiveDescentJava5,
-			recursiveDescentJava6,
-			recursiveDescentJava7,
-			recursiveDescentJava8,
-			recursiveDescentJava9,
+		processNormalInterfaceDeclaration(parser4,
+			parser5,
+			parser6,
+			parser7,
+			parser8,
+			parser9,
 			primarySymbolConverter,
 			context, contextDeque,
 			end_symbol_set0);
 	}
 	else if (context->type == "AnnotationTypeDeclaration") {
-		processAnnotationTypeMemberDeclaration(recursiveDescentJava4,
-			recursiveDescentJava5,
-			recursiveDescentJava6,
-			recursiveDescentJava7,
-			recursiveDescentJava8,
-			recursiveDescentJava9,
+		processAnnotationTypeMemberDeclaration(parser4,
+			parser5,
+			parser6,
+			parser7,
+			parser8,
+			parser9,
 			primarySymbolConverter,
 			context, contextDeque,
 			end_symbol_set0);
@@ -174,7 +190,7 @@ void fillWithStatementFieldDeclaration(P_Context &context, Env &env) {
 	}
 }
 
-void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6, 
+void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
@@ -189,14 +205,14 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 	int paramBeg = ((StatementToken *)(env.list[0].get()))->statementEntity->begIndex;
 	int paramEnd = ((StatementToken *)(env.list[0].get()))->statementEntity->endIndex;
 	Env env3;
-	recursiveDescentJava6.init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
-	Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+	parser6->init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
+	Node*  node_tree6 = parser6->slr(env3, "ele_begin", 0);
 
 	if (node_tree6 == nullptr) {
 		Util::log("Fail to parse parameters");
 	}
 
-	recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+	parser6->gen_middle_code(env3, node_tree6, imfo_map);
 
 	MethodDeclaration* methodDeclaration = new MethodDeclaration(resultType, name);
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
@@ -207,7 +223,7 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 }
 
 
-void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
@@ -222,10 +238,10 @@ void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, S
 	int paramBeg = ((StatementToken *)(env.list[0].get()))->statementEntity->begIndex;
 	int paramEnd = ((StatementToken *)(env.list[0].get()))->statementEntity->endIndex;
 	Env env3;
-	recursiveDescentJava6.init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
-	Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+	parser6->init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
+	Node*  node_tree6 = parser6->slr(env3, "ele_begin", 0);
 
-	recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+	parser6->gen_middle_code(env3, node_tree6, imfo_map);
 
 	InterfaceMethodDeclaration* interfaceMethodDeclaration = new InterfaceMethodDeclaration(resultType, name);
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
@@ -236,7 +252,7 @@ void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, S
 }
 
 
-void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
@@ -251,7 +267,7 @@ void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &
 
 
 
-void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, RecursiveDescentJava &recursiveDescentJava6,
+void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter &primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
@@ -266,10 +282,10 @@ void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, State
 	int paramBeg = ((StatementToken *)(env.list[0].get()))->statementEntity->begIndex;
 	int paramEnd = ((StatementToken *)(env.list[0].get()))->statementEntity->endIndex;
 	Env env3;
-	recursiveDescentJava6.init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
-	Node*  node_tree6 = recursiveDescentJava6.slr(env3, "ele_begin", 0);
+	parser6->init_total_lex_word_list(context->compile_file, primarySymbolConverter, paramBeg, paramEnd);
+	Node*  node_tree6 = parser6->slr(env3, "ele_begin", 0);
 
-	recursiveDescentJava6.gen_middle_code(env3, node_tree6, imfo_map);
+	parser6->gen_middle_code(env3, node_tree6, imfo_map);
 
 	ConstructorDeclaration* constructorDeclaration = new ConstructorDeclaration(name);
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
@@ -398,12 +414,12 @@ void fillWithClassTypeAnnotationTypeDeclaration(P_Context &context, long &basegL
 	context->root->spaceList.push_back(childContext->root);
 }
 
-void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processNormalClassDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
@@ -428,12 +444,12 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 			while (!isProcessed && retryNum > 0) {
 				retryNum--;
 				Env env2;
-				recursiveDescentJava5.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-				Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
+				parser5->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree5 = parser5->slr(env2, "ele_begin", 0);
 
 				if (node_tree5 != nullptr) {
 
-					recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
+					parser5->gen_middle_code(env2, node_tree5, imfo_map);
 					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
 
 					if (statementType == "FieldDeclarationFake") {
@@ -465,11 +481,11 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 
 					if (statementType == "MethodDeclaration") {
-						fillWithStatementMethodDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementMethodDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 					}
 
 					if (statementType == "ConstructorDeclaration") {
-						fillWithStatementConstructorDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementConstructorDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 
 					}
 
@@ -484,9 +500,9 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 					if (statementType == "NormalClassDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -497,9 +513,9 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 					if (statementType == "EnumDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -510,9 +526,9 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 					if (statementType == "NormalInterfaceDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -522,9 +538,9 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 					if (statementType == "AnnotationTypeDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -544,12 +560,12 @@ void processNormalClassDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 }
 
 
-void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processNormalInterfaceDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
@@ -573,12 +589,12 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 			while (!isProcessed && retryNum > 0) {
 				retryNum--;
 				Env env2;
-				recursiveDescentJava8.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-				Node*  node_tree8 = recursiveDescentJava8.slr(env2, "ele_begin", 0);
+				parser8->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree8 = parser8->slr(env2, "ele_begin", 0);
 
 				if (node_tree8 != nullptr) {
 
-					recursiveDescentJava8.gen_middle_code(env2, node_tree8, imfo_map);
+					parser8->gen_middle_code(env2, node_tree8, imfo_map);
 					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
 
 					if (statementType == "ConstantDeclarationFake") {
@@ -609,15 +625,15 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 					}
 
 					if (statementType == "InterfaceMethodDeclaration") {
-						fillWithStatementInterfaceMethodDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementInterfaceMethodDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 					}
 
 					if (statementType == "NormalClassDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -628,9 +644,9 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 					if (statementType == "EnumDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -641,9 +657,9 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 
 					if (statementType == "NormalInterfaceDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -653,9 +669,9 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 
 					if (statementType == "AnnotationTypeDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -678,12 +694,12 @@ void processNormalInterfaceDeclaration(RecursiveDescentJava &recursiveDescentJav
 
 
 
-void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processEnumDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
@@ -694,10 +710,10 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 	if (p != nullptr) {
 		Env env3;
-		recursiveDescentJava7.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[0]->begIndex, p->list[0]->endIndex);
-		Node*  node_tree7 = recursiveDescentJava7.slr(env3, "ele_begin", 0);
+		parser7->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[0]->begIndex, p->list[0]->endIndex);
+		Node*  node_tree7 = parser7->slr(env3, "ele_begin", 0);
 
-		recursiveDescentJava7.gen_middle_code(env3, node_tree7, imfo_map);
+		parser7->gen_middle_code(env3, node_tree7, imfo_map);
 		for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
 			context->root->spaceList.push_back(new EnumConstant(e->name));
 		}
@@ -722,12 +738,12 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 			while (!isProcessed && retryNum > 0) {
 				retryNum--;
 				Env env2;
-				recursiveDescentJava5.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-				Node*  node_tree5 = recursiveDescentJava5.slr(env2, "ele_begin", 0);
+				parser5->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree5 = parser5->slr(env2, "ele_begin", 0);
 
 				if (node_tree5 != nullptr) {
 
-					recursiveDescentJava5.gen_middle_code(env2, node_tree5, imfo_map);
+					parser5->gen_middle_code(env2, node_tree5, imfo_map);
 					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
 
 					if (statementType == "FieldDeclarationFake") {
@@ -759,11 +775,11 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 
 					if (statementType == "MethodDeclaration") {
-						fillWithStatementMethodDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementMethodDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 					}
 
 					if (statementType == "ConstructorDeclaration") {
-						fillWithStatementConstructorDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementConstructorDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 
 					}
 
@@ -778,9 +794,9 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 					if (statementType == "NormalClassDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -791,9 +807,9 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 					if (statementType == "EnumDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -804,9 +820,9 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 					if (statementType == "NormalInterfaceDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -816,9 +832,9 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 
 					if (statementType == "AnnotationTypeDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -838,12 +854,12 @@ void processEnumDeclaration(RecursiveDescentJava &recursiveDescentJava4,
 }
 
 
-void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDescentJava4,
-	RecursiveDescentJava &recursiveDescentJava5,
-	RecursiveDescentJava &recursiveDescentJava6,
-	RecursiveDescentJava &recursiveDescentJava7,
-	RecursiveDescentJava &recursiveDescentJava8,
-	RecursiveDescentJava &recursiveDescentJava9,
+void processAnnotationTypeMemberDeclaration(Parser *parser4,
+	Parser *parser5,
+	Parser *parser6,
+	Parser *parser7,
+	Parser *parser8,
+	Parser *parser9,
 	PrimarySymbolConverter primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
@@ -867,12 +883,12 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 			while (!isProcessed && retryNum > 0) {
 				retryNum--;
 				Env env2;
-				recursiveDescentJava9.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-				Node*  node_tree9 = recursiveDescentJava9.slr(env2, "ele_begin", 0);
+				parser9->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+				Node*  node_tree9 = parser9->slr(env2, "ele_begin", 0);
 
 				if (node_tree9 != nullptr) {
 
-					recursiveDescentJava9.gen_middle_code(env2, node_tree9, imfo_map);
+					parser9->gen_middle_code(env2, node_tree9, imfo_map);
 					statementType = ((StatementToken *)(env2.list[0].get()))->statementEntity->type;
 
 					if (statementType == "ConstantDeclarationFake") {
@@ -907,22 +923,22 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 	
 
 					if (statementType == "AnnotationTypeElementDeclaration") {
-						fillWithStatementAnnotationTypeElementDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementAnnotationTypeElementDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 					}
 					
 
 
 
 					if (statementType == "InterfaceMethodDeclaration") {
-						fillWithStatementInterfaceMethodDeclaration(context, env2, p, i1, recursiveDescentJava6, primarySymbolConverter);
+						fillWithStatementInterfaceMethodDeclaration(context, env2, p, i1, parser6, primarySymbolConverter);
 					}
 
 					if (statementType == "NormalClassDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -933,9 +949,9 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 					if (statementType == "EnumDeclaration") {
 
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -946,9 +962,9 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 					if (statementType == "NormalInterfaceDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -958,9 +974,9 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 					if (statementType == "AnnotationTypeDeclaration") {
 						Env env3;
-						recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
-						Node*  node_tree4 = recursiveDescentJava4.slr(env3, "ele_begin", 0);
-						recursiveDescentJava4.gen_middle_code(env3, node_tree4, imfo_map);
+						parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, p->list[i1]->begIndex, p->list[i1]->endIndex);
+						Node*  node_tree4 = parser4->slr(env3, "ele_begin", 0);
+						parser4->gen_middle_code(env3, node_tree4, imfo_map);
 
 
 						P_Context childContext = nullptr;
@@ -984,18 +1000,18 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 
 
-	void processCompilationUnit(RecursiveDescentJava &recursiveDescentJava4,
-		RecursiveDescentJava &recursiveDescentJava5, 
-		RecursiveDescentJava &recursiveDescentJava6, 
-		RecursiveDescentJava &recursiveDescentJava7, 
-		RecursiveDescentJava &recursiveDescentJava8, 
-		RecursiveDescentJava &recursiveDescentJava9,
+	void processCompilationUnit(Parser *parser4,
+		Parser *parser5,
+		Parser *parser6,
+		Parser *parser7,
+		Parser *parser8,
+		Parser *parser9,
 		PrimarySymbolConverter primarySymbolConverter,
 		P_Context &context, deque<P_Context> &contextDeque,
 		set<string> &end_symbol_set0){
 		Env env;
-		recursiveDescentJava4.init_total_lex_word_list(context->compile_file, primarySymbolConverter, end_symbol_set0);
-		Node*  node_tree4 = recursiveDescentJava4.slr(env, "ele_begin", 0);
+		parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, end_symbol_set0);
+		Node*  node_tree4 = parser4->slr(env, "ele_begin", 0);
 
 		string className;
 		int wordListIdOfclass;
@@ -1006,7 +1022,7 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 		else {
 
 			unordered_map<string, string> imfo_map;
-			recursiveDescentJava4.gen_middle_code(env, node_tree4, imfo_map);
+			parser4->gen_middle_code(env, node_tree4, imfo_map);
 			Node::releaseNode(node_tree4);
 
 			string classType = ((ClassListToken *)(env.list[0].get()))->list[0]->type;
@@ -1057,6 +1073,8 @@ void processAnnotationTypeMemberDeclaration(RecursiveDescentJava &recursiveDesce
 
 void main(int argc, char* argv[]) {
 	Util::cleanLog();
+
+	initParsers();
 
 	string files[] = { 
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContextType.java",
@@ -1549,6 +1567,6 @@ void main(int argc, char* argv[]) {
 
 	}
 
-
+	deleteParsers();
 
 }
