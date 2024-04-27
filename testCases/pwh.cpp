@@ -705,7 +705,7 @@ int main1(int argc, char* argv[]) {
 
 		lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
-		Node*  node_tree = lalr.slr(env);
+		Node*  node_tree = lalr.slr(env,"ele_begin",0);
 
 		string className;
 		int wordListIdOfclass;
@@ -832,11 +832,11 @@ int main1(int argc, char* argv[]) {
 			string fileStr;
 			while (getline(input_file, fileStr)) {
 				Env env;
-				if (lalr.startsWith(fileStr,"#")==0) {
+				if (startsWith(fileStr,"#")==0) {
 					string compile_file = path + "\\" + fileStr;
 					lalr.init_total_lex_word_list(compile_file, primarySymbolConverter, end_symbol_set0);
 
-					Node*  node_tree = lalr.slr(env);
+					Node*  node_tree = lalr.slr(env,"ele_begin",0);
 
 					if (node_tree == nullptr) {
 						cout << fileStr << ":" << "analyze failed" << endl;

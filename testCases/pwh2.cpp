@@ -56,7 +56,11 @@ void initParsers() {
 	string rule_file8 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R008.txt";
 	string rule_file9 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
 
-	parser4 = new RecursiveDescentJava();
+	//parser4 = new RecursiveDescentJava();
+	//parser4->logSwitch = false;
+	//parser4->init(rule_file4);
+
+	parser4 = new Lalr();
 	parser4->logSwitch = false;
 	parser4->init(rule_file4);
 

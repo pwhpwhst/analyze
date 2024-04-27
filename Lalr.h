@@ -17,11 +17,36 @@
 #include"SLR\Lex_Word.h"
 #include"symbols\Env.h"
 #include"SLR\Rule.h"
+#include "Parser.h"
 //#include"SDT\SDT_generator.h"
 
 
 
-class Lalr{
+class Lalr :virtual public Parser {
+
+/*
+public: int init(string rule_file);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);O
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);O
+public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map); O
+public: Node* slr(Env &env); O
+
+private:vector<P_Rule> ruleList; O
+private:vector<P_Lex_Word>  total_lex_word_list; O
+private:vector<P_Lex_Word>  total_lex_word_list; O
+public:string ruleFileName; O
+private: void log(const string& s); O
+private: void paresOrders(const string& rule_file, vector<string>& orders, unordered_map<string, string> &temp_forecast_map); O
+public: string replaceAll(string str, string sub, string replacement); O
+public: int startsWith(string s, string sub); O
+public: int endsWith(string s, string sub); O
+public:unordered_map<int, int> ruleIdToSubId; O
+*/
+
+public: Lalr();
+public: virtual ~Lalr();
+public: int init(string rule_file);
+public: Node* slr(Env &env, string rootSymbol, int wordListBegId);
 
 
 	class P_Item_Cmp
@@ -99,13 +124,13 @@ public:bool switchParseProcess;
 public:bool switchNotSilent;
 public:bool switchAllowIllegalInput;
 
-public:string ruleFileName;
+
 private:string md5;
-private:vector<P_Rule> ruleList;
+
 private:set<string> terminator;
 private:set<string> non_terminator;
 
-public:unordered_map<int, int> ruleIdToSubId;
+
 
 private: vector<string> ordered_symbols;
 private: unordered_map<string, int> symbol_to_id;
@@ -114,7 +139,7 @@ private: vector< unordered_map< int, string>> forecast_list;
 
 public:vector<vector<P_Item>> items_list;
 private:unordered_map<int, unordered_map<string, int>> convert_map;
-private:vector<P_Lex_Word>  total_lex_word_list;
+
 
 
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
@@ -152,30 +177,15 @@ private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &termi
 
 private: bool detect_ambigulous( const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
 
-public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
-
-public: Node* slr(Env &env);
-
-public: int init(string rule_file);
 
 
 
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
 
-public: int startsWith(string s, string sub);
 
-public: int endsWith(string s, string sub);
 
-public: string replaceAll(string str, string sub, string replacement);
 
-public: Lalr();
 
-private: void paresOrders(const string& rule_file,vector<string>& orders,unordered_map<string,string> &temp_forecast_map);
 
-public: virtual ~Lalr();
-
-private: void log(const string& s);
 
 private: void calculate_first_set(const vector<string> &strArr, set<string> &result_set, unordered_map<string, set<string>> &f_first);
 

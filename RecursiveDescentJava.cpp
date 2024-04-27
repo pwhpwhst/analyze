@@ -62,7 +62,7 @@ Node* RecursiveDescentJava::createNode(P_Rule &rule) {
 	return p;
 }
 
-void RecursiveDescentJava::init(string rule_file) {
+int RecursiveDescentJava::init(string rule_file) {
 
 	vector <string> strs;
 	split(strs, rule_file, is_any_of("\\"));
@@ -101,6 +101,8 @@ void RecursiveDescentJava::init(string rule_file) {
 		ruleList.push_back(P_Rule(new Rule(e)));
 		ruleList.back()->index = ruleList.size() - 1;
 	}
+
+	return 0;
 }
 
 

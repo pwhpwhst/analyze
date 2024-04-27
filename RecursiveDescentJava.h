@@ -10,7 +10,7 @@ class RecursiveDescentJava :virtual public Parser {
 
 public: RecursiveDescentJava();
 public: virtual ~RecursiveDescentJava();
-public: void init(string rule_file);
+public: int init(string rule_file);
 public: Node* slr(Env &env, string rootSymbol, int wordListBegId);
 
 private:Node* createTerminateNode(P_Lex_Word &p);
