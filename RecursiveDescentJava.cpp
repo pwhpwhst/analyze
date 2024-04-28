@@ -241,8 +241,5 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 		}
 	}
 
-	//Util::log("wordListId()=" + wordListId);
-	//Util::log("total_lex_word_list.size()=" + total_lex_word_list.size());
-
 	return resultNodePtr;
 }

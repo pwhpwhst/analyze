@@ -14,7 +14,7 @@ public: virtual ~Parser();
 public:bool logSwitch = false;
 
 public: virtual int init(string rule_file)=0;
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
+public: virtual void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
 public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
 public: virtual Node* slr(Env &env, string rootSymbol, int wordListBegId)=0;

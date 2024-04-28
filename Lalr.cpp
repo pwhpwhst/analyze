@@ -206,7 +206,6 @@ int Lalr::init(string rule_file) {
 
 	//计算first函数
 	log("计算first函数");
-	unordered_map<string, set<string>> f_first;
 	calculate_f_first(f_first, ruleList, terminator, non_terminator);
 
 
@@ -499,6 +498,20 @@ int Lalr::init(string rule_file) {
 	return 0;
 }
 
+void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet) {
+	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter,endSymbolSet);
+	//人手添加总结符号
+	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	total_lex_word_list.back()->type = "'end'";
+}
+
+
+void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex) {
+	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter, beginIndex, endIndex);
+	//人手添加总结符号
+	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	total_lex_word_list.back()->type = "'end'";
+}
 
 
 Node* Lalr::slr(Env& env, string rootSymbol, int wordListBegId) {
@@ -2285,6 +2298,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	bool finished_flag = false;
 	bool unexception_input = false;
 	int wordListId = 0;
+	int _lineNum = 0;
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
@@ -2348,6 +2362,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			item_node_stack1.back()->item_status = atoi(action.substr(1).c_str());
 			++p_input;
 			++wordListId;
+			_lineNum = node->lineNum;
 		}
 		else if (action[0] == 'r') {
 			P_Rule best_rule = ruleList[atoi(action.substr(1).c_str())];
@@ -2378,20 +2393,60 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 
 
 			Node *pre_child_node = nullptr;
+			int emptyBeg = -1;
+			int emptyEnd = -1;
 			for (int i1 = 0; i1 < best_rule->symbols.size(); i1++) {
 				if (map.count(i1) == 0) {
-					pre_child_node = new Node();
-					pre_child_node->symbol = best_rule->symbols[i1];
-					pre_child_node->content = "";
-					pre_child_node->index = -1;
+					//pre_child_node = new Node();
+					//pre_child_node->symbol = best_rule->symbols[i1];
+					//pre_child_node->content = "";
+					//pre_child_node->index = -1;
+
+					if (emptyBeg == -1) {
+						emptyBeg = i1;
+						emptyEnd = i1;
+					}
+					else {
+						emptyEnd = i1;
+					}
+
 				}
 				else {
 					pre_child_node = item_node_stack1[map[i1]]->node;
+
+
+					if (emptyBeg != -1) {
+						for (int i2 = emptyBeg; i2 <= emptyEnd; i2++) {
+							Node *pre_child_node2 = create_empty_tree(best_rule->symbols[i2], pre_child_node->index, pre_child_node->lineNum);
+							pre_child_node2->offset = i2;
+							pre_child_node2->parent = parent_node;
+							parent_node->child_node_list.push_back(pre_child_node2);
+						}
+					}
+					pre_child_node->offset = i1;
+					pre_child_node->parent = parent_node;
+					parent_node->child_node_list.push_back(pre_child_node);
+					emptyBeg = -1;
+					emptyEnd = -1;
+
 				}
-				pre_child_node->offset = i1;
-				pre_child_node->parent = parent_node;
-				parent_node->child_node_list.push_back(pre_child_node);
 			}
+
+			if (emptyBeg != -1) {
+				for (int i2 = emptyBeg; i2 <= emptyEnd; i2++) {
+					Node *pre_child_node2 = create_empty_tree(best_rule->symbols[i2], wordListId, _lineNum);
+					pre_child_node2->offset = i2;
+					pre_child_node2->parent = parent_node;
+					parent_node->child_node_list.push_back(pre_child_node2);
+				}
+			}
+
+			if (parent_node->child_node_list.size() > 0) {
+				parent_node->index = parent_node->child_node_list[0]->index;
+				parent_node->lineNum = parent_node->child_node_list[0]->lineNum;
+			}
+			
+
 
 
 			int present_stack_size = item_node_stack1.size();
@@ -2476,6 +2531,86 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	}
 
 	return resultTree;
+}
+
+
+Node * Lalr::create_empty_tree(string & symbol,int index0,int lineNum) {
+
+	if (symbol=="0") {
+		Node * emptyNode = new Node();
+		emptyNode->content = "";
+		emptyNode->index = index0;
+		emptyNode->lineNum = lineNum;
+		emptyNode->symbol = "";
+		emptyNode->symbol = "0";
+		return emptyNode;
+	}
+	else {
+		int bestRuleId = -1;
+		int length = 9999;
+		for (int i1 = 0; i1 < ruleList.size(); i1++) {
+			if (ruleList[i1]->rule_name == symbol) {
+				if (ruleList[i1]->symbols.size() == 1 && ruleList[i1]->symbols[0] == "0") {
+					bestRuleId = i1;
+					length = 1;
+					break;
+				}
+				else if (ruleList[i1]->symbols.size() > length) {
+					continue;
+				}
+				else {
+					bool isEmptyRule = true;
+					for (const auto &e : ruleList[i1]->symbols) {
+						if (startsWith(e, "'") == 1 || e != "0"&& f_first[e].find("0") == f_first[e].end()) {
+							isEmptyRule = false;
+							break;
+						}
+					}
+					if (isEmptyRule) {
+						bestRuleId = i1;
+						length = ruleList[i1]->symbols.size();
+					}
+				}
+			}
+		}
+
+		if (bestRuleId != -1) {
+			Node * emptyNode = new Node();
+			emptyNode->content = "";
+			emptyNode->index = index0;
+			emptyNode->lineNum = lineNum;
+			emptyNode->symbol = symbol;
+			emptyNode->ruleId = bestRuleId;
+
+			int index = 0;
+			for (auto &e : ruleList[bestRuleId]->symbols) {
+				Node * child = create_empty_tree(e, index0, lineNum);
+				if (child!=nullptr) {
+					child->offset = index;
+					child->parent = emptyNode;
+				}
+				index++;
+				emptyNode->child_node_list.push_back(child);
+			}
+			return emptyNode;
+		}
+		else {
+			return nullptr;
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

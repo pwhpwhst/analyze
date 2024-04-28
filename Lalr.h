@@ -136,10 +136,13 @@ private: vector<string> ordered_symbols;
 private: unordered_map<string, int> symbol_to_id;
 private: vector<int>move_table;
 private: vector< unordered_map< int, string>> forecast_list;
+private: unordered_map<string, set<string>> f_first;
 
 public:vector<vector<P_Item>> items_list;
 private:unordered_map<int, unordered_map<string, int>> convert_map;
 
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
 
 
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);
@@ -211,5 +214,7 @@ private:void refreshEndForSymbolFlow(vector<vector<P_Item>> &items_list_temp);
 private:void simplifyMap(unordered_map<int, string> &map);
 
 private:bool is_map_same(unordered_map<int, string> &map1, unordered_map<int, string> &map2);
+
+private: Node* create_empty_tree(string & symbol, int index0, int lineNum);
 };
 

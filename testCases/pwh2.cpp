@@ -59,28 +59,32 @@ void initParsers() {
 	//parser4 = new RecursiveDescentJava();
 	//parser4->logSwitch = false;
 	//parser4->init(rule_file4);
-
+	cout << "init parser4" << endl;
 	parser4 = new Lalr();
 	parser4->logSwitch = false;
 	parser4->init(rule_file4);
 
+	cout << "init parser5" << endl;
 	parser5 = new RecursiveDescentJava();
 	parser5->logSwitch = false;
 	parser5->init(rule_file5);
 
+	cout << "init parser6" << endl;
 	parser6 = new RecursiveDescentJava();
 	parser6->logSwitch = false;
 	parser6->init(rule_file6);
 
+	cout << "init parser7" << endl;
 	parser7 = new RecursiveDescentJava();
 	parser7->logSwitch = false;
 	parser7->init(rule_file7);
 
-
+	cout << "init parser8" << endl;
 	parser8 = new RecursiveDescentJava();
 	parser8->logSwitch = false;
 	parser8->init(rule_file8);
 
+	cout << "init parser9" << endl;
 	parser9 = new RecursiveDescentJava();
 	parser9->logSwitch = false;
 	parser9->init(rule_file9);
@@ -1081,39 +1085,39 @@ void main(int argc, char* argv[]) {
 	initParsers();
 
 	string files[] = { 
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContextType.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceProperty.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnit.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnits.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\SynchronizationType.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthException.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthStatus.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CallerPrincipalCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CertStoreCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\GroupPrincipalCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PasswordValidationCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PrivateKeyCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\SecretKeyCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\TrustStoreCallback.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ClientAuth.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfig.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigFactory.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigProvider.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthConfig.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthContext.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\RegistrationListener.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthConfig.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthContext.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessageInfo.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessagePolicy.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ClientAuthModule.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ServerAuthModule.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ServerAuth.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HandlesTypes.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpConstraint.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpMethodConstraint.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\MultipartConfig.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\ServletSecurity.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContextType.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceProperty.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnit.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnits.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\SynchronizationType.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthException.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthStatus.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CallerPrincipalCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CertStoreCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\GroupPrincipalCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PasswordValidationCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PrivateKeyCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\SecretKeyCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\TrustStoreCallback.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ClientAuth.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfig.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigFactory.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigProvider.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthConfig.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthContext.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\RegistrationListener.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthConfig.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthContext.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessageInfo.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessagePolicy.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ClientAuthModule.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ServerAuthModule.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ServerAuth.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HandlesTypes.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpConstraint.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpMethodConstraint.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\MultipartConfig.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\ServletSecurity.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebFilter.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebInitParam.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebListener.java",
@@ -1497,8 +1501,8 @@ void main(int argc, char* argv[]) {
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mapper\\MapperListener.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mapper\\MappingData.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mapper\\WrapperMappingInfo.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\BaseCatalinaMBean.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\ClassNameMBean.java",
+ //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\BaseCatalinaMBean.java",
+ //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\ClassNameMBean.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\ConnectorMBean.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\ContainerMBean.java",
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\mbeans\\ContextEnvironmentMBean.java",
@@ -1523,7 +1527,9 @@ void main(int argc, char* argv[]) {
  //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\realm\\DataSourceRealm.java",
 	};
 
-
+	//string files[] = {
+	//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaSyntaxTest.java"
+	//};
 
 
 
