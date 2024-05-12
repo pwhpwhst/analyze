@@ -2334,14 +2334,15 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 
 
 #ifdef __PRINT_PARSE_PROCESS
-		if (switchParseProcess) {
+		//if (switchParseProcess) {
+		if (true) {
 			string top_symbol = "";
 			int top_status = 0;
 			if (top_item->node != nullptr) {
 				top_symbol = top_item->node->symbol;
 				top_status = top_item->item_status;
 			}
-			Util::log(top_status + "," + top_symbol + "," + action);
+			log(std::to_string(top_status) + "," + top_symbol + "," + action);
 		}
 #endif
 		if (action == "acc") {
@@ -2363,6 +2364,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			++p_input;
 			++wordListId;
 			_lineNum = node->lineNum;
+			log("压入：" + node->symbol);
 		}
 		else if (action[0] == 'r') {
 			P_Rule best_rule = ruleList[atoi(action.substr(1).c_str())];
@@ -2466,17 +2468,17 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 				item_node_stack1.back()->node = parent_node;
 				item_node_stack1.back()->item_status = convert_map[0][parent_node->symbol];
 			}
-
+			log("弹出2：" + item_node_stack1.back()->node->symbol);
 		}
 		else {
 			if (!switchAllowIllegalInput) {
 				#ifdef __PRINT_NOT_SILENT
 								if (switchNotSilent) {
 
-									Util::log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_content:" + (*p_input)->content);
-									Util::log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_type:" + input_type);
+									log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_content:" + (*p_input)->content);
+									log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_type:" + input_type);
 									if (p_input != input.end()) {
-										Util::log(string("line:" + (*p_input)->lineNum) + string(",col:" + (*p_input)->colNum));
+										log(string("line:" + (*p_input)->lineNum) + string(",col:" + (*p_input)->colNum));
 									}
 								}
 

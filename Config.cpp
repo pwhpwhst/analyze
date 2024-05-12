@@ -1,14 +1,21 @@
 #include "Config.h"
 #include <iostream>
 #include <fstream>
+#include "Util/Util.h"
+
 using namespace std;
 
 P_Config Config::instance = nullptr;
 
+
 void Config::ConfigFileRead()
 {
 	ifstream configFile;
-	string path = "../../resources/setting.conf";
+	//string path = "../../resources/setting.conf";
+	string path = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\setting.conf";
+	
+	path = Util::replaceAll(path, "\\", "&&");
+	path = Util::replaceAll(path, "&&", "\\\\");
 	configFile.open(path.c_str());
 	string strLine;
 	if (configFile.is_open())

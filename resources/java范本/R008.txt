@@ -207,8 +207,8 @@ InterfaceMethodDeclaration : MethodHeader Block
 InterfaceMethodDeclaration : ModifierList MethodHeader Block
 InterfaceMethodDeclaration : MethodHeader 'semicolon'
 InterfaceMethodDeclaration : ModifierList MethodHeader 'semicolon'
-MethodHeader : Result MethodDeclarator
 MethodHeader : Result MethodDeclarator Throws
+MethodHeader : Result MethodDeclarator
 Result : UnannType
 Result : 'void'
 UnannType : UnannArrayType
