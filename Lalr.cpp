@@ -7,7 +7,7 @@
 //#define __PRINT_LEX_WORD_LIST
 #define __PRINT_PARSE_PROCESS
 #define __PRINT_NOT_SILENT
-#define __ALLOW_AMBIGULOUS
+//#define __ALLOW_AMBIGULOUS
 
 #include "Lalr.h"
 #include"symbols\PrimarySymbolConverter.h"
@@ -21,6 +21,7 @@
 #include "dao/TShortCodeDao.h"
 #include "dao/TMoveTableDao.h"
 #include "dao/TForecastDao.h"
+#include "dao/TForecast2Dao.h"
 #include "dao/TRuleDao.h"
 #include"SLR\NodeValue.h"
 #include"SLR\SDT_Factory.h"
@@ -49,7 +50,8 @@ int Lalr::calculate_f_terminate(string symbol, string rule_file) {
 	ostringstream sb;
 
 	vector<string> orders;
-	paresOrders(rule_file, orders);
+	vector<vector<string>*> solveConflictList;
+	paresOrders(rule_file, orders, solveConflictList);
 	for (const auto &e : orders) {
 		ruleList.push_back(P_Rule(new Rule(e)));
 	}
@@ -147,7 +149,6 @@ int Lalr::init(string rule_file) {
 	ruleList.clear();
 	terminator.clear();
 	non_terminator.clear();
-	//forecast_list.clear();
 	symbol_to_id.clear();
 	move_table.clear();
 	forecast_list.clear();
@@ -166,7 +167,8 @@ int Lalr::init(string rule_file) {
 	ostringstream sb;
 
 	vector<string> orders;
-	paresOrders(rule_file, orders);
+	vector<vector<string>*> solveConflictList;
+	paresOrders(rule_file, orders, solveConflictList);
 
 	unordered_map<string, int> ruleNameCountMap;
 	ruleIdToSubId.clear();
@@ -330,10 +332,6 @@ int Lalr::init(string rule_file) {
 	
 	log("构建 LR（0）算法的状态机 end");
 
-
-
-
-
 	for (auto e: items_list) {
 		sort(e.begin(),e.end(), P_Item_Cmp2());
 	}
@@ -344,6 +342,7 @@ int Lalr::init(string rule_file) {
 	P_TShortCodeDao tShortCodeDao = TShortCodeDao::getInstance();
 	P_TMoveTableDao tMoveTableDao = TMoveTableDao::getInstance();
 	P_TForecastDao tForecastDao = TForecastDao::getInstance();
+	P_TForecast2Dao tForecast2Dao = TForecast2Dao::getInstance();
 	P_TRuleDao tRuleDao = TRuleDao::getInstance();
 
 	
@@ -442,24 +441,11 @@ int Lalr::init(string rule_file) {
 		tShortCodeDao->deleteRecord(transfer_map);
 		tMoveTableDao->deleteRecord(transfer_map);
 		tForecastDao->deleteRecord(transfer_map);
+		tForecast2Dao->deleteRecord(transfer_map);
 		tRuleDao->deleteRecord(transfer_map);
 
 	}
 	else {
-		//transfer_map.clear();
-		//transfer_map["md5"] = md5;
-		//result_list.clear();
-		//tShortCodeDao->queryList(transfer_map, result_list);
-
-		//for (const auto &e : result_list) {
-		//	ordered_symbols.push_back(e.at("symbol"));
-		//}
-		//sort(ordered_symbols.begin(), ordered_symbols.end());
-		//for (int i1 = 0; i1 < ordered_symbols.size(); i1++) {
-		//	symbol_to_id[ordered_symbols[i1]] = i1;
-		//}
-
-
 
 		transfer_map.clear();
 		transfer_map["md5"] = md5;
@@ -469,7 +455,6 @@ int Lalr::init(string rule_file) {
 			move_table.push_back(atoi(e.at("interalId").c_str()));
 		}
 		
-
 		transfer_map.clear();
 		transfer_map["md5"] = md5;
 		result_list.clear();
@@ -486,13 +471,179 @@ int Lalr::init(string rule_file) {
 
 	}
 
+	vector<unordered_map<string, string>> solveConflictTableList;
+	if (isChanged) {
+		
+		vector <string> string_list;
+		set<string> interalId_set;
+		set<string> temp_interalId_set;
+
+
+		if (solveConflictList.size() > 0) {
+			for (const auto &e : solveConflictList) {
+				interalId_set.clear();
+				string move = "";
+				int shortCode = -1;
+				
+				bool isFirst = true;
+				for (const auto &e2 : *e) {
+					temp_interalId_set.clear();
+					if (startsWith(e2, "s") == 1) {
+						string_list.clear();
+						transfer_map.clear();
+						result_list.clear();
+						split(string_list, e2, is_any_of(":"));
+						transfer_map["md5"] = md5;
+						transfer_map["status"] = std::to_string(atoi(string_list[1].c_str())+1);
+						transfer_map["move"] = trim_left_copy(trim_right_copy(string_list[2]));
+						transfer_map["move"] = replaceAll(transfer_map["move"], "'", "#");
+						transfer_map["move"] = replaceAll(transfer_map["move"], "#", "\\'");
+						if (move=="") {
+							move = transfer_map["move"];
+							shortCode = symbol_to_id[trim_left_copy(trim_right_copy(string_list[2]))];
+						}
+						transfer_map["ruleName"] = trim_left_copy(trim_right_copy(string_list[3]));
+						transfer_map["rule"] = trim_left_copy(trim_right_copy(string_list[4]));
+						transfer_map["rule"] = replaceAll(transfer_map["rule"], "'", "#");
+						transfer_map["rule"] = replaceAll(transfer_map["rule"], "#", "\\'");
+						tForecast2Dao->queryByS(transfer_map, result_list);
+						for (auto &e3 : result_list) {
+							temp_interalId_set.insert(e3["interalId"]);
+						}
+					}
+					else if (startsWith(e2, "r") == 1) {
+						string_list.clear();
+						transfer_map.clear();
+						result_list.clear();
+						split(string_list, e2, is_any_of(":"));
+						transfer_map["md5"] = md5;
+						transfer_map["move"] = trim_left_copy(trim_right_copy(string_list[1]));
+						transfer_map["move"] = replaceAll(transfer_map["move"], "'", "#");
+						transfer_map["move"] = replaceAll(transfer_map["move"], "#", "\\'");
+						if (move == "") {
+							move = transfer_map["move"];
+							shortCode = symbol_to_id[trim_left_copy(trim_right_copy(string_list[1]))];
+						}
+						transfer_map["ruleName"] = trim_left_copy(trim_right_copy(string_list[2]));
+						transfer_map["rule"] = trim_left_copy(trim_right_copy(string_list[3]));
+						transfer_map["rule"] = replaceAll(transfer_map["rule"], "'", "#");
+						transfer_map["rule"] = replaceAll(transfer_map["rule"], "#", "\\'");
+						tForecast2Dao->queryByR(transfer_map, result_list);
+						for (auto &e3 : result_list) {
+							temp_interalId_set.insert(e3["interalId"]);
+						}
+					}
+
+					if (isFirst) {
+						for (auto &e3 : temp_interalId_set) {
+							interalId_set.insert(e3);
+						}
+						isFirst = false;
+					}else {
+
+						set<string> del_interalId_set;
+						for (auto &e3 : interalId_set) {
+							if (temp_interalId_set.count(e3) == 0) {
+								del_interalId_set.insert(e3);
+							}
+						}
+
+						for (auto &e3 : del_interalId_set) {
+							interalId_set.erase(e3);
+						}
+
+					}
+
+
+				}
+				
+				
+				for (const auto &e3 : interalId_set) {
+					//solveConflictTableList
+					ostringstream os;
+					solveConflictTableList.push_back(unordered_map<string, string>());
+					solveConflictTableList.back()["md5"]= md5;
+					solveConflictTableList.back()["interalId"] = e3;
+					solveConflictTableList.back()["shortCode"] = std::to_string(shortCode);
+					for (const auto &e2 : *e) {
+						if (startsWith(e2, "s") == 1) {
+							result_list.clear();
+							transfer_map.clear();
+							transfer_map["md5"] = md5;
+							transfer_map["move"] = move;
+							transfer_map["interalId"] = e3;
+							tForecast2Dao->queryByDescOfS(transfer_map, result_list);
+
+
+							if (result_list.size()>0) {
+								if (os.str() == "") {
+									os << "s" << result_list[0]["descItem"];
+								}
+								else {
+									os<<"," << "s" << result_list[0]["descItem"];
+								}
+							}
+						}
+
+
+						if (startsWith(e2, "r") == 1) {
+							result_list.clear();
+							transfer_map.clear();
+							string_list.clear();
+							split(string_list, e2, is_any_of(":"));
+
+							transfer_map["md5"] = md5;
+							transfer_map["ruleName"] = trim_left_copy(trim_right_copy(string_list[2]));
+							transfer_map["rule"] = trim_left_copy(trim_right_copy(string_list[3]));
+							transfer_map["rule"] = replaceAll(transfer_map["rule"], "'", "#");
+							transfer_map["rule"] = replaceAll(transfer_map["rule"], "#", "\\'");
+							tRuleDao->queryList(transfer_map, result_list);
+
+							if (result_list.size() > 0) {
+								if (os.str() == "") {
+									os << "r" << result_list[0]["id"];
+								}
+								else {
+									os << "," << "r" << result_list[0]["id"];
+								}
+
+							}
+						}
+
+
+
+					}
+					solveConflictTableList.back()["action"] = os.str();
+				}
+
+			}
+		}
+
+		if (solveConflictTableList.size() > 0) {
+			tForecast2Dao->insertList(solveConflictTableList);
+			solveConflictTableList.clear();
+		}
+	}
+	else {
+		transfer_map.clear();
+		transfer_map["md5"] = md5;
+		tForecast2Dao->queryList(transfer_map, solveConflictTableList);
+	}
+
+	for ( auto &e : solveConflictTableList) {
+		forecast_list[atoi(e["interalId"].c_str())][atoi(e["shortCode"].c_str())]= e["action"];
+	}
+
+	
+
+
 	//解决移入-规约冲突
 	log("解决移入-规约冲突");
 
 
-	if (detect_ambigulous(ruleList, items_list)) {
-		return -1;
-	}
+	//if (detect_ambigulous(ruleList, items_list)) {
+	//	return -1;
+	//}
 
 
 	return 0;
@@ -727,12 +878,8 @@ void Lalr::calculate_f_terminate_inline(string symbol, const vector<P_Rule> &rul
 						in_stack_rules.insert(e2);
 					}
 				}
-
 			}
 		}
-
-
-
 	}
 
 	symbol_temp_set.clear();
@@ -2299,6 +2446,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	bool unexception_input = false;
 	int wordListId = 0;
 	int _lineNum = 0;
+	vector <string> strs;
 	auto p_input = input.begin();
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
@@ -2331,7 +2479,11 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			action = forecast_list[move_table[top_item->item_status]][symbol_to_id[input_type]];
 		}
 		
-
+		if (action.find(",")>0) {
+			strs.clear();
+			split(strs, action, is_any_of(","));
+			action = strs[0];
+		}
 
 #ifdef __PRINT_PARSE_PROCESS
 		//if (switchParseProcess) {
@@ -2345,6 +2497,7 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 			log(std::to_string(top_status) + "," + top_symbol + "," + action);
 		}
 #endif
+
 		if (action == "acc") {
 			resultTree = top_item->node;
 			

@@ -78,6 +78,14 @@ void TRuleDao::queryList(unordered_map<string, string> &transfer_map, vector<uno
 			sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
 		}
 
+		if (transfer_map.find("ruleName") != transfer_map.end()) {
+			sql_os << "and rule_name =" << "'" << transfer_map["ruleName"] << "'" << " ";
+		}
+
+		if (transfer_map.find("rule") != transfer_map.end()) {
+			sql_os << "and rule =" << "'" << transfer_map["rule"] << "'" << " ";
+		}
+
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);
 			long num_row = mysql_num_rows(mysql_result);

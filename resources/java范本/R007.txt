@@ -1,8 +1,7 @@
 ele_begin : EnumFirstStatement
-EnumFirstStatement : EnumConstantList 'COMMA'
-EnumFirstStatement : EnumConstantList
-EnumConstantList : EnumConstant 'COMMA' EnumConstantList
-EnumConstantList : EnumConstant
+EnumFirstStatement : EnumConstant 'COMMA' EnumFirstStatement
+EnumFirstStatement : EnumConstant
+EnumFirstStatement : 0
 EnumConstant : Identifier
 EnumConstant : AnnotationList Identifier
 EnumConstant : Identifier AnnotationContent
@@ -128,3 +127,4 @@ NonBrace : 'RIGHT_ANGLE_BRACKET'
 NonBrace : 'RIGHT_BRACKET'
 NonBrace : 'RIGHT_PARENTHESES'
 NonBrace : 'EQUAL'
+=======================

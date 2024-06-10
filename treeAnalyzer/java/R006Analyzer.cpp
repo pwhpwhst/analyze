@@ -185,76 +185,47 @@ void R006_VariableModifierList_3Analyzer::handle(const P_NodeValue &nodeValue, E
 };
 
 
-
-//beg_LastFormalParameter : VariableModifierList UnannType 'THREE_SPOT' VariableDeclaratorId
+//beg_LastFormalParameter: VariableModifierList UnannTypeL  VariableDeclaratorId
 void R006_LastFormalParameter_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_LastFormalParameter_0Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["VariableDeclaratorId"];
-
-	((DimListToken *)(p3.get()))->resultType = ((UnannTypeToken *)(p1.get()))->getText();
-	((DimListToken *)(p3.get()))->isMultiParameters = true;
-	((DimListToken *)(p3.get()))->isReceiverParameter = false;
-	nodeValue->context["LastFormalParameter"] = p3;
-};
-
-
-
-//beg_LastFormalParameter : VariableModifierList UnannType AnnotationList 'THREE_SPOT' VariableDeclaratorId
-void R006_LastFormalParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_LastFormalParameter_1Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["VariableDeclaratorId"];
-
-	((DimListToken *)(p4.get()))->resultType = ((UnannTypeToken *)(p1.get()))->getText();
-	((DimListToken *)(p4.get()))->isMultiParameters = true;
-	((DimListToken *)(p4.get()))->isReceiverParameter = false;
-	nodeValue->context["LastFormalParameter"] = p4;
-};
-
-
-
-//beg_LastFormalParameter : UnannType 'THREE_SPOT' VariableDeclaratorId
-void R006_LastFormalParameter_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_LastFormalParameter_2Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannTypeL"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["VariableDeclaratorId"];
 
-	((DimListToken *)(p2.get()))->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+	((DimListToken *)(p2.get()))->resultType = ((UnannTypeToken *)(p1.get()))->getText();
 	((DimListToken *)(p2.get()))->isMultiParameters = true;
 	((DimListToken *)(p2.get()))->isReceiverParameter = false;
 	nodeValue->context["LastFormalParameter"] = p2;
-};
+
+}
+
+//beg_LastFormalParameter : UnannTypeL  VariableDeclaratorId
+void R006_LastFormalParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_LastFormalParameter_1Analyzer");
+
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannTypeL"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["VariableDeclaratorId"];
+
+	((DimListToken *)(p1.get()))->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+	((DimListToken *)(p1.get()))->isMultiParameters = true;
+	((DimListToken *)(p1.get()))->isReceiverParameter = false;
+	nodeValue->context["LastFormalParameter"] = p1;
+}
 
 
 
-//beg_LastFormalParameter : UnannType AnnotationList 'THREE_SPOT' VariableDeclaratorId
-void R006_LastFormalParameter_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_LastFormalParameter_3Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["VariableDeclaratorId"];
-
-	((DimListToken *)(p3.get()))->resultType = ((UnannTypeToken *)(p0.get()))->getText();
-	((DimListToken *)(p3.get()))->isMultiParameters = true;
-	((DimListToken *)(p3.get()))->isReceiverParameter = false;
-	nodeValue->context["LastFormalParameter"] = p3;
-};
 
 
 
-//beg_LastFormalParameter : FormalParameter
-void R006_LastFormalParameter_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_LastFormalParameter_4Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["FormalParameter"];
-	nodeValue->context["LastFormalParameter"] = p0;
-};
 
 
 
-//beg_FormalParameter : UnannType VariableDeclaratorId
+
+
+
+//beg_FormalParameter : UnannTypeL VariableDeclaratorId
 void R006_FormalParameter_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_FormalParameter_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannTypeL"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["VariableDeclaratorId"];
 
 	((DimListToken *)(p1.get()))->resultType = ((UnannTypeToken *)(p0.get()))->getText();
@@ -265,10 +236,10 @@ void R006_FormalParameter_0Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 
 
-//beg_FormalParameter : VariableModifierList UnannType VariableDeclaratorId
+//beg_FormalParameter : VariableModifierList UnannTypeL VariableDeclaratorId
 void R006_FormalParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_FormalParameter_1Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannTypeL"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["VariableDeclaratorId"];
 
 	((DimListToken *)(p2.get()))->resultType = ((UnannTypeToken *)(p1.get()))->getText();
@@ -279,10 +250,10 @@ void R006_FormalParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 
 
 
-//beg_ReceiverParameter : UnannType 'this'
+//beg_ReceiverParameter : UnannTypeL 'this'
 void R006_ReceiverParameter_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_ReceiverParameter_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannTypeL"];
 
 	DimListToken *p = new DimListToken();
 	p->num = 0;
@@ -296,10 +267,10 @@ void R006_ReceiverParameter_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 
 
 
-//beg_ReceiverParameter : AnnotationList UnannType 'this'
+//beg_ReceiverParameter : AnnotationList UnannTypeL 'this'
 void R006_ReceiverParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_ReceiverParameter_1Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannTypeL"];
 
 	DimListToken *p = new DimListToken();
 	p->num = 0;
@@ -313,11 +284,11 @@ void R006_ReceiverParameter_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 
 
 
-//beg_ReceiverParameter : UnannType Identifier 'SPOT' 'this'
+//beg_ReceiverParameter : UnannTypeL Identifier 'SPOT' 'this'
 void R006_ReceiverParameter_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_ReceiverParameter_2Analyzer");
 
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannTypeL"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 
 	DimListToken *p = new DimListToken();
@@ -333,11 +304,11 @@ void R006_ReceiverParameter_2Analyzer::handle(const P_NodeValue &nodeValue, Env 
 
 
 
-//beg_ReceiverParameter : AnnotationList UnannType Identifier 'SPOT' 'this'
+//beg_ReceiverParameter : AnnotationList UnannTypeL Identifier 'SPOT' 'this'
 void R006_ReceiverParameter_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_ReceiverParameter_3Analyzer");
 
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannTypeL"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	DimListToken *p = new DimListToken();
@@ -389,47 +360,73 @@ void R006_Identifier_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 
 
 
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims: AnnotationList DimOrThreeSpot Dims
 void R006_Dims_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_Dims_0Analyzer");
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Dims"];
-	((DimListToken *)(p2.get()))->num = ((DimListToken *)(p2.get()))->num + 1;
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["DimOrThreeSpot"];
+
+	((DimListToken *)(p2.get()))->num = ((DimListToken *)(p2.get()))->num + ((DimListToken *)(p1.get()))->num;
 
 	nodeValue->context["Dims"] = p2;
-
 };
 
-
-
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
+//beg_Dims : DimOrThreeSpot Dims
 void R006_Dims_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_Dims_1Analyzer");
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Dims"];
-	((DimListToken *)(p3.get()))->num = ((DimListToken *)(p3.get()))->num + 1;
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Dims"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DimOrThreeSpot"];
 
-	nodeValue->context["Dims"] = p3;
+	((DimListToken *)(p1.get()))->num = ((DimListToken *)(p1.get()))->num + ((DimListToken *)(p0.get()))->num;
+
+	nodeValue->context["Dims"] = p1;
 };
 
-
-
-//beg_Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : AnnotationList DimOrThreeSpot
 void R006_Dims_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_Dims_2Analyzer");
-	DimListToken *p = new DimListToken();
-	p->num = 1;
-	nodeValue->context["Dims"] = P_Token(p);
-
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DimOrThreeSpot"];
+	nodeValue->context["Dims"] = p1;
 };
 
-
-
-//beg_Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_Dims : DimOrThreeSpot
 void R006_Dims_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_Dims_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["DimOrThreeSpot"];
+	nodeValue->context["Dims"] = p0;
+};
+
+
+
+//beg_DimOrThreeSpot: 'LEFT_BRACKET' 'RIGHT_BRACKET'
+void R006_DimOrThreeSpot_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_DimOrThreeSpot_0Analyzer");
 	DimListToken *p = new DimListToken();
 	p->num = 1;
-	nodeValue->context["Dims"] = P_Token(p);
+	p->isThreeSpot = false;
+	nodeValue->context["DimOrThreeSpot"] = P_Token(p);
 };
+
+
+//beg_DimOrThreeSpot: 'THREE_SPOT
+void R006_DimOrThreeSpot_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_DimOrThreeSpot_1Analyzer");
+	DimListToken *p = new DimListToken();
+	p->num = 0;
+	p->isThreeSpot = true;
+	nodeValue->context["DimOrThreeSpot"] = P_Token(p);
+};
+
+
+
+
+
+
+
+
+
+
+
 
 
 //beg_AnnotationList : Annotation AnnotationList
@@ -1276,7 +1273,7 @@ void R006_TypeArgumentList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &
 
 
 
-//beg_TypeArgumentList : 0
+//beg_TypeArgumentList : NonANGLE_BRACKET
 void R006_TypeArgumentList_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_TypeArgumentList_2Analyzer");
 	//TO DO  R006_TypeArgumentList_2Analyzer
@@ -1362,31 +1359,48 @@ void R006_NonANGLE_BRACKET_9Analyzer::handle(const P_NodeValue &nodeValue, Env &
 
 
 
-//beg_UnannType : UnannArrayType
-void R006_UnannType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+//beg_UnannTypeL: UnannPrimitiveType Dims
+void R006_UnannTypeL_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_UnannType_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannArrayType"];
-	nodeValue->context["UnannType"] = p0;
-};
-
-
-//beg_UnannType : UnannPrimitiveType
-void R006_UnannType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_UnannType_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannPrimitiveType"];
-	nodeValue->context["UnannType"] = p0;
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
 
+	((UnannTypeToken *)(p0.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
+	((UnannTypeToken *)(p0.get()))->hasThreeSpot = ((DimListToken *)(p1.get()))->isThreeSpot;
+
+	nodeValue->context["UnannTypeL"] = p0;
 };
 
-
-
-//beg_UnannType : UnannClassOrInterfaceType
-void R006_UnannType_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_UnannType_2Analyzer");
+//beg_UnannTypeL : UnannClassOrInterfaceType Dims
+void R006_UnannTypeL_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_UnannType_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
-	nodeValue->context["UnannType"] = p0;
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+
+	((UnannTypeToken *)(p0.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
+	((UnannTypeToken *)(p0.get()))->hasThreeSpot = ((DimListToken *)(p1.get()))->isThreeSpot;
+
+	
+
+	nodeValue->context["UnannTypeL"] = p0;
 };
 
+
+//beg_UnannTypeL : UnannPrimitiveType
+void R006_UnannTypeL_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_UnannType_2Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannPrimitiveType"];
+	nodeValue->context["UnannTypeL"] = p0;
+
+};
+
+
+//beg_UnannTypeL : UnannClassOrInterfaceType
+void R006_UnannTypeL_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR006("R006_UnannType_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
+	nodeValue->context["UnannTypeL"] = p0;
+};
 
 
 
@@ -1581,33 +1595,4 @@ void R006_UnannClassOrInterfaceType_5Analyzer::handle(const P_NodeValue &nodeVal
 
 	nodeValue->context["UnannClassOrInterfaceType"] = P_Token(p);
 };
-
-
-
-
-//beg_UnannArrayType : UnannPrimitiveType Dims
-void R006_UnannArrayType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_UnannArrayType_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannPrimitiveType"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
-
-	((UnannTypeToken *)(p0.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
-
-	nodeValue->context["UnannArrayType"] = p0;
-};
-
-
-
-//beg_UnannArrayType : UnannClassOrInterfaceType Dims
-void R006_UnannArrayType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR006("R006_UnannArrayType_1Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannClassOrInterfaceType"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
-
-	((UnannTypeToken *)(p0.get()))->dimNum = ((DimListToken *)(p1.get()))->num;
-
-	nodeValue->context["UnannArrayType"] = p0;
-};
-
-
 

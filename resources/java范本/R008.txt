@@ -38,8 +38,6 @@ NormalInterfaceDeclaration : 'interface' Identifier ExtendsInterfaces Block
 NormalInterfaceDeclaration : ModifierList 'interface' Identifier ExtendsInterfaces Block
 NormalInterfaceDeclaration : 'interface' Identifier TypeArguments ExtendsInterfaces Block
 NormalInterfaceDeclaration : ModifierList 'interface' Identifier TypeArguments ExtendsInterfaces Block
-AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
-AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
 AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 Identifier : 'IDENTIFIER'
@@ -241,10 +239,10 @@ ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 ExceptionTypeList : ExceptionType
 ExceptionType : UnannClassOrInterfaceType
 ExceptionType : AnnotationList UnannClassOrInterfaceType
-ConstantDeclaration : UnannType VariableDeclaratorList 'semicolon'
-ConstantDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
-ConstantDeclarationFake : UnannType VariableDeclaratorList
-ConstantDeclarationFake : ModifierList UnannType VariableDeclaratorList
+ConstantDeclaration : Result VariableDeclaratorList 'semicolon'
+ConstantDeclaration : ModifierList Result VariableDeclaratorList 'semicolon'
+ConstantDeclarationFake : Result VariableDeclaratorList
+ConstantDeclarationFake : ModifierList Result VariableDeclaratorList
 VariableDeclaratorList : VariableDeclarator 'COMMA' VariableDeclaratorList
 VariableDeclaratorList : VariableDeclarator
 VariableDeclarator : VariableDeclaratorId 'EQUAL' VariableInitializer
@@ -263,3 +261,64 @@ AnnotationList : Annotation AnnotationList
 AnnotationList : Annotation
 DimExpr : AnnotationList 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
 DimExpr : 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
+=========================================
+sc
+r:'int' : NonANGLE_BRACKET : TypeArguments
+s:0:'int' : UnannPrimitiveType : 'int'
+sc
+r:'double' : NonANGLE_BRACKET : TypeArguments
+s:0:'double' : UnannPrimitiveType : 'double'
+sc
+r:'short' : NonANGLE_BRACKET : TypeArguments
+s:0:'short' : UnannPrimitiveType : 'short'
+sc
+r:'byte' : NonANGLE_BRACKET : TypeArguments
+s:0:'byte' : UnannPrimitiveType : 'byte'
+sc
+r:'float' : NonANGLE_BRACKET : TypeArguments
+s:0:'float' : UnannPrimitiveType : 'float'
+sc
+r:'long' : NonANGLE_BRACKET : TypeArguments
+s:0:'long' : UnannPrimitiveType : 'long'
+sc
+r:'boolean' : NonANGLE_BRACKET : TypeArguments
+s:0:'boolean' : UnannPrimitiveType : 'boolean'
+sc
+r:'char' : NonANGLE_BRACKET : TypeArguments
+s:0:'char' : UnannPrimitiveType : 'char'
+sc
+r:'super' : NonANGLE_BRACKET : TypeArguments
+s:0:'super' : NonANGLE_BRACKET : 'super'
+sc
+r:'extends' : NonANGLE_BRACKET : TypeArguments
+s:0:'extends' : NonANGLE_BRACKET : 'extends'
+sc
+r:'SPOT' : NonANGLE_BRACKET : TypeArguments
+s:0:'SPOT' : NonANGLE_BRACKET : 'SPOT'
+sc
+r:'QUESTION' : NonANGLE_BRACKET : TypeArguments
+s:0:'QUESTION' : NonANGLE_BRACKET : 'QUESTION'
+sc
+r:'COMMA' : NonANGLE_BRACKET : TypeArguments
+s:0:'COMMA' : NonANGLE_BRACKET : 'COMMA'
+sc
+r:'RIGHT_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'RIGHT_BRACKET' : NonANGLE_BRACKET : 'RIGHT_BRACKET'
+sc
+r:'LEFT_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'LEFT_BRACKET' : NonANGLE_BRACKET : 'LEFT_BRACKET'
+sc
+r:'IDENTIFIER' : NonANGLE_BRACKET : TypeArguments
+s:0:'IDENTIFIER' : Identifier : 'IDENTIFIER'
+sc
+r:'LEFT_ANGLE_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+sc
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+r:'LEFT_ANGLE_BRACKET' : TypeArgumentList : 0
+sc
+r:'IDENTIFIER' : StatementEle : 'AT'
+s:0:'IDENTIFIER' : Identifier : 'IDENTIFIER'
+sc
+r:'IDENTIFIER' : Result : UnannType
+s:0:'IDENTIFIER' : Identifier : 'IDENTIFIER'

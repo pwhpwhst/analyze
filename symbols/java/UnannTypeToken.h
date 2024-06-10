@@ -14,6 +14,8 @@ public:  bool isPrimitive;
 public:  deque<string> nameList;
 public:  int dimNum=0;
 public: string getText();
+public:  bool hasThreeSpot = false;
+
 
 public: UnannTypeToken();
 public: virtual ~UnannTypeToken();

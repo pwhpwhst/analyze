@@ -24,6 +24,7 @@ protected:vector<P_Lex_Word>  total_lex_word_list;
 protected:string ruleFileName;
 protected:void log(const string& s);
 protected:void paresOrders(const string& rule_file, vector<string>& orders);
+protected:void paresOrders(const string& rule_file, vector<string>& orders, vector<vector<string>*> &solveConflictList);
 protected:string replaceAll(string str, string sub, string replacement);
 protected: int startsWith(const string& s, const string& sub);
 protected: int endsWith(const string& s, const string& sub);

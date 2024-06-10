@@ -186,15 +186,15 @@ void Parser::gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, s
 		catch (...) {
 			Util::log("catch (...)");
 		}
-
-
-
 	}
-
 }
 
-
 void Parser::paresOrders(const string& rule_file, vector<string>& orders) {
+	vector<vector<string>*> solveConflictList;
+	paresOrders(rule_file,  orders, solveConflictList);
+}
+
+void Parser::paresOrders(const string& rule_file, vector<string>& orders,vector<vector<string>*> &solveConflictList) {
 	ifstream input_file;
 	input_file.open(rule_file.data());
 	string rule_str;
@@ -347,6 +347,17 @@ void Parser::paresOrders(const string& rule_file, vector<string>& orders) {
 			else if (startsWith(rule_str, "/*") != 1 && endsWith(rule_str, "*/") == 1) {
 				status = 3; continue;
 			}
+		}
+	}
+
+	vector<string> *tempList=nullptr;
+	while (getline(input_file, rule_str)) {
+		if (rule_str == "sc") {
+			tempList = new vector<string>;
+			solveConflictList.push_back(tempList);
+		}
+		else {
+			tempList->push_back(rule_str);
 		}
 	}
 

@@ -59,36 +59,12 @@ void R007_ele_begin_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 };
 
 
-
-//beg_EnumFirstStatement : EnumConstantList 'COMMA'
+//beg_EnumFirstStatement : EnumConstant 'COMMA' EnumFirstStatement
 void R007_EnumFirstStatement_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR007("R007_EnumFirstStatement_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["EnumConstantList"];
-
-
-	nodeValue->context["EnumFirstStatement"] = p0;
-};
-
-
-
-//beg_EnumFirstStatement : EnumConstantList
-void R007_EnumFirstStatement_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR007("R007_EnumFirstStatement_1Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["EnumConstantList"];
-
-
-	nodeValue->context["EnumFirstStatement"] = p0;
-
-};
-
-
-
-//beg_EnumConstantList : EnumConstant 'COMMA' EnumConstantList
-void R007_EnumConstantList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR007("R007_EnumConstantList_0Analyzer");
 
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["EnumConstant"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["EnumConstantList"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["EnumFirstStatement"];
 
 
 	FieldToken *fieldP = new FieldToken();
@@ -96,20 +72,20 @@ void R007_EnumConstantList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &
 
 	((StatementToken*)(p2.get()))->statementEntity->fieldList.push_front(P_FieldToken(fieldP));
 
-	nodeValue->context["EnumConstantList"] = p2;
+	nodeValue->context["EnumFirstStatement"] = p2;
 };
 
 
 
-//beg_EnumConstantList : EnumConstant
-void R007_EnumConstantList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR007("R007_EnumConstantList_1Analyzer");
+//beg_EnumFirstStatement : EnumConstant
+void R007_EnumFirstStatement_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR007("R007_EnumFirstStatement_1Analyzer");
 
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["EnumConstant"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
-	statementEntity->type = "EnumConstantList";
+	statementEntity->type = "EnumFirstStatement";
 
 	FieldToken *fieldP = new FieldToken();
 	fieldP->name = ((FieldToken*)(p0.get()))->name;
@@ -117,10 +93,23 @@ void R007_EnumConstantList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &
 	statementEntity->fieldList.push_front(P_FieldToken(fieldP));
 	p->statementEntity = P_StatementEntity(statementEntity);
 
-	nodeValue->context["EnumConstantList"] = P_Token(p);
+	nodeValue->context["EnumFirstStatement"] = P_Token(p);
 };
 
 
+
+//beg_EnumFirstStatement : 0
+void R007_EnumFirstStatement_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR007("R007_EnumFirstStatement_2Analyzer");
+
+	StatementToken *p = new StatementToken();
+	StatementEntity *statementEntity = new StatementEntity();
+	statementEntity->type = "EnumFirstStatement";
+	p->statementEntity = P_StatementEntity(statementEntity);
+
+	nodeValue->context["EnumFirstStatement"] = P_Token(p);
+
+}
 
 //beg_EnumConstant : Identifier
 void R007_EnumConstant_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
@@ -378,6 +367,13 @@ void R007_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 	//TO DO  R007_NonPARENTHESES_10Analyzer
 };
 
+
+
+//beg_NonPARENTHESES: AnnotationContent
+void R007_NonPARENTHESES_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR007("R007_NonPARENTHESES_11Analyzer");
+	//TO DO  R007_NonPARENTHESES_11Analyzer
+};
 
 
 //beg_StatementEle : Identifier

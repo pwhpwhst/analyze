@@ -21,7 +21,7 @@ public: virtual ~R007_ele_begin_0Analyzer();
 
 
 
-//beg_EnumFirstStatement : EnumConstantList 'COMMA'
+//beg_EnumFirstStatement : EnumConstant 'COMMA' EnumFirstStatement
 class R007_EnumFirstStatement_0Analyzer :virtual public Non_Terminate_genertor {
 public: R007_EnumFirstStatement_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -30,7 +30,7 @@ public: virtual ~R007_EnumFirstStatement_0Analyzer();
 
 
 
-//beg_EnumFirstStatement : EnumConstantList
+//beg_EnumFirstStatement : EnumConstant
 class R007_EnumFirstStatement_1Analyzer :virtual public Non_Terminate_genertor {
 public: R007_EnumFirstStatement_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -39,20 +39,11 @@ public: virtual ~R007_EnumFirstStatement_1Analyzer();
 
 
 
-//beg_EnumConstantList : EnumConstant 'COMMA' EnumConstantList
-class R007_EnumConstantList_0Analyzer :virtual public Non_Terminate_genertor {
-public: R007_EnumConstantList_0Analyzer();
+//beg_EnumFirstStatement : 0
+class R007_EnumFirstStatement_2Analyzer :virtual public Non_Terminate_genertor {
+public: R007_EnumFirstStatement_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R007_EnumConstantList_0Analyzer();
-};
-
-
-
-//beg_EnumConstantList : EnumConstant
-class R007_EnumConstantList_1Analyzer :virtual public Non_Terminate_genertor {
-public: R007_EnumConstantList_1Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R007_EnumConstantList_1Analyzer();
+public: virtual ~R007_EnumFirstStatement_2Analyzer();
 };
 
 
@@ -305,6 +296,15 @@ class R007_NonPARENTHESES_10Analyzer :virtual public Non_Terminate_genertor {
 public: R007_NonPARENTHESES_10Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R007_NonPARENTHESES_10Analyzer();
+};
+
+
+
+//beg_NonPARENTHESES : AnnotationContent
+class R007_NonPARENTHESES_11Analyzer :virtual public Non_Terminate_genertor {
+public: R007_NonPARENTHESES_11Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R007_NonPARENTHESES_11Analyzer();
 };
 
 
@@ -1170,6 +1170,3 @@ public: R007_NonBrace_9Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R007_NonBrace_9Analyzer();
 };
-
-
-

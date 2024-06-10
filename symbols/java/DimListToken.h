@@ -13,6 +13,7 @@ class DimListToken : public Token  {
 public: string resultType;
 public: bool isMultiParameters;
 public: bool isReceiverParameter;
+public: bool isThreeSpot;
 public: string name;
 public: int num;
 

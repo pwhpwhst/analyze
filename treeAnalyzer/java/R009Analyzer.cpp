@@ -680,44 +680,9 @@ void R009_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeVa
 
 
 
-
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 void R009_AnnotationTypeDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_AnnotationTypeDeclaration_0Analyzer");
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
-
-	StatementToken *p = new StatementToken();
-	StatementEntity *statementEntity = new StatementEntity();
-	statementEntity->type = "AnnotationTypeDeclaration";
-	statementEntity->name = p2->content;
-	p->statementEntity = P_StatementEntity(statementEntity);
-
-
-	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
-};
-
-
-
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
-void R009_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeDeclaration_1Analyzer");
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Identifier"];
-
-	StatementToken *p = new StatementToken();
-	StatementEntity *statementEntity = new StatementEntity();
-	statementEntity->type = "AnnotationTypeDeclaration";
-	statementEntity->name = p3->content;
-	p->statementEntity = P_StatementEntity(statementEntity);
-
-
-	nodeValue->context["AnnotationTypeDeclaration"] = P_Token(p);
-};
-
-
-
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
-void R009_AnnotationTypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeDeclaration_2Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 
 	StatementToken *p = new StatementToken();
@@ -733,8 +698,8 @@ void R009_AnnotationTypeDeclaration_2Analyzer::handle(const P_NodeValue &nodeVal
 
 
 //beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
-void R009_AnnotationTypeDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeDeclaration_3Analyzer");
+void R009_AnnotationTypeDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeDeclaration_1Analyzer");
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 
 	StatementToken *p = new StatementToken();
@@ -1790,6 +1755,11 @@ void R009_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 };
 
 
+//beg_NonPARENTHESES: AnnotationContent
+void R009_NonPARENTHESES_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_NonPARENTHESES_11Analyzer");
+	//TO DO  R009_NonPARENTHESES_11Analyzer
+};
 
 
 

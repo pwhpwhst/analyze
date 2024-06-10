@@ -15,36 +15,36 @@ SDT_R007_Factory::SDT_R007_Factory() {
    { "R007_ele_begin_0", 0 },
    { "R007_EnumFirstStatement_0", 1 },
    { "R007_EnumFirstStatement_1", 2 },
-   { "R007_EnumConstantList_0", 3 },
-   { "R007_EnumConstantList_1", 4 },
-   { "R007_EnumConstant_0", 5 },
-   { "R007_EnumConstant_1", 6 },
-   { "R007_EnumConstant_2", 7 },
-   { "R007_EnumConstant_3", 8 },
-   { "R007_EnumConstant_4", 9 },
-   { "R007_EnumConstant_5", 10 },
-   { "R007_EnumConstant_6", 11 },
-   { "R007_EnumConstant_7", 12 },
-   { "R007_AnnotationList_0", 13 },
-   { "R007_AnnotationList_1", 14 },
-   { "R007_DetailIdentifier_0", 15 },
-   { "R007_DetailIdentifier_1", 16 },
-   { "R007_Annotation_0", 17 },
-   { "R007_Annotation_1", 18 },
-   { "R007_AnnotationContent_0", 19 },
-   { "R007_AnnotationContentStatements_0", 20 },
-   { "R007_AnnotationContentStatements_1", 21 },
-   { "R007_NonPARENTHESES_0", 22 },
-   { "R007_NonPARENTHESES_1", 23 },
-   { "R007_NonPARENTHESES_2", 24 },
-   { "R007_NonPARENTHESES_3", 25 },
-   { "R007_NonPARENTHESES_4", 26 },
-   { "R007_NonPARENTHESES_5", 27 },
-   { "R007_NonPARENTHESES_6", 28 },
-   { "R007_NonPARENTHESES_7", 29 },
-   { "R007_NonPARENTHESES_8", 30 },
-   { "R007_NonPARENTHESES_9", 31 },
-   { "R007_NonPARENTHESES_10", 32 },
+   { "R007_EnumFirstStatement_2", 3 },
+   { "R007_EnumConstant_0", 4 },
+   { "R007_EnumConstant_1", 5 },
+   { "R007_EnumConstant_2", 6 },
+   { "R007_EnumConstant_3", 7 },
+   { "R007_EnumConstant_4", 8 },
+   { "R007_EnumConstant_5", 9 },
+   { "R007_EnumConstant_6", 10 },
+   { "R007_EnumConstant_7", 11 },
+   { "R007_AnnotationList_0", 12 },
+   { "R007_AnnotationList_1", 13 },
+   { "R007_DetailIdentifier_0", 14 },
+   { "R007_DetailIdentifier_1", 15 },
+   { "R007_Annotation_0", 16 },
+   { "R007_Annotation_1", 17 },
+   { "R007_AnnotationContent_0", 18 },
+   { "R007_AnnotationContentStatements_0", 19 },
+   { "R007_AnnotationContentStatements_1", 20 },
+   { "R007_NonPARENTHESES_0", 21 },
+   { "R007_NonPARENTHESES_1", 22 },
+   { "R007_NonPARENTHESES_2", 23 },
+   { "R007_NonPARENTHESES_3", 24 },
+   { "R007_NonPARENTHESES_4", 25 },
+   { "R007_NonPARENTHESES_5", 26 },
+   { "R007_NonPARENTHESES_6", 27 },
+   { "R007_NonPARENTHESES_7", 28 },
+   { "R007_NonPARENTHESES_8", 29 },
+   { "R007_NonPARENTHESES_9", 30 },
+   { "R007_NonPARENTHESES_10", 31 },
+   { "R007_NonPARENTHESES_11", 32 },
    { "R007_StatementEle_0", 33 },
    { "R007_StatementEle_1", 34 },
    { "R007_StatementEle_2", 35 },
@@ -140,7 +140,7 @@ SDT_R007_Factory::SDT_R007_Factory() {
    { "R007_NonBrace_6", 125 },
    { "R007_NonBrace_7", 126 },
    { "R007_NonBrace_8", 127 },
-   { "R007_NonBrace_9", 128 }
+   { "R007_NonBrace_9", 128 },
 	};
 }
 
@@ -157,36 +157,36 @@ P_SDT_genertor SDT_R007_Factory::getSDT_genertor(const string &key) {
 	case 0: factory["R007_ele_begin_0"] = P_SDT_genertor(new R007_ele_begin_0Analyzer()); break;
 	case 1: factory["R007_EnumFirstStatement_0"] = P_SDT_genertor(new R007_EnumFirstStatement_0Analyzer()); break;
 	case 2: factory["R007_EnumFirstStatement_1"] = P_SDT_genertor(new R007_EnumFirstStatement_1Analyzer()); break;
-	case 3: factory["R007_EnumConstantList_0"] = P_SDT_genertor(new R007_EnumConstantList_0Analyzer()); break;
-	case 4: factory["R007_EnumConstantList_1"] = P_SDT_genertor(new R007_EnumConstantList_1Analyzer()); break;
-	case 5: factory["R007_EnumConstant_0"] = P_SDT_genertor(new R007_EnumConstant_0Analyzer()); break;
-	case 6: factory["R007_EnumConstant_1"] = P_SDT_genertor(new R007_EnumConstant_1Analyzer()); break;
-	case 7: factory["R007_EnumConstant_2"] = P_SDT_genertor(new R007_EnumConstant_2Analyzer()); break;
-	case 8: factory["R007_EnumConstant_3"] = P_SDT_genertor(new R007_EnumConstant_3Analyzer()); break;
-	case 9: factory["R007_EnumConstant_4"] = P_SDT_genertor(new R007_EnumConstant_4Analyzer()); break;
-	case 10: factory["R007_EnumConstant_5"] = P_SDT_genertor(new R007_EnumConstant_5Analyzer()); break;
-	case 11: factory["R007_EnumConstant_6"] = P_SDT_genertor(new R007_EnumConstant_6Analyzer()); break;
-	case 12: factory["R007_EnumConstant_7"] = P_SDT_genertor(new R007_EnumConstant_7Analyzer()); break;
-	case 13: factory["R007_AnnotationList_0"] = P_SDT_genertor(new R007_AnnotationList_0Analyzer()); break;
-	case 14: factory["R007_AnnotationList_1"] = P_SDT_genertor(new R007_AnnotationList_1Analyzer()); break;
-	case 15: factory["R007_DetailIdentifier_0"] = P_SDT_genertor(new R007_DetailIdentifier_0Analyzer()); break;
-	case 16: factory["R007_DetailIdentifier_1"] = P_SDT_genertor(new R007_DetailIdentifier_1Analyzer()); break;
-	case 17: factory["R007_Annotation_0"] = P_SDT_genertor(new R007_Annotation_0Analyzer()); break;
-	case 18: factory["R007_Annotation_1"] = P_SDT_genertor(new R007_Annotation_1Analyzer()); break;
-	case 19: factory["R007_AnnotationContent_0"] = P_SDT_genertor(new R007_AnnotationContent_0Analyzer()); break;
-	case 20: factory["R007_AnnotationContentStatements_0"] = P_SDT_genertor(new R007_AnnotationContentStatements_0Analyzer()); break;
-	case 21: factory["R007_AnnotationContentStatements_1"] = P_SDT_genertor(new R007_AnnotationContentStatements_1Analyzer()); break;
-	case 22: factory["R007_NonPARENTHESES_0"] = P_SDT_genertor(new R007_NonPARENTHESES_0Analyzer()); break;
-	case 23: factory["R007_NonPARENTHESES_1"] = P_SDT_genertor(new R007_NonPARENTHESES_1Analyzer()); break;
-	case 24: factory["R007_NonPARENTHESES_2"] = P_SDT_genertor(new R007_NonPARENTHESES_2Analyzer()); break;
-	case 25: factory["R007_NonPARENTHESES_3"] = P_SDT_genertor(new R007_NonPARENTHESES_3Analyzer()); break;
-	case 26: factory["R007_NonPARENTHESES_4"] = P_SDT_genertor(new R007_NonPARENTHESES_4Analyzer()); break;
-	case 27: factory["R007_NonPARENTHESES_5"] = P_SDT_genertor(new R007_NonPARENTHESES_5Analyzer()); break;
-	case 28: factory["R007_NonPARENTHESES_6"] = P_SDT_genertor(new R007_NonPARENTHESES_6Analyzer()); break;
-	case 29: factory["R007_NonPARENTHESES_7"] = P_SDT_genertor(new R007_NonPARENTHESES_7Analyzer()); break;
-	case 30: factory["R007_NonPARENTHESES_8"] = P_SDT_genertor(new R007_NonPARENTHESES_8Analyzer()); break;
-	case 31: factory["R007_NonPARENTHESES_9"] = P_SDT_genertor(new R007_NonPARENTHESES_9Analyzer()); break;
-	case 32: factory["R007_NonPARENTHESES_10"] = P_SDT_genertor(new R007_NonPARENTHESES_10Analyzer()); break;
+	case 3: factory["R007_EnumFirstStatement_2"] = P_SDT_genertor(new R007_EnumFirstStatement_2Analyzer()); break;
+	case 4: factory["R007_EnumConstant_0"] = P_SDT_genertor(new R007_EnumConstant_0Analyzer()); break;
+	case 5: factory["R007_EnumConstant_1"] = P_SDT_genertor(new R007_EnumConstant_1Analyzer()); break;
+	case 6: factory["R007_EnumConstant_2"] = P_SDT_genertor(new R007_EnumConstant_2Analyzer()); break;
+	case 7: factory["R007_EnumConstant_3"] = P_SDT_genertor(new R007_EnumConstant_3Analyzer()); break;
+	case 8: factory["R007_EnumConstant_4"] = P_SDT_genertor(new R007_EnumConstant_4Analyzer()); break;
+	case 9: factory["R007_EnumConstant_5"] = P_SDT_genertor(new R007_EnumConstant_5Analyzer()); break;
+	case 10: factory["R007_EnumConstant_6"] = P_SDT_genertor(new R007_EnumConstant_6Analyzer()); break;
+	case 11: factory["R007_EnumConstant_7"] = P_SDT_genertor(new R007_EnumConstant_7Analyzer()); break;
+	case 12: factory["R007_AnnotationList_0"] = P_SDT_genertor(new R007_AnnotationList_0Analyzer()); break;
+	case 13: factory["R007_AnnotationList_1"] = P_SDT_genertor(new R007_AnnotationList_1Analyzer()); break;
+	case 14: factory["R007_DetailIdentifier_0"] = P_SDT_genertor(new R007_DetailIdentifier_0Analyzer()); break;
+	case 15: factory["R007_DetailIdentifier_1"] = P_SDT_genertor(new R007_DetailIdentifier_1Analyzer()); break;
+	case 16: factory["R007_Annotation_0"] = P_SDT_genertor(new R007_Annotation_0Analyzer()); break;
+	case 17: factory["R007_Annotation_1"] = P_SDT_genertor(new R007_Annotation_1Analyzer()); break;
+	case 18: factory["R007_AnnotationContent_0"] = P_SDT_genertor(new R007_AnnotationContent_0Analyzer()); break;
+	case 19: factory["R007_AnnotationContentStatements_0"] = P_SDT_genertor(new R007_AnnotationContentStatements_0Analyzer()); break;
+	case 20: factory["R007_AnnotationContentStatements_1"] = P_SDT_genertor(new R007_AnnotationContentStatements_1Analyzer()); break;
+	case 21: factory["R007_NonPARENTHESES_0"] = P_SDT_genertor(new R007_NonPARENTHESES_0Analyzer()); break;
+	case 22: factory["R007_NonPARENTHESES_1"] = P_SDT_genertor(new R007_NonPARENTHESES_1Analyzer()); break;
+	case 23: factory["R007_NonPARENTHESES_2"] = P_SDT_genertor(new R007_NonPARENTHESES_2Analyzer()); break;
+	case 24: factory["R007_NonPARENTHESES_3"] = P_SDT_genertor(new R007_NonPARENTHESES_3Analyzer()); break;
+	case 25: factory["R007_NonPARENTHESES_4"] = P_SDT_genertor(new R007_NonPARENTHESES_4Analyzer()); break;
+	case 26: factory["R007_NonPARENTHESES_5"] = P_SDT_genertor(new R007_NonPARENTHESES_5Analyzer()); break;
+	case 27: factory["R007_NonPARENTHESES_6"] = P_SDT_genertor(new R007_NonPARENTHESES_6Analyzer()); break;
+	case 28: factory["R007_NonPARENTHESES_7"] = P_SDT_genertor(new R007_NonPARENTHESES_7Analyzer()); break;
+	case 29: factory["R007_NonPARENTHESES_8"] = P_SDT_genertor(new R007_NonPARENTHESES_8Analyzer()); break;
+	case 30: factory["R007_NonPARENTHESES_9"] = P_SDT_genertor(new R007_NonPARENTHESES_9Analyzer()); break;
+	case 31: factory["R007_NonPARENTHESES_10"] = P_SDT_genertor(new R007_NonPARENTHESES_10Analyzer()); break;
+	case 32: factory["R007_NonPARENTHESES_11"] = P_SDT_genertor(new R007_NonPARENTHESES_11Analyzer()); break;
 	case 33: factory["R007_StatementEle_0"] = P_SDT_genertor(new R007_StatementEle_0Analyzer()); break;
 	case 34: factory["R007_StatementEle_1"] = P_SDT_genertor(new R007_StatementEle_1Analyzer()); break;
 	case 35: factory["R007_StatementEle_2"] = P_SDT_genertor(new R007_StatementEle_2Analyzer()); break;

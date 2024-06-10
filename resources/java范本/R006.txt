@@ -10,24 +10,23 @@ VariableModifierList : 'final' VariableModifierList
 VariableModifierList : AnnotationList VariableModifierList
 VariableModifierList : 'final'
 VariableModifierList : AnnotationList
-LastFormalParameter : VariableModifierList UnannType 'THREE_SPOT' VariableDeclaratorId
-LastFormalParameter : VariableModifierList UnannType AnnotationList 'THREE_SPOT' VariableDeclaratorId
-LastFormalParameter : UnannType 'THREE_SPOT' VariableDeclaratorId
-LastFormalParameter : UnannType AnnotationList 'THREE_SPOT' VariableDeclaratorId
-LastFormalParameter : FormalParameter
-FormalParameter : UnannType VariableDeclaratorId
-FormalParameter : VariableModifierList UnannType VariableDeclaratorId
-ReceiverParameter : UnannType 'this'
-ReceiverParameter : AnnotationList UnannType 'this'
-ReceiverParameter : UnannType Identifier 'SPOT' 'this'
-ReceiverParameter : AnnotationList UnannType Identifier 'SPOT' 'this'
+LastFormalParameter : VariableModifierList UnannTypeL  VariableDeclaratorId
+LastFormalParameter : UnannTypeL  VariableDeclaratorId
+FormalParameter : UnannTypeL VariableDeclaratorId
+FormalParameter : VariableModifierList UnannTypeL VariableDeclaratorId
+ReceiverParameter : UnannTypeL 'this'
+ReceiverParameter : AnnotationList UnannTypeL 'this'
+ReceiverParameter : UnannTypeL Identifier 'SPOT' 'this'
+ReceiverParameter : AnnotationList UnannTypeL Identifier 'SPOT' 'this'
 VariableDeclaratorId : Identifier Dims
 VariableDeclaratorId : Identifier
 Identifier : 'IDENTIFIER'
-Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
-Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
-Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
+Dims : AnnotationList DimOrThreeSpot Dims
+Dims : DimOrThreeSpot Dims
+Dims : AnnotationList DimOrThreeSpot
+Dims : DimOrThreeSpot
+DimOrThreeSpot : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+DimOrThreeSpot : 'THREE_SPOT'
 AnnotationList : Annotation AnnotationList
 AnnotationList : Annotation
 Annotation : 'AT' DetailIdentifier AnnotationContent
@@ -133,7 +132,7 @@ TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
 TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
 TypeArgumentList : TypeArguments TypeArgumentList
 TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
-TypeArgumentList : 0
+TypeArgumentList : NonANGLE_BRACKET
 NonANGLE_BRACKET : 'QUESTION'
 NonANGLE_BRACKET : 'extends'
 NonANGLE_BRACKET : 'super'
@@ -144,9 +143,10 @@ NonANGLE_BRACKET : 'SPOT'
 NonANGLE_BRACKET : 'LEFT_BRACKET'
 NonANGLE_BRACKET : 'RIGHT_BRACKET'
 NonANGLE_BRACKET : TypeArguments
-UnannType : UnannArrayType
-UnannType : UnannPrimitiveType
-UnannType : UnannClassOrInterfaceType
+UnannTypeL : UnannPrimitiveType Dims
+UnannTypeL : UnannClassOrInterfaceType Dims
+UnannTypeL : UnannPrimitiveType
+UnannTypeL : UnannClassOrInterfaceType
 UnannPrimitiveType : 'boolean'
 UnannPrimitiveType : 'byte'
 UnannPrimitiveType : 'short'
@@ -161,5 +161,90 @@ UnannClassOrInterfaceType : Identifier TypeArguments 'SPOT' UnannClassOrInterfac
 UnannClassOrInterfaceType : Identifier 'SPOT' UnannClassOrInterfaceType
 UnannClassOrInterfaceType : Identifier TypeArguments
 UnannClassOrInterfaceType : Identifier
-UnannArrayType : UnannPrimitiveType Dims
-UnannArrayType : UnannClassOrInterfaceType Dims
+=======================================================
+sc
+s:0:'AT' : Annotation : 'AT' DetailIdentifier AnnotationContent
+r:'AT' : AnnotationList : Annotation
+sc
+r:'byte' : VariableModifierList : AnnotationList
+s:0:'byte' : UnannPrimitiveType : 'byte'
+sc
+r:'float' : VariableModifierList : AnnotationList
+s:0:'float' : UnannPrimitiveType : 'float'
+sc
+r:'IDENTIFIER' : VariableModifierList : AnnotationList
+s:0:'IDENTIFIER' : Identifier : 'IDENTIFIER'
+sc
+r:'long' : VariableModifierList : AnnotationList
+s:0:'long' : UnannPrimitiveType : 'long'
+sc
+r:'boolean' : VariableModifierList : AnnotationList
+s:0:'boolean' : UnannPrimitiveType : 'boolean'
+sc
+r:'int' : VariableModifierList : AnnotationList
+s:0:'int' : UnannPrimitiveType : 'int'
+sc
+r:'double' : VariableModifierList : AnnotationList
+s:0:'double' : UnannPrimitiveType : 'double'
+sc
+r:'char' : VariableModifierList : AnnotationList
+s:0:'char' : UnannPrimitiveType : 'char'
+sc
+r:'short' : VariableModifierList : AnnotationList
+s:0:'short' : UnannPrimitiveType : 'short'
+sc
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+r:'LEFT_ANGLE_BRACKET' : TypeArgumentList : 0
+sc
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+r:'LEFT_ANGLE_BRACKET' : TypeArgumentList : NonANGLE_BRACKET
+sc
+r:'boolean' : NonANGLE_BRACKET : TypeArguments
+s:0:'boolean' : UnannPrimitiveType : 'boolean'
+sc
+r:'byte' : NonANGLE_BRACKET : TypeArguments
+s:0:'byte' : UnannPrimitiveType : 'byte'
+sc
+r:'char' : NonANGLE_BRACKET : TypeArguments
+s:0:'char' : UnannPrimitiveType : 'char'
+sc
+r:'double' : NonANGLE_BRACKET : TypeArguments
+s:0:'double' : UnannPrimitiveType : 'double'
+sc
+r:'float' : NonANGLE_BRACKET : TypeArguments
+s:0:'float' : UnannPrimitiveType : 'float'
+sc
+r:'int' : NonANGLE_BRACKET : TypeArguments
+s:0:'int' : UnannPrimitiveType : 'int'
+sc
+r:'long' : NonANGLE_BRACKET : TypeArguments
+s:0:'long' : UnannPrimitiveType : 'long'
+sc
+r:'short' : NonANGLE_BRACKET : TypeArguments
+s:0:'short' : UnannPrimitiveType : 'short'
+sc
+r:'extends' : NonANGLE_BRACKET : TypeArguments
+s:0:'extends' : NonANGLE_BRACKET : 'extends'
+sc
+r:'super' : NonANGLE_BRACKET : TypeArguments
+s:0:'super' : NonANGLE_BRACKET : 'super'
+sc
+r:'QUESTION' : NonANGLE_BRACKET : TypeArguments
+s:0:'QUESTION' : NonANGLE_BRACKET : 'QUESTION'
+sc
+r:'SPOT' : NonANGLE_BRACKET : TypeArguments
+s:0:'SPOT' : NonANGLE_BRACKET : 'SPOT'
+sc
+r:'COMMA' : NonANGLE_BRACKET : TypeArguments
+s:0:'COMMA' : NonANGLE_BRACKET : 'COMMA'
+sc
+r:'RIGHT_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'RIGHT_BRACKET' : NonANGLE_BRACKET : 'RIGHT_BRACKET'
+sc
+r:'LEFT_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'LEFT_BRACKET' : NonANGLE_BRACKET : 'LEFT_BRACKET'
+sc
+r:'IDENTIFIER' : NonANGLE_BRACKET : TypeArguments
+s:0:'IDENTIFIER' : Identifier : 'IDENTIFIER'
+r:'LEFT_ANGLE_BRACKET' : NonANGLE_BRACKET : TypeArguments
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'

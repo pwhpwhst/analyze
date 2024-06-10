@@ -87,97 +87,97 @@ R009_EnumDeclaration_3Analyzer::~R009_EnumDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 R009_NormalClassDeclaration_0Analyzer::R009_NormalClassDeclaration_0Analyzer() {}
 R009_NormalClassDeclaration_0Analyzer::~R009_NormalClassDeclaration_0Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
 R009_NormalClassDeclaration_1Analyzer::R009_NormalClassDeclaration_1Analyzer() {}
 R009_NormalClassDeclaration_1Analyzer::~R009_NormalClassDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
 R009_NormalClassDeclaration_2Analyzer::R009_NormalClassDeclaration_2Analyzer() {}
 R009_NormalClassDeclaration_2Analyzer::~R009_NormalClassDeclaration_2Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
 R009_NormalClassDeclaration_3Analyzer::R009_NormalClassDeclaration_3Analyzer() {}
 R009_NormalClassDeclaration_3Analyzer::~R009_NormalClassDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
 R009_NormalClassDeclaration_4Analyzer::R009_NormalClassDeclaration_4Analyzer() {}
 R009_NormalClassDeclaration_4Analyzer::~R009_NormalClassDeclaration_4Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
 R009_NormalClassDeclaration_5Analyzer::R009_NormalClassDeclaration_5Analyzer() {}
 R009_NormalClassDeclaration_5Analyzer::~R009_NormalClassDeclaration_5Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
 R009_NormalClassDeclaration_6Analyzer::R009_NormalClassDeclaration_6Analyzer() {}
 R009_NormalClassDeclaration_6Analyzer::~R009_NormalClassDeclaration_6Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
 R009_NormalClassDeclaration_7Analyzer::R009_NormalClassDeclaration_7Analyzer() {}
 R009_NormalClassDeclaration_7Analyzer::~R009_NormalClassDeclaration_7Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 R009_NormalClassDeclaration_8Analyzer::R009_NormalClassDeclaration_8Analyzer() {}
 R009_NormalClassDeclaration_8Analyzer::~R009_NormalClassDeclaration_8Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
 R009_NormalClassDeclaration_9Analyzer::R009_NormalClassDeclaration_9Analyzer() {}
 R009_NormalClassDeclaration_9Analyzer::~R009_NormalClassDeclaration_9Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
 R009_NormalClassDeclaration_10Analyzer::R009_NormalClassDeclaration_10Analyzer() {}
 R009_NormalClassDeclaration_10Analyzer::~R009_NormalClassDeclaration_10Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
 R009_NormalClassDeclaration_11Analyzer::R009_NormalClassDeclaration_11Analyzer() {}
 R009_NormalClassDeclaration_11Analyzer::~R009_NormalClassDeclaration_11Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
 R009_NormalClassDeclaration_12Analyzer::R009_NormalClassDeclaration_12Analyzer() {}
 R009_NormalClassDeclaration_12Analyzer::~R009_NormalClassDeclaration_12Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
 R009_NormalClassDeclaration_13Analyzer::R009_NormalClassDeclaration_13Analyzer() {}
 R009_NormalClassDeclaration_13Analyzer::~R009_NormalClassDeclaration_13Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
 R009_NormalClassDeclaration_14Analyzer::R009_NormalClassDeclaration_14Analyzer() {}
 R009_NormalClassDeclaration_14Analyzer::~R009_NormalClassDeclaration_14Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Block
 R009_NormalClassDeclaration_15Analyzer::R009_NormalClassDeclaration_15Analyzer() {}
 R009_NormalClassDeclaration_15Analyzer::~R009_NormalClassDeclaration_15Analyzer() {}
 
@@ -243,27 +243,15 @@ R009_NormalInterfaceDeclaration_7Analyzer::~R009_NormalInterfaceDeclaration_7Ana
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 R009_AnnotationTypeDeclaration_0Analyzer::R009_AnnotationTypeDeclaration_0Analyzer() {}
 R009_AnnotationTypeDeclaration_0Analyzer::~R009_AnnotationTypeDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 R009_AnnotationTypeDeclaration_1Analyzer::R009_AnnotationTypeDeclaration_1Analyzer() {}
 R009_AnnotationTypeDeclaration_1Analyzer::~R009_AnnotationTypeDeclaration_1Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
-R009_AnnotationTypeDeclaration_2Analyzer::R009_AnnotationTypeDeclaration_2Analyzer() {}
-R009_AnnotationTypeDeclaration_2Analyzer::~R009_AnnotationTypeDeclaration_2Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
-R009_AnnotationTypeDeclaration_3Analyzer::R009_AnnotationTypeDeclaration_3Analyzer() {}
-R009_AnnotationTypeDeclaration_3Analyzer::~R009_AnnotationTypeDeclaration_3Analyzer() {}
 
 
 
@@ -1041,6 +1029,12 @@ R009_NonPARENTHESES_10Analyzer::~R009_NonPARENTHESES_10Analyzer() {}
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+R009_NonPARENTHESES_11Analyzer::R009_NonPARENTHESES_11Analyzer() {}
+R009_NonPARENTHESES_11Analyzer::~R009_NonPARENTHESES_11Analyzer() {}
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 R009_TypeArguments_0Analyzer::R009_TypeArguments_0Analyzer() {}
 R009_TypeArguments_0Analyzer::~R009_TypeArguments_0Analyzer() {}
@@ -1179,13 +1173,13 @@ R009_ExtendsInterfaces_0Analyzer::~R009_ExtendsInterfaces_0Analyzer() {}
 
 
 
-//beg_InterfaceTypeList : ClassType
+//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 R009_InterfaceTypeList_0Analyzer::R009_InterfaceTypeList_0Analyzer() {}
 R009_InterfaceTypeList_0Analyzer::~R009_InterfaceTypeList_0Analyzer() {}
 
 
 
-//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+//beg_InterfaceTypeList : ClassType
 R009_InterfaceTypeList_1Analyzer::R009_InterfaceTypeList_1Analyzer() {}
 R009_InterfaceTypeList_1Analyzer::~R009_InterfaceTypeList_1Analyzer() {}
 

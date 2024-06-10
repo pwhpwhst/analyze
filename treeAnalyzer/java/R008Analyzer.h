@@ -138,7 +138,7 @@ public: virtual ~R008_EnumDeclaration_3Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 class R008_NormalClassDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -147,7 +147,7 @@ public: virtual ~R008_NormalClassDeclaration_0Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
 class R008_NormalClassDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -156,7 +156,7 @@ public: virtual ~R008_NormalClassDeclaration_1Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
 class R008_NormalClassDeclaration_2Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -165,7 +165,7 @@ public: virtual ~R008_NormalClassDeclaration_2Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
 class R008_NormalClassDeclaration_3Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -174,7 +174,7 @@ public: virtual ~R008_NormalClassDeclaration_3Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
 class R008_NormalClassDeclaration_4Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -183,7 +183,7 @@ public: virtual ~R008_NormalClassDeclaration_4Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
 class R008_NormalClassDeclaration_5Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_5Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -192,7 +192,7 @@ public: virtual ~R008_NormalClassDeclaration_5Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
 class R008_NormalClassDeclaration_6Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_6Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -201,7 +201,7 @@ public: virtual ~R008_NormalClassDeclaration_6Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
 class R008_NormalClassDeclaration_7Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_7Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -210,7 +210,7 @@ public: virtual ~R008_NormalClassDeclaration_7Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 class R008_NormalClassDeclaration_8Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_8Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -219,7 +219,7 @@ public: virtual ~R008_NormalClassDeclaration_8Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
 class R008_NormalClassDeclaration_9Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_9Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -228,7 +228,7 @@ public: virtual ~R008_NormalClassDeclaration_9Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
 class R008_NormalClassDeclaration_10Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_10Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -237,7 +237,7 @@ public: virtual ~R008_NormalClassDeclaration_10Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
 class R008_NormalClassDeclaration_11Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_11Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -246,7 +246,7 @@ public: virtual ~R008_NormalClassDeclaration_11Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
 class R008_NormalClassDeclaration_12Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_12Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -255,7 +255,7 @@ public: virtual ~R008_NormalClassDeclaration_12Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
 class R008_NormalClassDeclaration_13Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_13Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -264,7 +264,7 @@ public: virtual ~R008_NormalClassDeclaration_13Analyzer();
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
 class R008_NormalClassDeclaration_14Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_14Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -273,7 +273,7 @@ public: virtual ~R008_NormalClassDeclaration_14Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Block
 class R008_NormalClassDeclaration_15Analyzer :virtual public Non_Terminate_genertor {
 public: R008_NormalClassDeclaration_15Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -372,7 +372,7 @@ public: virtual ~R008_NormalInterfaceDeclaration_7Analyzer();
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 class R008_AnnotationTypeDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_AnnotationTypeDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -381,29 +381,11 @@ public: virtual ~R008_AnnotationTypeDeclaration_0Analyzer();
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 class R008_AnnotationTypeDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_AnnotationTypeDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R008_AnnotationTypeDeclaration_1Analyzer();
-};
-
-
-
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
-class R008_AnnotationTypeDeclaration_2Analyzer :virtual public Non_Terminate_genertor {
-public: R008_AnnotationTypeDeclaration_2Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R008_AnnotationTypeDeclaration_2Analyzer();
-};
-
-
-
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
-class R008_AnnotationTypeDeclaration_3Analyzer :virtual public Non_Terminate_genertor {
-public: R008_AnnotationTypeDeclaration_3Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R008_AnnotationTypeDeclaration_3Analyzer();
 };
 
 
@@ -1569,6 +1551,15 @@ public: virtual ~R008_NonPARENTHESES_10Analyzer();
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+class R008_NonPARENTHESES_11Analyzer :virtual public Non_Terminate_genertor {
+public: R008_NonPARENTHESES_11Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R008_NonPARENTHESES_11Analyzer();
+};
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 class R008_TypeArguments_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_TypeArguments_0Analyzer();
@@ -1776,7 +1767,7 @@ public: virtual ~R008_ExtendsInterfaces_0Analyzer();
 
 
 
-//beg_InterfaceTypeList : ClassType
+//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 class R008_InterfaceTypeList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_InterfaceTypeList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1785,7 +1776,7 @@ public: virtual ~R008_InterfaceTypeList_0Analyzer();
 
 
 
-//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+//beg_InterfaceTypeList : ClassType
 class R008_InterfaceTypeList_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_InterfaceTypeList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1884,7 +1875,7 @@ public: virtual ~R008_InterfaceMethodDeclaration_3Analyzer();
 
 
 
-//beg_MethodHeader : Result MethodDeclarator
+//beg_MethodHeader : Result MethodDeclarator Throws
 class R008_MethodHeader_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_MethodHeader_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1893,7 +1884,7 @@ public: virtual ~R008_MethodHeader_0Analyzer();
 
 
 
-//beg_MethodHeader : Result MethodDeclarator Throws
+//beg_MethodHeader : Result MethodDeclarator
 class R008_MethodHeader_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_MethodHeader_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2154,7 +2145,7 @@ public: virtual ~R008_Throws_0Analyzer();
 
 
 
-//beg_ExceptionTypeList : ExceptionType
+//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 class R008_ExceptionTypeList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ExceptionTypeList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2163,7 +2154,7 @@ public: virtual ~R008_ExceptionTypeList_0Analyzer();
 
 
 
-//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+//beg_ExceptionTypeList : ExceptionType
 class R008_ExceptionTypeList_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ExceptionTypeList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2190,7 +2181,7 @@ public: virtual ~R008_ExceptionType_1Analyzer();
 
 
 
-//beg_ConstantDeclaration : UnannType VariableDeclaratorList 'semicolon'
+//beg_ConstantDeclaration : Result VariableDeclaratorList 'semicolon'
 class R008_ConstantDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ConstantDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2199,7 +2190,7 @@ public: virtual ~R008_ConstantDeclaration_0Analyzer();
 
 
 
-//beg_ConstantDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
+//beg_ConstantDeclaration : ModifierList Result VariableDeclaratorList 'semicolon'
 class R008_ConstantDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ConstantDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2208,7 +2199,7 @@ public: virtual ~R008_ConstantDeclaration_1Analyzer();
 
 
 
-//beg_ConstantDeclarationFake : UnannType VariableDeclaratorList
+//beg_ConstantDeclarationFake : Result VariableDeclaratorList
 class R008_ConstantDeclarationFake_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ConstantDeclarationFake_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2217,7 +2208,7 @@ public: virtual ~R008_ConstantDeclarationFake_0Analyzer();
 
 
 
-//beg_ConstantDeclarationFake : ModifierList UnannType VariableDeclaratorList
+//beg_ConstantDeclarationFake : ModifierList Result VariableDeclaratorList
 class R008_ConstantDeclarationFake_1Analyzer :virtual public Non_Terminate_genertor {
 public: R008_ConstantDeclarationFake_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);

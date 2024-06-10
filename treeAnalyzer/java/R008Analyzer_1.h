@@ -87,97 +87,97 @@ R008_EnumDeclaration_3Analyzer::~R008_EnumDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 R008_NormalClassDeclaration_0Analyzer::R008_NormalClassDeclaration_0Analyzer() {}
 R008_NormalClassDeclaration_0Analyzer::~R008_NormalClassDeclaration_0Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
 R008_NormalClassDeclaration_1Analyzer::R008_NormalClassDeclaration_1Analyzer() {}
 R008_NormalClassDeclaration_1Analyzer::~R008_NormalClassDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
 R008_NormalClassDeclaration_2Analyzer::R008_NormalClassDeclaration_2Analyzer() {}
 R008_NormalClassDeclaration_2Analyzer::~R008_NormalClassDeclaration_2Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
 R008_NormalClassDeclaration_3Analyzer::R008_NormalClassDeclaration_3Analyzer() {}
 R008_NormalClassDeclaration_3Analyzer::~R008_NormalClassDeclaration_3Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
 R008_NormalClassDeclaration_4Analyzer::R008_NormalClassDeclaration_4Analyzer() {}
 R008_NormalClassDeclaration_4Analyzer::~R008_NormalClassDeclaration_4Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
 R008_NormalClassDeclaration_5Analyzer::R008_NormalClassDeclaration_5Analyzer() {}
 R008_NormalClassDeclaration_5Analyzer::~R008_NormalClassDeclaration_5Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
 R008_NormalClassDeclaration_6Analyzer::R008_NormalClassDeclaration_6Analyzer() {}
 R008_NormalClassDeclaration_6Analyzer::~R008_NormalClassDeclaration_6Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
 R008_NormalClassDeclaration_7Analyzer::R008_NormalClassDeclaration_7Analyzer() {}
 R008_NormalClassDeclaration_7Analyzer::~R008_NormalClassDeclaration_7Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 R008_NormalClassDeclaration_8Analyzer::R008_NormalClassDeclaration_8Analyzer() {}
 R008_NormalClassDeclaration_8Analyzer::~R008_NormalClassDeclaration_8Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Block
 R008_NormalClassDeclaration_9Analyzer::R008_NormalClassDeclaration_9Analyzer() {}
 R008_NormalClassDeclaration_9Analyzer::~R008_NormalClassDeclaration_9Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Block
 R008_NormalClassDeclaration_10Analyzer::R008_NormalClassDeclaration_10Analyzer() {}
 R008_NormalClassDeclaration_10Analyzer::~R008_NormalClassDeclaration_10Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Superclass Block
 R008_NormalClassDeclaration_11Analyzer::R008_NormalClassDeclaration_11Analyzer() {}
 R008_NormalClassDeclaration_11Analyzer::~R008_NormalClassDeclaration_11Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Block
 R008_NormalClassDeclaration_12Analyzer::R008_NormalClassDeclaration_12Analyzer() {}
 R008_NormalClassDeclaration_12Analyzer::~R008_NormalClassDeclaration_12Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Block
 R008_NormalClassDeclaration_13Analyzer::R008_NormalClassDeclaration_13Analyzer() {}
 R008_NormalClassDeclaration_13Analyzer::~R008_NormalClassDeclaration_13Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : 'class' Identifier TypeArguments Superclass Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier Block
 R008_NormalClassDeclaration_14Analyzer::R008_NormalClassDeclaration_14Analyzer() {}
 R008_NormalClassDeclaration_14Analyzer::~R008_NormalClassDeclaration_14Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : 'class' Identifier Block
 R008_NormalClassDeclaration_15Analyzer::R008_NormalClassDeclaration_15Analyzer() {}
 R008_NormalClassDeclaration_15Analyzer::~R008_NormalClassDeclaration_15Analyzer() {}
 
@@ -243,27 +243,15 @@ R008_NormalInterfaceDeclaration_7Analyzer::~R008_NormalInterfaceDeclaration_7Ana
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 R008_AnnotationTypeDeclaration_0Analyzer::R008_AnnotationTypeDeclaration_0Analyzer() {}
 R008_AnnotationTypeDeclaration_0Analyzer::~R008_AnnotationTypeDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 R008_AnnotationTypeDeclaration_1Analyzer::R008_AnnotationTypeDeclaration_1Analyzer() {}
 R008_AnnotationTypeDeclaration_1Analyzer::~R008_AnnotationTypeDeclaration_1Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
-R008_AnnotationTypeDeclaration_2Analyzer::R008_AnnotationTypeDeclaration_2Analyzer() {}
-R008_AnnotationTypeDeclaration_2Analyzer::~R008_AnnotationTypeDeclaration_2Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
-R008_AnnotationTypeDeclaration_3Analyzer::R008_AnnotationTypeDeclaration_3Analyzer() {}
-R008_AnnotationTypeDeclaration_3Analyzer::~R008_AnnotationTypeDeclaration_3Analyzer() {}
 
 
 
@@ -1041,6 +1029,12 @@ R008_NonPARENTHESES_10Analyzer::~R008_NonPARENTHESES_10Analyzer() {}
 
 
 
+//beg_NonPARENTHESES : AnnotationContent
+R008_NonPARENTHESES_11Analyzer::R008_NonPARENTHESES_11Analyzer() {}
+R008_NonPARENTHESES_11Analyzer::~R008_NonPARENTHESES_11Analyzer() {}
+
+
+
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 R008_TypeArguments_0Analyzer::R008_TypeArguments_0Analyzer() {}
 R008_TypeArguments_0Analyzer::~R008_TypeArguments_0Analyzer() {}
@@ -1179,13 +1173,13 @@ R008_ExtendsInterfaces_0Analyzer::~R008_ExtendsInterfaces_0Analyzer() {}
 
 
 
-//beg_InterfaceTypeList : ClassType
+//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 R008_InterfaceTypeList_0Analyzer::R008_InterfaceTypeList_0Analyzer() {}
 R008_InterfaceTypeList_0Analyzer::~R008_InterfaceTypeList_0Analyzer() {}
 
 
 
-//beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
+//beg_InterfaceTypeList : ClassType
 R008_InterfaceTypeList_1Analyzer::R008_InterfaceTypeList_1Analyzer() {}
 R008_InterfaceTypeList_1Analyzer::~R008_InterfaceTypeList_1Analyzer() {}
 
@@ -1251,13 +1245,13 @@ R008_InterfaceMethodDeclaration_3Analyzer::~R008_InterfaceMethodDeclaration_3Ana
 
 
 
-//beg_MethodHeader : Result MethodDeclarator
+//beg_MethodHeader : Result MethodDeclarator Throws
 R008_MethodHeader_0Analyzer::R008_MethodHeader_0Analyzer() {}
 R008_MethodHeader_0Analyzer::~R008_MethodHeader_0Analyzer() {}
 
 
 
-//beg_MethodHeader : Result MethodDeclarator Throws
+//beg_MethodHeader : Result MethodDeclarator
 R008_MethodHeader_1Analyzer::R008_MethodHeader_1Analyzer() {}
 R008_MethodHeader_1Analyzer::~R008_MethodHeader_1Analyzer() {}
 
@@ -1431,13 +1425,13 @@ R008_Throws_0Analyzer::~R008_Throws_0Analyzer() {}
 
 
 
-//beg_ExceptionTypeList : ExceptionType
+//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
 R008_ExceptionTypeList_0Analyzer::R008_ExceptionTypeList_0Analyzer() {}
 R008_ExceptionTypeList_0Analyzer::~R008_ExceptionTypeList_0Analyzer() {}
 
 
 
-//beg_ExceptionTypeList : ExceptionType 'COMMA' ExceptionTypeList
+//beg_ExceptionTypeList : ExceptionType
 R008_ExceptionTypeList_1Analyzer::R008_ExceptionTypeList_1Analyzer() {}
 R008_ExceptionTypeList_1Analyzer::~R008_ExceptionTypeList_1Analyzer() {}
 
@@ -1455,25 +1449,25 @@ R008_ExceptionType_1Analyzer::~R008_ExceptionType_1Analyzer() {}
 
 
 
-//beg_ConstantDeclaration : UnannType VariableDeclaratorList 'semicolon'
+//beg_ConstantDeclaration : Result VariableDeclaratorList 'semicolon'
 R008_ConstantDeclaration_0Analyzer::R008_ConstantDeclaration_0Analyzer() {}
 R008_ConstantDeclaration_0Analyzer::~R008_ConstantDeclaration_0Analyzer() {}
 
 
 
-//beg_ConstantDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
+//beg_ConstantDeclaration : ModifierList Result VariableDeclaratorList 'semicolon'
 R008_ConstantDeclaration_1Analyzer::R008_ConstantDeclaration_1Analyzer() {}
 R008_ConstantDeclaration_1Analyzer::~R008_ConstantDeclaration_1Analyzer() {}
 
 
 
-//beg_ConstantDeclarationFake : UnannType VariableDeclaratorList
+//beg_ConstantDeclarationFake : Result VariableDeclaratorList
 R008_ConstantDeclarationFake_0Analyzer::R008_ConstantDeclarationFake_0Analyzer() {}
 R008_ConstantDeclarationFake_0Analyzer::~R008_ConstantDeclarationFake_0Analyzer() {}
 
 
 
-//beg_ConstantDeclarationFake : ModifierList UnannType VariableDeclaratorList
+//beg_ConstantDeclarationFake : ModifierList Result VariableDeclaratorList
 R008_ConstantDeclarationFake_1Analyzer::R008_ConstantDeclarationFake_1Analyzer() {}
 R008_ConstantDeclarationFake_1Analyzer::~R008_ConstantDeclarationFake_1Analyzer() {}
 

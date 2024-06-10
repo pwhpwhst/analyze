@@ -3,7 +3,7 @@ R005_DefaultAnalyzer::~R005_DefaultAnalyzer() {}
 
 
 
-//beg_ele_begin : ClassBodyDeclaration
+//beg_ele_begin : ClassBodyDeclaration 
 R005_ele_begin_0Analyzer::R005_ele_begin_0Analyzer() {}
 R005_ele_begin_0Analyzer::~R005_ele_begin_0Analyzer() {}
 
@@ -63,25 +63,25 @@ R005_ClassMemberDeclaration_4Analyzer::~R005_ClassMemberDeclaration_4Analyzer() 
 
 
 
-//beg_FieldDeclaration : ModifierList UnannType VariableDeclaratorList 'semicolon'
+//beg_FieldDeclaration : ModifierList Result VariableDeclaratorList 'semicolon'
 R005_FieldDeclaration_0Analyzer::R005_FieldDeclaration_0Analyzer() {}
 R005_FieldDeclaration_0Analyzer::~R005_FieldDeclaration_0Analyzer() {}
 
 
 
-//beg_FieldDeclaration : UnannType VariableDeclaratorList 'semicolon'
+//beg_FieldDeclaration : Result VariableDeclaratorList 'semicolon'
 R005_FieldDeclaration_1Analyzer::R005_FieldDeclaration_1Analyzer() {}
 R005_FieldDeclaration_1Analyzer::~R005_FieldDeclaration_1Analyzer() {}
 
 
 
-//beg_FieldDeclarationFake : ModifierList UnannType VariableDeclaratorList
+//beg_FieldDeclarationFake : ModifierList Result VariableDeclaratorList
 R005_FieldDeclarationFake_0Analyzer::R005_FieldDeclarationFake_0Analyzer() {}
 R005_FieldDeclarationFake_0Analyzer::~R005_FieldDeclarationFake_0Analyzer() {}
 
 
 
-//beg_FieldDeclarationFake : UnannType VariableDeclaratorList
+//beg_FieldDeclarationFake : Result VariableDeclaratorList
 R005_FieldDeclarationFake_1Analyzer::R005_FieldDeclarationFake_1Analyzer() {}
 R005_FieldDeclarationFake_1Analyzer::~R005_FieldDeclarationFake_1Analyzer() {}
 
@@ -207,7 +207,7 @@ R005_StatementEle_2Analyzer::~R005_StatementEle_2Analyzer() {}
 
 
 
-//beg_StatementEle : 'AT'
+//beg_StatementEle : AnnotationList
 R005_StatementEle_3Analyzer::R005_StatementEle_3Analyzer() {}
 R005_StatementEle_3Analyzer::~R005_StatementEle_3Analyzer() {}
 
@@ -666,6 +666,12 @@ R005_StatementEle_78Analyzer::~R005_StatementEle_78Analyzer() {}
 //beg_StatementEle : 'volatile'
 R005_StatementEle_79Analyzer::R005_StatementEle_79Analyzer() {}
 R005_StatementEle_79Analyzer::~R005_StatementEle_79Analyzer() {}
+
+
+
+//beg_StatementEle : 'DimExpr'
+R005_StatementEle_80Analyzer::R005_StatementEle_80Analyzer() {}
+R005_StatementEle_80Analyzer::~R005_StatementEle_80Analyzer() {}
 
 
 
@@ -1209,15 +1215,9 @@ R005_VariableInitializerEle_3Analyzer::~R005_VariableInitializerEle_3Analyzer() 
 
 
 
-//beg_VariableInitializerEle : DimExpr
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 R005_VariableInitializerEle_4Analyzer::R005_VariableInitializerEle_4Analyzer() {}
 R005_VariableInitializerEle_4Analyzer::~R005_VariableInitializerEle_4Analyzer() {}
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-R005_VariableInitializerEle_5Analyzer::R005_VariableInitializerEle_5Analyzer() {}
-R005_VariableInitializerEle_5Analyzer::~R005_VariableInitializerEle_5Analyzer() {}
 
 
 
@@ -1479,7 +1479,7 @@ R005_ClassDeclaration_1Analyzer::~R005_ClassDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces Block
 R005_NormalClassDeclaration_0Analyzer::R005_NormalClassDeclaration_0Analyzer() {}
 R005_NormalClassDeclaration_0Analyzer::~R005_NormalClassDeclaration_0Analyzer() {}
 
@@ -1527,7 +1527,7 @@ R005_NormalClassDeclaration_7Analyzer::~R005_NormalClassDeclaration_7Analyzer() 
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Block
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Block
 R005_NormalClassDeclaration_8Analyzer::R005_NormalClassDeclaration_8Analyzer() {}
 R005_NormalClassDeclaration_8Analyzer::~R005_NormalClassDeclaration_8Analyzer() {}
 
@@ -1725,27 +1725,15 @@ R005_ExtendsInterfaces_0Analyzer::~R005_ExtendsInterfaces_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
 R005_AnnotationTypeDeclaration_0Analyzer::R005_AnnotationTypeDeclaration_0Analyzer() {}
 R005_AnnotationTypeDeclaration_0Analyzer::~R005_AnnotationTypeDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeDeclaration : ModifierList 'AT' 'interface' Identifier Block
+//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
 R005_AnnotationTypeDeclaration_1Analyzer::R005_AnnotationTypeDeclaration_1Analyzer() {}
 R005_AnnotationTypeDeclaration_1Analyzer::~R005_AnnotationTypeDeclaration_1Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : 'AT_INTERFACE' Identifier Block
-R005_AnnotationTypeDeclaration_2Analyzer::R005_AnnotationTypeDeclaration_2Analyzer() {}
-R005_AnnotationTypeDeclaration_2Analyzer::~R005_AnnotationTypeDeclaration_2Analyzer() {}
-
-
-
-//beg_AnnotationTypeDeclaration : ModifierList 'AT_INTERFACE' Identifier Block
-R005_AnnotationTypeDeclaration_3Analyzer::R005_AnnotationTypeDeclaration_3Analyzer() {}
-R005_AnnotationTypeDeclaration_3Analyzer::~R005_AnnotationTypeDeclaration_3Analyzer() {}
 
 
 
@@ -1758,3 +1746,6 @@ R005_AnnotationList_0Analyzer::~R005_AnnotationList_0Analyzer() {}
 //beg_AnnotationList : Annotation
 R005_AnnotationList_1Analyzer::R005_AnnotationList_1Analyzer() {}
 R005_AnnotationList_1Analyzer::~R005_AnnotationList_1Analyzer() {}
+
+
+

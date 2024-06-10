@@ -9,27 +9,21 @@ R007_ele_begin_0Analyzer::~R007_ele_begin_0Analyzer() {}
 
 
 
-//beg_EnumFirstStatement : EnumConstantList 'COMMA'
+//beg_EnumFirstStatement : EnumConstant 'COMMA' EnumFirstStatement
 R007_EnumFirstStatement_0Analyzer::R007_EnumFirstStatement_0Analyzer() {}
 R007_EnumFirstStatement_0Analyzer::~R007_EnumFirstStatement_0Analyzer() {}
 
 
 
-//beg_EnumFirstStatement : EnumConstantList
+//beg_EnumFirstStatement : EnumConstant
 R007_EnumFirstStatement_1Analyzer::R007_EnumFirstStatement_1Analyzer() {}
 R007_EnumFirstStatement_1Analyzer::~R007_EnumFirstStatement_1Analyzer() {}
 
 
 
-//beg_EnumConstantList : EnumConstant 'COMMA' EnumConstantList
-R007_EnumConstantList_0Analyzer::R007_EnumConstantList_0Analyzer() {}
-R007_EnumConstantList_0Analyzer::~R007_EnumConstantList_0Analyzer() {}
-
-
-
-//beg_EnumConstantList : EnumConstant
-R007_EnumConstantList_1Analyzer::R007_EnumConstantList_1Analyzer() {}
-R007_EnumConstantList_1Analyzer::~R007_EnumConstantList_1Analyzer() {}
+//beg_EnumFirstStatement : 0
+R007_EnumFirstStatement_2Analyzer::R007_EnumFirstStatement_2Analyzer() {}
+R007_EnumFirstStatement_2Analyzer::~R007_EnumFirstStatement_2Analyzer() {}
 
 
 
@@ -198,6 +192,12 @@ R007_NonPARENTHESES_9Analyzer::~R007_NonPARENTHESES_9Analyzer() {}
 //beg_NonPARENTHESES : 'EQUAL'
 R007_NonPARENTHESES_10Analyzer::R007_NonPARENTHESES_10Analyzer() {}
 R007_NonPARENTHESES_10Analyzer::~R007_NonPARENTHESES_10Analyzer() {}
+
+
+
+//beg_NonPARENTHESES : AnnotationContent
+R007_NonPARENTHESES_11Analyzer::R007_NonPARENTHESES_11Analyzer() {}
+R007_NonPARENTHESES_11Analyzer::~R007_NonPARENTHESES_11Analyzer() {}
 
 
 
@@ -774,4 +774,3 @@ R007_NonBrace_8Analyzer::~R007_NonBrace_8Analyzer() {}
 //beg_NonBrace : 'EQUAL'
 R007_NonBrace_9Analyzer::R007_NonBrace_9Analyzer() {}
 R007_NonBrace_9Analyzer::~R007_NonBrace_9Analyzer() {}
-

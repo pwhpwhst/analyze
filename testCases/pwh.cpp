@@ -526,11 +526,12 @@ int main1(int argc, char* argv[]) {
 	//2 -Lalr文法适配性检测
 	//3 -Lalr 单个文件测试
 	//4 批量测试
+	//5 Lalr 缓存刷新
 	Util::cleanLog();
 
-	int mode =  2;
-
-
+	//int mode =  5;
+	int mode = atoi(argv[1]);
+	
 	
 	if (mode == 0) {
 		Env env;
@@ -676,8 +677,9 @@ int main1(int argc, char* argv[]) {
 	}
 	else if (mode == 2) {
 		Lalr lalr;
-		string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
-//		string rule_file0 = argv[1];
+		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R004.txt";
+
+		string rule_file0 = argv[2];
 		if (-1 == lalr.init(rule_file0)) {
 			return -1;
 		}
@@ -868,6 +870,15 @@ int main1(int argc, char* argv[]) {
 		}
 
 
+	}
+	else if (mode == 5) {
+		string rule_file0 = argv[2];
+		//string rule_file0 = "C:\\Users\\Administrator\\Desktop\\代码武器库-总\\万花筒写轮眼\\kaleidoscope-writing-wheel-eye\\resources\\java范本\\R005.txt";
+		cout << "init parser"<< rule_file0 << endl;
+		Parser* parser = new Lalr();
+		parser->logSwitch = true;
+		parser->init(rule_file0);
+		cout << "Refresh Completed" << endl;
 	}
 	
 }
