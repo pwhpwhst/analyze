@@ -1389,6 +1389,15 @@ public: virtual ~R008_Modifier_12Analyzer();
 
 
 
+//beg_Modifier : TypeArguments
+class R008_Modifier_13Analyzer :virtual public Non_Terminate_genertor {
+public: R008_Modifier_13Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R008_Modifier_13Analyzer();
+};
+
+
+
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 class R008_Annotation_0Analyzer :virtual public Non_Terminate_genertor {
 public: R008_Annotation_0Analyzer();
@@ -2312,15 +2321,6 @@ class R008_VariableInitializerEle_4Analyzer :virtual public Non_Terminate_genert
 public: R008_VariableInitializerEle_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R008_VariableInitializerEle_4Analyzer();
-};
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-class R008_VariableInitializerEle_5Analyzer :virtual public Non_Terminate_genertor {
-public: R008_VariableInitializerEle_5Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R008_VariableInitializerEle_5Analyzer();
 };
 
 

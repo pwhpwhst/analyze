@@ -151,6 +151,7 @@ Modifier : 'synchronized'
 Modifier : 'transient'
 Modifier : 'native'
 Modifier : Annotation
+Modifier : TypeArguments
 Annotation : 'AT' DetailIdentifier AnnotationContent
 Annotation : 'AT' DetailIdentifier
 DetailIdentifier : Identifier 'SPOT' DetailIdentifier
@@ -254,7 +255,6 @@ VariableInitializerEle : Block
 VariableInitializerEle : AnnotationContent
 VariableInitializerEle : TypeArguments
 VariableInitializerEle : DimExpr
-VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 VariableDeclaratorId : Identifier Dims
 VariableDeclaratorId : Identifier
 AnnotationList : Annotation AnnotationList

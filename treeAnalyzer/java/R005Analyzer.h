@@ -1830,11 +1830,20 @@ public: virtual ~R005_VariableInitializerEle_3Analyzer();
 
 
 
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 class R005_VariableInitializerEle_4Analyzer :virtual public Non_Terminate_genertor {
 public: R005_VariableInitializerEle_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R005_VariableInitializerEle_4Analyzer();
+};
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+class R005_VariableInitializerEle_5Analyzer :virtual public Non_Terminate_genertor {
+public: R005_VariableInitializerEle_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R005_VariableInitializerEle_5Analyzer();
 };
 
 
@@ -2628,5 +2637,3 @@ public: R005_AnnotationList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R005_AnnotationList_1Analyzer();
 };
-
-

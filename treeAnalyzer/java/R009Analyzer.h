@@ -30,7 +30,7 @@ public: virtual ~R009_AnnotationTypeMemberDeclaration_0Analyzer();
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
+//beg_AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclarationFake
 class R009_AnnotationTypeMemberDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeMemberDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -39,7 +39,7 @@ public: virtual ~R009_AnnotationTypeMemberDeclaration_1Analyzer();
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ConstantDeclarationFake
+//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
 class R009_AnnotationTypeMemberDeclaration_2Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeMemberDeclaration_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -48,7 +48,7 @@ public: virtual ~R009_AnnotationTypeMemberDeclaration_2Analyzer();
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ClassDeclaration
+//beg_AnnotationTypeMemberDeclaration : ConstantDeclarationFake
 class R009_AnnotationTypeMemberDeclaration_3Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeMemberDeclaration_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -57,11 +57,20 @@ public: virtual ~R009_AnnotationTypeMemberDeclaration_3Analyzer();
 
 
 
-//beg_AnnotationTypeMemberDeclaration : InterfaceDeclaration
+//beg_AnnotationTypeMemberDeclaration : ClassDeclaration
 class R009_AnnotationTypeMemberDeclaration_4Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeMemberDeclaration_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R009_AnnotationTypeMemberDeclaration_4Analyzer();
+};
+
+
+
+//beg_AnnotationTypeMemberDeclaration : InterfaceDeclaration
+class R009_AnnotationTypeMemberDeclaration_5Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeMemberDeclaration_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeMemberDeclaration_5Analyzer();
 };
 
 
@@ -1839,7 +1848,7 @@ public: virtual ~R009_ClassType_1Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 class R009_AnnotationTypeElementDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1848,7 +1857,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_0Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 class R009_AnnotationTypeElementDeclaration_1Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1857,7 +1866,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_1Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
 class R009_AnnotationTypeElementDeclaration_2Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_2Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1866,7 +1875,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_2Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
 class R009_AnnotationTypeElementDeclaration_3Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_3Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1875,7 +1884,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_3Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
 class R009_AnnotationTypeElementDeclaration_4Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1884,7 +1893,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_4Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
 class R009_AnnotationTypeElementDeclaration_5Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_5Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1893,7 +1902,7 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_5Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
 class R009_AnnotationTypeElementDeclaration_6Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_6Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -1902,11 +1911,83 @@ public: virtual ~R009_AnnotationTypeElementDeclaration_6Analyzer();
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
 class R009_AnnotationTypeElementDeclaration_7Analyzer :virtual public Non_Terminate_genertor {
 public: R009_AnnotationTypeElementDeclaration_7Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R009_AnnotationTypeElementDeclaration_7Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue
+class R009_AnnotationTypeElementDeclarationFake_0Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_0Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_0Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims DefaultValue
+class R009_AnnotationTypeElementDeclarationFake_1Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_1Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent DefaultValue
+class R009_AnnotationTypeElementDeclarationFake_2Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_2Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_2Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent DefaultValue
+class R009_AnnotationTypeElementDeclarationFake_3Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_3Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_3Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims
+class R009_AnnotationTypeElementDeclarationFake_4Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_4Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_4Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims
+class R009_AnnotationTypeElementDeclarationFake_5Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_5Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_5Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent
+class R009_AnnotationTypeElementDeclarationFake_6Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_6Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_6Analyzer();
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent
+class R009_AnnotationTypeElementDeclarationFake_7Analyzer :virtual public Non_Terminate_genertor {
+public: R009_AnnotationTypeElementDeclarationFake_7Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R009_AnnotationTypeElementDeclarationFake_7Analyzer();
 };
 
 
@@ -2294,15 +2375,6 @@ class R009_VariableInitializerEle_4Analyzer :virtual public Non_Terminate_genert
 public: R009_VariableInitializerEle_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R009_VariableInitializerEle_4Analyzer();
-};
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-class R009_VariableInitializerEle_5Analyzer :virtual public Non_Terminate_genertor {
-public: R009_VariableInitializerEle_5Analyzer();
-public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
-public: virtual ~R009_VariableInitializerEle_5Analyzer();
 };
 
 

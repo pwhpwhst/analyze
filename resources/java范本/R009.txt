@@ -1,5 +1,6 @@
 ele_begin : AnnotationTypeMemberDeclaration
 AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclaration
+AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclarationFake
 AnnotationTypeMemberDeclaration : ConstantDeclaration
 AnnotationTypeMemberDeclaration : ConstantDeclarationFake
 AnnotationTypeMemberDeclaration : ClassDeclaration
@@ -201,14 +202,22 @@ ClassTypeEle : Identifier TypeArguments
 ClassTypeEle : AnnotationList Identifier TypeArguments
 ClassType : ClassTypeEle
 ClassType : ClassTypeEle 'SPOT' ClassType
-AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
-AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
-AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
-AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
-AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
-AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
-AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
+AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
+AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
+AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue
+AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims DefaultValue
+AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent DefaultValue
+AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent DefaultValue
+AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims
+AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims
+AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent
+AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent
 DefaultValue : 'default' ElementValue
 ElementValue : Annotation
 ElementValue : VariableInitializer
@@ -252,7 +261,6 @@ VariableInitializerEle : Block
 VariableInitializerEle : AnnotationContent
 VariableInitializerEle : TypeArguments
 VariableInitializerEle : DimExpr
-VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 VariableDeclaratorId : Identifier Dims
 VariableDeclaratorId : Identifier
 AnnotationList : Annotation AnnotationList

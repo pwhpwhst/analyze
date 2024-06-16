@@ -49,15 +49,14 @@ P_NodeValue R005_DefaultAnalyzer::handle(const P_NodeValue &nodeValue, vector<P_
 	return nullptr;
 }
 
-//beg_ele_begin : ClassBodyDeclaration
+//beg_ele_begin : ClassBodyDeclaration 
 void R005_ele_begin_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_ele_begin_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassBodyDeclaration"];
-	nodeValue->context["ele_begin"] = p0;
+   logR005("R005_ele_begin_0Analyzer");
+   P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassBodyDeclaration"];
+   nodeValue->context["ele_begin"] = p0;
 
-	env.list.push_back(nodeValue->context["ele_begin"]);
+   env.list.push_back(nodeValue->context["ele_begin"]);
 };
-
 
 
 
@@ -396,10 +395,10 @@ void R005_StatementEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 
 
 
-//beg_StatementEle : 'AT'
+//beg_StatementEle : AnnotationList
 void R005_StatementEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_StatementEle_3Analyzer");
-	//TO DO  R005_StatementEle_3Analyzer
+   logR005("R005_StatementEle_3Analyzer");
+   //TO DO  R005_StatementEle_3Analyzer
 };
 
 
@@ -1014,12 +1013,11 @@ void R005_StatementEle_79Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 
 
 
-//beg_StatementEle: 'DimExpr'
+//beg_StatementEle : 'DimExpr'
 void R005_StatementEle_80Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR005("R005_StatementEle_80Analyzer");
-	//TO DO  R005_StatementEle_80Analyzer
+   logR005("R005_StatementEle_80Analyzer");
+   //TO DO  R005_StatementEle_80Analyzer
 };
-
 
 
 
@@ -1897,10 +1895,18 @@ void R005_VariableInitializerEle_3Analyzer::handle(const P_NodeValue &nodeValue,
 
 
 
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 void R005_VariableInitializerEle_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_VariableInitializerEle_4Analyzer");
 	//TO DO  R005_VariableInitializerEle_4Analyzer
+};
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+void R005_VariableInitializerEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+   logR005("R005_VariableInitializerEle_5Analyzer");
+   //TO DO  R005_VariableInitializerEle_5Analyzer
 };
 
 

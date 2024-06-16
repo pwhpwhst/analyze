@@ -1215,9 +1215,15 @@ R005_VariableInitializerEle_3Analyzer::~R005_VariableInitializerEle_3Analyzer() 
 
 
 
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+//beg_VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 R005_VariableInitializerEle_4Analyzer::R005_VariableInitializerEle_4Analyzer() {}
 R005_VariableInitializerEle_4Analyzer::~R005_VariableInitializerEle_4Analyzer() {}
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+R005_VariableInitializerEle_5Analyzer::R005_VariableInitializerEle_5Analyzer() {}
+R005_VariableInitializerEle_5Analyzer::~R005_VariableInitializerEle_5Analyzer() {}
 
 
 
@@ -1746,6 +1752,3 @@ R005_AnnotationList_0Analyzer::~R005_AnnotationList_0Analyzer() {}
 //beg_AnnotationList : Annotation
 R005_AnnotationList_1Analyzer::R005_AnnotationList_1Analyzer() {}
 R005_AnnotationList_1Analyzer::~R005_AnnotationList_1Analyzer() {}
-
-
-

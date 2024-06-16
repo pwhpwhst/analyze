@@ -921,6 +921,12 @@ R008_Modifier_12Analyzer::~R008_Modifier_12Analyzer() {}
 
 
 
+//beg_Modifier : TypeArguments
+R008_Modifier_13Analyzer::R008_Modifier_13Analyzer() {}
+R008_Modifier_13Analyzer::~R008_Modifier_13Analyzer() {}
+
+
+
 //beg_Annotation : 'AT' DetailIdentifier AnnotationContent
 R008_Annotation_0Analyzer::R008_Annotation_0Analyzer() {}
 R008_Annotation_0Analyzer::~R008_Annotation_0Analyzer() {}
@@ -1536,12 +1542,6 @@ R008_VariableInitializerEle_3Analyzer::~R008_VariableInitializerEle_3Analyzer() 
 //beg_VariableInitializerEle : DimExpr
 R008_VariableInitializerEle_4Analyzer::R008_VariableInitializerEle_4Analyzer() {}
 R008_VariableInitializerEle_4Analyzer::~R008_VariableInitializerEle_4Analyzer() {}
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-R008_VariableInitializerEle_5Analyzer::R008_VariableInitializerEle_5Analyzer() {}
-R008_VariableInitializerEle_5Analyzer::~R008_VariableInitializerEle_5Analyzer() {}
 
 
 

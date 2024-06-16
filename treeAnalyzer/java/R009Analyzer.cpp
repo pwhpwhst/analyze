@@ -73,9 +73,19 @@ void R009_AnnotationTypeMemberDeclaration_0Analyzer::handle(const P_NodeValue &n
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
+//beg_AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclarationFake
 void R009_AnnotationTypeMemberDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeMemberDeclaration_1Analyzer");
+   logR009("R009_AnnotationTypeMemberDeclaration_1Analyzer");
+   P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["AnnotationTypeElementDeclarationFake"];
+
+   nodeValue->context["AnnotationTypeMemberDeclaration"] = p0;
+};
+
+
+
+//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
+void R009_AnnotationTypeMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeMemberDeclaration_2Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ConstantDeclaration"];
 
 	nodeValue->context["AnnotationTypeMemberDeclaration"] = p0;
@@ -84,8 +94,8 @@ void R009_AnnotationTypeMemberDeclaration_1Analyzer::handle(const P_NodeValue &n
 
 
 //beg_AnnotationTypeMemberDeclaration : ConstantDeclarationFake
-void R009_AnnotationTypeMemberDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeMemberDeclaration_2Analyzer");
+void R009_AnnotationTypeMemberDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeMemberDeclaration_3Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ConstantDeclarationFake"];
 
 	nodeValue->context["AnnotationTypeMemberDeclaration"] = p0;
@@ -94,8 +104,8 @@ void R009_AnnotationTypeMemberDeclaration_2Analyzer::handle(const P_NodeValue &n
 
 
 //beg_AnnotationTypeMemberDeclaration : ClassDeclaration
-void R009_AnnotationTypeMemberDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeMemberDeclaration_3Analyzer");
+void R009_AnnotationTypeMemberDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeMemberDeclaration_4Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassDeclaration"];
 
 	nodeValue->context["AnnotationTypeMemberDeclaration"] = p0;
@@ -104,8 +114,8 @@ void R009_AnnotationTypeMemberDeclaration_3Analyzer::handle(const P_NodeValue &n
 
 
 //beg_AnnotationTypeMemberDeclaration : InterfaceDeclaration
-void R009_AnnotationTypeMemberDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeMemberDeclaration_4Analyzer");
+void R009_AnnotationTypeMemberDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeMemberDeclaration_5Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["InterfaceDeclaration"];
 
 	nodeValue->context["AnnotationTypeMemberDeclaration"] = p0;
@@ -1755,13 +1765,11 @@ void R009_NonPARENTHESES_10Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 };
 
 
-//beg_NonPARENTHESES: AnnotationContent
+//beg_NonPARENTHESES : AnnotationContent
 void R009_NonPARENTHESES_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_NonPARENTHESES_11Analyzer");
-	//TO DO  R009_NonPARENTHESES_11Analyzer
+   logR009("R009_NonPARENTHESES_11Analyzer");
+   //TO DO  R009_NonPARENTHESES_11Analyzer
 };
-
-
 
 
 
@@ -2015,73 +2023,24 @@ void R009_ClassType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 void R009_AnnotationTypeElementDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_AnnotationTypeElementDeclaration_0Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
 
 
-	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
-	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
-	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
-	nodeValue->context["AnnotationTypeElementDeclaration"] = p2;
+	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
+	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
 };
 
 
-
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 void R009_AnnotationTypeElementDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_AnnotationTypeElementDeclaration_1Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
-
-
-	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
-	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
-	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
-	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
-};
-
-
-
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
-void R009_AnnotationTypeElementDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeElementDeclaration_2Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
-
-
-	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
-	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
-	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
-	nodeValue->context["AnnotationTypeElementDeclaration"] = p2;
-};
-
-
-
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
-void R009_AnnotationTypeElementDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeElementDeclaration_3Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
-
-
-	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
-	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
-	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
-	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
-};
-
-
-
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
-void R009_AnnotationTypeElementDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeElementDeclaration_4Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
@@ -2096,8 +2055,8 @@ void R009_AnnotationTypeElementDeclaration_4Analyzer::handle(const P_NodeValue &
 
 
 //beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
-void R009_AnnotationTypeElementDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeElementDeclaration_5Analyzer");
+void R009_AnnotationTypeElementDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclaration_2Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
@@ -2111,9 +2070,68 @@ void R009_AnnotationTypeElementDeclaration_5Analyzer::handle(const P_NodeValue &
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+void R009_AnnotationTypeElementDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclaration_3Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
+	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+	nodeValue->context["AnnotationTypeElementDeclaration"] = p2;
+};
+
+
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
+void R009_AnnotationTypeElementDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclaration_4Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
+	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
+};
+
+
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
+void R009_AnnotationTypeElementDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclaration_5Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
+	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p0.get()))->getText();
+	nodeValue->context["AnnotationTypeElementDeclaration"] = p2;
+};
+
+
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
 void R009_AnnotationTypeElementDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_AnnotationTypeElementDeclaration_6Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+
+
+	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
+	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
+};
+
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
+void R009_AnnotationTypeElementDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclaration_7Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["UnannType"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
@@ -2127,19 +2145,79 @@ void R009_AnnotationTypeElementDeclaration_6Analyzer::handle(const P_NodeValue &
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
-void R009_AnnotationTypeElementDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_AnnotationTypeElementDeclaration_7Analyzer");
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["UnannType"];
-	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
-	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
 
 
-	((StatementToken *)(p3.get()))->statementEntity->name = p2->content;
-	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclaration";
-	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
-	nodeValue->context["AnnotationTypeElementDeclaration"] = p3;
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue
+void R009_AnnotationTypeElementDeclarationFake_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+   logR009("R009_AnnotationTypeElementDeclarationFake_0Analyzer");
+   P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+   ((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+
+   nodeValue->context["AnnotationTypeElementDeclarationFake"] = p3;
 };
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims DefaultValue
+void R009_AnnotationTypeElementDeclarationFake_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_1Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p2;
+};
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent DefaultValue
+void R009_AnnotationTypeElementDeclarationFake_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_2Analyzer");
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p3;
+};
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent DefaultValue
+void R009_AnnotationTypeElementDeclarationFake_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_3Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p2;
+};
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims
+void R009_AnnotationTypeElementDeclarationFake_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_4Analyzer");
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p3;
+};
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims
+void R009_AnnotationTypeElementDeclarationFake_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_5Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p2;
+};
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent
+void R009_AnnotationTypeElementDeclarationFake_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_6Analyzer");
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p3.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p3;
+};
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent
+void R009_AnnotationTypeElementDeclarationFake_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR009("R009_AnnotationTypeElementDeclarationFake_7Analyzer");
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
+	((StatementToken *)(p2.get()))->statementEntity->type = "AnnotationTypeElementDeclarationFake";
+	nodeValue->context["AnnotationTypeElementDeclarationFake"] = p2;
+};
+
+
 
 
 
@@ -2660,15 +2738,6 @@ void R009_VariableInitializerEle_4Analyzer::handle(const P_NodeValue &nodeValue,
 	logR009("R009_VariableInitializerEle_4Analyzer");
 	//TO DO  R009_VariableInitializerEle_4Analyzer
 };
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-void R009_VariableInitializerEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
-	logR009("R009_VariableInitializerEle_5Analyzer");
-	//TO DO  R009_VariableInitializerEle_5Analyzer
-};
-
 
 
 //beg_VariableDeclaratorId : Identifier Dims

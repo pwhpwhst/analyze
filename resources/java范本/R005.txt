@@ -200,6 +200,7 @@ VariableInitializerEle : StatementEle
 VariableInitializerEle : Block
 VariableInitializerEle : AnnotationContent
 VariableInitializerEle : TypeArguments
+VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 DimExpr : AnnotationList 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'
 DimExpr : 'LEFT_BRACKET' VariableInitializerEle 'RIGHT_BRACKET'

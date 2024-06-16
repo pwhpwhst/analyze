@@ -15,27 +15,33 @@ R009_AnnotationTypeMemberDeclaration_0Analyzer::~R009_AnnotationTypeMemberDeclar
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
+//beg_AnnotationTypeMemberDeclaration : AnnotationTypeElementDeclarationFake
 R009_AnnotationTypeMemberDeclaration_1Analyzer::R009_AnnotationTypeMemberDeclaration_1Analyzer() {}
 R009_AnnotationTypeMemberDeclaration_1Analyzer::~R009_AnnotationTypeMemberDeclaration_1Analyzer() {}
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ConstantDeclarationFake
+//beg_AnnotationTypeMemberDeclaration : ConstantDeclaration
 R009_AnnotationTypeMemberDeclaration_2Analyzer::R009_AnnotationTypeMemberDeclaration_2Analyzer() {}
 R009_AnnotationTypeMemberDeclaration_2Analyzer::~R009_AnnotationTypeMemberDeclaration_2Analyzer() {}
 
 
 
-//beg_AnnotationTypeMemberDeclaration : ClassDeclaration
+//beg_AnnotationTypeMemberDeclaration : ConstantDeclarationFake
 R009_AnnotationTypeMemberDeclaration_3Analyzer::R009_AnnotationTypeMemberDeclaration_3Analyzer() {}
 R009_AnnotationTypeMemberDeclaration_3Analyzer::~R009_AnnotationTypeMemberDeclaration_3Analyzer() {}
 
 
 
-//beg_AnnotationTypeMemberDeclaration : InterfaceDeclaration
+//beg_AnnotationTypeMemberDeclaration : ClassDeclaration
 R009_AnnotationTypeMemberDeclaration_4Analyzer::R009_AnnotationTypeMemberDeclaration_4Analyzer() {}
 R009_AnnotationTypeMemberDeclaration_4Analyzer::~R009_AnnotationTypeMemberDeclaration_4Analyzer() {}
+
+
+
+//beg_AnnotationTypeMemberDeclaration : InterfaceDeclaration
+R009_AnnotationTypeMemberDeclaration_5Analyzer::R009_AnnotationTypeMemberDeclaration_5Analyzer() {}
+R009_AnnotationTypeMemberDeclaration_5Analyzer::~R009_AnnotationTypeMemberDeclaration_5Analyzer() {}
 
 
 
@@ -1221,51 +1227,99 @@ R009_ClassType_1Analyzer::~R009_ClassType_1Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 R009_AnnotationTypeElementDeclaration_0Analyzer::R009_AnnotationTypeElementDeclaration_0Analyzer() {}
 R009_AnnotationTypeElementDeclaration_0Analyzer::~R009_AnnotationTypeElementDeclaration_0Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
 R009_AnnotationTypeElementDeclaration_1Analyzer::R009_AnnotationTypeElementDeclaration_1Analyzer() {}
 R009_AnnotationTypeElementDeclaration_1Analyzer::~R009_AnnotationTypeElementDeclaration_1Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
 R009_AnnotationTypeElementDeclaration_2Analyzer::R009_AnnotationTypeElementDeclaration_2Analyzer() {}
 R009_AnnotationTypeElementDeclaration_2Analyzer::~R009_AnnotationTypeElementDeclaration_2Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
 R009_AnnotationTypeElementDeclaration_3Analyzer::R009_AnnotationTypeElementDeclaration_3Analyzer() {}
 R009_AnnotationTypeElementDeclaration_3Analyzer::~R009_AnnotationTypeElementDeclaration_3Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims 'semicolon'
 R009_AnnotationTypeElementDeclaration_4Analyzer::R009_AnnotationTypeElementDeclaration_4Analyzer() {}
 R009_AnnotationTypeElementDeclaration_4Analyzer::~R009_AnnotationTypeElementDeclaration_4Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims 'semicolon'
 R009_AnnotationTypeElementDeclaration_5Analyzer::R009_AnnotationTypeElementDeclaration_5Analyzer() {}
 R009_AnnotationTypeElementDeclaration_5Analyzer::~R009_AnnotationTypeElementDeclaration_5Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent 'semicolon'
 R009_AnnotationTypeElementDeclaration_6Analyzer::R009_AnnotationTypeElementDeclaration_6Analyzer() {}
 R009_AnnotationTypeElementDeclaration_6Analyzer::~R009_AnnotationTypeElementDeclaration_6Analyzer() {}
 
 
 
-//beg_AnnotationTypeElementDeclaration : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue 'semicolon'
+//beg_AnnotationTypeElementDeclaration : UnannType Identifier AnnotationContent 'semicolon'
 R009_AnnotationTypeElementDeclaration_7Analyzer::R009_AnnotationTypeElementDeclaration_7Analyzer() {}
 R009_AnnotationTypeElementDeclaration_7Analyzer::~R009_AnnotationTypeElementDeclaration_7Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims DefaultValue
+R009_AnnotationTypeElementDeclarationFake_0Analyzer::R009_AnnotationTypeElementDeclarationFake_0Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_0Analyzer::~R009_AnnotationTypeElementDeclarationFake_0Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims DefaultValue
+R009_AnnotationTypeElementDeclarationFake_1Analyzer::R009_AnnotationTypeElementDeclarationFake_1Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_1Analyzer::~R009_AnnotationTypeElementDeclarationFake_1Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent DefaultValue
+R009_AnnotationTypeElementDeclarationFake_2Analyzer::R009_AnnotationTypeElementDeclarationFake_2Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_2Analyzer::~R009_AnnotationTypeElementDeclarationFake_2Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent DefaultValue
+R009_AnnotationTypeElementDeclarationFake_3Analyzer::R009_AnnotationTypeElementDeclarationFake_3Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_3Analyzer::~R009_AnnotationTypeElementDeclarationFake_3Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent Dims
+R009_AnnotationTypeElementDeclarationFake_4Analyzer::R009_AnnotationTypeElementDeclarationFake_4Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_4Analyzer::~R009_AnnotationTypeElementDeclarationFake_4Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent Dims
+R009_AnnotationTypeElementDeclarationFake_5Analyzer::R009_AnnotationTypeElementDeclarationFake_5Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_5Analyzer::~R009_AnnotationTypeElementDeclarationFake_5Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : ModifierList UnannType Identifier AnnotationContent
+R009_AnnotationTypeElementDeclarationFake_6Analyzer::R009_AnnotationTypeElementDeclarationFake_6Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_6Analyzer::~R009_AnnotationTypeElementDeclarationFake_6Analyzer() {}
+
+
+
+//beg_AnnotationTypeElementDeclarationFake : UnannType Identifier AnnotationContent
+R009_AnnotationTypeElementDeclarationFake_7Analyzer::R009_AnnotationTypeElementDeclarationFake_7Analyzer() {}
+R009_AnnotationTypeElementDeclarationFake_7Analyzer::~R009_AnnotationTypeElementDeclarationFake_7Analyzer() {}
 
 
 
@@ -1524,12 +1578,6 @@ R009_VariableInitializerEle_3Analyzer::~R009_VariableInitializerEle_3Analyzer() 
 //beg_VariableInitializerEle : DimExpr
 R009_VariableInitializerEle_4Analyzer::R009_VariableInitializerEle_4Analyzer() {}
 R009_VariableInitializerEle_4Analyzer::~R009_VariableInitializerEle_4Analyzer() {}
-
-
-
-//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
-R009_VariableInitializerEle_5Analyzer::R009_VariableInitializerEle_5Analyzer() {}
-R009_VariableInitializerEle_5Analyzer::~R009_VariableInitializerEle_5Analyzer() {}
 
 
 
