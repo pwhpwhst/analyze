@@ -136,7 +136,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 
 	
 
-	int wordListId = wordListBegId;
+	int wordListId = word_list_beg;
+	int innerWordListId = 0;
 	Node* resultNodePtr = nullptr;
 
 	while (item_node_stack1.size()>0) {
@@ -168,7 +169,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 				if (item_node_stack1.size()>0) {
 					item_node_stack1.back()->status = FAIL;
 					if (item_node_stack1.back()->node->child_node_list.size() > 0) {
-						wordListId = item_node_stack1.back()->node->child_node_list[0]->index;
+						innerWordListId = item_node_stack1.back()->node->child_node_list[0]->index;
+						wordListId = innerWordListId + word_list_beg;
 					}
 				}
 				else {
@@ -197,14 +199,14 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 
 		else if (top_item->status == DOING) {
 			if (startsWith(top_item->node->symbol, "'") == 1) {
-				if (wordListId< total_lex_word_list.size() 
-						&&total_lex_word_list[wordListId]->type == top_item->node->symbol) {
+				if (wordListId<= word_list_end
+						&&_total_lex_word_list[wordListId]->type == top_item->node->symbol) {
 					top_item->status = DONE;
-					top_item->node->content = total_lex_word_list[wordListId]->content;
-					top_item->node->index = wordListId;
-					top_item->node->lineNum = total_lex_word_list[wordListId]->lineNum;
+					top_item->node->content = _total_lex_word_list[wordListId]->content;
+					top_item->node->index = innerWordListId;
+					top_item->node->lineNum = _total_lex_word_list[wordListId]->lineNum;
 					wordListId++;
-					
+					innerWordListId++;
 				}
 				else {
 					top_item->status = FAIL;
@@ -212,8 +214,8 @@ Node* RecursiveDescentJava::slr(Env& env,string rootSymbol,int wordListBegId) {
 			}
 			else if (top_item->node->symbol == "0") {
 				top_item->status = DONE;
-				top_item->node->index = wordListId;
-				top_item->node->lineNum = total_lex_word_list[wordListId]->lineNum;
+				top_item->node->index = innerWordListId;
+				top_item->node->lineNum = _total_lex_word_list[wordListId]->lineNum;
 			}
 			else {
 				if (top_item->node->child_node_list.size()== ruleList[top_item->node->ruleId]->symbols.size()) {

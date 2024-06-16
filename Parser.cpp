@@ -53,7 +53,7 @@ string Parser::replaceAll(string str, string sub, string replacement) {
 
 
 void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter) {
-	total_lex_word_list.clear();
+	//total_lex_word_list.clear();
 	//cout << "haha" << endl;
 	//定义上下文
 	//log("定义上下文");
@@ -70,19 +70,17 @@ void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverte
 		this->compile_file = compile_file;
 	}
 
-
-	for (P_Lex_Word &e : _total_lex_word_list) {
-		auto p = P_Lex_Word(new Lex_Word(*e));
-		total_lex_word_list.push_back(p);
+	if (_total_lex_word_list.size()>0) {
+		word_list_beg = 0;
+		word_list_end = _total_lex_word_list.size() - 1;
 	}
-	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-	total_lex_word_list.back()->type = "'end'";
+	
 }
 
 
 
 void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int begIndex, int endIndex) {
-	total_lex_word_list.clear();
+	//total_lex_word_list.clear();
 	//cout << "haha" << endl;
 	//定义上下文
 	log("定义上下文");
@@ -99,30 +97,18 @@ void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverte
 		this->compile_file = compile_file;
 	}
 
-	int index = 0;
-	for (P_Lex_Word &e : _total_lex_word_list) {
-		/*
-		auto p = P_Lex_Word(new Lex_Word());
-		primarySymbolConverter.convert(*e, *p);
-		if (p->type != "0") {
-			if (endIndex == -1) {
-				if (p->index >= begIndex) {
-					total_lex_word_list.push_back(p);
-				}
-			}
-			else {
-				if (index >= begIndex && index <= endIndex) {
-					total_lex_word_list.push_back(p);
-				}
-			}
-			index++;
-		}
-		*/
-		auto p = P_Lex_Word(new Lex_Word(*e));
-		if (p->index >= begIndex && p->index <= endIndex) {
-			total_lex_word_list.push_back(p);
-		}
+
+	if (_total_lex_word_list.size() > 0) {
+		word_list_beg = begIndex;
+		word_list_end = endIndex;
 	}
+
+	//for (P_Lex_Word &e : _total_lex_word_list) {
+	//	auto p = P_Lex_Word(new Lex_Word(*e));
+	//	if (p->index >= begIndex && p->index <= endIndex) {
+	//		total_lex_word_list.push_back(p);
+	//	}
+	//}
 
 
 
@@ -134,8 +120,8 @@ void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverte
 	}
 #endif
 	//人手添加总结符号
-	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-	total_lex_word_list.back()->type = "'end'";
+	//total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	//total_lex_word_list.back()->type = "'end'";
 }
 
 

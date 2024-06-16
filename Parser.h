@@ -22,7 +22,8 @@ public: virtual Node* slr(Env &env, string rootSymbol, int wordListBegId)=0;
 
 protected:vector<P_Rule> ruleList;
 protected:vector<P_Lex_Word>  _total_lex_word_list;
-protected:vector<P_Lex_Word>  total_lex_word_list;
+protected:int word_list_beg = -1;
+protected:int word_list_end = -1;
 protected:string ruleFileName;
 protected:void log(const string& s);
 protected:void paresOrders(const string& rule_file, vector<string>& orders);

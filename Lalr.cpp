@@ -651,39 +651,38 @@ int Lalr::init(string rule_file) {
 
 void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, set<string> &endSymbolSet) {
 	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter);
-	//人手添加总结符号
-	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-	total_lex_word_list.back()->type = "'end'";
+
 }
 
 
 void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int beginIndex, int endIndex) {
 	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter, beginIndex, endIndex);
-	//人手添加总结符号
-	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
-	total_lex_word_list.back()->type = "'end'";
+
 }
 
 
 Node* Lalr::slr(Env& env, string rootSymbol, int wordListBegId) {
 
-	vector<P_Lex_Word>  lex_word_list;
+	//vector<P_Lex_Word>  lex_word_list;
 
-	int wordListId = wordListBegId;
-	for (int i1 = wordListId; i1 < total_lex_word_list.size();i1++) {
-		const auto &e = total_lex_word_list[i1];
-		lex_word_list.push_back(e);
-		if (e->type == "'end'") {
-			//构造语法树
-			lex_word_list.pop_back();
+	//int wordListId = wordListBegId;
+	//for (int i1 = wordListId; i1 < total_lex_word_list.size();i1++) {
+	//	const auto &e = total_lex_word_list[i1];
+	//	lex_word_list.push_back(e);
+	//	if (e->type == "'end'") {
+	//		//构造语法树
+	//		lex_word_list.pop_back();
 
-			Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, convert_map, lex_word_list);
+	//		Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, convert_map, lex_word_list);
 
-			lex_word_list.clear();
-			return node_tree;
-		}
-	}
-	return nullptr;
+	//		lex_word_list.clear();
+	//		return node_tree;
+	//	}
+	//}
+
+
+	return syntax_analyze(ruleList, terminator, non_terminator, convert_map);
+
 }
 
 
@@ -2428,7 +2427,7 @@ bool Lalr::is_map_same(unordered_map<int,string> &map1, unordered_map<int, strin
 }
 
 Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
-	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &input) {
+	unordered_map<int, unordered_map<string, int>> &convert_map) {
 	struct ItemNode {
 		Node *node;
 		int item_status;
@@ -2447,7 +2446,10 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 	int wordListId = 0;
 	int _lineNum = 0;
 	vector <string> strs;
-	auto p_input = input.begin();
+	//auto p_input = input.begin();
+	int wordId = word_list_beg;
+	//auto p_input = _total_lex_word_list[word_list_beg];
+	//word_list_beg _total_lex_word_list
 #ifdef __PRINT_PARSE_PROCESS
 	if (switchParseProcess) {
 		Util::log("打印过程");
@@ -2460,9 +2462,11 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		string input_type;
 		string action;
 		if (!unexception_input) {
-			if (p_input != input.end()) {
-				input_type = (*p_input)->type;
+
+			if (wordId>= word_list_beg && wordId <=word_list_end) {
+				input_type = _total_lex_word_list[wordId]->type;
 			}
+
 			else {
 				input_type = "'$'";
 			}
@@ -2506,15 +2510,15 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 		else if (action[0] == 's') {
 			item_node_stack1.push_back(P_ItemNode(new ItemNode()));
 			Node *node = new Node();
-			node->symbol = (*p_input)->type;
-			node->content = (*p_input)->content;
+			node->symbol = _total_lex_word_list[wordId]->type;
+			node->content = _total_lex_word_list[wordId]->content;
 			node->index = wordListId;
-			node->lineNum = (*p_input)->lineNum;
+			node->lineNum = _total_lex_word_list[wordId]->lineNum;
 			node->parent = nullptr;
 			node->offset = 0;
 			item_node_stack1.back()->node = node;
 			item_node_stack1.back()->item_status = atoi(action.substr(1).c_str());
-			++p_input;
+			++wordId;
 			++wordListId;
 			_lineNum = node->lineNum;
 			log("压入：" + node->symbol);
@@ -2628,11 +2632,9 @@ Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminat
 				#ifdef __PRINT_NOT_SILENT
 								if (switchNotSilent) {
 
-									log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_content:" + (*p_input)->content);
+									log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_content:" + _total_lex_word_list[wordId]->content);
 									log(string("遇到意外输入:item_status:" + top_item->item_status) + ",input_type:" + input_type);
-									if (p_input != input.end()) {
-										log(string("line:" + (*p_input)->lineNum) + string(",col:" + (*p_input)->colNum));
-									}
+									log(string("line:" + _total_lex_word_list[wordId]->lineNum) + string(",col:" + _total_lex_word_list[wordId]->colNum));
 								}
 
 				#endif
