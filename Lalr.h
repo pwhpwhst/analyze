@@ -141,8 +141,8 @@ private: unordered_map<string, set<string>> f_first;
 public:vector<vector<P_Item>> items_list;
 private:unordered_map<int, unordered_map<string, int>> convert_map;
 
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, set<string> &endSymbolSet);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int beginIndex, int endIndex);
 
 
 private: void parse_all_symbol(set<string> &terminator,set<string> &non_terminator,set<string> &zero_terminator,const vector<P_Rule> &ruleList);

@@ -116,7 +116,7 @@ string replaceAll(string str, string sub, string replacement) {
 void processContext(P_Context &context, deque<P_Context> &contextDeque) {
 
 
-	PrimarySymbolConverter primarySymbolConverter;
+	PrimarySymbolConverter* primarySymbolConverter=new PrimarySymbolConverter();
 
 
 
@@ -179,6 +179,8 @@ void processContext(P_Context &context, deque<P_Context> &contextDeque) {
 			context, contextDeque,
 			end_symbol_set0);
 	}
+
+	delete primarySymbolConverter;
 }
 
 
@@ -199,7 +201,7 @@ void fillWithStatementFieldDeclaration(P_Context &context, Env &env) {
 }
 
 void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter) {
+	PrimarySymbolConverter *primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
 	string resultType = ((StatementToken *)(env.list[0].get()))->statementEntity->resultType;
@@ -232,7 +234,7 @@ void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementL
 
 
 void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter) {
+	PrimarySymbolConverter *primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
 	string resultType = ((StatementToken *)(env.list[0].get()))->statementEntity->resultType;
@@ -261,7 +263,7 @@ void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, S
 
 
 void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter) {
+	PrimarySymbolConverter *primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
 	string resultType = ((StatementToken *)(env.list[0].get()))->statementEntity->resultType;
@@ -276,7 +278,7 @@ void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &
 
 
 void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter) {
+	PrimarySymbolConverter *primarySymbolConverter) {
 	unordered_map<string, string> imfo_map;
 
 	//Util::log(((StatementToken *)(env2.list[0].get()))->statementEntity->name);
@@ -428,7 +430,7 @@ void processNormalClassDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
 
@@ -574,7 +576,7 @@ void processNormalInterfaceDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
 
@@ -708,7 +710,7 @@ void processEnumDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
 
@@ -868,7 +870,7 @@ void processAnnotationTypeMemberDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0) {
 
@@ -1000,7 +1002,6 @@ void processAnnotationTypeMemberDeclaration(Parser *parser4,
 
 			if (statementType == "") {
 				Util::log(string("statement[" + to_string(i1)) + string("]:" + to_string(p->list[i1]->begIndex)) + string("," + to_string(p->list[i1]->endIndex)));
-
 			}
 		}
 	}
@@ -1014,11 +1015,11 @@ void processAnnotationTypeMemberDeclaration(Parser *parser4,
 		Parser *parser7,
 		Parser *parser8,
 		Parser *parser9,
-		PrimarySymbolConverter primarySymbolConverter,
+		PrimarySymbolConverter *primarySymbolConverter,
 		P_Context &context, deque<P_Context> &contextDeque,
 		set<string> &end_symbol_set0){
 		Env env;
-		parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter, end_symbol_set0);
+		parser4->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
 		Node*  node_tree4 = parser4->slr(env, "ele_begin", 0);
 
 		string className;
@@ -1085,13 +1086,17 @@ void main(int argc, char* argv[]) {
 	initParsers();
 
 	string files[] = {
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\jsp\\el\\ImplicitObjectELResolver.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\core\\ApplicationFilterChain.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\core\\ApplicationHttpRequest.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\core\\StandardWrapper.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\filters\\ExpiresFilter.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\manager\\JspHelper.java",
- //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\manager\\util\\SessionUtils.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\ManagedBean.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PostConstruct.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PreDestroy.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Priority.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resource.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resources.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DeclareRoles.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DenyAll.java",
+ "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\PermitAll.java",
+ //"C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\org\\apache\\catalina\\core\\StandardContext.java"
 	};
 
 	//string files[] = {

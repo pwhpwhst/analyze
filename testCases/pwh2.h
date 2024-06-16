@@ -51,7 +51,7 @@ void processCompilationUnit(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
@@ -62,7 +62,7 @@ void processNormalClassDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
@@ -73,7 +73,7 @@ void processNormalInterfaceDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
@@ -86,7 +86,7 @@ void processEnumDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
@@ -97,7 +97,7 @@ void processAnnotationTypeMemberDeclaration(Parser *parser4,
 	Parser *parser7,
 	Parser *parser8,
 	Parser *parser9,
-	PrimarySymbolConverter primarySymbolConverter,
+	PrimarySymbolConverter *primarySymbolConverter,
 	P_Context &context, deque<P_Context> &contextDeque,
 	set<string> &end_symbol_set0);
 
@@ -106,14 +106,14 @@ void processAnnotationTypeMemberDeclaration(Parser *parser4,
 void fillWithStatementFieldDeclaration(P_Context &context, Env &env);
 void fillWithStatementConstantDeclaration(P_Context &context, Env &env);
 void fillWithStatementMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter);
+	PrimarySymbolConverter *primarySymbolConverter);
 void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter);
+	PrimarySymbolConverter *primarySymbolConverter);
 void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter);
+	PrimarySymbolConverter *primarySymbolConverter);
 
 void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
-	PrimarySymbolConverter &primarySymbolConverter);
+	PrimarySymbolConverter *primarySymbolConverter);
 void fillWithClassTypeNormalClassDeclaration(P_Context &context, long &basegLineNum, long &baseIndex,Env &env, P_Context &childContext);
 void fillWithClassTypeEnumDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);
 void fillWithClassTypeNormalInterfaceDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);

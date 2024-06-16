@@ -649,15 +649,15 @@ int Lalr::init(string rule_file) {
 	return 0;
 }
 
-void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet) {
-	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter,endSymbolSet);
+void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, set<string> &endSymbolSet) {
+	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter);
 	//人手添加总结符号
 	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
 	total_lex_word_list.back()->type = "'end'";
 }
 
 
-void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex) {
+void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int beginIndex, int endIndex) {
 	Parser::init_total_lex_word_list(compile_file, primarySymbolConverter, beginIndex, endIndex);
 	//人手添加总结符号
 	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));

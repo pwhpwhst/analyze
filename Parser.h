@@ -14,12 +14,14 @@ public: virtual ~Parser();
 public:bool logSwitch = false;
 
 public: virtual int init(string rule_file)=0;
-public: virtual void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet);
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int beginIndex, int endIndex);
+private: string compile_file = "";
+public: virtual void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int beginIndex, int endIndex);
 public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
 public: virtual Node* slr(Env &env, string rootSymbol, int wordListBegId)=0;
 
 protected:vector<P_Rule> ruleList;
+protected:vector<P_Lex_Word>  _total_lex_word_list;
 protected:vector<P_Lex_Word>  total_lex_word_list;
 protected:string ruleFileName;
 protected:void log(const string& s);

@@ -1,4 +1,5 @@
 #include "PrimarySymbolConverter.h"
+#include "..\SLR\Lex_Word.h"
 
 
 
@@ -21,75 +22,75 @@ void PrimarySymbolConverter::identifierMap(string idName, string type) {
 	env[idName] =type;
 }
 
-void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord) {
-	newLexWord.content = oriLexWord.content;
+void PrimarySymbolConverter::convert(Lex_Word *oriLexWord, Lex_Word *newLexWord) {
+	newLexWord->content = oriLexWord->content;
 
 	//位置统计 begin
-	if (oriLexWord.type == "'NEXT_LINE'") {
+	if (oriLexWord->type == "'NEXT_LINE'") {
 		lineNum++;
 		colNum = 0;
 	}
 	else {
 		colNum++;
 	}
-	newLexWord.lineNum = lineNum;
-	newLexWord.colNum = colNum;
-	newLexWord.index = oriLexWord.index;
+	newLexWord->lineNum = lineNum;
+	newLexWord->colNum = colNum;
+	newLexWord->index = oriLexWord->index;
 	//位置统计 end
 
 	//注释过滤 begin
 	if (is_comment1) {
-		if (oriLexWord.type != "'NEXT_LINE'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type != "'NEXT_LINE'") {
+			newLexWord->type = "0";
 			return;
 		}
 		else {
-			newLexWord.type = "0";
+			newLexWord->type = "0";
 			is_comment1 = false;
 			return;
 		}
 	}
 	else {
-		if (oriLexWord.type == "'COMMENT1'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type == "'COMMENT1'") {
+			newLexWord->type = "0";
 			is_comment1 = true;
 			return;
 		}
 	}
 
 	if (is_comment2) {
-		if (oriLexWord.type != "'END_COMMENT'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type != "'END_COMMENT'") {
+			newLexWord->type = "0";
 			return;
 		}
 		else {
-			newLexWord.type = "0";
+			newLexWord->type = "0";
 			is_comment2 = false;
 			return;
 		}
 	}
 	else {
-		if (oriLexWord.type == "'COMMENT2'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type == "'COMMENT2'") {
+			newLexWord->type = "0";
 			is_comment2 = true;
 			return;
 		}
 	}
 
 	if (is_comment3) {
-		if (oriLexWord.type != "'END_COMMENT'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type != "'END_COMMENT'") {
+			newLexWord->type = "0";
 			return;
 		}
 		else {
-			newLexWord.type = "0";
+			newLexWord->type = "0";
 			is_comment3 = false;
 			return;
 		}
 	}
 	else {
-		if (oriLexWord.type == "'COMMENT3'") {
-			newLexWord.type = "0";
+		if (oriLexWord->type == "'COMMENT3'") {
+			newLexWord->type = "0";
 			is_comment3 = true;
 			return;
 		}
@@ -97,28 +98,28 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 	//注释过滤 end
 
 
-	if (oriLexWord.type == "'NEXT_LINE'") {
-		newLexWord.type = "0";
+	if (oriLexWord->type == "'NEXT_LINE'") {
+		newLexWord->type = "0";
 		return;
 	}
 
 
-	if (oriLexWord.type == "'IDENTIFIER'") {
+	if (oriLexWord->type == "'IDENTIFIER'") {
 
-		if (key_word_set.count(oriLexWord.content) > 0) {
-			newLexWord.type = "'"+oriLexWord.content+"'";
+		if (key_word_set.count(oriLexWord->content) > 0) {
+			newLexWord->type = "'"+oriLexWord->content+"'";
 		}
-		else if (oriLexWord.content == "true"| oriLexWord.content == "false") {
-			newLexWord.type = "'BooleanLiteral'";
+		else if (oriLexWord->content == "true"| oriLexWord->content == "false") {
+			newLexWord->type = "'BooleanLiteral'";
 		}
-		else if (env.count(oriLexWord.content) == 1) {
-			newLexWord.type =  env[oriLexWord.content] ;
+		else if (env.count(oriLexWord->content) == 1) {
+			newLexWord->type =  env[oriLexWord->content] ;
 		}else {
-			newLexWord.type = oriLexWord.type;
+			newLexWord->type = oriLexWord->type;
 		}
 
 	}else {
-		newLexWord.type = oriLexWord.type;
+		newLexWord->type = oriLexWord->type;
 	}
 
 
@@ -126,4 +127,7 @@ void PrimarySymbolConverter::convert(Lex_Word &oriLexWord, Lex_Word &newLexWord)
 	
 }
 
-
+void PrimarySymbolConverter::initPositionInfo() {
+	lineNum = 1;
+	colNum = 0;
+}

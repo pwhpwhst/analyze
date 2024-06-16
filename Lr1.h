@@ -122,7 +122,7 @@ public: int init(string rule_file);
 
 
 
-public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter);
+public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter);
 
 private: int startsWith(string s, string sub);
 

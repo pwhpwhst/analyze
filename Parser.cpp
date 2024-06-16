@@ -52,80 +52,56 @@ string Parser::replaceAll(string str, string sub, string replacement) {
 
 
 
-void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, set<string> &endSymbolSet) {
+void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter) {
 	total_lex_word_list.clear();
-
+	//cout << "haha" << endl;
 	//定义上下文
 	//log("定义上下文");
 
 	//生成输入
 	//log("生成输入");
 
-	vector<P_Lex_Word>  _total_lex_word_list;
 	vector <string> behaves;
-	_total_lex_word_list.clear();
-	word_parser(compile_file, _total_lex_word_list);
+	if (this->compile_file!= compile_file) {
+		_total_lex_word_list.clear();
+		primarySymbolConverter->initPositionInfo();
+		word_parser(compile_file, _total_lex_word_list, primarySymbolConverter);
+
+		this->compile_file = compile_file;
+	}
+
 
 	for (P_Lex_Word &e : _total_lex_word_list) {
-		auto p = P_Lex_Word(new Lex_Word());
-		primarySymbolConverter.convert(*e, *p);
-		if (p->type != "0") {
-			total_lex_word_list.push_back(p);
-			/*
-			if (endSymbolSet.count(p->type) > 0) {
-				break;
-			}
-			*/
-
-			bool isMatch = false;
-			for (const auto &e2 : endSymbolSet) {
-				bool isMatch2 = true;
-
-				behaves.clear();
-				split(behaves, e2, is_any_of(","));
-				if (total_lex_word_list.size() < behaves.size()) {
-					isMatch2 = false;
-				}
-				else {
-					for (int i1 = behaves.size() - 1, i2 = total_lex_word_list.size() - 1; i1 >= 0; i1--, i2--) {
-						if (behaves[i1] != total_lex_word_list[i2]->type) {
-							isMatch2 = false;
-							break;
-						}
-					}
-				}
-
-				if (isMatch2) {
-					isMatch = true;
-					break;
-				}
-
-			}
-
-			if (isMatch) {
-				break;
-			}
-		}
+		auto p = P_Lex_Word(new Lex_Word(*e));
+		total_lex_word_list.push_back(p);
 	}
+	total_lex_word_list.push_back(P_Lex_Word(new Lex_Word()));
+	total_lex_word_list.back()->type = "'end'";
 }
 
 
 
-void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter, int begIndex, int endIndex) {
+void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int begIndex, int endIndex) {
 	total_lex_word_list.clear();
-
+	//cout << "haha" << endl;
 	//定义上下文
 	log("定义上下文");
 
 	//生成输入
 	log("生成输入");
 
-	vector<P_Lex_Word>  _total_lex_word_list;
 	vector <string> behaves;
-	_total_lex_word_list.clear();
-	word_parser(compile_file, _total_lex_word_list);
+
+	if (this->compile_file != compile_file) {
+		_total_lex_word_list.clear();
+		primarySymbolConverter->initPositionInfo();
+		word_parser(compile_file, _total_lex_word_list, primarySymbolConverter);
+		this->compile_file = compile_file;
+	}
+
 	int index = 0;
 	for (P_Lex_Word &e : _total_lex_word_list) {
+		/*
 		auto p = P_Lex_Word(new Lex_Word());
 		primarySymbolConverter.convert(*e, *p);
 		if (p->type != "0") {
@@ -138,9 +114,13 @@ void Parser::init_total_lex_word_list(string compile_file, PrimarySymbolConverte
 				if (index >= begIndex && index <= endIndex) {
 					total_lex_word_list.push_back(p);
 				}
-				index++;
 			}
-
+			index++;
+		}
+		*/
+		auto p = P_Lex_Word(new Lex_Word(*e));
+		if (p->index >= begIndex && p->index <= endIndex) {
+			total_lex_word_list.push_back(p);
 		}
 	}
 

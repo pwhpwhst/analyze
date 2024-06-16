@@ -242,7 +242,7 @@ int Lr1::init(string rule_file) {
 	return 0;
 }
 
-void Lr1::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &primarySymbolConverter) {
+void Lr1::init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter) {
 	total_lex_word_list.clear();
 
 	//定义上下文
@@ -253,11 +253,11 @@ void Lr1::init_total_lex_word_list(string compile_file, PrimarySymbolConverter &
 
 	vector<P_Lex_Word>  _total_lex_word_list;
 	_total_lex_word_list.clear();
-	word_parser(compile_file, _total_lex_word_list);
+	word_parser(compile_file, _total_lex_word_list, primarySymbolConverter);
 
 	for (P_Lex_Word &e : _total_lex_word_list) {
 		auto p = P_Lex_Word(new Lex_Word());
-		primarySymbolConverter.convert(*e, *p);
+		primarySymbolConverter->convert(e.get(), p.get());
 		if (p->type != "0") {
 			total_lex_word_list.push_back(p);
 		}
