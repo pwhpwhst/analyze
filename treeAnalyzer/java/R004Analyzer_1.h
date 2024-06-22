@@ -117,9 +117,15 @@ R004_ImportDeclaration_3Analyzer::~R004_ImportDeclaration_3Analyzer() {}
 
 
 
-//beg_TypeDeclarationList : TypeDeclaration
+//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
 R004_TypeDeclarationList_0Analyzer::R004_TypeDeclarationList_0Analyzer() {}
 R004_TypeDeclarationList_0Analyzer::~R004_TypeDeclarationList_0Analyzer() {}
+
+
+
+//beg_TypeDeclarationList : TypeDeclaration
+R004_TypeDeclarationList_1Analyzer::R004_TypeDeclarationList_1Analyzer() {}
+R004_TypeDeclarationList_1Analyzer::~R004_TypeDeclarationList_1Analyzer() {}
 
 
 
@@ -165,7 +171,7 @@ R004_InterfaceDeclaration_1Analyzer::~R004_InterfaceDeclaration_1Analyzer() {}
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 R004_NormalClassDeclaration_0Analyzer::R004_NormalClassDeclaration_0Analyzer() {}
 R004_NormalClassDeclaration_0Analyzer::~R004_NormalClassDeclaration_0Analyzer() {}
 
@@ -213,7 +219,7 @@ R004_NormalClassDeclaration_7Analyzer::~R004_NormalClassDeclaration_7Analyzer() 
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass ClassBody
 R004_NormalClassDeclaration_8Analyzer::R004_NormalClassDeclaration_8Analyzer() {}
 R004_NormalClassDeclaration_8Analyzer::~R004_NormalClassDeclaration_8Analyzer() {}
 
@@ -1581,13 +1587,13 @@ R004_EnumBody_3Analyzer::~R004_EnumBody_3Analyzer() {}
 
 
 
-//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
 R004_EnumBody_4Analyzer::R004_EnumBody_4Analyzer() {}
 R004_EnumBody_4Analyzer::~R004_EnumBody_4Analyzer() {}
 
 
 
-//beg_EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
 R004_EnumBody_5Analyzer::R004_EnumBody_5Analyzer() {}
 R004_EnumBody_5Analyzer::~R004_EnumBody_5Analyzer() {}
 
@@ -1605,13 +1611,13 @@ R004_EnumBody_7Analyzer::~R004_EnumBody_7Analyzer() {}
 
 
 
-//beg_EnumConstantList : EnumConstantEle 'COMMA' EnumConstantList
+//beg_EnumConstantList : EnumConstantEleList 'COMMA' EnumConstantList
 R004_EnumConstantList_0Analyzer::R004_EnumConstantList_0Analyzer() {}
 R004_EnumConstantList_0Analyzer::~R004_EnumConstantList_0Analyzer() {}
 
 
 
-//beg_EnumConstantList : EnumConstantEle
+//beg_EnumConstantList : EnumConstantEleList
 R004_EnumConstantList_1Analyzer::R004_EnumConstantList_1Analyzer() {}
 R004_EnumConstantList_1Analyzer::~R004_EnumConstantList_1Analyzer() {}
 

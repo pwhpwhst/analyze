@@ -17,6 +17,7 @@ ImportDeclaration : 'import' 'static' DetailIdentifier 'SPOT_STAR' 'semicolon'
 ImportDeclaration : 'import' 'static' DetailIdentifier 'semicolon'
 ImportDeclaration : 'import' DetailIdentifier 'SPOT_STAR' 'semicolon'
 ImportDeclaration : 'import' DetailIdentifier 'semicolon'
+TypeDeclarationList : TypeDeclaration TypeDeclarationList
 TypeDeclarationList : TypeDeclaration
 TypeDeclaration : ClassDeclaration
 TypeDeclaration : InterfaceDeclaration
@@ -261,8 +262,8 @@ EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' EnumBodyDeclarations 'RIGHT_BRA
 EnumBody : 'LEFT_BRACE' 'COMMA' EnumBodyDeclarations 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumConstantList EnumBodyDeclarations 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumBodyDeclarations 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
-EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
+EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' EnumConstantList 'RIGHT_BRACE'
 EnumBody : 'LEFT_BRACE' 'RIGHT_BRACE'
 EnumConstantList : EnumConstantEleList 'COMMA' EnumConstantList

@@ -183,11 +183,20 @@ public: virtual ~R004_ImportDeclaration_3Analyzer();
 
 
 
-//beg_TypeDeclarationList : TypeDeclaration
+//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
 class R004_TypeDeclarationList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_TypeDeclarationList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
 public: virtual ~R004_TypeDeclarationList_0Analyzer();
+};
+
+
+
+//beg_TypeDeclarationList : TypeDeclaration
+class R004_TypeDeclarationList_1Analyzer :virtual public Non_Terminate_genertor {
+public: R004_TypeDeclarationList_1Analyzer();
+public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
+public: virtual ~R004_TypeDeclarationList_1Analyzer();
 };
 
 
@@ -255,7 +264,7 @@ public: virtual ~R004_InterfaceDeclaration_1Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments Superinterfaces ClassBody
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass Superinterfaces ClassBody
 class R004_NormalClassDeclaration_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_NormalClassDeclaration_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -327,7 +336,7 @@ public: virtual ~R004_NormalClassDeclaration_7Analyzer();
 
 
 
-//beg_NormalClassDeclaration : ModifierList 'class' Identifier Superclass TypeArguments ClassBody
+//beg_NormalClassDeclaration : ModifierList 'class' Identifier TypeArguments Superclass ClassBody
 class R004_NormalClassDeclaration_8Analyzer :virtual public Non_Terminate_genertor {
 public: R004_NormalClassDeclaration_8Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2379,7 +2388,7 @@ public: virtual ~R004_EnumBody_3Analyzer();
 
 
 
-//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
 class R004_EnumBody_4Analyzer :virtual public Non_Terminate_genertor {
 public: R004_EnumBody_4Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2388,7 +2397,7 @@ public: virtual ~R004_EnumBody_4Analyzer();
 
 
 
-//beg_EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
 class R004_EnumBody_5Analyzer :virtual public Non_Terminate_genertor {
 public: R004_EnumBody_5Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2415,7 +2424,7 @@ public: virtual ~R004_EnumBody_7Analyzer();
 
 
 
-//beg_EnumConstantList : EnumConstantEle 'COMMA' EnumConstantList
+//beg_EnumConstantList : EnumConstantEleList 'COMMA' EnumConstantList
 class R004_EnumConstantList_0Analyzer :virtual public Non_Terminate_genertor {
 public: R004_EnumConstantList_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);
@@ -2424,7 +2433,7 @@ public: virtual ~R004_EnumConstantList_0Analyzer();
 
 
 
-//beg_EnumConstantList : EnumConstantEle
+//beg_EnumConstantList : EnumConstantEleList
 class R004_EnumConstantList_1Analyzer :virtual public Non_Terminate_genertor {
 public: R004_EnumConstantList_1Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);

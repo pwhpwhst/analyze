@@ -540,7 +540,7 @@ void write_word(char *yytext,char *symbol_name){
 				
 			}else{
 				new_lex_word[i1].type=NULL;
-				new_lex_word[i1].content=NULL;			
+				new_lex_word[i1].content=NULL;
 			}
 		}
 		free(lex_word);
@@ -1004,313 +1004,313 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 223 "SLR\\wordParser.l"
+#line 224 "SLR\\wordParser.l"
 {
   write_word(yytext,"'NEXT_LINE'");
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 228 "SLR\\wordParser.l"
+#line 229 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_BRACE'");
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 232 "SLR\\wordParser.l"
+#line 233 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_BRACE'");
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 238 "SLR\\wordParser.l"
+#line 239 "SLR\\wordParser.l"
 {
   write_word(yytext,"'COMMA'");
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 242 "SLR\\wordParser.l"
+#line 243 "SLR\\wordParser.l"
 {
   write_word(yytext,"'EQUAL'");
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 246 "SLR\\wordParser.l"
+#line 247 "SLR\\wordParser.l"
 {
   write_word(yytext,"'MULTI_EQUAL'");
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 250 "SLR\\wordParser.l"
+#line 251 "SLR\\wordParser.l"
 {
   write_word(yytext,"'DIVIDE_EQUAL'");
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 254 "SLR\\wordParser.l"
+#line 255 "SLR\\wordParser.l"
 {
   write_word(yytext,"'PRECENTAGE_EQUAL'");
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 260 "SLR\\wordParser.l"
+#line 261 "SLR\\wordParser.l"
 {
   write_word(yytext,"'PLUS_EQUAL'");
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 264 "SLR\\wordParser.l"
+#line 265 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SUBTRACT_EQUAL'");
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 268 "SLR\\wordParser.l"
+#line 269 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_SHIFT_EQUAL'");
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 272 "SLR\\wordParser.l"
+#line 273 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_SHIFT_EQUAL'");
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 276 "SLR\\wordParser.l"
+#line 277 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_SHIFT2_EQUAL'");
 }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 280 "SLR\\wordParser.l"
+#line 281 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_SHIFT'");
 }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 284 "SLR\\wordParser.l"
+#line 285 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_SHIFT'");
 }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 288 "SLR\\wordParser.l"
+#line 289 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_SHIFT2'");
 }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 292 "SLR\\wordParser.l"
+#line 293 "SLR\\wordParser.l"
 {
   write_word(yytext,"'AND_EQUAL'");
 }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 296 "SLR\\wordParser.l"
+#line 297 "SLR\\wordParser.l"
 {
   write_word(yytext,"'XOR_EQUAL'");
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 300 "SLR\\wordParser.l"
+#line 301 "SLR\\wordParser.l"
 {
   write_word(yytext,"'OR_EQUAL'");
 }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 304 "SLR\\wordParser.l"
+#line 305 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LAMBDA_TO'");
 }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 309 "SLR\\wordParser.l"
+#line 310 "SLR\\wordParser.l"
 {
   write_word(yytext,"'QUESTION'");
 }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 313 "SLR\\wordParser.l"
+#line 314 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_BRACKET'");
 }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 317 "SLR\\wordParser.l"
+#line 318 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_BRACKET'");
 }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 321 "SLR\\wordParser.l"
+#line 322 "SLR\\wordParser.l"
 {
   write_word(yytext,"'LEFT_PARENTHESES'");
 }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 325 "SLR\\wordParser.l"
+#line 326 "SLR\\wordParser.l"
 {
   write_word(yytext,"'RIGHT_PARENTHESES'");
 }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 329 "SLR\\wordParser.l"
+#line 330 "SLR\\wordParser.l"
 {
   write_word(yytext,"'semicolon'");
 }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 333 "SLR\\wordParser.l"
+#line 334 "SLR\\wordParser.l"
 {
   write_word(yytext,"'StringLiteral'");
 }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 337 "SLR\\wordParser.l"
+#line 338 "SLR\\wordParser.l"
 {
   write_word(yytext,"'IntegerLiteral'");
 }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 341 "SLR\\wordParser.l"
+#line 342 "SLR\\wordParser.l"
 {
   write_word(yytext,"'CharacterLiteral'");
 }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 345 "SLR\\wordParser.l"
+#line 346 "SLR\\wordParser.l"
 {
   write_word(yytext,"'FloatingPointLiteral'");
 }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 349 "SLR\\wordParser.l"
+#line 350 "SLR\\wordParser.l"
 {
   write_word(yytext,"'NO_ENGLISH_CH'");
 }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 353 "SLR\\wordParser.l"
+#line 354 "SLR\\wordParser.l"
 {
   write_word(yytext,"'AT_INTERFACE'");
 }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 357 "SLR\\wordParser.l"
+#line 358 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SPOT_STAR'");
 }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 361 "SLR\\wordParser.l"
+#line 362 "SLR\\wordParser.l"
 {
   write_word(yytext,"'EXE_QUOTES'");
 }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 365 "SLR\\wordParser.l"
+#line 366 "SLR\\wordParser.l"
 {
   write_word(yytext,"'TILDE'");
 }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 371 "SLR\\wordParser.l"
+#line 372 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SPOT'");
 }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 375 "SLR\\wordParser.l"
+#line 376 "SLR\\wordParser.l"
 {
   write_word(yytext,"'THREE_SPOT'");
 }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 385 "SLR\\wordParser.l"
+#line 386 "SLR\\wordParser.l"
 {
   write_word(yytext,"'POUND'");
 }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 389 "SLR\\wordParser.l"
+#line 390 "SLR\\wordParser.l"
 {
   write_word(yytext,"'SINGLE_QUOTES'");
 }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 393 "SLR\\wordParser.l"
+#line 394 "SLR\\wordParser.l"
 {
   write_word(yytext,"'DOLLAR'");
 }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 399 "SLR\\wordParser.l"
+#line 400 "SLR\\wordParser.l"
 {
   write_word(yytext,"'BACK_SLASH'");
 }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 403 "SLR\\wordParser.l"
+#line 404 "SLR\\wordParser.l"
 {
   write_word(yytext,"'DOUBLE_QUOTES'");
 }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 410 "SLR\\wordParser.l"
+#line 411 "SLR\\wordParser.l"
 {}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 412 "SLR\\wordParser.l"
+#line 413 "SLR\\wordParser.l"
 {
 
 }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 416 "SLR\\wordParser.l"
+#line 417 "SLR\\wordParser.l"
 ECHO;
 	YY_BREAK
 #line 1317 "lex.yy.c"
@@ -2199,7 +2199,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 416 "SLR\\wordParser.l"
+#line 417 "SLR\\wordParser.l"
 
 
 void c_word_parser(char* file_path,struct C_Lex_Word **beg,struct C_Lex_Word **end){

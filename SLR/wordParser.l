@@ -220,6 +220,7 @@ COMMA_semicolon ,{SPACE2}*;
 }
 
 
+
 "\n" {
   write_word(yytext,"'NEXT_LINE'");
 }

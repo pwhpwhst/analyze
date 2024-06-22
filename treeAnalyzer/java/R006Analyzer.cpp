@@ -374,8 +374,9 @@ void R006_Dims_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unorder
 //beg_Dims : DimOrThreeSpot Dims
 void R006_Dims_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR006("R006_Dims_1Analyzer");
-	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Dims"];
-	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["DimOrThreeSpot"];
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["DimOrThreeSpot"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Dims"];
+
 
 	((DimListToken *)(p1.get()))->num = ((DimListToken *)(p1.get()))->num + ((DimListToken *)(p0.get()))->num;
 

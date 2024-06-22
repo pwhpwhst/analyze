@@ -14,6 +14,7 @@ class PrimarySymbolConverter {
 private: bool is_comment1=false;
 private: bool is_comment2 = false;
 private: bool is_comment3 = false;
+private: bool spotStar = false;
 private: set<string> key_word_set;
 private: unordered_map<string, string> env;
 

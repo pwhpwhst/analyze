@@ -59,12 +59,31 @@ void PrimarySymbolConverter::convert(Lex_Word *oriLexWord, Lex_Word *newLexWord)
 	}
 
 	if (is_comment2) {
-		if (oriLexWord->type != "'END_COMMENT'") {
+
+		if (oriLexWord->type == "'SPOT_STAR'") {
 			newLexWord->type = "0";
+			spotStar = true;
+			return;
+		}else if (oriLexWord->type == "'SLASH'") {
+			if (spotStar) {
+				newLexWord->type = "0";
+				spotStar = false;
+				is_comment2 = false;
+				return;
+			}
+			else {
+				newLexWord->type = "0";
+				spotStar = false;
+				return;
+			}
+		}else if (oriLexWord->type != "'END_COMMENT'") {
+			newLexWord->type = "0";
+			spotStar = false;
 			return;
 		}
 		else {
 			newLexWord->type = "0";
+			spotStar = false;
 			is_comment2 = false;
 			return;
 		}
@@ -78,12 +97,32 @@ void PrimarySymbolConverter::convert(Lex_Word *oriLexWord, Lex_Word *newLexWord)
 	}
 
 	if (is_comment3) {
-		if (oriLexWord->type != "'END_COMMENT'") {
+		if (oriLexWord->type == "'SPOT_STAR'") {
 			newLexWord->type = "0";
+			spotStar = true;
+			return;
+		}
+		else if (oriLexWord->type == "'SLASH'") {
+			if (spotStar) {
+				newLexWord->type = "0";
+				spotStar = false;
+				is_comment3 = false;
+				return;
+			}
+			else {
+				newLexWord->type = "0";
+				spotStar = false;
+				return;
+			}
+		}
+		else if (oriLexWord->type != "'END_COMMENT'") {
+			newLexWord->type = "0";
+			spotStar = false;
 			return;
 		}
 		else {
 			newLexWord->type = "0";
+			spotStar = false;
 			is_comment3 = false;
 			return;
 		}

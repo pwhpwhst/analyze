@@ -302,9 +302,23 @@ void R004_ImportDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 };
 
 
-//beg_TypeDeclarationList : TypeDeclaration
+//beg_TypeDeclarationList : TypeDeclaration TypeDeclarationList
 void R004_TypeDeclarationList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_TypeDeclarationList_0Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeDeclarationList"];
+
+	if (p0 != nullptr) {
+		((ClassListToken *)(p1.get()))->list.push_front(((ClassToken *)(p0.get()))->classEntity);
+	}
+
+	nodeValue->context["TypeDeclarationList"] = p1;
+};
+
+
+//beg_TypeDeclarationList : TypeDeclaration
+void R004_TypeDeclarationList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR004("R004_TypeDeclarationList_1Analyzer");
 	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeDeclaration"];
 
 	ClassListToken* p = new ClassListToken();
@@ -3462,7 +3476,7 @@ void R004_EnumBody_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 
 
 
-//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' EnumConstantList 'COMMA_RIGHT_BRACE'
 void R004_EnumBody_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_EnumBody_4Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["EnumConstantList"];
@@ -3474,7 +3488,7 @@ void R004_EnumBody_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, uno
 };
 
 
-//beg_EnumBody : 'LEFT_BRACE' 'COMMA' 'RIGHT_BRACE'
+//beg_EnumBody : 'LEFT_BRACE' 'COMMA_RIGHT_BRACE'
 void R004_EnumBody_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR004("R004_EnumBody_5Analyzer");
 	//TO DO  R004_EnumBody_2Analyzer

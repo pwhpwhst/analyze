@@ -111,13 +111,14 @@ void fillWithStatementInterfaceMethodDeclaration(P_Context &context, Env &env, S
 	PrimarySymbolConverter *primarySymbolConverter);
 void fillWithStatementAnnotationTypeElementDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter *primarySymbolConverter);
-
 void fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1, Parser *parser6,
 	PrimarySymbolConverter *primarySymbolConverter);
-void fillWithClassTypeNormalClassDeclaration(P_Context &context, long &basegLineNum, long &baseIndex,Env &env, P_Context &childContext);
-void fillWithClassTypeEnumDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);
-void fillWithClassTypeNormalInterfaceDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);
-void fillWithClassTypeAnnotationTypeDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, P_Context &childContext);
+
+
+void fillWithClassTypeNormalClassDeclaration(P_Context &context, long &basegLineNum, long &baseIndex,Env &env, int classTypeIndex, P_Context &childContext);
+void fillWithClassTypeEnumDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext);
+void fillWithClassTypeNormalInterfaceDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext);
+void fillWithClassTypeAnnotationTypeDeclaration(P_Context &context, long &basegLineNum, long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext);
 
 
 
