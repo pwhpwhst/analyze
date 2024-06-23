@@ -1,17 +1,17 @@
-cd /c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/symbols/java/
 
+cd /c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/symbols/java/
+ 
 templates=(
-ClassEntity.cpp
-ClassEntity.h
-ClassListToken.cpp
-ClassListToken.h
+#ClassEntity.cpp
+#ClassEntity.h
+#ClassListToken.cpp
+#ClassListToken.h
 ClassToken.cpp
 ClassToken.h
 )
 
 componentName="Class"
-
-newComponentName="Statement"
+newComponentName="UnannType"
 
 
 for var in ${templates[@]}
@@ -24,4 +24,5 @@ newFileName=`echo "${var}"|sed -e "s/${componentName}/${newComponentName}/g"|sed
 
 
 cat ${oldFileName}${suffix}|sed -e "s/${oldFileName}/${newFileName}/g" > ${newFileName}${suffix}
+
 done
