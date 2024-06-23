@@ -1539,9 +1539,15 @@ R008_VariableInitializerEle_3Analyzer::~R008_VariableInitializerEle_3Analyzer() 
 
 
 
-//beg_VariableInitializerEle : DimExpr
+//beg_VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 R008_VariableInitializerEle_4Analyzer::R008_VariableInitializerEle_4Analyzer() {}
 R008_VariableInitializerEle_4Analyzer::~R008_VariableInitializerEle_4Analyzer() {}
+
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+R008_VariableInitializerEle_5Analyzer::R008_VariableInitializerEle_5Analyzer() {}
+R008_VariableInitializerEle_5Analyzer::~R008_VariableInitializerEle_5Analyzer() {}
 
 
 

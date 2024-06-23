@@ -269,12 +269,13 @@ SDT_R008_Factory::SDT_R008_Factory() {
    { "R008_VariableInitializerEle_2", 254 },
    { "R008_VariableInitializerEle_3", 255 },
    { "R008_VariableInitializerEle_4", 256 },
-   { "R008_VariableDeclaratorId_0", 257 },
-   { "R008_VariableDeclaratorId_1", 258 },
-   { "R008_AnnotationList_0", 259 },
-   { "R008_AnnotationList_1", 260 },
-   { "R008_DimExpr_0", 261 },
-   { "R008_DimExpr_1", 262 },
+   { "R008_VariableInitializerEle_5", 257 },
+   { "R008_VariableDeclaratorId_0", 258 },
+   { "R008_VariableDeclaratorId_1", 259 },
+   { "R008_AnnotationList_0", 260 },
+   { "R008_AnnotationList_1", 261 },
+   { "R008_DimExpr_0", 262 },
+   { "R008_DimExpr_1", 263 },
 	};
 }
 
@@ -545,12 +546,13 @@ P_SDT_genertor SDT_R008_Factory::getSDT_genertor(const string &key) {
 	case 254: factory["R008_VariableInitializerEle_2"] = P_SDT_genertor(new R008_VariableInitializerEle_2Analyzer()); break;
 	case 255: factory["R008_VariableInitializerEle_3"] = P_SDT_genertor(new R008_VariableInitializerEle_3Analyzer()); break;
 	case 256: factory["R008_VariableInitializerEle_4"] = P_SDT_genertor(new R008_VariableInitializerEle_4Analyzer()); break;
-	case 257: factory["R008_VariableDeclaratorId_0"] = P_SDT_genertor(new R008_VariableDeclaratorId_0Analyzer()); break;
-	case 258: factory["R008_VariableDeclaratorId_1"] = P_SDT_genertor(new R008_VariableDeclaratorId_1Analyzer()); break;
-	case 259: factory["R008_AnnotationList_0"] = P_SDT_genertor(new R008_AnnotationList_0Analyzer()); break;
-	case 260: factory["R008_AnnotationList_1"] = P_SDT_genertor(new R008_AnnotationList_1Analyzer()); break;
-	case 261: factory["R008_DimExpr_0"] = P_SDT_genertor(new R008_DimExpr_0Analyzer()); break;
-	case 262: factory["R008_DimExpr_1"] = P_SDT_genertor(new R008_DimExpr_1Analyzer()); break;
+	case 257: factory["R008_VariableInitializerEle_5"] = P_SDT_genertor(new R008_VariableInitializerEle_5Analyzer()); break;
+	case 258: factory["R008_VariableDeclaratorId_0"] = P_SDT_genertor(new R008_VariableDeclaratorId_0Analyzer()); break;
+	case 259: factory["R008_VariableDeclaratorId_1"] = P_SDT_genertor(new R008_VariableDeclaratorId_1Analyzer()); break;
+	case 260: factory["R008_AnnotationList_0"] = P_SDT_genertor(new R008_AnnotationList_0Analyzer()); break;
+	case 261: factory["R008_AnnotationList_1"] = P_SDT_genertor(new R008_AnnotationList_1Analyzer()); break;
+	case 262: factory["R008_DimExpr_0"] = P_SDT_genertor(new R008_DimExpr_0Analyzer()); break;
+	case 263: factory["R008_DimExpr_1"] = P_SDT_genertor(new R008_DimExpr_1Analyzer()); break;
 	default:
 
 		if (key.find("R008_") == 0) {

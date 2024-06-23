@@ -2658,11 +2658,19 @@ void R008_VariableInitializerEle_3Analyzer::handle(const P_NodeValue &nodeValue,
 
 
 
-//beg_VariableInitializerEle : DimExpr
+//beg_VariableInitializerEle: 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
 void R008_VariableInitializerEle_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR008("R008_VariableInitializerEle_4Analyzer");
 	//TO DO  R008_VariableInitializerEle_4Analyzer
 };
+
+
+//beg_VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
+void R008_VariableInitializerEle_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
+	logR008("R008_VariableInitializerEle_5Analyzer");
+	//TO DO  R008_VariableInitializerEle_5Analyzer
+};
+
 
 
 

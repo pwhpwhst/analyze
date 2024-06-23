@@ -254,7 +254,8 @@ VariableInitializerEle : StatementEle
 VariableInitializerEle : Block
 VariableInitializerEle : AnnotationContent
 VariableInitializerEle : TypeArguments
-VariableInitializerEle : DimExpr
+VariableInitializerEle : 'LEFT_BRACKET' VariableInitializer 'RIGHT_BRACKET'
+VariableInitializerEle : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 VariableDeclaratorId : Identifier Dims
 VariableDeclaratorId : Identifier
 AnnotationList : Annotation AnnotationList
