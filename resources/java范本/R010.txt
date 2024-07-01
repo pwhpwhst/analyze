@@ -1,0 +1,160 @@
+ele_begin : TopTypeArguments
+TopTypeArguments : 'LEFT_ANGLE_BRACKET' TopTypeArgumentListL2 'RIGHT_SHIFT2'
+TopTypeArguments : 'LEFT_ANGLE_BRACKET' TopTypeArgumentListL1 'LEFT_ANGLE_BRACKET_RIGHT_SHIFT2'
+TopTypeArguments : 'LEFT_ANGLE_BRACKET' TopTypeArgumentListL1 'RIGHT_SHIFT'
+TopTypeArguments : 'LEFT_ANGLE_BRACKET' TopTypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TopTypeArgumentList : TopTypeArgument 'COMMA' TopTypeArgumentList
+TopTypeArgumentList : TopTypeArgument
+TopTypeArgumentListL1 : TopTypeArgument 'COMMA' TopTypeArgumentListL1
+TopTypeArgumentListL1 : TopTypeArgumentL1
+TopTypeArgumentListL2 : TopTypeArgument 'COMMA' TopTypeArgumentListL2
+TopTypeArgumentListL2 : TopTypeArgumentL2
+TopTypeArgument : AnnotationList Identifier 'extends' NonANGLE_BRACKET_LIST
+TopTypeArgument : Identifier 'extends' NonANGLE_BRACKET_LIST
+TopTypeArgument : AnnotationList Identifier
+TopTypeArgument : Identifier
+TopTypeArgumentListL1 : AnnotationList Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST
+TopTypeArgumentListL1 : Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST
+TopTypeArgumentListL1 : AnnotationList Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET'
+TopTypeArgumentListL1 : Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET'
+TopTypeArgumentListL2 : AnnotationList Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST
+TopTypeArgumentListL2 : Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST
+TopTypeArgumentListL2 : AnnotationList Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET'
+TopTypeArgumentListL2 : Identifier 'extends' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET' NonANGLE_BRACKET_LIST 'LEFT_ANGLE_BRACKET'
+NonANGLE_BRACKET_LIST : NonANGLE_BRACKET NonANGLE_BRACKET_LIST
+NonANGLE_BRACKET_LIST : NonANGLE_BRACKET
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET_RIGHT_SHIFT2'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
+TypeArgumentListL2 : NonANGLE_BRACKET TypeArgumentListL2
+TypeArgumentListL2 : 'COMMA' TypeArgumentListL2
+TypeArgumentListL2 : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1
+TypeArgumentListL1 : NonANGLE_BRACKET TypeArgumentListL1
+TypeArgumentListL1 : 'COMMA' TypeArgumentListL1
+TypeArgumentListL1 : 'LEFT_ANGLE_BRACKET' TypeArgumentList
+TypeArgumentList : NonANGLE_BRACKET TypeArgumentList
+TypeArgumentList : 'COMMA' TypeArgumentList
+TypeArgumentList : 0
+NonANGLE_BRACKET : 'QUESTION'
+NonANGLE_BRACKET : 'extends'
+NonANGLE_BRACKET : 'super'
+NonANGLE_BRACKET : Identifier
+NonANGLE_BRACKET : UnannPrimitiveType
+NonANGLE_BRACKET : 'SPOT'
+NonANGLE_BRACKET : 'LEFT_BRACKET'
+NonANGLE_BRACKET : 'RIGHT_BRACKET'
+NonANGLE_BRACKET : TypeArguments
+Identifier : 'IDENTIFIER'
+UnannPrimitiveType : NumericType
+UnannPrimitiveType : 'boolean'
+NumericType : IntegralType
+NumericType : FloatingPointType
+IntegralType : 'byte'
+IntegralType : 'short'
+IntegralType : 'int'
+IntegralType : 'long'
+IntegralType : 'char'
+FloatingPointType : 'float'
+FloatingPointType : 'double'
+AnnotationList : Annotation AnnotationList
+AnnotationList : Annotation
+AnnotationContent : 'LEFT_PARENTHESES' AnnotationContentStatements 'RIGHT_PARENTHESES'
+AnnotationContentStatements : NonPARENTHESES AnnotationContentStatements
+AnnotationContentStatements : 0
+NonPARENTHESES : StatementEle
+NonPARENTHESES : 'COMMA'
+NonPARENTHESES : 'semicolon'
+NonPARENTHESES : 'LEFT_BRACE'
+NonPARENTHESES : 'LEFT_BRACKET'
+NonPARENTHESES : 'LEFT_ANGLE_BRACKET'
+NonPARENTHESES : 'RIGHT_BRACE'
+NonPARENTHESES : 'COMMA_RIGHT_BRACE'
+NonPARENTHESES : 'RIGHT_BRACKET'
+NonPARENTHESES : 'RIGHT_ANGLE_BRACKET'
+NonPARENTHESES : AnnotationContent
+StatementEle : 'IDENTIFIER'
+StatementEle : 'AND'
+StatementEle : 'AND_EQUAL'
+StatementEle : 'AT'
+StatementEle : 'AT_INTERFACE'
+StatementEle : 'BIT_AND'
+StatementEle : 'BIT_OR'
+StatementEle : 'BooleanLiteral'
+StatementEle : 'CARET'
+StatementEle : 'COLON'
+StatementEle : 'CharacterLiteral'
+StatementEle : 'DB_EQUAL'
+StatementEle : 'DIVIDE_EQUAL'
+StatementEle : 'EQUAL'
+StatementEle : 'FloatingPointLiteral'
+StatementEle : 'GT_EQUAL'
+StatementEle : 'IntegerLiteral'
+StatementEle : 'LAMBDA_TO'
+StatementEle : 'LEFT_SHIFT'
+StatementEle : 'LEFT_SHIFT_EQUAL'
+StatementEle : 'LT_EQUAL'
+StatementEle : 'MULTI_EQUAL'
+StatementEle : 'NOT_EQUAL'
+StatementEle : 'OR'
+StatementEle : 'OR_EQUAL'
+StatementEle : 'PLUS'
+StatementEle : 'PLUS_EQUAL'
+StatementEle : 'PRECENTAGE'
+StatementEle : 'PRECENTAGE_EQUAL'
+StatementEle : 'PackageOrTypeNameId'
+StatementEle : 'QUESTION'
+StatementEle : 'RIGHT_SHIFT'
+StatementEle : 'RIGHT_SHIFT2'
+StatementEle : 'RIGHT_SHIFT2_EQUAL'
+StatementEle : 'RIGHT_SHIFT_EQUAL'
+StatementEle : 'RIGTH_BRACKET'
+StatementEle : 'SLASH'
+StatementEle : 'SPOT'
+StatementEle : 'STAR'
+StatementEle : 'SUBTRACT'
+StatementEle : 'SUBTRACT_EQUAL'
+StatementEle : 'SURPRISE'
+StatementEle : 'StringLiteral'
+StatementEle : 'THREE_SPOT'
+StatementEle : 'TILDE'
+StatementEle : 'TWO_COLON'
+StatementEle : 'TWO_PLUS'
+StatementEle : 'TWO_SUBTRACT'
+StatementEle : 'TypeNameId'
+StatementEle : 'XOR_EQUAL'
+StatementEle : 'abstract'
+StatementEle : 'boolean'
+StatementEle : 'byte'
+StatementEle : 'char'
+StatementEle : 'class'
+StatementEle : 'default'
+StatementEle : 'double'
+StatementEle : 'enum'
+StatementEle : 'extends'
+StatementEle : 'final'
+StatementEle : 'float'
+StatementEle : 'implements'
+StatementEle : 'instanceof'
+StatementEle : 'int'
+StatementEle : 'interface'
+StatementEle : 'long'
+StatementEle : 'native'
+StatementEle : 'new'
+StatementEle : 'null'
+StatementEle : 'private'
+StatementEle : 'protected'
+StatementEle : 'public'
+StatementEle : 'short'
+StatementEle : 'static'
+StatementEle : 'super'
+StatementEle : 'synchronized'
+StatementEle : 'this'
+StatementEle : 'throws'
+StatementEle : 'transient'
+StatementEle : 'void'
+StatementEle : 'volatile'
+==============================================================
+sc
+s:0:'LEFT_ANGLE_BRACKET' : TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
+r:'LEFT_ANGLE_BRACKET' : NonANGLE_BRACKET_LIST : NonANGLE_BRACKET
