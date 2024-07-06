@@ -22,6 +22,67 @@ void PrimarySymbolConverter::identifierMap(string idName, string type) {
 	env[idName] =type;
 }
 
+
+void PrimarySymbolConverter::convert(const string &type,Lex_Word *oriLexWord, vector<P_Lex_Word>  &_total_lex_word_list) {
+	if (type=="TypeArguments") {
+		if (oriLexWord->content == "'RIGHT_SHIFT''") {
+			P_Lex_Word newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum= oriLexWord->colNum;
+			newLexWord->type= oriLexWord->type;
+			newLexWord->content = "'RIGHT_ANGLE_BRACKET'";
+			_total_lex_word_list.push_back(newLexWord);
+
+			newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum = oriLexWord->colNum;
+			newLexWord->type = oriLexWord->type;
+			newLexWord->content = "'RIGHT_ANGLE_BRACKET'";
+			_total_lex_word_list.push_back(newLexWord);
+		}
+		else if(oriLexWord->type == "'RIGHT_SHIFT2''") {
+			P_Lex_Word newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum = oriLexWord->colNum;
+			newLexWord->type = oriLexWord->type;
+			newLexWord->content = "'RIGHT_ANGLE_BRACKET'";
+			_total_lex_word_list.push_back(newLexWord);
+
+			newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum = oriLexWord->colNum;
+			newLexWord->type = oriLexWord->type;
+			newLexWord->content = "'RIGHT_ANGLE_BRACKET'";
+			_total_lex_word_list.push_back(newLexWord);
+
+			newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum = oriLexWord->colNum;
+			newLexWord->type = oriLexWord->type;
+			newLexWord->content = "'RIGHT_ANGLE_BRACKET'";
+			_total_lex_word_list.push_back(newLexWord);
+
+		}
+		else {
+			P_Lex_Word newLexWord = P_Lex_Word(new Lex_Word());
+			newLexWord->lineNum = oriLexWord->lineNum;
+			newLexWord->index = oriLexWord->index;
+			newLexWord->colNum = oriLexWord->colNum;
+			newLexWord->type = oriLexWord->type;
+			newLexWord->content = oriLexWord->content;
+			_total_lex_word_list.push_back(newLexWord);
+		}
+	}
+}
+
+
+
+
 void PrimarySymbolConverter::convert(Lex_Word *oriLexWord, Lex_Word *newLexWord) {
 	newLexWord->content = oriLexWord->content;
 
@@ -161,10 +222,10 @@ void PrimarySymbolConverter::convert(Lex_Word *oriLexWord, Lex_Word *newLexWord)
 		newLexWord->type = oriLexWord->type;
 	}
 
-
-
-	
 }
+
+
+
 
 void PrimarySymbolConverter::initPositionInfo() {
 	lineNum = 1;

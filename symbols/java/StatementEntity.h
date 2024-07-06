@@ -3,6 +3,7 @@
 #include <string>
 #include <deque>
 #include "FieldToken.h"
+#include "TypeListToken.h"
 using namespace std;
 
 
@@ -18,7 +19,9 @@ public: string type;
 public: string resultType;
 public: string name;
 public: string endWith;
-public:  deque<P_FieldToken> fieldList;
+public: deque<P_FieldToken> fieldList;
+public: P_Token typeParameters;
+
 
 
 public: StatementEntity();

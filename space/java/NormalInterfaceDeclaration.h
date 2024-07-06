@@ -10,9 +10,8 @@ using namespace std;
 class NormalInterfaceDeclaration : public Space {
 
 public: string name;
-public: string package;
-public: deque<ImportEntity> importList;
-//public: deque<Space> spaceList;
+public: string superInterface;
+public: deque<string> typeParameters;
 
 public: NormalInterfaceDeclaration();
 public: NormalInterfaceDeclaration(string &name);

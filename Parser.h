@@ -17,11 +17,13 @@ public: virtual int init(string rule_file)=0;
 private: string compile_file = "";
 public: virtual void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter);
 public: void init_total_lex_word_list(string compile_file, PrimarySymbolConverter *primarySymbolConverter, int beginIndex, int endIndex);
+public: void init_total_lex_word_list2(int beginIndex, int endIndex, PrimarySymbolConverter *primarySymbolConverter);
 public: void gen_middle_code(Env &env, Node* &node_tree, unordered_map<string, string> &imfo_map);
 public: virtual Node* slr(Env &env, string rootSymbol, int wordListBegId)=0;
 
 protected:vector<P_Rule> ruleList;
 protected:vector<P_Lex_Word>  _total_lex_word_list;
+protected:vector<P_Lex_Word>  _total_lex_word_list2;
 protected:int word_list_beg = -1;
 protected:int word_list_end = -1;
 protected:string ruleFileName;

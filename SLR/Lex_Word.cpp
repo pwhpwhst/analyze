@@ -48,12 +48,6 @@ void word_parser(const string& path,vector<P_Lex_Word> &lex_word_list, PrimarySy
 
 
 	while(p!=*end){
-		//Lex_Word *pp1=new Lex_Word();
-		//P_Lex_Word pp = P_Lex_Word(pp1);
-		//lex_word_list.push_back(pp);
-		//lex_word_list.back()->type= string(p->type);
-		//lex_word_list.back()->content=string(p->content);
-		//lex_word_list.back()->index = lex_word_list.size() - 1;
 
 		pp1->type = string(p->type);
 		pp1->content = string(p->content);

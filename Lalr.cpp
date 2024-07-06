@@ -662,27 +662,13 @@ void Lalr::init_total_lex_word_list(string compile_file, PrimarySymbolConverter 
 
 
 Node* Lalr::slr(Env& env, string rootSymbol, int wordListBegId) {
-
-	//vector<P_Lex_Word>  lex_word_list;
-
-	//int wordListId = wordListBegId;
-	//for (int i1 = wordListId; i1 < total_lex_word_list.size();i1++) {
-	//	const auto &e = total_lex_word_list[i1];
-	//	lex_word_list.push_back(e);
-	//	if (e->type == "'end'") {
-	//		//构造语法树
-	//		lex_word_list.pop_back();
-
-	//		Node *node_tree = syntax_analyze(ruleList, terminator, non_terminator, convert_map, lex_word_list);
-
-	//		lex_word_list.clear();
-	//		return node_tree;
-	//	}
-	//}
-
-
-	return syntax_analyze(ruleList, terminator, non_terminator, convert_map);
-
+	if (_total_lex_word_list2.size()>0) {
+		return syntax_analyze(ruleList, terminator, non_terminator, convert_map, _total_lex_word_list2);
+	}
+	else {
+		return syntax_analyze(ruleList, terminator, non_terminator, convert_map);
+	}
+	
 }
 
 
@@ -2428,6 +2414,11 @@ bool Lalr::is_map_same(unordered_map<int,string> &map1, unordered_map<int, strin
 
 Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
 	unordered_map<int, unordered_map<string, int>> &convert_map) {
+	return syntax_analyze(ruleList, terminator, non_terminator, convert_map, _total_lex_word_list);
+}
+
+Node* Lalr::syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
+	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &_total_lex_word_list) {
 	struct ItemNode {
 		Node *node;
 		int item_status;

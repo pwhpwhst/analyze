@@ -10,6 +10,8 @@ using namespace std;
 class EnumDeclaration : public Space {
 
 public: string name;
+public: deque<string> superInterfaces;
+
 
 public: EnumDeclaration();
 public: EnumDeclaration(string &name);

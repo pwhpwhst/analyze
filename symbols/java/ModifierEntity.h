@@ -5,12 +5,16 @@ using namespace std;
 
 
 
-class ModifierEntity {
 
+class ModifierEntity {
 
 
 public: long index = -1;	//´Ê·¨Á÷Î»ÖÃ
 public: long lineNum = -1;
+public:  int begLine;
+public:  int endLine;
+public:  int begIndex;
+public:  int endIndex;
 public: string name;
 
 public: ModifierEntity();

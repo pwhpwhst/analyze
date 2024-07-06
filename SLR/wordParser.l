@@ -84,6 +84,8 @@ SPOT_STAR \.{SPACE}*\*
 COMMA_RIGHT_BRACE ,{SPACE2}*\}
 COMMA_semicolon ,{SPACE2}*;
 
+LEFT_ANGLE_BRACKET_RIGHT_SHIFT2 <{SPACE}*>>;
+
 
 
 %%
@@ -357,6 +359,11 @@ COMMA_semicolon ,{SPACE2}*;
 
 {SPOT_STAR} {
   write_word(yytext,"'SPOT_STAR'");
+}
+
+
+{LEFT_ANGLE_BRACKET_RIGHT_SHIFT2} {
+  write_word(yytext,"'LEFT_ANGLE_BRACKET_RIGHT_SHIFT2'");
 }
 
 "`" {

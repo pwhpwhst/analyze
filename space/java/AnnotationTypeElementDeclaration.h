@@ -9,6 +9,7 @@ class AnnotationTypeElementDeclaration : public Space {
 
 public: string type;
 public: string name;
+public: string dimNum;
 
 public: AnnotationTypeElementDeclaration();
 public: AnnotationTypeElementDeclaration(string &type, string &name);

@@ -11,6 +11,7 @@ class ConstructorDeclaration : public Space {
 
 public: string name;
 public: deque<ParamDeclaration> paramList;
+public: deque<string> typeParameters;
 
 public: ConstructorDeclaration();
 public: ConstructorDeclaration(string &name);

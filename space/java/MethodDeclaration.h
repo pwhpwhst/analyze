@@ -12,6 +12,8 @@ class MethodDeclaration : public Space {
 public: string type;
 public: string name;
 public: deque<ParamDeclaration> paramList;
+public: deque<string> typeParameters;
+
 
 public: MethodDeclaration();
 public: MethodDeclaration(string &type, string &name);

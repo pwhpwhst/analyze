@@ -34,6 +34,7 @@ private:Parser *parser6;
 private:Parser *parser7;
 private:Parser *parser8;
 private:Parser *parser9;
+private:Parser *parser10;
 
 private:deque<P_Context> contextDeque;
 

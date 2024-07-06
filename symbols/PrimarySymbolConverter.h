@@ -4,6 +4,7 @@ using namespace std;
 # include<set>
 
 class Lex_Word;
+typedef std::shared_ptr<Lex_Word> P_Lex_Word;
 
 class PrimarySymbolConverter {
 /*
@@ -25,8 +26,9 @@ public: PrimarySymbolConverter();
 
 public: ~PrimarySymbolConverter();
 
-
 public: void convert(Lex_Word *oriLexWord, Lex_Word *newLexWord);
+
+public: void convert(const string &type, Lex_Word *oriLexWord, vector<P_Lex_Word>  &_total_lex_word_list);
 
 public: void identifierMap(string idName, string type);
 

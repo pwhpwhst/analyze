@@ -178,6 +178,10 @@ private: void calEndForSymbol(string itemIndex, vector<P_Item> &_items, set<P_It
 private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
 	unordered_map<int,unordered_map<string,int>> &convert_map);
 
+private: Node* syntax_analyze(const vector<P_Rule> &ruleList, set<string> &terminator, set<string> &non_terminator,
+	unordered_map<int, unordered_map<string, int>> &convert_map, vector<P_Lex_Word> &_total_lex_word_list);
+		 
+
 private: bool detect_ambigulous( const vector<P_Rule> &ruleList,const vector<vector<P_Item>> items_list);
 
 

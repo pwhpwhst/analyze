@@ -12,7 +12,7 @@ class InterfaceMethodDeclaration : public Space {
 public: string type;
 public: string name;
 public: deque<ParamDeclaration> paramList;
-//public: deque<Space> spaceList;
+public: deque<string> typeParameters;
 
 public: InterfaceMethodDeclaration();
 public: InterfaceMethodDeclaration(string &type, string &name);

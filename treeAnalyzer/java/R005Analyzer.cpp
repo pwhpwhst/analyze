@@ -14,6 +14,8 @@
 #include "../../symbols/java/DimListToken.h"
 #include "../../symbols/java/FieldToken.h"
 #include "../../symbols/java/UnannTypeToken.h"
+#include "../../symbols/java/TypeListToken.h"
+
 
 
 #include <iostream>
@@ -1316,7 +1318,12 @@ void R005_NonPARENTHESES_11Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL2 'RIGHT_SHIFT2'
 void R005_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_0Analyzer");
-	//TO DO  R005_TypeArguments_0Analyzer
+	TypeListToken *p = new TypeListToken();
+	p->begLine = nodeValue->node->child_node_list[0]->lineNum;
+	p->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->endLine = nodeValue->node->child_node_list[2]->lineNum;
+	p->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
 };
 
 
@@ -1324,7 +1331,12 @@ void R005_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'LEFT_ANGLE_BRACKET' 'RIGHT_SHIFT2'
 void R005_TypeArguments_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_1Analyzer");
-	//TO DO  R005_TypeArguments_1Analyzer
+	TypeListToken *p = new TypeListToken();
+	p->begLine = nodeValue->node->child_node_list[0]->lineNum;
+	p->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->endLine = nodeValue->node->child_node_list[3]->lineNum;
+	p->endIndex = nodeValue->node->child_node_list[3]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
 };
 
 
@@ -1332,7 +1344,12 @@ void R005_TypeArguments_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentListL1 'RIGHT_SHIFT'
 void R005_TypeArguments_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_2Analyzer");
-	//TO DO  R005_TypeArguments_2Analyzer
+	TypeListToken *p = new TypeListToken();
+	p->begLine = nodeValue->node->child_node_list[0]->lineNum;
+	p->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->endLine = nodeValue->node->child_node_list[2]->lineNum;
+	p->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
 };
 
 
@@ -1340,7 +1357,12 @@ void R005_TypeArguments_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env
 //beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 void R005_TypeArguments_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_TypeArguments_3Analyzer");
-	//TO DO  R005_TypeArguments_3Analyzer
+	TypeListToken *p = new TypeListToken();
+	p->begLine = nodeValue->node->child_node_list[0]->lineNum;
+	p->begIndex = nodeValue->node->child_node_list[0]->index;
+	p->endLine = nodeValue->node->child_node_list[2]->lineNum;
+	p->endIndex = nodeValue->node->child_node_list[2]->index;
+	nodeValue->context["TypeArguments"] = P_Token(p);
 };
 
 
@@ -1959,11 +1981,15 @@ void R005_VariableDeclaratorId_1Analyzer::handle(const P_NodeValue &nodeValue, E
 //beg_MethodDeclaration : ModifierList TypeArguments AnnotationList Result MethodDeclarator Throws 'semicolon'
 void R005_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_0Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Result"];
 	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p4.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p4.get()))->statementEntity->resultType = ((UnannTypeToken *)(p3.get()))->getText();
+	((StatementToken *)(p4.get()))->statementEntity->typeParameters = p1;
+	
+
 
 	nodeValue->context["MethodDeclaration"] = p4;
 };
@@ -1973,11 +1999,13 @@ void R005_MethodDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments Result MethodDeclarator Throws 'semicolon'
 void R005_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_1Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -1987,11 +2015,13 @@ void R005_MethodDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments AnnotationList Result MethodDeclarator 'semicolon'
 void R005_MethodDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_2Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Result"];
 	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p4.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p4.get()))->statementEntity->resultType = ((UnannTypeToken *)(p3.get()))->getText();
+	((StatementToken *)(p4.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p4;
 };
@@ -2001,11 +2031,13 @@ void R005_MethodDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments Result MethodDeclarator 'semicolon'
 void R005_MethodDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_3Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2015,11 +2047,13 @@ void R005_MethodDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments AnnotationList Result MethodDeclarator Throws Block
 void R005_MethodDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_4Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Result"];
 	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p4.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p4.get()))->statementEntity->resultType = ((UnannTypeToken *)(p3.get()))->getText();
+	((StatementToken *)(p4.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p4;
 };
@@ -2029,11 +2063,13 @@ void R005_MethodDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments Result MethodDeclarator Throws Block
 void R005_MethodDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_5Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2043,11 +2079,13 @@ void R005_MethodDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments AnnotationList Result MethodDeclarator Block
 void R005_MethodDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_6Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Result"];
 	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p4.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p4.get()))->statementEntity->resultType = ((UnannTypeToken *)(p3.get()))->getText();
+	((StatementToken *)(p4.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p4;
 };
@@ -2057,11 +2095,13 @@ void R005_MethodDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : ModifierList TypeArguments Result MethodDeclarator Block
 void R005_MethodDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_7Analyzer");
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p1;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2071,11 +2111,13 @@ void R005_MethodDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator Throws 'semicolon'
 void R005_MethodDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_8Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2085,11 +2127,13 @@ void R005_MethodDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator Throws 'semicolon'
 void R005_MethodDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_9Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	((StatementToken *)(p2.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p1;
 };
@@ -2099,11 +2143,13 @@ void R005_MethodDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator 'semicolon'
 void R005_MethodDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_10Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2113,11 +2159,13 @@ void R005_MethodDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator 'semicolon'
 void R005_MethodDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_11Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	((StatementToken *)(p2.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p1;
 };
@@ -2127,11 +2175,13 @@ void R005_MethodDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator Throws Block
 void R005_MethodDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_12Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 };
@@ -2141,11 +2191,14 @@ void R005_MethodDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator Throws Block
 void R005_MethodDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_13Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	((StatementToken *)(p2.get()))->statementEntity->typeParameters = p0;
+
 
 	nodeValue->context["MethodDeclaration"] = p1;
 };
@@ -2155,11 +2208,13 @@ void R005_MethodDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_MethodDeclaration : TypeArguments AnnotationList Result MethodDeclarator Block
 void R005_MethodDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_14Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Result"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p3.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p3.get()))->statementEntity->resultType = ((UnannTypeToken *)(p2.get()))->getText();
+	((StatementToken *)(p3.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["MethodDeclaration"] = p3;
 
@@ -2170,13 +2225,15 @@ void R005_MethodDeclaration_14Analyzer::handle(const P_NodeValue &nodeValue, Env
 //beg_MethodDeclaration : TypeArguments Result MethodDeclarator Block
 void R005_MethodDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_MethodDeclaration_15Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Result"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["MethodDeclarator"];
 
 	((StatementToken *)(p2.get()))->statementEntity->type = "MethodDeclaration";
 	((StatementToken *)(p2.get()))->statementEntity->resultType = ((UnannTypeToken *)(p1.get()))->getText();
+	((StatementToken *)(p2.get()))->statementEntity->typeParameters = p0;
 
-	nodeValue->context["MethodDeclaration"] = p1;
+	nodeValue->context["MethodDeclaration"] = p2;
 
 };
 
@@ -2397,10 +2454,12 @@ void R005_ConstructorDeclarator_0Analyzer::handle(const P_NodeValue &nodeValue, 
 //beg_ConstructorDeclarator : TypeArguments Identifier AnnotationContent
 void R005_ConstructorDeclarator_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_ConstructorDeclarator_1Analyzer");
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["TypeArguments"];
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["AnnotationContent"];
 
 	((StatementToken *)(p2.get()))->statementEntity->name = p1->content;
+	((StatementToken *)(p2.get()))->statementEntity->typeParameters = p0;
 
 	nodeValue->context["ConstructorDeclarator"] = p2;
 };
@@ -2433,11 +2492,13 @@ void R005_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_0Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2450,11 +2511,13 @@ void R005_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_1Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2506,11 +2569,13 @@ void R005_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_4Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2523,11 +2588,13 @@ void R005_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_5Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2579,11 +2646,13 @@ void R005_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_8Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2598,11 +2667,13 @@ void R005_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue,
 	logR005("R005_NormalClassDeclaration_9Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2655,11 +2726,13 @@ void R005_NormalClassDeclaration_12Analyzer::handle(const P_NodeValue &nodeValue
 	logR005("R005_NormalClassDeclaration_12Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2674,11 +2747,13 @@ void R005_NormalClassDeclaration_13Analyzer::handle(const P_NodeValue &nodeValue
 	logR005("R005_NormalClassDeclaration_13Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2916,17 +2991,18 @@ void R005_NormalInterfaceDeclaration_1Analyzer::handle(const P_NodeValue &nodeVa
 };
 
 
-
 //beg_NormalInterfaceDeclaration : 'interface' Identifier TypeArguments Block
 void R005_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalInterfaceDeclaration_2Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalInterfaceDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2939,11 +3015,13 @@ void R005_NormalInterfaceDeclaration_2Analyzer::handle(const P_NodeValue &nodeVa
 void R005_NormalInterfaceDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalInterfaceDeclaration_3Analyzer");
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalInterfaceDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -2990,11 +3068,13 @@ void R005_NormalInterfaceDeclaration_5Analyzer::handle(const P_NodeValue &nodeVa
 void R005_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalInterfaceDeclaration_6Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalInterfaceDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->typeParameters = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -3007,11 +3087,13 @@ void R005_NormalInterfaceDeclaration_6Analyzer::handle(const P_NodeValue &nodeVa
 void R005_NormalInterfaceDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR005("R005_NormalInterfaceDeclaration_7Analyzer");
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalInterfaceDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->typeParameters = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 

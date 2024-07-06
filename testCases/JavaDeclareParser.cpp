@@ -12,6 +12,11 @@
 #include "../symbols/java/ClassListToken.h"
 #include "../symbols/java/StatementToken.h"
 #include "../symbols/java/StatementListToken.h"
+#include "../symbols/java/TypeToken.h"
+#include "../symbols/java/TypeListToken.h"
+#include "../symbols/java/ModifierListToken.h"
+#include "../symbols/java/ModifierToken.h"
+
 
 #include "../space/java/FieldDeclaration.h"
 #include "../space/java/CompilationUnit.h"
@@ -37,7 +42,8 @@
 #include "JavaDeclareParser.h"
 
 
-
+//process --
+//fill ++
 
 
 
@@ -69,6 +75,9 @@ void JavaDeclareParser::initParsers() {
 	string rule_file7 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R007.txt";
 	string rule_file8 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R008.txt";
 	string rule_file9 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R009.txt";
+	string rule_file10 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R010.txt";
+
+
 
 	cout << "init parser4" << endl;
 	initParser(parser4, "Lalr", false, rule_file4);
@@ -82,6 +91,8 @@ void JavaDeclareParser::initParsers() {
 	initParser(parser8, "Lalr", false, rule_file8);
 	cout << "init parser9" << endl;
 	initParser(parser9, "Lalr", false, rule_file9);
+	cout << "init parser10" << endl;
+	initParser(parser10, "Lalr", false, rule_file10);
 
 	primarySymbolConverter= new PrimarySymbolConverter();
 }
@@ -93,6 +104,7 @@ void JavaDeclareParser::deleteParsers() {
 	delete parser7;
 	delete parser8;
 	delete parser9;
+	delete parser10;
 	delete primarySymbolConverter;
 }
 
@@ -787,9 +799,29 @@ void JavaDeclareParser::fillWithStatementMethodDeclaration(P_Context &context, E
 
 	MethodDeclaration* methodDeclaration = new MethodDeclaration(resultType, name);
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
-
 		methodDeclaration->paramList.push_back(ParamDeclaration(e->unannType, e->name));
 	}
+
+	if (((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters!=nullptr) {
+		TypeListToken *typeParameters = (TypeListToken *)((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters.get();
+		typeParameters->begIndex + p->list[i1]->begIndex;
+		typeParameters->endIndex + p->list[i1]->begIndex;
+
+		Env env10;
+		parser10->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
+		parser10->init_total_lex_word_list2(typeParameters->begIndex + p->list[i1]->begIndex, typeParameters->endIndex + p->list[i1]->begIndex, primarySymbolConverter);
+		Node*  node_tree10 = parser10->slr(env10, "ele_begin", 0);
+		imfo_map.clear();
+		parser10->gen_middle_code(env10, node_tree10, imfo_map);
+
+		for (auto &e : ((TypeListToken *)(env10.list[0].get()))->list) {
+			methodDeclaration->typeParameters.push_back(e->name);
+		}
+	}
+
+
+
+	
 	context->root->spaceList.push_back(methodDeclaration);
 }
 
@@ -818,6 +850,28 @@ void JavaDeclareParser::fillWithStatementInterfaceMethodDeclaration(P_Context &c
 
 		interfaceMethodDeclaration->paramList.push_back(ParamDeclaration(e->unannType, e->name));
 	}
+
+	if (((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters!=nullptr) {
+		ModifierToken *typeParameters = (ModifierToken *)((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters.get();
+		typeParameters->modifierEntity->begIndex + p->list[i1]->begIndex;
+		typeParameters->modifierEntity->endIndex + p->list[i1]->begIndex;
+
+
+		Env env10;
+		parser10->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
+		parser10->init_total_lex_word_list2(typeParameters->modifierEntity->begIndex + p->list[i1]->begIndex, typeParameters->modifierEntity->endIndex + p->list[i1]->begIndex, primarySymbolConverter);
+		Node*  node_tree10 = parser10->slr(env10, "ele_begin", 0);
+		imfo_map.clear();
+		parser10->gen_middle_code(env10, node_tree10, imfo_map);
+
+		for (auto &e : ((TypeListToken *)(env10.list[0].get()))->list) {
+			interfaceMethodDeclaration->typeParameters.push_back(e->name);
+		}
+	}
+
+
+
+
 	context->root->spaceList.push_back(interfaceMethodDeclaration);
 }
 
@@ -839,14 +893,17 @@ void JavaDeclareParser::fillWithStatementAnnotationTypeElementDeclaration(P_Cont
 void JavaDeclareParser::fillWithStatementConstructorDeclaration(P_Context &context, Env &env, StatementListToken *&p, int &i1) {
 	unordered_map<string, string> imfo_map;
 
-	//Util::log(((StatementToken *)(env2.list[0].get()))->statementEntity->name);
+
 	string name = ((StatementToken *)(env.list[0].get()))->statementEntity->name;
 
 	((StatementToken *)(env.list[0].get()))->statementEntity->begIndex += p->list[i1]->begIndex;
 	((StatementToken *)(env.list[0].get()))->statementEntity->endIndex += p->list[i1]->begIndex;
 
-	//Util::log(""+((StatementToken *)(env2.list[0].get()))->statementEntity->begIndex);
-	//Util::log(""+((StatementToken *)(env2.list[0].get()))->statementEntity->endIndex);
+
+
+
+
+
 	int paramBeg = ((StatementToken *)(env.list[0].get()))->statementEntity->begIndex;
 	int paramEnd = ((StatementToken *)(env.list[0].get()))->statementEntity->endIndex;
 	Env env3;
@@ -861,6 +918,26 @@ void JavaDeclareParser::fillWithStatementConstructorDeclaration(P_Context &conte
 		Util::log(e->unannType);
 		constructorDeclaration->paramList.push_back(ParamDeclaration(e->unannType, e->name));
 	}
+
+
+	if (((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters != nullptr) {
+		TypeListToken *typeParameters = (TypeListToken *)((StatementToken *)(env.list[0].get()))->statementEntity->typeParameters.get();
+		typeParameters->begIndex + p->list[i1]->begIndex;
+		typeParameters->endIndex + p->list[i1]->begIndex;
+
+		Env env10;
+		parser10->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
+		parser10->init_total_lex_word_list2(typeParameters->begIndex + p->list[i1]->begIndex, typeParameters->endIndex + p->list[i1]->begIndex, primarySymbolConverter);
+		Node*  node_tree10 = parser10->slr(env10, "ele_begin", 0);
+		imfo_map.clear();
+		parser10->gen_middle_code(env10, node_tree10, imfo_map);
+
+		for (auto &e : ((TypeListToken *)(env10.list[0].get()))->list) {
+			constructorDeclaration->typeParameters.push_back(e->name);
+		}
+	}
+
+
 	context->root->spaceList.push_back(constructorDeclaration);
 
 	Node::releaseNode(node_tree6);
@@ -869,9 +946,47 @@ void JavaDeclareParser::fillWithStatementConstructorDeclaration(P_Context &conte
 
 
 void JavaDeclareParser::fillWithClassTypeNormalClassDeclaration(P_Context &context, long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext) {
+	
+	unordered_map<string, string> imfo_map;
+	
 	NormalClassDeclaration *p = new NormalClassDeclaration();
 
 	p->name = ((ClassListToken *)(env.list[0].get()))->list[classTypeIndex]->name;
+
+	TypeToken* pSuperClasses = (TypeToken*)((ClassListToken *)(env.list[0].get()))->list[classTypeIndex]->superClass.get();
+	TypeListToken* pSuperInterfaces = (TypeListToken*)((ClassListToken *)(env.list[0].get()))->list[classTypeIndex]->superInterfaceList.get();
+
+
+
+	if (pSuperClasses!=nullptr) {
+		p->superClasses=pSuperClasses->typeEntity->name;
+	}
+	
+	if (pSuperInterfaces != nullptr) {
+
+		for (auto &e: pSuperInterfaces->list) {
+			p->superInterface.push_back(e->name);
+		}
+
+	}
+
+	if (((ClassListToken *)((env.list[0]).get()))->list[classTypeIndex]->typeParameters) {
+		StatementToken *typeParameters = (StatementToken*)((ClassListToken *)((env.list[0]).get()))->list[classTypeIndex]->typeParameters.get();
+
+
+		Env env10;
+		parser10->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
+		parser10->init_total_lex_word_list2(typeParameters->statementEntity->begIndex + baseIndex, typeParameters->statementEntity->endIndex + baseIndex, primarySymbolConverter);
+		Node*  node_tree10 = parser10->slr(env10, "ele_begin", 0);
+		imfo_map.clear();
+		parser10->gen_middle_code(env10, node_tree10, imfo_map);
+
+		for (auto &e : ((TypeListToken *)(env10.list[0].get()))->list) {
+			p->typeParameters.push_back(e->name);
+		}
+
+	}
+
 
 	childContext = P_Context(new Context());
 	childContext->compile_file = context->compile_file;
@@ -891,7 +1006,7 @@ void JavaDeclareParser::fillWithClassTypeNormalClassDeclaration(P_Context &conte
 	childContext->root = p;
 	childContext->parent = context->root;
 	context->root->spaceList.push_back(childContext->root);
-	;
+
 }
 
 void JavaDeclareParser::fillWithClassTypeEnumDeclaration(P_Context &context,  long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext) {
@@ -923,7 +1038,7 @@ void JavaDeclareParser::fillWithClassTypeEnumDeclaration(P_Context &context,  lo
 
 void JavaDeclareParser::fillWithClassTypeNormalInterfaceDeclaration(P_Context &context,  long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext) {
 	NormalInterfaceDeclaration *p = new NormalInterfaceDeclaration();
-
+	unordered_map<string, string> imfo_map;
 
 	p->name = ((ClassListToken *)(env.list[0].get()))->list[classTypeIndex]->name;
 
@@ -932,6 +1047,26 @@ void JavaDeclareParser::fillWithClassTypeNormalInterfaceDeclaration(P_Context &c
 	childContext->compile_file = context->compile_file;
 	childContext->type = "NormalInterfaceDeclaration";
 	childContext->token = ((ClassListToken *)((env.list[0]).get()))->list[classTypeIndex]->statementList;
+
+	if (((ClassListToken *)((env.list[0]).get()))->list[classTypeIndex]->typeParameters) {
+		StatementToken *typeParameters = (StatementToken*)((ClassListToken *)((env.list[0]).get()))->list[classTypeIndex]->typeParameters.get();
+
+
+		Env env10;
+		parser10->init_total_lex_word_list(context->compile_file, primarySymbolConverter);
+		parser10->init_total_lex_word_list2(typeParameters->statementEntity->begIndex + baseIndex, typeParameters->statementEntity->endIndex + baseIndex, primarySymbolConverter);
+		Node*  node_tree10 = parser10->slr(env10, "ele_begin", 0);
+		imfo_map.clear();
+		parser10->gen_middle_code(env10, node_tree10, imfo_map);
+
+		for (auto &e : ((TypeListToken *)(env10.list[0].get()))->list) {
+			p->typeParameters.push_back(e->name);
+		}
+	
+	}
+
+
+
 
 	StatementListToken *p2 = (StatementListToken *)(childContext->token.get());
 
@@ -1023,111 +1158,22 @@ void JavaDeclareParser::parse(vector<string> &files) {
 }
 
 
-
 void main(int argc, char* argv[]) {
 
+	//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaAnnotation.java",
+	//"F :\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaEnumTest.java",
+	//"F :\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaInterfaceTest.java",
+	//"F :\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaSyntaxTest.java",
+	
+	
+	
 
 	string files[] = {
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Generated.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\ManagedBean.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PostConstruct.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\PreDestroy.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Priority.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resource.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\Resources.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DeclareRoles.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\DenyAll.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\PermitAll.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RolesAllowed.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\security\\RunAs.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinition.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\annotation\\sql\\DataSourceDefinitions.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJB.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\ejb\\EJBs.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ArrayELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\BeanNameResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\CompositeELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELClass.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextEvent.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELContextListener.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELManager.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELProcessor.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\EvaluationListener.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\Expression.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ExpressionFactory.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\FunctionMapper.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ImportHandler.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\LambdaExpression.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ListELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MapELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodExpression.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodInfo.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodNotFoundException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\MethodReference.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\PropertyNotFoundException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\PropertyNotWritableException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ResourceBundleELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\StandardELContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\StaticFieldELResolver.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\TypeConverter.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\Util.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ValueExpression.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\ValueReference.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\el\\VariableMapper.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\Authenticator.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\InternetAddress.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimeMessage.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimePart.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\internet\\MimePartDataSource.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\PasswordAuthentication.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\mail\\Session.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContexts.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceContextType.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceProperty.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnit.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\PersistenceUnits.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\persistence\\SynchronizationType.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthException.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\AuthStatus.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CallerPrincipalCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\CertStoreCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\GroupPrincipalCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PasswordValidationCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\PrivateKeyCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\SecretKeyCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\callback\\TrustStoreCallback.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ClientAuth.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfig.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigFactory.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\AuthConfigProvider.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthConfig.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ClientAuthContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\RegistrationListener.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthConfig.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\config\\ServerAuthContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessageInfo.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\MessagePolicy.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ClientAuthModule.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\module\\ServerAuthModule.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\security\\auth\\message\\ServerAuth.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HandlesTypes.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpConstraint.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\HttpMethodConstraint.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\MultipartConfig.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\ServletSecurity.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebFilter.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebInitParam.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebListener.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\annotation\\WebServlet.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\AsyncContext.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\AsyncEvent.java",
- "C:\\Users\\Administrator\\Desktop\\javaSpecification\\tomcat8\\java\\jakarta\\servlet\\AsyncListener.java",
+		//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaAnnotation.java",
+		//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaEnumTest.java",
+		//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaInterfaceTest.java",
+		//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaInterfaceTest.java",
+		"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaSyntaxTest.java",
 	};
 
 
