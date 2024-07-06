@@ -6,15 +6,15 @@ using namespace std;
 
 
 
-class TRawCompileUnitDao :virtual public BaseDao {
+class TRawSpaceDao :virtual public BaseDao {
 
-public: TRawCompileUnitDao();
+public: TRawSpaceDao();
 
-public: virtual ~TRawCompileUnitDao();
+public: virtual ~TRawSpaceDao();
 
-private: static shared_ptr<TRawCompileUnitDao> instance;
+private: static shared_ptr<TRawSpaceDao> instance;
 
-public: static shared_ptr<TRawCompileUnitDao> getInstance();
+public: static shared_ptr<TRawSpaceDao> getInstance();
 
 public: void insertList(vector<unordered_map<string, string>> &list);
 
@@ -24,4 +24,4 @@ public: void deleteRecord(unordered_map<string, string> &transfer_map);
 
 };
 
-typedef std::shared_ptr<TRawCompileUnitDao> P_TRawCompileUnitDao;
+typedef std::shared_ptr<TRawSpaceDao> P_TRawSpaceDao;

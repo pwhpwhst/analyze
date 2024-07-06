@@ -32,15 +32,17 @@ void TRawFieldDao::insertList(vector<unordered_map<string, string>> &list) {
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "insert into raw_field(appName,fileId,subId,type,name) ";
+		sql_os << "insert into raw_field(appName,fileId,subId,subId2,resultType,name,dimNum) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["appName"] << "'"<< ",";
 			sql_os << list[i1]["fileId"]  << ",";
 			sql_os << list[i1]["subId"]  << ",";
-			sql_os << "'" << list[i1]["type"] << "'"<< ",";
+			sql_os << list[i1]["subId2"]  << ",";
+			sql_os << "'" << list[i1]["resultType"] << "'"<< ",";
 			sql_os << "'" << list[i1]["name"] << "'";
+			sql_os << list[i1]["dimNum"]  << ",";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -64,13 +66,13 @@ void TRawFieldDao::queryList(unordered_map<string, string> &transfer_map, vector
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "appName","fileId","subId","type","name" };
+		string col[] = { "appName","fileId","subId","subId2","resultType","name","dimNum" };
 
 		unordered_map<string, int> col_map;
-		for (int i1 = 0; i1 < 5; i1++) {
+		for (int i1 = 0; i1 < 7; i1++) {
 			col_map[col[i1]] = i1;
 		}
-		sql_os << "select  appName,fileId,subId,type,name from raw_field ";
+		sql_os << "select  appName,fileId,subId,subId2,resultType,name,dimNum from raw_field ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -86,8 +88,10 @@ void TRawFieldDao::queryList(unordered_map<string, string> &transfer_map, vector
 				result_list.back()["appName"] = mysql_row[col_map["appName"]];
 				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["subId"] = mysql_row[col_map["subId"]];
-				result_list.back()["type"] = mysql_row[col_map["type"]];
+				result_list.back()["subId2"] = mysql_row[col_map["subId2"]];
+				result_list.back()["resultType"] = mysql_row[col_map["resultType"]];
 				result_list.back()["name"] = mysql_row[col_map["name"]];
+				result_list.back()["dimNum"] = mysql_row[col_map["dimNum"]];
 			}
 		}
 		mysql_close(&conn);

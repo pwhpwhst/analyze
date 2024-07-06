@@ -1,29 +1,28 @@
-
-#include "TRawCompileUnitDao.h"
+#include "TRawSpaceDao.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
 #include <iostream>
 using namespace std;
-P_TRawCompileUnitDao TRawCompileUnitDao::instance = nullptr;
+P_TRawSpaceDao TRawSpaceDao::instance = nullptr;
 
 
-TRawCompileUnitDao::TRawCompileUnitDao() {
+TRawSpaceDao::TRawSpaceDao() {
 }
 
-TRawCompileUnitDao::~TRawCompileUnitDao() {
+TRawSpaceDao::~TRawSpaceDao() {
 }
 
-P_TRawCompileUnitDao TRawCompileUnitDao::getInstance() {
+P_TRawSpaceDao TRawSpaceDao::getInstance() {
 	if (instance == nullptr) {
-		instance = P_TRawCompileUnitDao(new TRawCompileUnitDao);
+		instance = P_TRawSpaceDao(new TRawSpaceDao);
 	}
 	return instance;
 };
 
 
 
-void TRawCompileUnitDao::insertList(vector<unordered_map<string, string>> &list) {
+void TRawSpaceDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -32,16 +31,16 @@ void TRawCompileUnitDao::insertList(vector<unordered_map<string, string>> &list)
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "insert into raw_compile_unit(appName,fileId,fileName,subId,parentId,structType,begLine,endLine,begIndex,endIndex) ";
+		sql_os << "insert into raw_space(appName,fileName,fileId,subId,parentId,type,begLine,endLine,begIndex,endIndex) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["appName"] << "'"<< ",";
-			sql_os << list[i1]["fileId"]  << ",";
 			sql_os << "'" << list[i1]["fileName"] << "'"<< ",";
+			sql_os << list[i1]["fileId"]  << ",";
 			sql_os << list[i1]["subId"]  << ",";
 			sql_os << list[i1]["parentId"]  << ",";
-			sql_os << "'" << list[i1]["structType"] << "'"<< ",";
+			sql_os << "'" << list[i1]["type"] << "'"<< ",";
 			sql_os << list[i1]["begLine"]  << ",";
 			sql_os << list[i1]["endLine"]  << ",";
 			sql_os << list[i1]["begIndex"]  << ",";
@@ -59,7 +58,7 @@ void TRawCompileUnitDao::insertList(vector<unordered_map<string, string>> &list)
 
 
 
-void TRawCompileUnitDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void TRawSpaceDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -69,13 +68,13 @@ void TRawCompileUnitDao::queryList(unordered_map<string, string> &transfer_map, 
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "appName","fileId","fileName","subId","parentId","structType","begLine","endLine","begIndex","endIndex" };
+		string col[] = { "appName","fileName","fileId","subId","parentId","type","begLine","endLine","begIndex","endIndex" };
 
 		unordered_map<string, int> col_map;
 		for (int i1 = 0; i1 < 10; i1++) {
 			col_map[col[i1]] = i1;
 		}
-		sql_os << "select  appName,fileId,fileName,subId,parentId,structType,begLine,endLine,begIndex,endIndex from raw_compile_unit ";
+		sql_os << "select  appName,fileName,fileId,subId,parentId,type,begLine,endLine,begIndex,endIndex from raw_space ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -89,11 +88,11 @@ void TRawCompileUnitDao::queryList(unordered_map<string, string> &transfer_map, 
 				mysql_row = mysql_fetch_row(mysql_result);
 				result_list.push_back(unordered_map<string, string>());
 				result_list.back()["appName"] = mysql_row[col_map["appName"]];
-				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["fileName"] = mysql_row[col_map["fileName"]];
+				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["subId"] = mysql_row[col_map["subId"]];
 				result_list.back()["parentId"] = mysql_row[col_map["parentId"]];
-				result_list.back()["structType"] = mysql_row[col_map["structType"]];
+				result_list.back()["type"] = mysql_row[col_map["type"]];
 				result_list.back()["begLine"] = mysql_row[col_map["begLine"]];
 				result_list.back()["endLine"] = mysql_row[col_map["endLine"]];
 				result_list.back()["begIndex"] = mysql_row[col_map["begIndex"]];
@@ -105,7 +104,7 @@ void TRawCompileUnitDao::queryList(unordered_map<string, string> &transfer_map, 
 }
 
 
-void TRawCompileUnitDao::deleteRecord(unordered_map<string, string> &transfer_map) {
+void TRawSpaceDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 	MYSQL conn;
 	MYSQL_ROW mysql_row;
 	mysql_init(&conn);
@@ -119,7 +118,7 @@ void TRawCompileUnitDao::deleteRecord(unordered_map<string, string> &transfer_ma
 		ostringstream sql_os;
 
 
-		sql_os << "delete from raw_compile_unit ";
+		sql_os << "delete from raw_space ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
