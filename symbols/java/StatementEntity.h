@@ -20,8 +20,9 @@ public: string resultType;
 public: string name;
 public: string endWith;
 public: deque<P_FieldToken> fieldList;
-public: P_Token typeParameters;
-
+public: P_Token typeParameters = nullptr;
+public: P_Token superClass=nullptr;
+public: P_Token superInterfaceList = nullptr;
 
 
 public: StatementEntity();

@@ -219,7 +219,7 @@ public: virtual ~R010_Dims_3Analyzer();
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_SHIFT2'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 class R010_TypeArguments_0Analyzer :virtual public Non_Terminate_genertor {
 public: R010_TypeArguments_0Analyzer();
 public: void handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap);

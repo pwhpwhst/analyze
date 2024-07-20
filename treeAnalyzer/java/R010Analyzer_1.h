@@ -141,7 +141,7 @@ R010_Dims_3Analyzer::~R010_Dims_3Analyzer() {}
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_SHIFT2'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 R010_TypeArguments_0Analyzer::R010_TypeArguments_0Analyzer() {}
 R010_TypeArguments_0Analyzer::~R010_TypeArguments_0Analyzer() {}
 

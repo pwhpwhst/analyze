@@ -11,7 +11,7 @@ using namespace std;
 
 class ClassListToken : public Token  {
 
-public: P_Token importList;
+public: P_Token importList = nullptr;
 public:  deque<P_ClassEntity> list;
 public: string packageName;
 

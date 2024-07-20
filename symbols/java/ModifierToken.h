@@ -10,7 +10,7 @@ using namespace std;
 
 class ModifierToken : public Token  {
 
-public:  P_ModifierEntity modifierEntity;
+public:  P_ModifierEntity modifierEntity = nullptr;
 
 
 

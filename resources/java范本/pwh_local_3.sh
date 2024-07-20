@@ -1,12 +1,8 @@
 
-#TRawCompileUnitDao
-#TRawFieldDao
-#TRawMethodDao
-#TRawParmaDao
 
 
 function daoFileFen_h(){
-local className="TRawParmaDao"
+local className="TRawFileDao"
 
 local targetFile=/c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/dao/${className}.h
 rm -rf ${targetFile}
@@ -41,23 +37,21 @@ echo "typedef std::shared_ptr<${className}> P_${className};" >>${targetFile}
 
 }
 
-#daoFileFen_h
 
 
 
-#TRawCompileUnitDao
-#TRawFieldDao
-#TRawMethodDao
-#TRawParmaDao
 
 
+
+
+#raw_file	RawFileDao	appName		fileId		fileName
 
 
 
 function daoFileFen_cpp(){
 
-local className="TRawCompileUnitDao"
-local tableName="raw_compile_unit"
+local className="TRawFileDao"
+local tableName="raw_file"
 
 
 
@@ -66,13 +60,6 @@ fields=(
 appName#string
 fileId#int
 fileName#string
-subId#int
-parentId#int
-structType#string
-begLine#int
-endLine#int
-begIndex#int
-endIndex#int
 )
 
 
@@ -116,11 +103,13 @@ done
 
 
 echo "" >>${targetFile}
-echo "include \"${className}.h\"" >>${targetFile}
+echo "#include \"${className}.h\"" >>${targetFile}
 echo "#pragma comment(lib,\"libmysql.lib\")" >>${targetFile}
 echo "#include <mysql.h>" >>${targetFile}
 echo "#include <sstream>" >>${targetFile}
 echo "#include <iostream>" >>${targetFile}
+echo "#include \"../Util/Util.h\"" >>${targetFile}
+
 echo "using namespace std;" >>${targetFile}
 echo ""
 echo ""
@@ -254,6 +243,7 @@ echo "" >>${targetFile}
 }
 
 
+#daoFileFen_h
 daoFileFen_cpp
 
 

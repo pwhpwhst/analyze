@@ -110,9 +110,12 @@ void TRawImportDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 
 		sql_os << "delete from raw_import ";
 		sql_os << "where 1=1 ";
-		//if (transfer_map.find("md5") != transfer_map.end()) {
-		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
-		//}
+		if (transfer_map.find("appName") != transfer_map.end()) {
+			sql_os << "and appName =" << "'" << transfer_map["appName"] << "'" << " ";
+		}
+		if (transfer_map.find("fileId") != transfer_map.end()) {
+			sql_os << "and fileId =" << transfer_map["fileId"] << " ";
+		}
 		mysql_query(&conn, sql_os.str().data());
 
 		mysql_close(&conn);

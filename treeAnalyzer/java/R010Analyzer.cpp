@@ -282,7 +282,7 @@ void R010_Dims_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unorder
 
 
 
-//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_SHIFT2'
+//beg_TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 void R010_TypeArguments_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
    logR010("R010_TypeArguments_0Analyzer");
    //TO DO  R010_TypeArguments_0Analyzer

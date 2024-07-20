@@ -2,16 +2,16 @@
 cd /c/Users/Administrator/Desktop/代码武器库-总/万花筒写轮眼/kaleidoscope-writing-wheel-eye/symbols/java/
  
 templates=(
-#ClassEntity.cpp
-#ClassEntity.h
-#ClassListToken.cpp
-#ClassListToken.h
+ClassEntity.cpp
+ClassEntity.h
+ClassListToken.cpp
+ClassListToken.h
 ClassToken.cpp
 ClassToken.h
 )
 
 componentName="Class"
-newComponentName="UnannType"
+newComponentName="Modifier"
 
 
 for var in ${templates[@]}

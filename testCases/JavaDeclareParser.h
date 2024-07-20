@@ -36,7 +36,7 @@ private:Parser *parser8;
 private:Parser *parser9;
 private:Parser *parser10;
 
-private:int seq;
+private:int spaceSeq;
 
 private:deque<P_Context> contextDeque;
 
@@ -68,10 +68,10 @@ private:void fillWithClassTypeAnnotationTypeDeclaration(P_Context &contex, long 
 private:string replaceAll(string str, string sub, string replacement);
 
 public:void initParsers();
-public:void parse(vector<string> &files, string appName);
+public:void parse(vector<string> &files, string appName,int baseFileId);
 
-public:void saveResult(P_Context &context, const string &appName, const string &fileName, int fileId);
-
+public:void saveResult(P_Context &context, const string &appName, const string &fileName, const string &md5, int fileId);
+public:void delResult(const string &appName, const string &fileName);
 
 public:void deleteParsers();
 

@@ -10,7 +10,7 @@ using namespace std;
 
 class TypeToken : public Token  {
 
-public:  P_TypeEntity typeEntity;
+public:  P_TypeEntity typeEntity = nullptr;
 
 
 

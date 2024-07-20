@@ -10,7 +10,7 @@ using namespace std;
 
 class StatementToken : public Token  {
 
-public:  P_StatementEntity statementEntity;
+public:  P_StatementEntity statementEntity = nullptr;
 
 
 

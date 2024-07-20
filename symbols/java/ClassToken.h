@@ -10,7 +10,7 @@ using namespace std;
 
 class ClassToken : public Token  {
 
-public:  P_ClassEntity classEntity;
+public:  P_ClassEntity classEntity = nullptr;
 
 
 

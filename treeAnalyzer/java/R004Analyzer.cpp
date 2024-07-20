@@ -605,8 +605,8 @@ void R004_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 	classEntity->index = ((ModifierListToken *)p0.get())->list[0]->index;
 	classEntity->lineNum = ((ModifierListToken *)p0.get())->list[0]->lineNum;
 	classEntity->typeParameters = p3;
-	classEntity->statementList = p4;
-	classEntity->superClass = p5;
+	classEntity->superClass = p4;
+	classEntity->statementList = p5;
 	p->classEntity = classEntity;
 
 	nodeValue->context["NormalClassDeclaration"] = P_Token(p);

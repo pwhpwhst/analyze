@@ -12,7 +12,7 @@ class MethodEntity {
 public:  long  id;
 public:  long  classId;
 public:  string  name;
-public:  P_TypeEntity typeEntity;
+public:  P_TypeEntity typeEntity = nullptr;
 
 
 public: MethodEntity();

@@ -14,7 +14,10 @@
 #include "../../symbols/java/DimListToken.h"
 #include "../../symbols/java/FieldToken.h"
 #include "../../symbols/java/UnannTypeToken.h"
-
+#include "../../symbols/java/TypeListToken.h"
+#include "../../symbols/java/TypeToken.h"
+#include "../../symbols/java/TypeListToken.h"
+#include "../../symbols/java/TypeEntity.h"
 
 #include <iostream>
 #include <sstream>
@@ -197,11 +200,13 @@ void R009_EnumDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 void R009_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_EnumDeclaration_2Analyzer");
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "EnumDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->superInterfaceList = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -214,11 +219,13 @@ void R009_EnumDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue, Env &e
 void R009_EnumDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_EnumDeclaration_3Analyzer");
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "EnumDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->superInterfaceList = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -233,12 +240,16 @@ void R009_NormalClassDeclaration_0Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["Superclass"];
+	P_Token  p5 = nodeValueMap[child(nodeValue, 5, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
 	statementEntity->typeParameters = p3;
+	statementEntity->superClass = p4;
+	statementEntity->superInterfaceList = p5;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -254,12 +265,16 @@ void R009_NormalClassDeclaration_1Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superclass"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
 	statementEntity->typeParameters = p2;
+	statementEntity->superClass = p3;
+	statementEntity->superInterfaceList = p4;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -274,11 +289,15 @@ void R009_NormalClassDeclaration_2Analyzer::handle(const P_NodeValue &nodeValue,
 	logR009("R009_NormalClassDeclaration_2Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superclass"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->superClass = p3;
+	statementEntity->superInterfaceList = p4;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -293,11 +312,15 @@ void R009_NormalClassDeclaration_3Analyzer::handle(const P_NodeValue &nodeValue,
 	logR009("R009_NormalClassDeclaration_3Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Superclass"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->superClass = p2;
+	statementEntity->superInterfaceList = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -313,12 +336,14 @@ void R009_NormalClassDeclaration_4Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
 	statementEntity->typeParameters = p3;
+	statementEntity->superInterfaceList = p4;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -333,12 +358,14 @@ void R009_NormalClassDeclaration_5Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
 	statementEntity->typeParameters = p2;
+	statementEntity->superInterfaceList = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -352,11 +379,13 @@ void R009_NormalClassDeclaration_6Analyzer::handle(const P_NodeValue &nodeValue,
 	logR009("R009_NormalClassDeclaration_6Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->superInterfaceList = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -371,11 +400,13 @@ void R009_NormalClassDeclaration_7Analyzer::handle(const P_NodeValue &nodeValue,
 	logR009("R009_NormalClassDeclaration_7Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Superinterfaces"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->superInterfaceList = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -391,12 +422,14 @@ void R009_NormalClassDeclaration_8Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p4 = nodeValueMap[child(nodeValue, 4, NodeValue::SYN)]->context["Superclass"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
 	statementEntity->typeParameters = p3;
+	statementEntity->superClass = p4;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -412,12 +445,14 @@ void R009_NormalClassDeclaration_9Analyzer::handle(const P_NodeValue &nodeValue,
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["TypeArguments"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superclass"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
 	statementEntity->typeParameters = p2;
+	statementEntity->superClass = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -433,11 +468,13 @@ void R009_NormalClassDeclaration_10Analyzer::handle(const P_NodeValue &nodeValue
 	logR009("R009_NormalClassDeclaration_10Analyzer");
 
 	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p3 = nodeValueMap[child(nodeValue, 3, NodeValue::SYN)]->context["Superclass"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p2->content;
+	statementEntity->superClass = p3;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -453,11 +490,13 @@ void R009_NormalClassDeclaration_11Analyzer::handle(const P_NodeValue &nodeValue
 	logR009("R009_NormalClassDeclaration_11Analyzer");
 
 	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["Superclass"];
 
 	StatementToken *p = new StatementToken();
 	StatementEntity *statementEntity = new StatementEntity();
 	statementEntity->type = "NormalClassDeclaration";
 	statementEntity->name = p1->content;
+	statementEntity->superClass = p2;
 	p->statementEntity = P_StatementEntity(statementEntity);
 
 
@@ -552,7 +591,9 @@ void R009_NormalClassDeclaration_15Analyzer::handle(const P_NodeValue &nodeValue
 //beg_Superclass : 'extends' ClassType
 void R009_Superclass_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_Superclass_0Analyzer");
-	//TO DO  R009_Superclass_0Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["ClassType"];
+
+	nodeValue->context["Superclass"] = p1;
 };
 
 
@@ -560,7 +601,9 @@ void R009_Superclass_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, u
 //beg_Superinterfaces : 'implements' InterfaceTypeList
 void R009_Superinterfaces_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_Superinterfaces_0Analyzer");
-	//TO DO  R009_Superinterfaces_0Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["InterfaceTypeList"];
+
+	nodeValue->context["Superinterfaces"] = p1;
 };
 
 
@@ -2003,7 +2046,12 @@ void R009_ExtendsInterfaces_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_InterfaceTypeList : ClassType 'COMMA' InterfaceTypeList
 void R009_InterfaceTypeList_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_InterfaceTypeList_0Analyzer");
-	//TO DO  R009_InterfaceTypeList_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassType"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["InterfaceTypeList"];
+
+	((TypeListToken *)(p2.get()))->list.push_front(((TypeToken *)(p0.get()))->typeEntity);
+
+	nodeValue->context["InterfaceTypeList"] = p2;
 };
 
 
@@ -2011,7 +2059,14 @@ void R009_InterfaceTypeList_0Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_InterfaceTypeList : ClassType
 void R009_InterfaceTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_InterfaceTypeList_1Analyzer");
-	//TO DO  R009_InterfaceTypeList_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassType"];
+
+	TypeListToken *p = new TypeListToken();
+	p->list.push_front(((TypeToken *)(p0.get()))->typeEntity);
+
+
+	nodeValue->context["InterfaceTypeList"] = P_Token(p);
+
 };
 
 
@@ -2019,7 +2074,8 @@ void R009_InterfaceTypeList_1Analyzer::handle(const P_NodeValue &nodeValue, Env 
 //beg_ClassTypeEle : Identifier
 void R009_ClassTypeEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassTypeEle_0Analyzer");
-	//TO DO  R009_ClassTypeEle_0Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	nodeValue->context["ClassTypeEle"] = p0;
 };
 
 
@@ -2027,7 +2083,8 @@ void R009_ClassTypeEle_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_ClassTypeEle : AnnotationList Identifier
 void R009_ClassTypeEle_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassTypeEle_1Analyzer");
-	//TO DO  R009_ClassTypeEle_1Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	nodeValue->context["ClassTypeEle"] = p1;
 };
 
 
@@ -2035,7 +2092,8 @@ void R009_ClassTypeEle_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_ClassTypeEle : Identifier TypeArguments
 void R009_ClassTypeEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassTypeEle_2Analyzer");
-	//TO DO  R009_ClassTypeEle_2Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["Identifier"];
+	nodeValue->context["ClassTypeEle"] = p0;
 };
 
 
@@ -2043,7 +2101,8 @@ void R009_ClassTypeEle_2Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_ClassTypeEle : AnnotationList Identifier TypeArguments
 void R009_ClassTypeEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassTypeEle_3Analyzer");
-	//TO DO  R009_ClassTypeEle_3Analyzer
+	P_Token  p1 = nodeValueMap[child(nodeValue, 1, NodeValue::SYN)]->context["Identifier"];
+	nodeValue->context["ClassTypeEle"] = p1;
 };
 
 
@@ -2051,7 +2110,16 @@ void R009_ClassTypeEle_3Analyzer::handle(const P_NodeValue &nodeValue, Env &env,
 //beg_ClassType : ClassTypeEle
 void R009_ClassType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassType_0Analyzer");
-	//TO DO  R009_ClassType_0Analyzer
+
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassTypeEle"];
+
+	TypeToken *p = new TypeToken();
+	P_TypeEntity typeEntity = P_TypeEntity(new TypeEntity());
+	typeEntity->name = p0->content;
+	p->typeEntity = typeEntity;
+
+	nodeValue->context["ClassType"] = P_Token(p);
+
 };
 
 
@@ -2059,7 +2127,13 @@ void R009_ClassType_0Analyzer::handle(const P_NodeValue &nodeValue, Env &env, un
 //beg_ClassType : ClassTypeEle 'SPOT' ClassType
 void R009_ClassType_1Analyzer::handle(const P_NodeValue &nodeValue, Env &env, unordered_map<string, P_NodeValue> &nodeValueMap) {
 	logR009("R009_ClassType_1Analyzer");
-	//TO DO  R009_ClassType_1Analyzer
+	P_Token  p0 = nodeValueMap[child(nodeValue, 0, NodeValue::SYN)]->context["ClassTypeEle"];
+	P_Token  p2 = nodeValueMap[child(nodeValue, 2, NodeValue::SYN)]->context["ClassType"];
+
+	((TypeToken *)(p2.get()))->typeEntity->name = p0->content + "." + ((TypeToken *)(p2.get()))->typeEntity->name;
+
+	nodeValue->context["ClassType"] = p2;
+
 };
 
 

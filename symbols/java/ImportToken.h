@@ -10,7 +10,7 @@ using namespace std;
 
 class ImportToken : public Token  {
 
-public:  P_ImportEntity importEntity;
+public:  P_ImportEntity importEntity = nullptr;
 
 
 

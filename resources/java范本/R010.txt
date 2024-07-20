@@ -21,7 +21,7 @@ Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET' Dims
 Dims : 'LEFT_BRACKET' 'RIGHT_BRACKET'
 Dims : AnnotationList 'LEFT_BRACKET' 'RIGHT_BRACKET'
-TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_SHIFT2'
+TypeArguments : 'LEFT_ANGLE_BRACKET' TypeArgumentList 'RIGHT_ANGLE_BRACKET'
 TypeArgumentList : TypeArgument TypeArgumentList
 TypeArgumentList : TypeArgument
 TypeArgument : ReferenceType

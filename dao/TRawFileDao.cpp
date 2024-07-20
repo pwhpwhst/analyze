@@ -74,10 +74,12 @@ void TRawFileDao::queryList(unordered_map<string, string> &transfer_map, vector<
 		}
 		sql_os << "select  appName,fileId,fileName,md5 from raw_file ";
 		sql_os << "where 1=1 ";
-		//if (transfer_map.find("md5") != transfer_map.end()) {
-		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
-		//}
-		//sql_os << "order by interal_id" << " ";
+		if (transfer_map.find("appName") != transfer_map.end()) {
+			sql_os << "and appName =" << "'" << transfer_map["appName"] << "'" << " ";
+		}
+		if (transfer_map.find("fileName") != transfer_map.end()) {
+			sql_os << "and fileName =" << "'" << transfer_map["fileName"] << "'" << " ";
+		}
 
 		if (mysql_query(&conn, sql_os.str().data()) == 0) {
 			MYSQL_RES *mysql_result = mysql_store_result(&conn);
@@ -88,7 +90,7 @@ void TRawFileDao::queryList(unordered_map<string, string> &transfer_map, vector<
 				result_list.back()["appName"] = mysql_row[col_map["appName"]];
 				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["fileName"] = mysql_row[col_map["fileName"]];
-				result_list.back()["fileName"] = mysql_row[col_map["md5"]];
+				result_list.back()["md5"] = mysql_row[col_map["md5"]];
 			}
 		}
 		mysql_close(&conn);
@@ -112,9 +114,12 @@ void TRawFileDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 
 		sql_os << "delete from raw_file ";
 		sql_os << "where 1=1 ";
-		//if (transfer_map.find("md5") != transfer_map.end()) {
-		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
-		//}
+		if (transfer_map.find("appName") != transfer_map.end()) {
+			sql_os << "and appName =" << "'" << transfer_map["appName"] << "'" << " ";
+		}
+		if (transfer_map.find("fileId") != transfer_map.end()) {
+			sql_os << "and fileId ="<< transfer_map["fileId"]  << " ";
+		}
 		mysql_query(&conn, sql_os.str().data());
 
 		mysql_close(&conn);
