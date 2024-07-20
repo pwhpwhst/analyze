@@ -1,30 +1,29 @@
 
-#include "TRawParmaDao.h"
+#include "TRawPackageDao.h"
 #pragma comment(lib,"libmysql.lib")
 #include <mysql.h>
 #include <sstream>
 #include <iostream>
-#include "../Util/Util.h"
 using namespace std;
-P_TRawParmaDao TRawParmaDao::instance = nullptr;
+P_TRawPackageDao TRawPackageDao::instance = nullptr;
 
 
-TRawParmaDao::TRawParmaDao() {
+TRawPackageDao::TRawPackageDao() {
 }
 
-TRawParmaDao::~TRawParmaDao() {
+TRawPackageDao::~TRawPackageDao() {
 }
 
-P_TRawParmaDao TRawParmaDao::getInstance() {
+P_TRawPackageDao TRawPackageDao::getInstance() {
 	if (instance == nullptr) {
-		instance = P_TRawParmaDao(new TRawParmaDao);
+		instance = P_TRawPackageDao(new TRawPackageDao);
 	}
 	return instance;
 };
 
 
 
-void TRawParmaDao::insertList(vector<unordered_map<string, string>> &list) {
+void TRawPackageDao::insertList(vector<unordered_map<string, string>> &list) {
 	if (list.size() == 0) {
 		return;
 	}
@@ -33,16 +32,13 @@ void TRawParmaDao::insertList(vector<unordered_map<string, string>> &list) {
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "insert into raw_parma(appName,fileId,subId,subId2,resultType,name) ";
+		sql_os << "insert into raw_package(appName,fileId,content) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["appName"] << "'"<< ",";
 			sql_os << list[i1]["fileId"]  << ",";
-			sql_os << list[i1]["subId"]  << ",";
-			sql_os << list[i1]["subId2"]  << ",";
-			sql_os << "'" << list[i1]["resultType"] << "'"<< ",";
-			sql_os << "'" << list[i1]["name"] << "'";
+			sql_os << "'" << list[i1]["content"] << "'";
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -56,7 +52,7 @@ void TRawParmaDao::insertList(vector<unordered_map<string, string>> &list) {
 
 
 
-void TRawParmaDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
+void TRawPackageDao::queryList(unordered_map<string, string> &transfer_map, vector<unordered_map<string, string>> &result_list) {
 
 	result_list.clear();
 	MYSQL conn;
@@ -66,13 +62,13 @@ void TRawParmaDao::queryList(unordered_map<string, string> &transfer_map, vector
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "appName","fileId","subId","subId2","resultType","name" };
+		string col[] = { "appName","fileId","content" };
 
 		unordered_map<string, int> col_map;
-		for (int i1 = 0; i1 < 6; i1++) {
+		for (int i1 = 0; i1 < 3; i1++) {
 			col_map[col[i1]] = i1;
 		}
-		sql_os << "select  appName,fileId,subId,subId2,resultType,name from raw_parma ";
+		sql_os << "select  appName,fileId,content from raw_package ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -87,10 +83,7 @@ void TRawParmaDao::queryList(unordered_map<string, string> &transfer_map, vector
 				result_list.push_back(unordered_map<string, string>());
 				result_list.back()["appName"] = mysql_row[col_map["appName"]];
 				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
-				result_list.back()["subId"] = mysql_row[col_map["subId"]];
-				result_list.back()["subId2"] = mysql_row[col_map["subId2"]];
-				result_list.back()["resultType"] = mysql_row[col_map["resultType"]];
-				result_list.back()["name"] = mysql_row[col_map["name"]];
+				result_list.back()["content"] = mysql_row[col_map["content"]];
 			}
 		}
 		mysql_close(&conn);
@@ -98,7 +91,7 @@ void TRawParmaDao::queryList(unordered_map<string, string> &transfer_map, vector
 }
 
 
-void TRawParmaDao::deleteRecord(unordered_map<string, string> &transfer_map) {
+void TRawPackageDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 	MYSQL conn;
 	MYSQL_ROW mysql_row;
 	mysql_init(&conn);
@@ -112,7 +105,7 @@ void TRawParmaDao::deleteRecord(unordered_map<string, string> &transfer_map) {
 		ostringstream sql_os;
 
 
-		sql_os << "delete from raw_parma ";
+		sql_os << "delete from raw_package ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";

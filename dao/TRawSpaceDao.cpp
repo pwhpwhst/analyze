@@ -3,6 +3,7 @@
 #include <mysql.h>
 #include <sstream>
 #include <iostream>
+#include "../Util/Util.h"
 using namespace std;
 P_TRawSpaceDao TRawSpaceDao::instance = nullptr;
 
@@ -31,20 +32,19 @@ void TRawSpaceDao::insertList(vector<unordered_map<string, string>> &list) {
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 		ostringstream sql_os;
-		sql_os << "insert into raw_space(appName,fileName,fileId,subId,parentId,type,begLine,endLine,begIndex,endIndex) ";
+		sql_os << "insert into raw_space(appName,fileId,subId,parentId,spaceType,begLine,endLine,begIndex,endIndex) ";
 		sql_os << "values";
 		for (int i1 = 0; i1 < list.size(); i1++) {
 			sql_os << "(";
 			sql_os << "'" << list[i1]["appName"] << "'"<< ",";
-			sql_os << "'" << list[i1]["fileName"] << "'"<< ",";
 			sql_os << list[i1]["fileId"]  << ",";
 			sql_os << list[i1]["subId"]  << ",";
 			sql_os << list[i1]["parentId"]  << ",";
-			sql_os << "'" << list[i1]["type"] << "'"<< ",";
+			sql_os << "'" << list[i1]["spaceType"] << "'" << ",";
 			sql_os << list[i1]["begLine"]  << ",";
 			sql_os << list[i1]["endLine"]  << ",";
 			sql_os << list[i1]["begIndex"]  << ",";
-			sql_os << list[i1]["endIndex"]  << ",";
+			sql_os << list[i1]["endIndex"];
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
@@ -68,13 +68,13 @@ void TRawSpaceDao::queryList(unordered_map<string, string> &transfer_map, vector
 	if (mysql_real_connect(&conn, host.data(), user.data(), password.data(), db.data(), 0, NULL, CLIENT_FOUND_ROWS)) {
 
 		ostringstream sql_os;
-		string col[] = { "appName","fileName","fileId","subId","parentId","type","begLine","endLine","begIndex","endIndex" };
+		string col[] = { "appName","fileId","subId","parentId","spaceType","begLine","endLine","begIndex","endIndex" };
 
 		unordered_map<string, int> col_map;
-		for (int i1 = 0; i1 < 10; i1++) {
+		for (int i1 = 0; i1 < 9; i1++) {
 			col_map[col[i1]] = i1;
 		}
-		sql_os << "select  appName,fileName,fileId,subId,parentId,type,begLine,endLine,begIndex,endIndex from raw_space ";
+		sql_os << "select  appName,fileId,subId,parentId,spaceType,begLine,endLine,begIndex,endIndex from raw_space ";
 		sql_os << "where 1=1 ";
 		//if (transfer_map.find("md5") != transfer_map.end()) {
 		//	sql_os << "and md5 =" << "'" << transfer_map["md5"] << "'" << " ";
@@ -88,11 +88,10 @@ void TRawSpaceDao::queryList(unordered_map<string, string> &transfer_map, vector
 				mysql_row = mysql_fetch_row(mysql_result);
 				result_list.push_back(unordered_map<string, string>());
 				result_list.back()["appName"] = mysql_row[col_map["appName"]];
-				result_list.back()["fileName"] = mysql_row[col_map["fileName"]];
 				result_list.back()["fileId"] = mysql_row[col_map["fileId"]];
 				result_list.back()["subId"] = mysql_row[col_map["subId"]];
 				result_list.back()["parentId"] = mysql_row[col_map["parentId"]];
-				result_list.back()["type"] = mysql_row[col_map["type"]];
+				result_list.back()["spaceType"] = mysql_row[col_map["spaceType"]];
 				result_list.back()["begLine"] = mysql_row[col_map["begLine"]];
 				result_list.back()["endLine"] = mysql_row[col_map["endLine"]];
 				result_list.back()["begIndex"] = mysql_row[col_map["begIndex"]];

@@ -10,6 +10,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include "Util.h"
+#include "../MD5.h"
 
 Util::Util() {
 	
@@ -136,4 +137,22 @@ void Util::cleanLog() {
 		outfile << "" << std::endl;
 		outfile.close();
 	}
+}
+
+
+
+string Util::getMD5(string fileName) {
+	string oriFileName = fileName;
+	fileName = Util::replaceAll(fileName, "\\", "&&");
+	fileName = Util::replaceAll(fileName, "&&", "\\\\");
+	ifstream input_file;
+	input_file.open(fileName.data());
+	string str;
+	ostringstream os;
+	while (getline(input_file, str)) {
+		os << str << endl;
+	}
+	MD5 test;
+	string md5 = test.encode(os.str());
+	return md5;
 }

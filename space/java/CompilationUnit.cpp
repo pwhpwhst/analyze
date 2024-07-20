@@ -6,6 +6,7 @@ using namespace std;
 
 
 CompilationUnit::CompilationUnit() {
+	type = "CompilationUnit";
 }
 
 

@@ -14,7 +14,6 @@
 #include "Util/Util.h"
 #include <algorithm>
 #include <string>
-#include "MD5.h"
 #include "dao/TFileMD5Dao.h"
 #include "dao/TItemDao.h"
 #include "dao/TConvertMapDao.h"
@@ -25,6 +24,7 @@
 #include "dao/TRuleDao.h"
 #include"SLR\NodeValue.h"
 #include"SLR\SDT_Factory.h"
+#include "Util/Util.h"
 
 using namespace std;
 using namespace boost;
@@ -92,21 +92,7 @@ string replaceAll(string str, const string &sub, const string &replacement) {
 }
 
 
-string getMD5(string fileName) {
-	string oriFileName = fileName;
-	fileName = replaceAll(fileName, "\\", "&&");
-	fileName = replaceAll(fileName, "&&", "\\\\");
-	ifstream input_file;
-	input_file.open(fileName.data());
-	string str;
-	ostringstream os;
-	while (getline(input_file, str)) {
-		os << str << endl;
-	}
-	MD5 test;
-	string md5 = test.encode(os.str());
-	return md5;
-}
+
 
 
 int Lalr::init(string rule_file) {
@@ -117,7 +103,7 @@ int Lalr::init(string rule_file) {
 
 	ruleFileName = strs[strs.size() - 1];
 	ruleFileName = replaceAll(ruleFileName, ".txt", "");
-	string md5=getMD5(rule_file);
+	string md5= Util::getMD5(rule_file);
 
 	P_TFileMD5Dao tFileMD5Dao = TFileMD5Dao::getInstance();
 

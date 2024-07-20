@@ -6,6 +6,7 @@ using namespace std;
 
 
 StaticInitializer::StaticInitializer() {
+	type = "StaticInitializer";
 }
 
 StaticInitializer::~StaticInitializer() {

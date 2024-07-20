@@ -14,6 +14,7 @@ public:  int endLine;
 public:  int begIndex;
 public:  int endIndex;
 
+public:  long parentId;
 public:  long id;
 public:  string type;
 

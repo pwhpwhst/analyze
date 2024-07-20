@@ -6,6 +6,19 @@
 #include "../dao/ErpClassDao.h"
 #include "../dao/ErpMethodDao.h"
 #include "../dao/ErpImportDao.h"
+
+#include "../dao/TRawSpaceDao.h"
+#include "../dao/TRawFieldDao.h"
+#include "../dao/TRawClassDao.h"
+#include "../dao/TRawMethodDao.h"
+#include "../dao/TRawParmaDao.h"
+#include "../dao/TRawTypeParmaDao.h"
+#include "../dao/TRawSuperClassParmaDao.h"
+#include "../dao/TRawPackageDao.h"
+#include "../dao/TRawImportDao.h"
+#include "../dao/TRawFileDao.h"
+
+
 #include "../symbols/PrimarySymbolConverter.h"
 #include "../space/java/Space.h"
 #include "../RecursiveDescentJava.h"
@@ -67,6 +80,13 @@ void JavaDeclareParser::initParser(Parser *&parser, const string& parserType, bo
 	parser->logSwitch = logSwitch;
 	parser->init(ruelFile);
 }
+
+
+void JavaDeclareParser::setSpaceId(Space *&space, int parentId, int id) {
+	space->parentId = parentId;
+	space->id = id;
+}
+
 
 void JavaDeclareParser::initParsers() {
 	string rule_file4 = "C:\\Users\\Administrator\\Desktop\\´úÂëÎäÆ÷¿â-×Ü\\Íò»¨Í²Ð´ÂÖÑÛ\\kaleidoscope-writing-wheel-eye\\resources\\java·¶±¾\\R004.txt";
@@ -201,11 +221,14 @@ void JavaDeclareParser::processNormalClassDeclaration(P_Context &context) {
 					}
 
 					if (statementType == "StaticInitializer") {
+
 						context->root->spaceList.push_back(new StaticInitializer());
+						setSpaceId(context->root->spaceList.back(), context->root->id,seq++);
 					}
 
 					if (statementType == "InstanceInitializer") {
 						context->root->spaceList.push_back(new InstanceInitializer());
+						setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 					}
 
 					if (statementType == "NormalClassDeclaration") {
@@ -411,6 +434,7 @@ void JavaDeclareParser::processEnumDeclaration(P_Context &context) {
 		parser7->gen_middle_code(env3, node_tree7, imfo_map);
 		for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
 			context->root->spaceList.push_back(new EnumConstant(e->name));
+			setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 		}
 		Node::releaseNode(node_tree7);
 
@@ -480,10 +504,12 @@ void JavaDeclareParser::processEnumDeclaration(P_Context &context) {
 
 					if (statementType == "StaticInitializer") {
 						context->root->spaceList.push_back(new StaticInitializer());
+						setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 					}
 
 					if (statementType == "InstanceInitializer") {
 						context->root->spaceList.push_back(new InstanceInitializer());
+						setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 					}
 
 					if (statementType == "NormalClassDeclaration") {
@@ -722,7 +748,8 @@ void JavaDeclareParser::processCompilationUnit(P_Context &context) {
 		}
 
 		context->root = p;
-
+		p->id = seq;
+		seq++;
 
 		for (int i1 = 0; i1 < ((ClassListToken *)(env.list[0].get()))->list.size(); i1++) {
 			string classType = ((ClassListToken *)(env.list[0].get()))->list[i1]->type;
@@ -762,6 +789,7 @@ void JavaDeclareParser::fillWithStatementConstantDeclaration(P_Context &context,
 
 	for (auto &e : ((StatementToken *)(env.list[0].get()))->statementEntity->fieldList) {
 		context->root->spaceList.push_back(new ConstantDeclaration(e->unannType, e->name));
+		setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 	}
 }
 
@@ -771,6 +799,7 @@ void JavaDeclareParser::fillWithStatementFieldDeclaration(P_Context &context, En
 
 	for (auto &e : ((StatementToken *)(env.list[0].get()))->statementEntity->fieldList) {
 		context->root->spaceList.push_back(new FieldDeclaration(e->unannType, e->name));
+		setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 	}
 }
 
@@ -798,6 +827,7 @@ void JavaDeclareParser::fillWithStatementMethodDeclaration(P_Context &context, E
 	parser6->gen_middle_code(env3, node_tree6, imfo_map);
 
 	MethodDeclaration* methodDeclaration = new MethodDeclaration(resultType, name);
+	
 	for (auto &e : ((StatementToken *)(env3.list[0].get()))->statementEntity->fieldList) {
 		methodDeclaration->paramList.push_back(ParamDeclaration(e->unannType, e->name));
 	}
@@ -823,6 +853,7 @@ void JavaDeclareParser::fillWithStatementMethodDeclaration(P_Context &context, E
 
 	
 	context->root->spaceList.push_back(methodDeclaration);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -873,6 +904,7 @@ void JavaDeclareParser::fillWithStatementInterfaceMethodDeclaration(P_Context &c
 
 
 	context->root->spaceList.push_back(interfaceMethodDeclaration);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -885,6 +917,7 @@ void JavaDeclareParser::fillWithStatementAnnotationTypeElementDeclaration(P_Cont
 	AnnotationTypeElementDeclaration* interfaceMethodDeclaration = new AnnotationTypeElementDeclaration(resultType, name);
 
 	context->root->spaceList.push_back(interfaceMethodDeclaration);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -939,6 +972,7 @@ void JavaDeclareParser::fillWithStatementConstructorDeclaration(P_Context &conte
 
 
 	context->root->spaceList.push_back(constructorDeclaration);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 
 	Node::releaseNode(node_tree6);
 }
@@ -1006,7 +1040,7 @@ void JavaDeclareParser::fillWithClassTypeNormalClassDeclaration(P_Context &conte
 	childContext->root = p;
 	childContext->parent = context->root;
 	context->root->spaceList.push_back(childContext->root);
-
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 void JavaDeclareParser::fillWithClassTypeEnumDeclaration(P_Context &context,  long &baseIndex, Env &env, int classTypeIndex, P_Context &childContext) {
@@ -1033,6 +1067,7 @@ void JavaDeclareParser::fillWithClassTypeEnumDeclaration(P_Context &context,  lo
 	childContext->root = p;
 	childContext->parent = context->root;
 	context->root->spaceList.push_back(childContext->root);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -1080,6 +1115,7 @@ void JavaDeclareParser::fillWithClassTypeNormalInterfaceDeclaration(P_Context &c
 	childContext->root = p;
 	childContext->parent = context->root;
 	context->root->spaceList.push_back(childContext->root);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -1107,6 +1143,7 @@ void JavaDeclareParser::fillWithClassTypeAnnotationTypeDeclaration(P_Context &co
 	childContext->root = p;
 	childContext->parent = context->root;
 	context->root->spaceList.push_back(childContext->root);
+	setSpaceId(context->root->spaceList.back(), context->root->id, seq++);
 }
 
 
@@ -1122,8 +1159,10 @@ string JavaDeclareParser::replaceAll(string str, string sub, string replacement)
 	return str;
 }
 
-void JavaDeclareParser::parse(vector<string> &files) {
+void JavaDeclareParser::parse(vector<string> &files,string appName) {
+	int fileId = 0;
 	for (const string &e : files) {
+		seq = 0;
 		Util::log(e);
 		vector <string> strs;
 		split(strs, e, is_any_of("\\"));
@@ -1153,9 +1192,483 @@ void JavaDeclareParser::parse(vector<string> &files) {
 		}
 
 		Util::log("asdas");
+		saveResult(context, appName,e, fileId++);
+
+		
 
 	}
 }
+
+void JavaDeclareParser::saveResult( P_Context &context, const string &appName, const string &fileName, int fileId) {
+	vector<unordered_map<string, string>> fileList;
+	vector<unordered_map<string, string>> packageList;
+	vector<unordered_map<string, string>> importList;
+
+	vector<unordered_map<string, string>> spaceList;
+	vector<unordered_map<string, string>> classList;
+	vector<unordered_map<string, string>> superClassList;
+	vector<unordered_map<string, string>> typeParameterList;
+
+	vector<unordered_map<string, string>> paramaterList;
+	vector<unordered_map<string, string>> methodList;
+	vector<unordered_map<string, string>> fieldList;
+	
+
+	fileList.push_back(unordered_map<string, string>());
+	unordered_map<string, string> &map = fileList.back();
+	map["appName"] = appName;
+	map["fileId"] = std::to_string(fileId);
+	string fileName2 = replaceAll(replaceAll(fileName, "\\", "&"), "&", "\\\\");
+	map["fileName"] = fileName2;
+
+	CompilationUnit* compilationUnit = (CompilationUnit*)context->root;
+
+	if (compilationUnit->package!="") {
+		packageList.push_back(unordered_map<string, string>());
+		unordered_map<string, string> &map=packageList.back();
+		map["appName"] = appName;
+		map["fileId"] = std::to_string(fileId);
+		map["content"] = ((CompilationUnit*)context->root)->package;
+		
+	}
+
+
+	if (compilationUnit->importList.size()>0) {
+		int index = 0;
+		for (const auto &e: compilationUnit->importList) {
+			importList.push_back(unordered_map<string, string>());
+			unordered_map<string, string> &map = importList.back();
+
+			map["appName"] = appName;
+			map["fileId"] = std::to_string(fileId);
+			map["subId"] = std::to_string(index);
+			map["content"] = e.name;
+			index++;
+			
+		}
+	}
+
+	if (compilationUnit->spaceList.size() > 0) {
+		deque<Space*> stack;
+		set<Space*> hasVisit;
+		stack.push_back(compilationUnit->spaceList[0]);
+		while (stack.size()>0) {
+			Space * pSpack=stack.back();
+			if (pSpack->spaceList.size()>0 && hasVisit.count(pSpack->spaceList[0])==0 ) {
+				for (int i1 = pSpack->spaceList.size() - 1; i1 >= 0;i1--) {
+					stack.push_back(pSpack->spaceList[i1]);
+				}
+			}
+			else {
+
+				if (pSpack->type=="AnnotationTypeDeclaration"|| pSpack->type == "EnumDeclaration" ||
+					pSpack->type == "NormalClassDeclaration" || pSpack->type == "NormalInterfaceDeclaration") {
+
+					
+					spaceList.push_back(unordered_map<string, string>());
+					unordered_map<string, string> &map = spaceList.back();
+					map["appName"] = appName;
+					//string fileName2 = replaceAll(replaceAll(fileName, "\\", "&"), "&", "\\\\");
+					//map["fileName"] = fileName2;
+					map["fileId"] = std::to_string(fileId);
+					map["subId"] = std::to_string(pSpack->id);
+					map["parentId"] = std::to_string(pSpack->parentId);
+					map["spaceType"] = pSpack->type;
+					map["begLine"] = std::to_string(pSpack->begLine);
+					map["endLine"] = std::to_string(pSpack->endLine);
+					map["begIndex"] = std::to_string(pSpack->begIndex);
+					map["endIndex"] = std::to_string(pSpack->endIndex);
+					
+					classList.push_back(unordered_map<string, string>());
+					unordered_map<string, string> &map2 = classList.back();
+					map2["appName"] = appName;
+					map2["fileId"] = std::to_string(fileId);
+					map2["subId"] = std::to_string(pSpack->id);
+					map2["classType"] = pSpack->type;
+
+					if (pSpack->type == "AnnotationTypeDeclaration") {
+						AnnotationTypeDeclaration* pSpace=(AnnotationTypeDeclaration*)pSpack;
+						map2["name"] = pSpace->name;
+					}
+					else if (pSpack->type == "EnumDeclaration") {
+						EnumDeclaration* pSpace = (EnumDeclaration*)pSpack;
+						map2["name"] = pSpace->name;
+
+						if (pSpace->superInterfaces.size() > 0) {
+							int index2 = 0;
+							for (const auto &e : pSpace->superInterfaces) {
+								superClassList.push_back(unordered_map<string, string>());
+								unordered_map<string, string> &map3 = superClassList.back();
+								map3["appName"] = appName;
+								map3["fileId"] = std::to_string(fileId);
+								map3["subId"] = std::to_string(pSpack->id);
+								map3["subId2"] = std::to_string(index2);
+								map3["classType"] = "interface";
+								map3["name"] = e;
+								index2++;
+							}
+						}
+
+					}
+					else if (pSpack->type == "NormalClassDeclaration") {
+						NormalClassDeclaration* pSpace = (NormalClassDeclaration*)pSpack;
+						map2["name"] = pSpace->name;
+
+						
+						if (pSpace->superInterface.size()>0) {
+							int index2 = 0;
+							for (const auto &e : pSpace->superInterface) {
+								superClassList.push_back(unordered_map<string, string>());
+								unordered_map<string, string> &map3 = superClassList.back();
+								map3["appName"] = appName;
+								map3["fileId"] = std::to_string(fileId);
+								map3["subId"] = std::to_string(pSpack->id);
+								map3["subId2"] = std::to_string(index2);
+								map3["classType"] = "interface";
+								map3["name"] = e;
+								index2++;
+							}
+						}
+
+
+						if (pSpace->superClasses!="") {
+							superClassList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map3 = superClassList.back();
+							map3["appName"] = appName;
+							map3["fileId"] = std::to_string(fileId);
+							map3["subId"] = std::to_string(pSpack->id);
+							map3["subId2"] = "0";
+							map3["classType"] = "class";
+							map3["name"] = pSpace->superClasses;
+						}
+
+
+						if (pSpace->typeParameters.size()>0) {
+							int index2 = 0;
+							for (const auto &e : pSpace->typeParameters) {
+								typeParameterList.push_back(unordered_map<string, string>());
+								unordered_map<string, string> &map3 = typeParameterList.back();
+								map3["appName"] = appName;
+								map3["fileId"] = std::to_string(fileId);
+								map3["subId"] = std::to_string(pSpack->id);
+								map3["subId2"] = std::to_string(index2);
+								map3["name"] = e;
+								index2++;
+							}
+						}
+
+					}
+					else if (pSpack->type == "NormalInterfaceDeclaration") {
+						NormalInterfaceDeclaration* pSpace = (NormalInterfaceDeclaration*)pSpack;
+						map2["name"] = pSpace->name;
+
+						if (pSpace->superInterface.size() > 0) {
+							int index2 = 0;
+							for (const auto &e : pSpace->superInterface) {
+								superClassList.push_back(unordered_map<string, string>());
+								unordered_map<string, string> &map3 = superClassList.back();
+								map3["appName"] = appName;
+								map3["fileId"] = std::to_string(fileId);
+								map3["subId"] = std::to_string(pSpack->id);
+								map3["subId2"] = std::to_string(index2);
+								map3["classType"] = "interface";
+								map3["name"] = e;
+								index2++;
+							}
+						}
+
+
+
+						if (pSpace->typeParameters.size() > 0) {
+							int index2 = 0;
+							for (const auto &e : pSpace->typeParameters) {
+								typeParameterList.push_back(unordered_map<string, string>());
+								unordered_map<string, string> &map3 = typeParameterList.back();
+								map3["appName"] = appName;
+								map3["fileId"] = std::to_string(fileId);
+								map3["subId"] = std::to_string(pSpack->id);
+								map3["subId2"] = std::to_string(index2);
+								map3["name"] = e;
+								index2++;
+							}
+						}
+
+					}
+
+					
+				}else if (pSpack->type == "InterfaceMethodDeclaration"|| pSpack->type == "MethodDeclaration"
+						|| pSpack->type == "ConstructorDeclaration") {
+
+					spaceList.push_back(unordered_map<string, string>());
+					unordered_map<string, string> &map = spaceList.back();
+
+					map["appName"] = appName;
+					//string fileName2 = replaceAll(replaceAll(fileName, "\\", "&"), "&", "\\\\");
+					//map["fileName"] = fileName2;
+					map["fileId"] = std::to_string(fileId);
+					map["subId"] = std::to_string(pSpack->id);
+					map["parentId"] = std::to_string(pSpack->parentId);
+					map["spaceType"] = pSpack->type;
+					map["begLine"] = std::to_string(pSpack->begLine);
+					map["endLine"] = std::to_string(pSpack->endLine);
+					map["begIndex"] = std::to_string(pSpack->begIndex);
+					map["endIndex"] = std::to_string(pSpack->endIndex);
+					
+
+					if (pSpack->type == "InterfaceMethodDeclaration") {
+						InterfaceMethodDeclaration* pSpace = (InterfaceMethodDeclaration*)pSpack;
+						methodList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = methodList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["name"] = pSpace->name;
+						map2["resultType"] = pSpace->type;
+
+
+
+						int index = 0;
+						for (const auto &e : pSpace->paramList) {
+							paramaterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map3 = paramaterList.back();
+							map3["appName"] = appName;
+							map3["fileId"] = std::to_string(fileId);
+							map3["subId"] = std::to_string(pSpack->id);
+							map3["subId2"] = std::to_string(index);
+							map3["resultType"] = e.type;
+							map3["name"] = e.name;
+							index++;
+						}
+
+
+						index = 0;
+						for (const auto &e : pSpace->typeParameters) {
+							typeParameterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map4 = typeParameterList.back();
+							map4["appName"] = appName;
+							map4["fileId"] = std::to_string(fileId);
+							map4["subId"] = std::to_string(pSpack->id);
+							map4["subId2"] = index;
+							map4["name"] = e;
+							index++;
+						}
+
+
+
+					}
+					else if (pSpack->type == "MethodDeclaration") {
+						MethodDeclaration* pSpace = (MethodDeclaration*)pSpack;
+						methodList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = methodList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["name"] = pSpace->name;
+						map2["resultType"] = pSpace->type;
+
+
+
+						int index = 0;
+						for (const auto &e:pSpace->paramList) {
+							paramaterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map3 = paramaterList.back();
+							map3["appName"] = appName;
+							map3["fileId"] = std::to_string(fileId);
+							map3["subId"] = std::to_string(pSpack->id);
+							map3["subId2"] = std::to_string(index);
+							map3["resultType"] = e.type;
+							map3["name"] = e.name;
+							index++;
+						}
+
+
+
+						index = 0;
+						for (const auto &e : pSpace->typeParameters) {
+							typeParameterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map4 = typeParameterList.back();
+							map4["appName"] = appName;
+							map4["fileId"] = std::to_string(fileId);
+							map4["subId"] = std::to_string(pSpack->id);
+							map4["subId2"] = index;
+							map4["name"] = e;
+							index++;
+						}
+
+
+					}
+					else if (pSpack->type == "ConstructorDeclaration") {
+						ConstructorDeclaration* pSpace = (ConstructorDeclaration*)pSpack;
+						methodList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = methodList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["name"] = pSpace->name;
+						map2["resultType"] ="";
+
+
+
+						int index = 0;
+						for (const auto &e : pSpace->paramList) {
+							paramaterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map3 = paramaterList.back();
+							map3["appName"] = appName;
+							map3["fileId"] = std::to_string(fileId);
+							map3["subId"] = std::to_string(pSpack->id);
+							map3["subId2"] = std::to_string(index);
+							map3["resultType"] = e.type;
+							map3["name"] = e.name;
+							index++;
+						}
+
+
+
+						index = 0;
+						for (const auto &e : pSpace->typeParameters) {
+							typeParameterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map4 = typeParameterList.back();
+							map4["appName"] = appName;
+							map4["fileId"] = std::to_string(fileId);
+							map4["subId"] = std::to_string(pSpack->id);
+							map4["subId2"] = index;
+							map4["name"] = e;
+							index++;
+						}
+
+					}
+
+				}
+				else if (pSpack->type == "ConstantDeclaration" || pSpack->type == "FieldDeclaration" 
+					|| pSpack->type == "AnnotationTypeElementDeclaration" || pSpack->type == "EnumConstant") {
+
+					spaceList.push_back(unordered_map<string, string>());
+					unordered_map<string, string> &map = spaceList.back();
+
+					map["appName"] = appName;
+					//string fileName2 = replaceAll(replaceAll(fileName, "\\", "&"), "&", "\\\\");
+					//map["fileName"] = fileName2;
+					map["fileId"] = std::to_string(fileId);
+					map["subId"] = std::to_string(pSpack->id);
+					map["parentId"] = std::to_string(pSpack->parentId);
+					map["spaceType"] = pSpack->type;
+					map["begLine"] = std::to_string(pSpack->begLine);
+					map["endLine"] = std::to_string(pSpack->endLine);
+					map["begIndex"] = std::to_string(pSpack->begIndex);
+					map["endIndex"] = std::to_string(pSpack->endIndex);
+					
+
+					if (pSpack->type == "ConstantDeclaration") {
+						ConstantDeclaration* pSpace = (ConstantDeclaration*)pSpack;
+						fieldList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = fieldList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["subId2"] = "-1";
+						map2["resultType"] = pSpace->type;
+						map2["name"] = pSpace->name;
+						map2["dimNum"] = "-1";
+
+					}else if (pSpack->type == "FieldDeclaration") {
+						FieldDeclaration* pSpace = (FieldDeclaration*)pSpack;
+						fieldList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = fieldList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["subId2"] = "-1";
+						map2["resultType"] = pSpace->type;
+						map2["name"] = pSpace->name;
+						map2["dimNum"] = "-1";
+
+					}
+					else if (pSpack->type == "AnnotationTypeElementDeclaration") {
+						AnnotationTypeElementDeclaration* pSpace = (AnnotationTypeElementDeclaration*)pSpack;
+						fieldList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = fieldList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["subId2"] = "-1";
+						map2["resultType"] = pSpace->type;
+						map2["name"] = pSpace->name;
+						map2["dimNum"] = pSpace->dimNum;
+
+					}
+					else if (pSpack->type == "EnumConstant") {
+						EnumConstant* pSpace = (EnumConstant*)pSpack;
+						fieldList.push_back(unordered_map<string, string>());
+						unordered_map<string, string> &map2 = fieldList.back();
+
+						map2["appName"] = appName;
+						map2["fileId"] = std::to_string(fileId);
+						map2["subId"] = std::to_string(pSpack->id);
+						map2["subId2"] = "-1";
+						map2["resultType"] = "";
+						map2["name"] = pSpace->name;
+						map2["dimNum"] = "-1";
+
+
+
+						int index = 0;
+						for (const auto &e : pSpace->paramList) {
+							paramaterList.push_back(unordered_map<string, string>());
+							unordered_map<string, string> &map3 = paramaterList.back();
+							map3["appName"] = appName;
+							map3["fileId"] = std::to_string(fileId);
+							map3["subId"] = std::to_string(pSpack->id);
+							map3["subId2"] = std::to_string(index);
+							map3["resultType"] = "";
+							map3["name"] = e.name;
+							index++;
+						}
+
+					}
+					
+				}
+
+				hasVisit.insert(pSpack);
+				stack.pop_back();
+			}
+		}
+	}
+	
+	P_TRawFileDao tRawFileDao = TRawFileDao::getInstance();
+	P_TRawPackageDao tRawPackageDao = TRawPackageDao::getInstance();
+	P_TRawImportDao tRawImportDao = TRawImportDao::getInstance();
+	P_TRawSpaceDao tRawSpaceDao = TRawSpaceDao::getInstance();
+	P_TRawFieldDao tRawFieldDao = TRawFieldDao::getInstance();
+	P_TRawClassDao tRawClassDao = TRawClassDao::getInstance();
+	P_TRawMethodDao tRawMethodDao = TRawMethodDao::getInstance();
+	P_TRawParmaDao tRawParmaDao = TRawParmaDao::getInstance();
+	P_TRawTypeParmaDao tRawTypeParmaDao = TRawTypeParmaDao::getInstance();
+	P_TRawSuperClassParmaDao tRawSuperClassParmaDao = TRawSuperClassParmaDao::getInstance();
+
+	tRawFileDao->insertList(fileList);
+	tRawPackageDao->insertList(packageList);
+	tRawImportDao->insertList(importList);
+	tRawSpaceDao->insertList(spaceList);
+
+	tRawFieldDao->insertList(fieldList);
+	tRawClassDao->insertList(classList);
+	tRawMethodDao->insertList(methodList);
+
+	tRawParmaDao->insertList(paramaterList);
+	tRawTypeParmaDao->insertList(typeParameterList);
+	tRawSuperClassParmaDao->insertList(superClassList);
+
+
+
+	Util::log("asdas2");
+}
+
 
 
 void main(int argc, char* argv[]) {
@@ -1166,7 +1679,7 @@ void main(int argc, char* argv[]) {
 	//"F :\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaSyntaxTest.java",
 	
 	
-	
+	string appName = "Tomcat8";
 
 	string files[] = {
 		//"F:\\LinuxScriptAssist\\demo\\src\\main\\java\\com\\example\\demo\\test\\JavaAnnotation.java",
@@ -1186,7 +1699,7 @@ void main(int argc, char* argv[]) {
 	Util::cleanLog();
 	JavaDeclareParser javaDeclareParser;
 	javaDeclareParser.initParsers();
-	javaDeclareParser.parse(filesVector);
+	javaDeclareParser.parse(filesVector, appName);
 	javaDeclareParser.deleteParsers();
 
 }

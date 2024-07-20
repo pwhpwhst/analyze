@@ -36,12 +36,14 @@ private:Parser *parser8;
 private:Parser *parser9;
 private:Parser *parser10;
 
+private:int seq;
+
 private:deque<P_Context> contextDeque;
 
 private:PrimarySymbolConverter* primarySymbolConverter;
 
 private:void initParser(Parser *&parser, const string& parserType, bool logSwitch, string& ruelFile);
-
+private:void setSpaceId(Space *&space, int parentId,int id);
 
 private:void processContext(P_Context &context);
 private:void processCompilationUnit(P_Context &context);
@@ -66,7 +68,11 @@ private:void fillWithClassTypeAnnotationTypeDeclaration(P_Context &contex, long 
 private:string replaceAll(string str, string sub, string replacement);
 
 public:void initParsers();
-public: void parse(vector<string> &files);
+public:void parse(vector<string> &files, string appName);
+
+public:void saveResult(P_Context &context, const string &appName, const string &fileName, int fileId);
+
+
 public:void deleteParsers();
 
 public: JavaDeclareParser();

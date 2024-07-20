@@ -4,6 +4,8 @@
 #include <mysql.h>
 #include <sstream>
 #include <iostream>
+#include "../Util/Util.h"
+
 using namespace std;
 P_TRawFieldDao TRawFieldDao::instance = nullptr;
 
@@ -41,8 +43,8 @@ void TRawFieldDao::insertList(vector<unordered_map<string, string>> &list) {
 			sql_os << list[i1]["subId"]  << ",";
 			sql_os << list[i1]["subId2"]  << ",";
 			sql_os << "'" << list[i1]["resultType"] << "'"<< ",";
-			sql_os << "'" << list[i1]["name"] << "'";
-			sql_os << list[i1]["dimNum"]  << ",";
+			sql_os << "'" << list[i1]["name"] << "'" << ",";
+			sql_os << list[i1]["dimNum"] ;
 			sql_os << ")";
 			if (i1 != (list.size() - 1)) {
 				sql_os << ",";
